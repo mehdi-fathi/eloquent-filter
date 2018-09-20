@@ -1,0 +1,12 @@
+{
+    "name": "filter/filter",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "filter\\queryFilter": "src"
+        },
+        "files": [
+            "src/queryFilter/queryFilter.php"
+        ]
+    }
+}
