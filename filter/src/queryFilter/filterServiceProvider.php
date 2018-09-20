@@ -1,5 +1,5 @@
 <?php
-namespace QueryFilter;
+namespace eloquentFilter\QueryFilter;
 
 use Illuminate\Support\ServiceProvider;
 

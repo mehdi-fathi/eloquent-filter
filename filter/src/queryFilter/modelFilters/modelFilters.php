@@ -6,11 +6,11 @@
  * Time: 9:14 PM
  */
 
-namespace QueryFilter\modelFilters;
+namespace eloquentFilter\QueryFilter\modelFilters;
 
 use Zaman;
 use Config;
-use QueryFilter\queryFilter\queryFilter;
+use eloquentFilter\QueryFilter\queryFilter;
 
 class modelFilters extends queryFilter
 {

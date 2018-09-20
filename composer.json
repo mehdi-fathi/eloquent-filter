@@ -1,12 +1,18 @@
 {
-    "name": "filter/filter",
+    "name": "eloquent-filter/filter",
     "require": {},
+    "version": "1.0.0",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/mehdi-fathi/eloquent-filter.git"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "filter\\queryFilter": "src"
-        },
-        "files": [
-            "src/queryFilter/queryFilter.php"
-        ]
-    }
+            "eloquentFilter\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

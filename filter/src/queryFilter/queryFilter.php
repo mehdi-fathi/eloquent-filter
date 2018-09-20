@@ -6,7 +6,7 @@
  * Time: 9:17 PM
  */
 
-namespace QueryFilter\queryFilter;
+namespace eloquentFilter\QueryFilter;
 
 
 use Illuminate\Http\Request;
