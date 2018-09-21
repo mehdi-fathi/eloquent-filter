@@ -1,6 +1,6 @@
 {
     "name": "eloquent-filter/filter",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "vcs",
