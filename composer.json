@@ -12,6 +12,6 @@
         "psr-4": {
             "eloquentFilter\\": "src"
         }
-    },
+    }
     
 }
