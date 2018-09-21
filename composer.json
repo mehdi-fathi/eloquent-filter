@@ -1,6 +1,6 @@
 {
     "name": "eloquent-filter/filter",
-    "require": {},
+    "minimum-stability": "stable",
     "version": "1.0.0",
     "repositories": [
         {
@@ -13,6 +13,5 @@
             "eloquentFilter\\": "src"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    
 }
