@@ -39,7 +39,9 @@ use App\Model\Filter\Models_Filter\CostsFilters;
                 }
 
                 if (Schema::hasColumn($table, $name) && $runMethod) {
-                    call_user_func([$this , $name] , array_filter([$value]));
+                    if(!empty($value) || $value === '0'){
+                        call_user_func([$this , $name] , $value);
+                    }
                 }
                 // It resolve methods in filters class in child
             }
