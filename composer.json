@@ -5,6 +5,7 @@
     "type": "lib",
     "repositories": [
         {
+            "name": "eloquent-filter/filter",
             "type": "package",
             "version": "1.0.0",
             "package": {
