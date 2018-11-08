@@ -1,11 +1,10 @@
 {
-    
+    "name": "eloquent-filter/filter",
     "repositories": [
         {
             "type": "package",
             "version": "1.0.0",
             "package": {
-                "name": "eloquent-filter/filter",
                 "source": {
                     "url": "git://github.com/mehdi-fathi/eloquent-filter.git",
                     "type": "git",
