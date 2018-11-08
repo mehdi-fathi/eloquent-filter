@@ -2,7 +2,6 @@
     "name": "eloquent-filter/filter",
     "description": "A package",
     "type": "lib",
-    "minimum-stability": "dev",
     "repositories": [
         {
             "name": "eloquent-filter/filter",
@@ -14,13 +13,13 @@
                     "type": "git",
                     "reference": "master"
                 }
-            },
-            "autoload": {
-                "psr-4": {
-                    "eloquentFilter\\": "src"
-                }
             }
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "eloquentFilter\\": "src"
+        }
+    }
 
 }
