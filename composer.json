@@ -1,5 +1,6 @@
 {
     "name": "eloquent-filter/filter",
+    "minimum-stability": "dev",
     "repositories": [
         {
             "type": "package",
