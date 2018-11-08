@@ -1,6 +1,5 @@
 {
     "name": "eloquent-filter/filter",
-    "minimum-stability": "dev",
     "description": "A package",
     "type": "lib",
     "repositories": [
@@ -21,6 +20,7 @@
                 }
             }
         }
-    ]
+    ],
+    "minimum-stability": "dev",
 
 }
