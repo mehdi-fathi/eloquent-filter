@@ -1,21 +1,8 @@
 {
+
     "name": "eloquent-filter/filter",
     "description": "A package",
     "type": "lib",
-    "repositories": [
-        {
-            "name": "eloquent-filter/filter",
-            "type": "package",
-            "version": "1.0.0",
-            "package": {
-                "source": {
-                    "url": "git://github.com/mehdi-fathi/eloquent-filter.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        }
-    ],
     "autoload": {
         "psr-4": {
             "eloquentFilter\\": "src"
