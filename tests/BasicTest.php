@@ -1,5 +1,9 @@
 <?php
-use PHPUnit\Framework\TestCase;
+
+require './vendor/autoload.php';
+
+
+use Faker\Generator as Faker;
 
 class BasicTest extends TestCase
 {

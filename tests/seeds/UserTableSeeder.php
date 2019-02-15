@@ -1,15 +1,28 @@
 <?php
 
-namespace tests\classes;
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Str;
+use Faker\Generator as Faker;
+use Faker\Factory as FakerFActory;
 
 class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::collection('users')->delete();
-        DB::collection('users')->insert(['name' => 'John Doe', 'seed' => true]);
+
+        DB::table('users')->delete();
+
+        $faker = FakerFActory::create();
+
+        foreach (range(1,100) as $index) {
+
+            DB::table('users')->insert([
+                'username' => $faker->name,
+                'email' => $faker->email,
+                'password' => bcrypt('secret'),
+            ]);
+        }
     }
 }
