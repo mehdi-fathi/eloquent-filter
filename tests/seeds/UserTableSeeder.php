@@ -45,6 +45,8 @@ class UserTableSeeder extends Seeder
 
         $this->make_array_data();
 
+//        \Illuminate\Support\Facades\Schema::create();
+
 //        $faker = FakerFActory::create();
         DB::table('users')->insert($this->data);
     }
