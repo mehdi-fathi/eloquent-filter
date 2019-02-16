@@ -8,44 +8,44 @@ use Faker\Generator as Faker;
 use Faker\Factory as FakerFActory;
 use Tests\Models\User;
 
-class UserTableSeeder extends Seeder
+class CategoryTableSeeder extends Seeder
 {
     private  $data = [];
     public function make_array_data()
     {
         $this->data = [
             [
-                'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.com',
-                'password' => bcrypt('secret'),
+                'category' => 'PHP',
                 'created_at' => now(),
                 'updated_at' =>  now(),
             ],
             [
-                'username' => 'ali',
-                'email' => 'ali.2000@gmail.com',
-                'password' => bcrypt('secret'),
+                'category' => 'JS',
                 'created_at' => now(),
                 'updated_at' =>  now(),
             ],
             [
-                'username' => 'ahmad',
-                'email' => 'ahmad.x1998@gmail.com',
-                'password' => bcrypt('secret'),
-                'created_at' => now()->addDay(10),
+                'category' => 'ASP.net',
+                'created_at' => now(),
                 'updated_at' =>  now(),
-            ]
+            ],
+            [
+                'category' => 'jquery',
+                'created_at' => now(),
+                'updated_at' =>  now(),
+            ],
+
         ];
     }
 
     public function run()
     {
 
-        DB::table('users')->delete();
+        DB::table('categories')->delete();
 
         $this->make_array_data();
 
 //        $faker = FakerFActory::create();
-        DB::table('users')->insert($this->data);
+        DB::table('categories')->insert($this->data);
     }
 }

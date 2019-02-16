@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Models\Database;
 use Models\Question;
-class SeederUserTest extends TestCase
+class SeederTest extends TestCase
 {
 
 
@@ -14,13 +14,18 @@ class SeederUserTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testBasicSeeder()
     {
         $seeder = new UserTableSeeder();
         $seeder->run();
         $seeder = new PostTableSeeder();
         $seeder->run();
-        $response = $this->get('/');
+        $seeder = new CategoryTableSeeder();
+        $seeder->run();
+
+        $seeder = new CategoriesPostsTableSeeder();
+        $seeder->run();
+        $this->assertTrue(true);
 
         // ...
     }

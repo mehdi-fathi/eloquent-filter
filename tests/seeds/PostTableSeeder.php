@@ -14,24 +14,6 @@ class PostTableSeeder extends Seeder
     public function make_array_data()
     {
 
-        $faker = FakerFActory::create();
-
-        $this->data = [
-            [
-                'post' => $faker->text,
-                'user_id' => \Tests\Models\User::where('email', 'mehdifathi.developer@gmail.com')->first()['id'],
-            ],
-            [
-                'post' => $faker->text,
-                'user_id' =>
-                    \Tests\Models\User::where('email', 'ali.2000@gmail.com')->first()['id'],
-            ],
-            [
-                'post' => $faker->text,
-                'user_id' =>
-                    \Tests\Models\User::where('email', 'ahmad.x1998@gmail.com')->first()['id'],
-            ]
-        ];
     }
 
     public function run()
@@ -41,12 +23,47 @@ class PostTableSeeder extends Seeder
 
         $this->make_array_data();
 
-//        foreach (range(1, 100) as $index) :
+        $faker = FakerFActory::create();
 
+        $users_id = [
+            [
+                'user_id' => \Tests\Models\User::where('email', 'mehdifathi.developer@gmail.com')->first()['id'],
+            ],
+            [
+                'user_id' =>
+                    \Tests\Models\User::where('email', 'ali.2000@gmail.com')->first()['id'],
+            ],
+            [
+                'user_id' =>
+                    \Tests\Models\User::where('email', 'ahmad.x1998@gmail.com')->first()['id'],
+            ]
+        ];
 
-        DB::table('posts')->insert(
-            $this->data
-        );
-//        endforeach;
+        foreach (range(1, 100) as $index) :
+
+            $this->data[0] = [
+                'post' => $faker->text,
+                'user_id' => $users_id[0]['user_id'],
+                'created_at' => now()->addDays(rand(1,30)),
+                'updated_at' => now()->addDays(rand(30,40)),
+            ];
+            $this->data[1] = [
+                'post' => $faker->text,
+                'user_id' => $users_id[1]['user_id'],
+                'created_at' => now()->addDays(rand(1,30)),
+                'updated_at' => now()->addDays(rand(30,40)),
+            ];
+            $this->data[2] = [
+                'post' => $faker->text,
+                'user_id' => $users_id[2]['user_id'],
+                'created_at' => now()->addDays(rand(1,30)),
+                'updated_at' => now()->addDays(rand(30,40)),
+            ];
+
+            DB::table('posts')->insert(
+                $this->data
+            );
+
+        endforeach;
     }
 }
