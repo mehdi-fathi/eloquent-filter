@@ -7,11 +7,11 @@
  */
 require 'config/config.php';
 require '../vendor/autoload.php';
-use Models\Database;
+use Tests\Models\Database;
 //Initialize Illuminate Database Connection
 new Database();
 
-//use Models\Question;
-//
-//$q = new Question();
-//dd($q->all());
+use Tests\Models\Post;
+
+$q = new Question();
+dd($q->all());

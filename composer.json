@@ -22,14 +22,13 @@
     },
     "autoload": {
         "psr-4": {
-            "eloquentFilter\\": "src",
-            "Models\\": "tests/models/"
+            "eloquentFilter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "eloquentFilter\\TestClass\\": "tests/classes",
-            "Tests\\": "tests/"
+            "Tests\\": "tests"
         },
         "classmap": [
             "tests/TestCase.php",

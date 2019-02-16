@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Models\Database;
 use Models\Question;
-class ExampleTest extends TestCase
+class SeederUserTest extends TestCase
 {
 
 
