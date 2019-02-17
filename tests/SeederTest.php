@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Models\Database;
 use Models\Question;
 
+use Controllers\Users;
+
 class SeederTest extends TestCase
 {
 
@@ -36,6 +38,7 @@ class SeederTest extends TestCase
         $seeder->run();
 
         $this->assertTrue(true);
+
 
         // ...
     }
