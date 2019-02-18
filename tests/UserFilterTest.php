@@ -1,8 +1,5 @@
 <?php
 
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Models\Database;
 use Models\Question;
 
@@ -16,7 +13,7 @@ class UserFilterTest extends TestCase
      *
      * @return void
      */
-    public function testBasicSeeder()
+    public function testFilterFindUser()
     {
 
         $request = new \Illuminate\Http\Request();
@@ -34,14 +31,41 @@ class UserFilterTest extends TestCase
 
         $users = \Tests\Controllers\Users::filter_user($modelfilter);
 
-
         $users_pure = \Tests\Models\User::where([
             'username' => 'mehdi',
             'email' => 'mehdifathi.developer@gmail.com'
         ])->get();
 
-        $this->assertEquals($users_pure, $users);    // Succeeds
+        $this->assertEquals($users_pure, $users);
+    }
+    /**
+     * A basic functional test example.
+     *
+     * @return void
+     */
+    public function testFilterNotFindUser()
+    {
 
-        // ...
+        $request = new \Illuminate\Http\Request();
+
+        $request->merge(
+            [
+                'username' => 'mehdi',
+                'email' => 'mehdifathi.developer@gmail.ccom'
+            ]
+        );
+
+        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+            $request
+        );
+
+        $users = \Tests\Controllers\Users::filter_user($modelfilter);
+
+        $users_pure = \Tests\Models\User::where([
+            'username' => 'mehdi',
+            'email' => 'mehdifathi.developer@gmail.ccom'
+        ])->get();
+
+        $this->assertEquals($users_pure, $users);
     }
 }
