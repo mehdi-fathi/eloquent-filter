@@ -8,6 +8,7 @@
 
 namespace eloquentFilter\QueryFilter\modelFilters;
 
+use Illuminate\Support\Facades\DB;
 use Zaman;
 use Config;
 use eloquentFilter\QueryFilter\queryFilter;
@@ -19,15 +20,17 @@ class modelFilters extends queryFilter
 
     public function __call($name, $arguments)
     {
-        if (!empty($arguments[0][0]['bet'])) {
 
-            $arg['from'] = $arguments[0][0]['bet']['from'];
-            $arg['to'] = $arguments[0][0]['bet']['to'];
+        if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
+
+            $arg['from'] = $arguments[0]['from'];
+            $arg['to'] = $arguments[0]['to'];
 
             $this->builder->whereBetween($name, [$arg['from'], $arg['to']]);
         } else {
             $this->builder->where("$name", $arguments[0]);
         }
+
 
     }
 

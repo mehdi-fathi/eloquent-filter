@@ -31,14 +31,7 @@ use App\Model\Filter\Models_Filter\CostsFilters;
 
             if($value !== "")
             {
-                $runMethod=true;
-                if(!empty($value['bet'])){
-                    if(empty($value['bet']['from']) && empty($value['bet']['to'])){
-                        $runMethod=false;
-                    }
-                }
-
-                if (Schema::hasColumn($table, $name) && $runMethod) {
+                if (Schema::hasColumn($table, $name)) {
                     if(!empty($value) || $value === '0'){
                         call_user_func([$this , $name] , $value);
                     }
