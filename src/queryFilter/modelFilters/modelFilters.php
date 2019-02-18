@@ -16,8 +16,6 @@ use eloquentFilter\QueryFilter\queryFilter;
 class modelFilters extends queryFilter
 {
 
-
-
     public function __call($name, $arguments)
     {
 

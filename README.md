@@ -5,7 +5,7 @@ A package for filter data of models by query string.it uses simplicity.
 
 Run the Composer update comand
 
-      $ composer require "eloquent-filter/filter"
+      $ composer require eloquent-filter/filter
 
 In your `config/app.php` add `eloquentFilter\QueryFilter\filterServiceProvider` to the end of the `$providers` array
 
