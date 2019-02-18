@@ -31,7 +31,7 @@ use App\Model\Filter\Models_Filter\CostsFilters;
 
             if($value !== "")
             {
-                if (Schema::hasColumn($table, $name)) {
+                if (Schema::hasColumn($table, $name) && $value) {
                     if(!empty($value) || $value === '0'){
                         call_user_func([$this , $name] , $value);
                     }

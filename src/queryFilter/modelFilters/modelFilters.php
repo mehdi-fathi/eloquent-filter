@@ -28,7 +28,11 @@ class modelFilters extends queryFilter
 
             $this->builder->whereBetween($name, [$arg['from'], $arg['to']]);
         } else {
-            $this->builder->where("$name", $arguments[0]);
+            if(!empty($arguments[0]) && !is_array($arguments[0])){
+
+                $this->builder->where("$name", $arguments[0]);
+
+            }
         }
 
 
