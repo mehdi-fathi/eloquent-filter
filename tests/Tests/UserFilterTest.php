@@ -3,7 +3,7 @@
 use Models\Database;
 use Models\Question;
 
-use Controllers\Users;
+use Controllers\UsersController;
 
 class UserFilterTest extends TestCase
 {
@@ -21,19 +21,20 @@ class UserFilterTest extends TestCase
         $request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.com'
+                'email' => 'mehdifathi.developer@gmail.com',
+                'created_at' => ''
             ]
         );
 
-        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new \eloquentFilter\QueryFilter\modelFilters\modelFilters(
             $request
         );
 
-        $users = \Tests\Controllers\Users::filter_user($modelfilter);
+        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
 
         $users_pure = \Tests\Models\User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.com'
+            'email' => 'mehdifathi.developer@gmail.com',
         ])->get();
 
         $this->assertEquals($users_pure, $users);
@@ -57,7 +58,7 @@ class UserFilterTest extends TestCase
         ];
 
         $request->merge(
-                $data
+            $data
         );
 
         $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
@@ -66,7 +67,7 @@ class UserFilterTest extends TestCase
 
         DB::connection()->enableQueryLog();
 
-        $users = \Tests\Controllers\Users::filter_user($modelfilter);
+        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
 
         $users_pure = \Tests\Models\User::whereBetween(
             'created_at',
@@ -82,6 +83,41 @@ class UserFilterTest extends TestCase
             ]
         )->where('email', $data['email'])
             ->orderByDesc('id')->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    public function testFilterJustFindUserDate()
+    {
+
+        $request = new \Illuminate\Http\Request();
+
+        $data = [
+            'created_at' => [
+                'from' => "2019-01-01 17:11:46",
+                'to' => "2019-02-06 10:11:46",
+            ],
+        ];
+
+        $request->merge(
+            $data
+        );
+
+        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+            $request
+        );
+
+        DB::connection()->enableQueryLog();
+
+        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+
+        $users_pure = \Tests\Models\User::whereBetween(
+            'created_at',
+            [
+                $data['created_at']['from'],
+                $data['created_at']['to']
+            ]
+        )->orderByDesc('id')->get();
 
         $this->assertEquals($users_pure, $users);
     }
@@ -107,7 +143,7 @@ class UserFilterTest extends TestCase
             $request
         );
 
-        $users = \Tests\Controllers\Users::filter_user($modelfilter);
+        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
 
         $users_pure = \Tests\Models\User::where([
             'username' => 'mehdi',

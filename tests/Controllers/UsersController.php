@@ -12,7 +12,7 @@ namespace Tests\Controllers;
 use eloquentFilter\QueryFilter\modelFilters\modelFilters;
 use Tests\Models\User;
 
-class Users
+class UsersController
 {
     public static function filter_user(modelFilters $filters){
 

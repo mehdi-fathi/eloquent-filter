@@ -3,14 +3,10 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Support\Str;
-use Faker\Generator as Faker;
-use Faker\Factory as FakerFActory;
-use Tests\Models\User;
-
 class UserTableSeeder extends Seeder
 {
-    private  $data = [];
+    private $data = [];
+
     public function make_array_data()
     {
         $this->data = [
@@ -19,22 +15,47 @@ class UserTableSeeder extends Seeder
                 'email' => 'mehdifathi.developer@gmail.com',
                 'password' => bcrypt('secret'),
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
             [
                 'username' => 'ali',
                 'email' => 'ali.2000@gmail.com',
                 'password' => bcrypt('secret'),
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
             [
                 'username' => 'ahmad',
                 'email' => 'ahmad.x1998@gmail.com',
                 'password' => bcrypt('secret'),
                 'created_at' => now()->addDay(10),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ]
+            ,
+            [
+                'username' => 'reza',
+                'email' => 'reza.rrz@yahoo.com',
+                'password' => bcrypt('secret'),
+                'created_at' => "2019-01-06 17:11:46",
+                'updated_at' => "2019-01-16 17:11:46",
+            ]
+            ,
+            [
+                'username' => 'amir',
+                'email' => 'amirccx1098xx@gmail.com',
+                'password' => bcrypt('secret'),
+                'created_at' => "2019-01-06 17:11:46",
+                'updated_at' => "2019-01-10 17:11:46",
+            ]
+            ,
+            [
+                'username' => 'ahmad',
+                'email' => 'ahmad.x1998@gmail.com',
+                'password' => bcrypt('secret'),
+                'created_at' => "2019-02-06 10:11:46",
+                'updated_at' => "2019-03-16 17:11:46",
+            ]
+
         ];
     }
 
@@ -45,9 +66,6 @@ class UserTableSeeder extends Seeder
 
         $this->make_array_data();
 
-//        \Illuminate\Support\Facades\Schema::create();
-
-//        $faker = FakerFActory::create();
         DB::table('users')->insert($this->data);
     }
 }

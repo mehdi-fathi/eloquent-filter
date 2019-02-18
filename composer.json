@@ -28,7 +28,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "eloquentFilter\\TestClass\\": "tests/classes",
             "Tests\\": "tests"
         },
         "classmap": [
