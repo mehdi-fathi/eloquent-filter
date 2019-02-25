@@ -32,7 +32,7 @@
         },
         "classmap": [
             "tests/TestCase.php",
-            "tests/seeds"
+            "tests/Seeds"
         ]
     }
 
