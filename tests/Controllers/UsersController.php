@@ -17,7 +17,7 @@ class UsersController
     public static function filter_user(modelFilters $filters){
 
 
-        $users = User::filter($filters)->orderByDesc('id')->get();
+        $users = User::filter($filters)->get();
 
         return $users;
     }

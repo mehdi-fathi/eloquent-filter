@@ -39,6 +39,35 @@ class UserFilterTest extends TestCase
 
         $this->assertEquals($users_pure, $users);
     }
+    /**
+     * A basic functional test example.
+     *
+     * @return void
+     */
+    public function testFilterFindUserWithCustomFilter()
+    {
+
+        $request = new \Illuminate\Http\Request();
+
+        $request->merge(
+            [
+                'username_like' => 'a',
+            ]
+        );
+
+        $modelfilter = new \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+            $request
+        );
+
+        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+
+//        dd($users);
+
+        $users_pure = \Tests\Models\User::where('username', 'like', '%a%')
+            ->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
 
     public function testFilterFindUserDate()
     {
@@ -82,7 +111,7 @@ class UserFilterTest extends TestCase
                 $data['updated_at']['to']
             ]
         )->where('email', $data['email'])
-            ->orderByDesc('id')->get();
+            ->get();
 
         $this->assertEquals($users_pure, $users);
     }
@@ -117,7 +146,7 @@ class UserFilterTest extends TestCase
                 $data['created_at']['from'],
                 $data['created_at']['to']
             ]
-        )->orderByDesc('id')->get();
+        )->get();
 
         $this->assertEquals($users_pure, $users);
     }
