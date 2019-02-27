@@ -1,7 +1,7 @@
 {
 
     "name": "eloquent-filter/filter",
-    "version": "v1.1",
+    "version": "1.1.2",
     "description": "A package",
     "type": "lib",
     "require": {

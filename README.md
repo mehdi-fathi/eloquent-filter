@@ -56,4 +56,33 @@ You just pass data blade form to query string or generate query string in your m
   list?cost=21&id=12
 ```
 
-Juat fields of query string are as like as row table database
+Just fields of query string be same rows table database
+
+### Custom query filter
+If you are going to make yourself query filter you can do it easily.you just make a trait and use it on model:
+
+```
+trait usersFilter
+{
+    public function username_like(Builder $builder, $value)
+    {
+        return $builder->where('username', 'like', '%' . $value . '%');
+    }
+}
+```
+Note that fields of query string be same methods trait.use trait in your model :
+
+```
+class User extends Model
+{
+    use usersFilter;
+
+    protected $table = 'users';
+    protected $guarded = [];
+
+    public function scopeFilter($query, QueryFilter $filters)
+    {
+        return $filters->apply($query, $this->getTable());
+    }
+}
+```
