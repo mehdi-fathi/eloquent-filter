@@ -1,6 +1,6 @@
 {
 
-    "name": "eloquent-filter/filter",
+    "name": "mehdi-fathi/eloquent-filter",
     "description": "Allows Dynamic filtering Eloquent Models easily by query string",
     "type": "lib",
     "require": {
