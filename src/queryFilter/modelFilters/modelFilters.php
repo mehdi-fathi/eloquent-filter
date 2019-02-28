@@ -20,15 +20,8 @@ class modelFilters extends queryFilter
     public function __call($name, $arguments)
     {
 
-
-        if ($name == 'username_int') {
-
-        }
-
-
         if (Schema::hasColumn($this->table, $name) &&
             !method_exists($this->builder->getModel(), $name)) {
-
 
             if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
 

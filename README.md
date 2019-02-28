@@ -56,6 +56,25 @@ You just pass data blade form to query string or generate query string in your m
 
 Just fields of query string be same rows table database
 
+### Date query filter
+
+If you are going to make query whereBetween.you just send array as the value.you must fill keys from and to in array.
+you can set it on query string as you know.
+
+```php
+$data = [
+            'created_at' => [
+                'from' => now()->subDays(10),
+                'to' => now()->addDays(30),
+            ],
+            'updated_at' => [
+                'from' => now()->subDays(10),
+                'to' => now()->addDays(30),
+            ],
+            'email' => 'mehdifathi.developer@gmail.com'
+        ];
+```
+
 ### Custom query filter
 If you are going to make yourself query filter you can do it easily.you just make a trait and use it on model:
 

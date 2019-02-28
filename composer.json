@@ -1,7 +1,7 @@
 {
 
     "name": "eloquent-filter/filter",
-    "description": "A package",
+    "description": "Allows Dynamic filtering Eloquent Models easily by query string",
     "type": "lib",
     "require": {
         "php": ">=5.5.9",
