@@ -32,10 +32,8 @@ public function scopeFilter($query, QueryFilter $filters)
 Change your code on controller as like belove example:
 
 ```php
-
     public function list(modelFilters\modelFilters $filters)
     {
-
           if (!empty($filters->filters())) {
 
               //_Cost is a model in spinet code
@@ -61,7 +59,7 @@ Just fields of query string be same rows table database
 ### Custom query filter
 If you are going to make yourself query filter you can do it easily.you just make a trait and use it on model:
 
-```
+```php
 trait usersFilter
 {
     public function username_like(Builder $builder, $value)
@@ -72,7 +70,7 @@ trait usersFilter
 ```
 Note that fields of query string be same methods trait.use trait in your model :
 
-```
+```php
 class User extends Model
 {
     use usersFilter;
