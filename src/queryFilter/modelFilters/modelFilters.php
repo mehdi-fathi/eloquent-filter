@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mehdi
- * Date: 7/25/18
- * Time: 9:14 PM
- */
 
 namespace eloquentFilter\QueryFilter\modelFilters;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Zaman;
 use Config;

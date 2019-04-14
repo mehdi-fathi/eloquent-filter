@@ -4,17 +4,17 @@ namespace Tests\Models;
 
 use \Illuminate\Database\Eloquent\Model;
 
+use eloquentFilter\QueryFilter\modelFilters\Filterable;
 use eloquentFilter\QueryFilter\queryFilter;
 use Tests\Models\Filters\usersFilter;
 
 class User extends Model
 {
 
-    use usersFilter;
+    use usersFilter,Filterable;
 
     protected $table = 'users';
     protected $guarded = [];
-
 
     public function scopeFilter($query, QueryFilter $filters)
     {

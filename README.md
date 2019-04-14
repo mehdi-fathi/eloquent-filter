@@ -21,13 +21,10 @@ In your `config/app.php` add `eloquentFilter\QueryFilter\filterServiceProvider` 
 ```
 ## Basic Usage
 
-Add this method to your models.you should create parent model and add this method to it.
+Add trait to your models. You can override this method in your models.
 
 ```php
-public function scopeFilter($query, QueryFilter $filters)
-{
-  return $filters->apply($query,$this->getTable());
-}
+use Filterable;
 ```
 Change your code on controller as like belove example:
 
