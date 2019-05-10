@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mehdi
- * Date: 7/25/18
- * Time: 9:17 PM
- */
 
 namespace eloquentFilter\QueryFilter;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Schema;
 use App\Model\Filter\Models_Filter\CostsFilters;
 
 class queryFilter

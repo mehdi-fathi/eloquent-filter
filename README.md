@@ -33,14 +33,14 @@ Change your code on controller as like belove example:
     {
           if (!empty($filters->filters())) {
 
-              //_Cost is a model in spinet code
+              //_User is a model in spinet code
 
-              $costs = $this->_Cost->filter($filters)->with('users')->orderByDesc('id')->paginate(10);
+              $users = $this->_User->filter($filters)->with('orders')->orderByDesc('id')->paginate(10);
 
-              $costs->appends($filters->filters())->render();
+              $users->appends($filters->filters())->render();
 
           } else {
-              $costs = $this->_Cost->with('users')->orderByDesc('id')->paginate(10);
+              $users = $this->_User->with('orders')->orderByDesc('id')->paginate(10);
           }
      }
 ```
@@ -48,7 +48,10 @@ Change your code on controller as like belove example:
 You just pass data blade form to query string or generate query string in your method you like do it.for example:
 
 ```
-  list?cost=21&id=12
+http://example.com/users/list?email=mehdifathi.developer@gmail.com
+```
+```
+http://example.com/users/list?first_name=mehdi&last_name=fathi
 ```
 
 Just fields of query string be same rows table database
@@ -56,17 +59,21 @@ Just fields of query string be same rows table database
 ### Date query filter
 
 If you are going to make query whereBetween.you just send array as the value.you must fill keys from and to in array.
-you can set it on query string as you know.
+you can set it on query string as you know.this is a sample url with query string filter
+
+```
+http://example.com/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
+```
 
 ```php
 $data = [
-            'created_at' => [
-                'from' => now()->subDays(10),
-                'to' => now()->addDays(30),
+        'created_at' => [
+            'from' => now()->subDays(10),
+            'to' => now()->addDays(30),
             ],
-            'updated_at' => [
-                'from' => now()->subDays(10),
-                'to' => now()->addDays(30),
+        'updated_at' => [
+            'from' => now()->subDays(10),
+            'to' => now()->addDays(30),
             ],
             'email' => 'mehdifathi.developer@gmail.com'
         ];
@@ -89,14 +96,10 @@ Note that fields of query string be same methods trait.use trait in your model :
 ```php
 class User extends Model
 {
-    use usersFilter;
+    use usersFilter,Filterable;
 
     protected $table = 'users';
     protected $guarded = [];
-
-    public function scopeFilter($query, QueryFilter $filters)
-    {
-        return $filters->apply($query, $this->getTable());
-    }
+    
 }
 ```
