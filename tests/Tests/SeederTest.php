@@ -1,8 +1,5 @@
 <?php
 
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Models\Database;
 use Models\Question;
 

@@ -1,5 +1,5 @@
 # Eloquent Filter
-A package for filter data of models by query string.It uses simplicity and full dynamic.
+A package for filter data of models by query string.Easy to use and full dynamic.
 
 ## Installation
 

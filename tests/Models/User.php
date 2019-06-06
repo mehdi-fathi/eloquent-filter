@@ -3,7 +3,6 @@
 namespace Tests\Models;
 
 use \Illuminate\Database\Eloquent\Model;
-
 use eloquentFilter\QueryFilter\modelFilters\Filterable;
 use Tests\Models\Filters\usersFilter;
 
