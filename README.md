@@ -1,9 +1,9 @@
-# eloquentFilter
-A package for filter data of models by query string.it uses simplicity.
+# Eloquent Filter
+A package for filter data of models by query string.It uses simplicity and full dynamic.
 
 ## Installation
 
-Run the Composer update comand
+Run the Composer update command
 
       $ composer require mehdi-fathi/eloquent-filter
 
@@ -21,7 +21,7 @@ In your `config/app.php` add `eloquentFilter\QueryFilter\filterServiceProvider` 
 ```
 ## Basic Usage
 
-Add trait to your models. You can override this method in your models.
+Add trait to your models.You can override this method in your models.
 
 ```php
 use Filterable;
@@ -45,13 +45,13 @@ Change your code on controller as like belove example:
      }
 ```
 
-You just pass data blade form to query string or generate query string in your method you like do it.for example:
+You just pass data blade form to query string or generate query string in your method you like do it.For example:
 
 ```
-http://example.com/users/list?email=mehdifathi.developer@gmail.com
+http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
 ```
 ```
-http://example.com/users/list?first_name=mehdi&last_name=fathi
+http://eloquent-filter.local/users/list?first_name=mehdi&last_name=fathi
 ```
 
 Just fields of query string be same rows table database
@@ -64,23 +64,8 @@ you can set it on query string as you know.this is a sample url with query strin
 ```
 http://example.com/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
 ```
-
-```php
-$data = [
-        'created_at' => [
-            'from' => now()->subDays(10),
-            'to' => now()->addDays(30),
-            ],
-        'updated_at' => [
-            'from' => now()->subDays(10),
-            'to' => now()->addDays(30),
-            ],
-            'email' => 'mehdifathi.developer@gmail.com'
-        ];
-```
-
 ### Custom query filter
-If you are going to make yourself query filter you can do it easily.you just make a trait and use it on model:
+If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:
 
 ```php
 trait usersFilter

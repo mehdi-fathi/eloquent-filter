@@ -20,9 +20,7 @@ class SeederTest extends TestCase
     {
 
         if (!Schema::hasTable('users')) {
-
-            DB::unprepared(file_get_contents('tests/seeds/eloquentFilter_test.sql'));
-
+            DB::unprepared(file_get_contents('tests/Seeds/data-sql/eloquentFilter_test.sql'));
         }
 
         $seeder = new UserTableSeeder();
