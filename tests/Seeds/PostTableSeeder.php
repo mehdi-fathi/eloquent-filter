@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Seeds;
+
 use Faker\Factory as FakerFActory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

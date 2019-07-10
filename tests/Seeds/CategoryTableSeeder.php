@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Seeds;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
