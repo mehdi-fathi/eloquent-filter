@@ -29,8 +29,8 @@ class SeederTest extends TestCase
         $seeder = new CategoryTableSeeder();
         $seeder->run();
 
-        $seeder = new CategoriesPostsTableSeeder();
-        $seeder->run();
+//        $seeder = new CategoriesPostsTableSeeder();
+//        $seeder->run();
 
         $this->assertTrue(true);
 
