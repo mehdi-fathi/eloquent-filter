@@ -2,14 +2,13 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Tests\Models\Post;
 use Tests\Models\Category;
+use Tests\Models\Post;
 
 class CategoriesPostsTableSeeder extends Seeder
 {
     public function run()
     {
-
         DB::table('categories_posts')->delete();
 
         foreach (Post::all() as $index => $post) {
@@ -30,10 +29,10 @@ class CategoriesPostsTableSeeder extends Seeder
 
             foreach ($category_post_id_data['category_id'] as $category_id) {
                 $data = [
-                    'post_id' => $post_id,
+                    'post_id'     => $post_id,
                     'category_id' => $category_id,
-                    'created_at' => $created_at,
-                    'updated_at' => $updated_at,
+                    'created_at'  => $created_at,
+                    'updated_at'  => $updated_at,
                 ];
 
                 DB::table('categories_posts')->insert($data);
