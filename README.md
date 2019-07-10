@@ -1,4 +1,6 @@
 # Eloquent Filter
+[![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
+
 A package for filter data of models by query string.Easy to use and full dynamic.
 
 ## Installation

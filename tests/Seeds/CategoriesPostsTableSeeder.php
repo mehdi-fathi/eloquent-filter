@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Tests\Models\Post;
+use Tests\Models\Category;
 
 class CategoriesPostsTableSeeder extends Seeder
 {
@@ -10,20 +12,14 @@ class CategoriesPostsTableSeeder extends Seeder
 
         DB::table('categories_posts')->delete();
 
-        foreach (\Tests\Models\Post::all() as $index => $post):
-
+        foreach (Post::all() as $index => $post):
 
             foreach (range(rand(1, 4), 4) as $index_range):
 
                 $category_post_id[$index]['post_id'] = $post['id'];
                 $category_post_id[$index]['created_at'] = $post['created_at'];
                 $category_post_id[$index]['updated_at'] = $post['updated_at'];
-
-                $category_post_id[$index]['category_id'][] =
-                    \Tests\Models\Category::inRandomOrder()->first()['id'];
-
-//            $category_post_id[$index]['post_id'][] =  $post['id'];
-
+                $category_post_id[$index]['category_id'][] = Category::inRandomOrder()->first()['id'];
 
             endforeach;
 
@@ -50,6 +46,5 @@ class CategoriesPostsTableSeeder extends Seeder
 
             endforeach;
         endforeach;
-//        $faker = FakerFActory::create();
     }
 }
