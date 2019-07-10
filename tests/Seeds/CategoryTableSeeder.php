@@ -5,29 +5,30 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryTableSeeder extends Seeder
 {
-    private  $data = [];
+    private $data = [];
+
     public function make_array_data()
     {
         $this->data = [
             [
-                'category' => 'PHP',
+                'category'   => 'PHP',
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
             [
-                'category' => 'JS',
+                'category'   => 'JS',
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
             [
-                'category' => 'ASP.net',
+                'category'   => 'ASP.net',
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
             [
-                'category' => 'jquery',
+                'category'   => 'jquery',
                 'created_at' => now(),
-                'updated_at' =>  now(),
+                'updated_at' => now(),
             ],
 
         ];
@@ -35,7 +36,6 @@ class CategoryTableSeeder extends Seeder
 
     public function run()
     {
-
         DB::table('categories')->delete();
 
         $this->make_array_data();
