@@ -1,13 +1,7 @@
 <?php
 
-use Models\Database;
-use Models\Question;
-
-use Controllers\Users;
-
 class SeederTest extends TestCase
 {
-
     /**
      * A basic functional test example.
      *
@@ -15,7 +9,6 @@ class SeederTest extends TestCase
      */
     public function testBasicSeeder()
     {
-
         if (!Schema::hasTable('users')) {
             DB::unprepared(file_get_contents('tests/Seeds/data-sql/eloquentFilter_test.sql'));
         }
@@ -33,7 +26,6 @@ class SeederTest extends TestCase
         $seeder->run();
 
         $this->assertTrue(true);
-
 
         // ...
     }
