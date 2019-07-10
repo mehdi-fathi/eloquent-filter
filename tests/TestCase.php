@@ -2,17 +2,15 @@
 
 class TestCase extends Orchestra\Testbench\TestCase
 {
-
     /**
      * Define environment setup.
      *
-     * @param  Illuminate\Foundation\Application $app
+     * @param Illuminate\Foundation\Application $app
      *
      * @return void
      */
     protected function getEnvironmentSetUp($app)
     {
-
         if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
             // Ignores notices and reports all other kinds... and warnings
             error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
@@ -33,8 +31,8 @@ class TestCase extends Orchestra\Testbench\TestCase
         $app['config']->set('queue.default', 'database');
         $app['config']->set('queue.connections.database', [
             'driver' => 'mysql',
-            'table' => 'jobs',
-            'queue' => 'default',
+            'table'  => 'jobs',
+            'queue'  => 'default',
             'expire' => 60,
         ]);
     }

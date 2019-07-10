@@ -2,14 +2,14 @@
 
 namespace eloquentFilter\QueryFilter;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\Model\Filter\Models_Filter\CostsFilters;
+use Illuminate\Http\Request;
 
 class queryFilter
 {
-
-    protected $request, $builder, $table;
+    protected $request;
+    protected $builder;
+    protected $table;
 
     public function __construct(Request $request)
     {
@@ -22,7 +22,7 @@ class queryFilter
         $this->table = $table;
 
         foreach ($this->filters() as $name => $value):
-            if ($value !== "" && !empty($value) || $value === '0') {
+            if ($value !== '' && !empty($value) || $value === '0') {
                 call_user_func([$this, $name], $value);
                 // It resolve methods in filters class in child
             }
