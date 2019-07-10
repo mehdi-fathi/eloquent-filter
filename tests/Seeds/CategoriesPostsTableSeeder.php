@@ -40,8 +40,8 @@ class CategoriesPostsTableSeeder extends Seeder
                     'updated_at'  => $updated_at,
                 ];
 
-        DB::table('categories_posts')->insert($data);
-        endforeach;
+                DB::table('categories_posts')->insert($data);
+            endforeach;
         endforeach;
     }
 }
