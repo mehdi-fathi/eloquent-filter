@@ -1,5 +1,10 @@
 <?php
 
+use Tests\Seeds\UserTableSeeder;
+use Tests\Seeds\PostTableSeeder;
+use Tests\Seeds\CategoryTableSeeder;
+use Tests\Seeds\CategoriesPostsTableSeeder;
+
 class SeederTest extends TestCase
 {
     /**
@@ -22,8 +27,8 @@ class SeederTest extends TestCase
         $seeder = new CategoryTableSeeder();
         $seeder->run();
 
-//        $seeder = new CategoriesPostsTableSeeder();
-//        $seeder->run();
+        $seeder = new CategoriesPostsTableSeeder();
+        $seeder->run();
 
         $this->assertTrue(true);
 
