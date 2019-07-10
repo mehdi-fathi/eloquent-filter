@@ -24,6 +24,7 @@ class CategoriesPostsTableSeeder extends Seeder
         endforeach;
 
         foreach ($category_post_id as $category_post_id_data) :
+
             $post_id = $category_post_id_data['post_id'];
             $created_at = $category_post_id_data['created_at'];
             $updated_at = $category_post_id_data['updated_at'];
