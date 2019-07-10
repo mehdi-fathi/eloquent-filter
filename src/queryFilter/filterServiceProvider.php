@@ -1,11 +1,11 @@
 <?php
+
 namespace eloquentFilter\QueryFilter;
 
 use Illuminate\Support\ServiceProvider;
 
 class filterServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -36,7 +36,6 @@ class filterServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('jalali', 'jDateTime');
+        return ['jalali', 'jDateTime'];
     }
-
 }
