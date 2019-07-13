@@ -1,9 +1,9 @@
 <?php
 
-use Tests\Seeds\UserTableSeeder;
-use Tests\Seeds\PostTableSeeder;
-use Tests\Seeds\CategoryTableSeeder;
 use Tests\Seeds\CategoriesPostsTableSeeder;
+use Tests\Seeds\CategoryTableSeeder;
+use Tests\Seeds\PostTableSeeder;
+use Tests\Seeds\UserTableSeeder;
 
 class SeederTest extends TestCase
 {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Seeds;
 
 use Faker\Factory as FakerFActory;
