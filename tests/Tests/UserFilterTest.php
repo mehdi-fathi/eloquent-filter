@@ -2,7 +2,6 @@
 
 class UserFilterTest extends TestCase
 {
-
     public function testFilterFindUser()
     {
         $request = new \Illuminate\Http\Request();
