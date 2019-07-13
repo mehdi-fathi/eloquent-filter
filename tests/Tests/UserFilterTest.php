@@ -2,11 +2,7 @@
 
 class UserFilterTest extends TestCase
 {
-    /**
-     * A basic functional test example.
-     *
-     * @return void
-     */
+
     public function testFilterFindUser()
     {
         $request = new \Illuminate\Http\Request();
@@ -33,11 +29,6 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
 
-    /**
-     * A basic functional test example.
-     *
-     * @return void
-     */
     public function testFilterFindUserWithCustomFilter()
     {
         $request = new \Illuminate\Http\Request();
@@ -142,11 +133,6 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
 
-    /**
-     * A basic functional test example.
-     *
-     * @return void
-     */
     public function testFilterNotFindUser()
     {
         $request = new \Illuminate\Http\Request();
