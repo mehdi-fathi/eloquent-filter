@@ -1,41 +1,35 @@
-# .travis.yml
-os: linux
-sudo: required
+dist: xenial
 language: php
-services:
-  - mysql
-dist: trusty
-addons:
-  apt:
-    packages:
-      - mysql-server-5.6
-      - mysql-client-core-5.6
-      - mysql-client-5.6
-cache:
-  directories:
-    - $HOME/.composer/cache
-    - ${TRAVIS_BUILD_DIR}/travis/extension-cache
-    - vendor
+
 env:
-  - DB=mysql
+  global:
+    - SETUP=stable
+
 matrix:
   fast_finish: true
   include:
     - php: 7.2
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest' DB=mysql
-  allow_failures:
     - php: 7.2
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest'
+      env: SETUP=lowest
+    - php: 7.3
+    - php: 7.3
+      env: SETUP=lowest
 
-before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS eloquentFilter_test;" -uroot; fi
-  - travis_retry composer self-update --stable -n
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+services:
+  - memcached
+  - redis-server
+  - mysql
+
+before_install:
+  - travis_retry composer self-update
+  - mysql -e 'CREATE DATABASE eloquentFilter_test;'
 
 install:
-  - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
+  - if [[ $SETUP = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+  - if [[ $SETUP = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
 
-script:
-  - vendor/bin/phpunit
-
-notifications:
-  email: false
+script: vendor/bin/phpunit
