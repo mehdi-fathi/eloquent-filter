@@ -52,8 +52,8 @@ matrix:
 
 before_script:
   - mysql -u root -e 'CREATE DATABASE eloquentFilter_test;'
-  - mysql -u root -e "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';"
-  - mysql -u root -e "GRANT ALL ON eloquentFilter_test.* TO 'root'@'localhost';"
+  - mysql -u root -e "CREATE USER 'eloquentFilter_test'@'localhost' IDENTIFIED BY 'eloquentFilter_test';"
+  - mysql -u root -e "GRANT ALL ON eloquentFilter_test.* TO 'eloquentFilter_test'@'localhost';"
   - travis_retry composer self-update --stable -n
   - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
