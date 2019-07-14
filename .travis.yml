@@ -16,5 +16,4 @@
     - nvm install 5.10.1
   before_script:
     - composer install --no-interaction
-    - gulp build
   script: vendor/bin/phpunit
