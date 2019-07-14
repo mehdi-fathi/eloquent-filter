@@ -28,7 +28,7 @@ matrix:
       env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest'
 
 before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS eloquentFilter_test;" -uroot; fi
+  - mysql -u root -e 'CREATE USER IF NOT EXISTS root@localhost; GRANT ALL ON *.* TO root@localhost;'
   - travis_retry composer self-update --stable -n
 
 install:
