@@ -55,7 +55,6 @@ matrix:
 before_script:
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS eloquentFilter_test;" -uroot; fi
   - travis_retry composer self-update --stable -n
-  - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
   - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
