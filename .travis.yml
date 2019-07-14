@@ -16,12 +16,14 @@ cache:
     - $HOME/.composer/cache
     - ${TRAVIS_BUILD_DIR}/travis/extension-cache
     - vendor
-    
+env:
+  - DB=mysql
+  - DB=pgsql
 matrix:
   fast_finish: true
   include:
     - php: 7.1
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest' DB=pgsql
     - php: 7.1
       env: LARAVEL='5.5.*' TESTBENCH='3.5.*'
     - php: 7.1
@@ -51,9 +53,7 @@ matrix:
       env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest'
 
 before_script:
-  - mysql -u root -e 'CREATE DATABASE eloquentFilter_test;'
-  - mysql -u root -e "CREATE USER 'eloquentFilter_test'@'localhost' IDENTIFIED BY 'eloquentFilter_test';"
-  - mysql -u root -e "GRANT ALL ON eloquentFilter_test.* TO 'eloquentFilter_test'@'localhost';"
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS eloquentFilter_test;" -uroot; fi
   - travis_retry composer self-update --stable -n
   - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
