@@ -1,0 +1,19 @@
+  language: php
+  php:
+    - 7.2
+  services:
+    - mysql
+  env:
+    global:
+      - APP_ENV: production
+      - DB_USERNAME: root
+      - DB_DATABASE: eloquentFilter_test
+      - DB_PASSWORD:  root
+  before_install:
+    - mysql -e 'create database test'
+  install:
+    - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+    - nvm install 5.10.1
+  before_script:
+    - composer install --no-interaction
+  script: vendor/bin/phpunit
