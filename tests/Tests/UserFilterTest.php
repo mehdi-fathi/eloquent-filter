@@ -1,36 +1,44 @@
 <?php
 
+use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use Illuminate\Http\Request;
+use Tests\Controllers\UsersController;
+use Tests\Models\User;
+
 class UserFilterTest extends TestCase
 {
-    public function testFilterFindUser()
+
+    /** @test */
+    public function it_can_get_user_by_email_and_username()
     {
-        $request = new \Illuminate\Http\Request();
+        $request = new Request();
 
         $request->merge(
             [
-                'username'   => 'mehdi',
-                'email'      => 'mehdifathi.developer@gmail.com',
+                'username' => 'mehdi',
+                'email' => 'mehdifathi.developer@gmail.com',
                 'created_at' => '',
             ]
         );
 
-        $modelfilter = new \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new modelFilters(
             $request
         );
 
-        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+        $users = UsersController::filter_user($modelfilter);
 
-        $users_pure = \Tests\Models\User::where([
+        $users_pure = User::where([
             'username' => 'mehdi',
-            'email'    => 'mehdifathi.developer@gmail.com',
+            'email' => 'mehdifathi.developer@gmail.com',
         ])->get();
 
         $this->assertEquals($users_pure, $users);
     }
 
-    public function testFilterFindUserWithCustomFilter()
+    /** @test */
+    public function it_can_get_user_by_a_custom_filter()
     {
-        $request = new \Illuminate\Http\Request();
+        $request = new Request();
 
         $request->merge(
             [
@@ -38,32 +46,31 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new modelFilters(
             $request
         );
 
-        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+        $users = UsersController::filter_user($modelfilter);
 
-//        dd($users);
-
-        $users_pure = \Tests\Models\User::where('username', 'like', '%a%')
+        $users_pure = User::where('username', 'like', '%a%')
             ->get();
 
         $this->assertEquals($users_pure, $users);
     }
 
-    public function testFilterFindUserDate()
+    /** @test */
+    public function it_can_get_user_by_date_to_and_from_and_email()
     {
-        $request = new \Illuminate\Http\Request();
+        $request = new Request();
 
         $data = [
             'created_at' => [
                 'from' => now()->subDays(10),
-                'to'   => now()->addDays(30),
+                'to' => now()->addDays(30),
             ],
             'updated_at' => [
                 'from' => now()->subDays(10),
-                'to'   => now()->addDays(30),
+                'to' => now()->addDays(30),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -72,15 +79,15 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new  modelFilters(
             $request
         );
 
         DB::connection()->enableQueryLog();
 
-        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+        $users = UsersController::filter_user($modelfilter);
 
-        $users_pure = \Tests\Models\User::whereBetween(
+        $users_pure = User::whereBetween(
             'created_at',
             [
                 $data['created_at']['from'],
@@ -98,14 +105,15 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
 
-    public function testFilterJustFindUserDate()
+    /** @test */
+    public function it_can_get_user_by_date_from()
     {
-        $request = new \Illuminate\Http\Request();
+        $request = new Request();
 
         $data = [
             'created_at' => [
                 'from' => '2019-01-01 17:11:46',
-                'to'   => '2019-02-06 10:11:46',
+                'to' => '2019-02-06 10:11:46',
             ],
         ];
 
@@ -113,15 +121,15 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new  modelFilters(
             $request
         );
 
         DB::connection()->enableQueryLog();
 
-        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+        $users = UsersController::filter_user($modelfilter);
 
-        $users_pure = \Tests\Models\User::whereBetween(
+        $users_pure = User::whereBetween(
             'created_at',
             [
                 $data['created_at']['from'],
@@ -132,26 +140,27 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
 
-    public function testFilterNotFindUser()
+    /** @test */
+    public function it_can_not_get_user_by_email_username()
     {
-        $request = new \Illuminate\Http\Request();
+        $request = new Request();
 
         $request->merge(
             [
                 'username' => 'mehdi',
-                'email'    => 'mehdifathi.developer@gmail.ccom',
+                'email' => 'mehdifathi.developer@gmail.ccom',
             ]
         );
 
-        $modelfilter = new  \eloquentFilter\QueryFilter\modelFilters\modelFilters(
+        $modelfilter = new  modelFilters(
             $request
         );
 
-        $users = \Tests\Controllers\UsersController::filter_user($modelfilter);
+        $users = UsersController::filter_user($modelfilter);
 
-        $users_pure = \Tests\Models\User::where([
+        $users_pure = User::where([
             'username' => 'mehdi',
-            'email'    => 'mehdifathi.developer@gmail.ccom',
+            'email' => 'mehdifathi.developer@gmail.ccom',
         ])->get();
 
         $this->assertEquals($users_pure, $users);
