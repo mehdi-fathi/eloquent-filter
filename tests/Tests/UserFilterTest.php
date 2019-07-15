@@ -8,7 +8,7 @@ use Tests\Models\User;
 class UserFilterTest extends TestCase
 {
     /** @test */
-    public function it_can_get_user_by_email_and_username()
+    public function itCanGetUserByEmailAndUsername()
     {
         $request = new Request();
 
@@ -58,7 +58,7 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_user_by_date_to_and_from_and_email()
+    public function itCanGetUserByDateToAndFromAndEmail()
     {
         $request = new Request();
 
@@ -105,7 +105,7 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_user_by_date_from()
+    public function itCanGetUserByDateFrom()
     {
         $request = new Request();
 
@@ -140,7 +140,7 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_not_get_user_by_email_username()
+    public function itCanGetGetUserByEmailUsername()
     {
         $request = new Request();
 
