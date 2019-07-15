@@ -40,7 +40,8 @@ class TestCase extends Orchestra\Testbench\TestCase
         $database  = 'eloquentFilter_test';
         $username  = Config::get('database.connections.mysql.username');
         $password  = Config::get('database.connections.mysql.password');
-        echo shell_exec('mysql -h ' . $host . ' -u ' . $username . ' -p' . $password . ' -e "CREATE DATABASE IF NOT EXISTS ' . $database . '"');
+        echo shell_exec('mysql -h ' . $host . ' -u ' . $username . ' -p' .
+        $password . ' -e "CREATE DATABASE IF NOT EXISTS ' . $database . '"');
 
         $app['config']->set('database.connections.mysql.database', $database);
     }
