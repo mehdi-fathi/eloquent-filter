@@ -35,7 +35,7 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_user_by_a_custom_filter()
+    public function itCanGetUserByCustomfilter()
     {
         $request = new Request();
 
