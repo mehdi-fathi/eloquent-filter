@@ -43,6 +43,5 @@ class TestCase extends Orchestra\Testbench\TestCase
         echo shell_exec('mysql -h ' . $host . ' -u ' . $username . ' -p' . $password . ' -e "CREATE DATABASE IF NOT EXISTS ' . $database . '"');
 
         $app['config']->set('database.connections.mysql.database', $database);
-
     }
 }
