@@ -32,6 +32,16 @@ class CategoryTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'category'   => 'Html',
+                'created_at' => null,
+                'updated_at' => null,
+            ],
+            [
+                'category'   => 'Html',
+                'created_at' => now(),
+                'updated_at' => null,
+            ],
 
         ];
     }
