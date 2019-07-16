@@ -13,7 +13,7 @@ class CategoryFilterTest extends TestCase
         $request = new Request();
         $request->merge(
             [
-                'category' => 'Html',
+                'category'   => 'Html',
                 'created_at' => null,
             ]
         );
@@ -22,7 +22,7 @@ class CategoryFilterTest extends TestCase
         );
         $category = CategoriesController::filter_category($modelfilter);
         $category_pure = Category::where([
-            'category' => 'Html',
+            'category'   => 'Html',
             'created_at' => null,
         ])->get();
 

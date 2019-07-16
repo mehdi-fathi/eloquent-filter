@@ -23,7 +23,7 @@ class queryFilter
 
         foreach ($this->filters() as $name => $value):
                 call_user_func([$this, $name], $value);
-                // It resolve methods in filters class in child
+        // It resolve methods in filters class in child
         endforeach;
 
         return $this->builder;
