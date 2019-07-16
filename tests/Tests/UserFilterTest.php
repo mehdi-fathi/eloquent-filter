@@ -15,7 +15,7 @@ class UserFilterTest extends TestCase
         $request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.com',
+                'email'    => 'mehdifathi.developer@gmail.com',
             ]
         );
 
@@ -27,7 +27,7 @@ class UserFilterTest extends TestCase
 
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'    => 'mehdifathi.developer@gmail.com',
         ])->get();
 
         $this->assertEquals($users_pure, $users);
@@ -64,11 +64,11 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'from' => now()->subDays(10),
-                'to' => now()->addDays(30),
+                'to'   => now()->addDays(30),
             ],
             'updated_at' => [
                 'from' => now()->subDays(10),
-                'to' => now()->addDays(30),
+                'to'   => now()->addDays(30),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -111,7 +111,7 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'from' => '2019-01-01 17:11:46',
-                'to' => '2019-02-06 10:11:46',
+                'to'   => '2019-02-06 10:11:46',
             ],
         ];
 
@@ -146,7 +146,7 @@ class UserFilterTest extends TestCase
         $request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.ccom',
+                'email'    => 'mehdifathi.developer@gmail.ccom',
             ]
         );
 
@@ -158,7 +158,7 @@ class UserFilterTest extends TestCase
 
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.ccom',
+            'email'    => 'mehdifathi.developer@gmail.ccom',
         ])->get();
 
         $this->assertEquals($users_pure, $users);
