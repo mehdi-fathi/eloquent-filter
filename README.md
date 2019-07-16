@@ -5,22 +5,10 @@ A package for filter data of models by query string.Easy to use and full dynamic
 
 ## Installation
 
-Run the Composer update command
+Run the Composer command
 
       $ composer require mehdi-fathi/eloquent-filter
 
-In your `config/app.php` add `eloquentFilter\QueryFilter\filterServiceProvider` to the end of the `$providers` array
-
-```php
-'providers' => [
-
-    Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
-    Illuminate\Auth\AuthServiceProvider::class,
-    ...
-    eloquentFilter\QueryFilter\filterServiceProvider::class,
-
-],
-```
 ## Basic Usage
 
 Add trait to your models.You can override this method in your models.
