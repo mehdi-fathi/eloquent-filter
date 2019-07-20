@@ -19,23 +19,21 @@ use Filterable;
 Change your code on controller as like belove example:
 
 ```php
-    public function list(modelFilters\modelFilters $filters)
-    {
-          if (!empty($filters->filters())) {
+public function list(modelFilters\modelFilters $filters)
+{
+      if (!empty($filters->filters())) {
 
-              //_User is a model in spinet code
+          $users = User::filter($filters)->with('orders')->orderByDesc('id')->paginate(10);
 
-              $users = $this->_User->filter($filters)->with('orders')->orderByDesc('id')->paginate(10);
+          $users->appends($filters->filters())->render();
 
-              $users->appends($filters->filters())->render();
-
-          } else {
-              $users = $this->_User->with('orders')->orderByDesc('id')->paginate(10);
-          }
-     }
+      } else {
+          $users = User::with('orders')->orderByDesc('id')->paginate(10);
+      }
+}
 ```
 
-You just pass data blade form to query string or generate query string in your method you like do it.For example:
+You just pass data blade form to query string or generate query string in controller method.For example:
 
 ```
 http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
@@ -52,7 +50,7 @@ If you are going to make query whereBetween.you just send array as the value.you
 you can set it on query string as you know.this is a sample url with query string filter
 
 ```
-http://example.com/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
+http://eloquent-filter.local/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
 ```
 ### Custom query filter
 If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:
