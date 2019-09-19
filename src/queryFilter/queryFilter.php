@@ -5,18 +5,44 @@ namespace eloquentFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
+/**
+ * Class queryFilter
+ *
+ * @package eloquentFilter\QueryFilter
+ */
 class queryFilter
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
     protected $request;
+    /**
+     * @var
+     */
     protected $builder;
+    /**
+     * @var
+     */
     protected $table;
 
+    /**
+     * queryFilter constructor.
+     *
+     * @param \Illuminate\Http\Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    public function apply(Builder $builder, $table)
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param                                       $table
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function apply(Builder $builder, $table) :Builder
     {
         $this->builder = $builder;
         $this->table = $table;
@@ -29,7 +55,10 @@ class queryFilter
         return $this->builder;
     }
 
-    public function filters()
+    /**
+     * @return array
+     */
+    public function filters() :array
     {
         return $this->request->all();
     }
