@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 /**
- * Class queryFilter
- *
- * @package eloquentFilter\QueryFilter
+ * Class queryFilter.
  */
 class queryFilter
 {
@@ -34,7 +32,6 @@ class queryFilter
     {
         $this->request = $request;
     }
-
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
