@@ -6,9 +6,7 @@ use eloquentFilter\QueryFilter\queryFilter;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class modelFilters
- *
- * @package eloquentFilter\QueryFilter\modelFilters
+ * Class modelFilters.
  */
 class modelFilters extends queryFilter
 {
