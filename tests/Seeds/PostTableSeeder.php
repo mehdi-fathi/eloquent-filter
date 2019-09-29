@@ -22,7 +22,7 @@ class PostTableSeeder extends Seeder
 
     public function run()
     {
-        DB::table('posts')->delete();
+//        DB::table('posts')->delete();
 
         $this->make_array_data();
 

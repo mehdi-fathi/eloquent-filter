@@ -4,15 +4,24 @@ use eloquentFilter\QueryFilter\modelFilters\modelFilters;
 use Illuminate\Http\Request;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
+use Tests\Seeds\UserTableSeeder;
 
 /**
  * Class UserFilterTest.
  */
 class UserFilterTest extends TestCase
 {
+
+    private function __intiDb()
+    {
+        $seeder = new UserTableSeeder();
+        $seeder->run();
+    }
     /** @test */
     public function itCanGetUserByEmailAndUsername()
     {
+        $this->__intiDb();
+
         $request = new Request();
 
         $request->merge(
@@ -39,6 +48,8 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByCustomfilter()
     {
+        $this->__intiDb();
+
         $request = new Request();
 
         $request->merge(
@@ -62,6 +73,8 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByDateToAndFromAndEmail()
     {
+        $this->__intiDb();
+
         $request = new Request();
 
         $data = [
@@ -109,6 +122,8 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByDateFrom()
     {
+        $this->__intiDb();
+
         $request = new Request();
 
         $data = [
@@ -144,6 +159,8 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetGetUserByEmailUsername()
     {
+        $this->__intiDb();
+
         $request = new Request();
 
         $request->merge(

@@ -14,7 +14,7 @@ class CategoriesPostsTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('categories_posts')->delete();
+//        DB::table('categories_posts')->delete();
 
         foreach (Post::all() as $index => $post) {
             foreach (range(rand(1, 4), 4) as $index_range) {

@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use Filterable;
-
+    protected $fillable = [
+        'category',
+    ];
     /**
      * @var string
      */

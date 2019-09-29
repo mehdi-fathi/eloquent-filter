@@ -4,6 +4,7 @@ namespace Tests\Seeds;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Tests\Models\Category;
 
 /**
  * Class CategoryTableSeeder.
@@ -54,11 +55,13 @@ class CategoryTableSeeder extends Seeder
 
     public function run()
     {
-        DB::table('categories')->delete();
+//        DB::table('categories')->delete();
 
         $this->make_array_data();
 
 //        $faker = FakerFActory::create();
         DB::table('categories')->insert($this->data);
+
+//        factory(Category::class)->create($this->data);
     }
 }
