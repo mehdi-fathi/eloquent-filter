@@ -6,14 +6,28 @@ use Faker\Factory as FakerFActory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class PostTableSeeder
+ *
+ * @package Tests\Seeds
+ */
 class PostTableSeeder extends Seeder
 {
+    /**
+     * @var array
+     */
     private $data = [];
 
+    /**
+     *
+     */
     public function make_array_data()
     {
     }
 
+    /**
+     *
+     */
     public function run()
     {
         DB::table('posts')->delete();

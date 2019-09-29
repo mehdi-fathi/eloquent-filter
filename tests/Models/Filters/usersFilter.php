@@ -10,6 +10,11 @@ namespace Tests\Models\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Trait usersFilter
+ *
+ * @package Tests\Models\Filters
+ */
 trait usersFilter
 {
     public function username_like(Builder $builder, $value)

@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
 
+/**
+ * Class UserFilterTest
+ */
 class UserFilterTest extends TestCase
 {
     /** @test */

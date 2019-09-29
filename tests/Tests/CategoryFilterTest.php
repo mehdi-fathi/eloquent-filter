@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use Tests\Controllers\CategoriesController;
 use Tests\Models\Category;
 
+/**
+ * Class CategoryFilterTest
+ */
 class CategoryFilterTest extends TestCase
 {
     /** @test */

@@ -7,8 +7,16 @@ use Illuminate\Support\Facades\DB;
 use Tests\Models\Category;
 use Tests\Models\Post;
 
+/**
+ * Class CategoriesPostsTableSeeder
+ *
+ * @package Tests\Seeds
+ */
 class CategoriesPostsTableSeeder extends Seeder
 {
+    /**
+     *
+     */
     public function run()
     {
         DB::table('categories_posts')->delete();

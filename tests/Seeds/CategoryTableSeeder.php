@@ -5,10 +5,21 @@ namespace Tests\Seeds;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class CategoryTableSeeder
+ *
+ * @package Tests\Seeds
+ */
 class CategoryTableSeeder extends Seeder
 {
+    /**
+     * @var array
+     */
     private $data = [];
 
+    /**
+     *
+     */
     public function make_array_data()
     {
         $this->data = [
@@ -46,6 +57,9 @@ class CategoryTableSeeder extends Seeder
         ];
     }
 
+    /**
+     *
+     */
     public function run()
     {
         DB::table('categories')->delete();

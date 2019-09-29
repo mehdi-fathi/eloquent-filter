@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class TestCase
+ */
 class TestCase extends Orchestra\Testbench\TestCase
 {
     /**
