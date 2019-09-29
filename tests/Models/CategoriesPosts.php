@@ -5,9 +5,7 @@ namespace Tests\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CategoriesPosts
- *
- * @package Tests\Models
+ * Class CategoriesPosts.
  */
 class CategoriesPosts extends Model
 {

@@ -6,9 +6,7 @@ use eloquentFilter\QueryFilter\modelFilters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Category
- *
- * @package Tests\Models
+ * Class Category.
  */
 class Category extends Model
 {

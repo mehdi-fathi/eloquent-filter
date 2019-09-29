@@ -6,9 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class UserTableSeeder
- *
- * @package Tests\Seeds
+ * Class UserTableSeeder.
  */
 class UserTableSeeder extends Seeder
 {
@@ -17,9 +15,6 @@ class UserTableSeeder extends Seeder
      */
     private $data = [];
 
-    /**
-     *
-     */
     public function make_array_data()
     {
         $this->data = [
@@ -69,9 +64,6 @@ class UserTableSeeder extends Seeder
         ];
     }
 
-    /**
-     *
-     */
     public function run()
     {
         DB::table('users')->delete();

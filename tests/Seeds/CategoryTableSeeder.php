@@ -6,9 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class CategoryTableSeeder
- *
- * @package Tests\Seeds
+ * Class CategoryTableSeeder.
  */
 class CategoryTableSeeder extends Seeder
 {
@@ -17,9 +15,6 @@ class CategoryTableSeeder extends Seeder
      */
     private $data = [];
 
-    /**
-     *
-     */
     public function make_array_data()
     {
         $this->data = [
@@ -57,9 +52,6 @@ class CategoryTableSeeder extends Seeder
         ];
     }
 
-    /**
-     *
-     */
     public function run()
     {
         DB::table('categories')->delete();

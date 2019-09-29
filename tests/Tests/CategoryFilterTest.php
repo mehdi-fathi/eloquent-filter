@@ -6,7 +6,7 @@ use Tests\Controllers\CategoriesController;
 use Tests\Models\Category;
 
 /**
- * Class CategoryFilterTest
+ * Class CategoryFilterTest.
  */
 class CategoryFilterTest extends TestCase
 {

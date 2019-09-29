@@ -6,7 +6,7 @@ use Tests\Controllers\UsersController;
 use Tests\Models\User;
 
 /**
- * Class UserFilterTest
+ * Class UserFilterTest.
  */
 class UserFilterTest extends TestCase
 {
