@@ -8,15 +8,10 @@ use Tests\Models\Category;
 use Tests\Models\Post;
 
 /**
- * Class CategoriesPostsTableSeeder
- *
- * @package Tests\Seeds
+ * Class CategoriesPostsTableSeeder.
  */
 class CategoriesPostsTableSeeder extends Seeder
 {
-    /**
-     *
-     */
     public function run()
     {
         DB::table('categories_posts')->delete();

@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Tests\Models\Filters\usersFilter;
 
 /**
- * Class User
- *
- * @package Tests\Models
+ * Class User.
  */
 class User extends Model
 {

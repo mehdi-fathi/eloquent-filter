@@ -11,9 +11,7 @@ namespace Tests\Models\Filters;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Trait usersFilter
- *
- * @package Tests\Models\Filters
+ * Trait usersFilter.
  */
 trait usersFilter
 {

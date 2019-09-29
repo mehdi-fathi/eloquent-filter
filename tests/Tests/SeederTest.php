@@ -6,7 +6,7 @@ use Tests\Seeds\PostTableSeeder;
 use Tests\Seeds\UserTableSeeder;
 
 /**
- * Class SeederTest
+ * Class SeederTest.
  */
 class SeederTest extends TestCase
 {

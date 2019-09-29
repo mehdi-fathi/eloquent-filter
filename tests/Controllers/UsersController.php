@@ -6,9 +6,7 @@ use eloquentFilter\QueryFilter\modelFilters\modelFilters;
 use Tests\Models\User;
 
 /**
- * Class UsersController
- *
- * @package Tests\Controllers
+ * Class UsersController.
  */
 class UsersController
 {

@@ -6,9 +6,7 @@ use eloquentFilter\QueryFilter\modelFilters\modelFilters;
 use Tests\Models\Category;
 
 /**
- * Class CategoriesController
- *
- * @package Tests\Controllers
+ * Class CategoriesController.
  */
 class CategoriesController
 {

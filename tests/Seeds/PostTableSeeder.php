@@ -7,9 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class PostTableSeeder
- *
- * @package Tests\Seeds
+ * Class PostTableSeeder.
  */
 class PostTableSeeder extends Seeder
 {
@@ -18,16 +16,10 @@ class PostTableSeeder extends Seeder
      */
     private $data = [];
 
-    /**
-     *
-     */
     public function make_array_data()
     {
     }
 
-    /**
-     *
-     */
     public function run()
     {
         DB::table('posts')->delete();
