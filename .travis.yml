@@ -2,12 +2,6 @@ os: linux
 
 language: php
 
-cache:
-  directories:
-    - $HOME/.composer/cache
-    - ${TRAVIS_BUILD_DIR}/travis/extension-cache
-    - vendor
-
 php:
   - 7.1
   - 7.2
