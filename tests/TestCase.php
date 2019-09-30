@@ -3,7 +3,7 @@
 /**
  * Class TestCase.
  */
-class TestCase extends Orchestra\Testbench\TestCase
+abstract class TestCase extends Orchestra\Testbench\TestCase
 {
     public function setUp(): void
     {
