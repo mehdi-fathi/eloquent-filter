@@ -11,12 +11,12 @@ use Tests\Seeds\UserTableSeeder;
  */
 class UserFilterTest extends TestCase
 {
-
     private function __intiDb()
     {
         $seeder = new UserTableSeeder();
         $seeder->run();
     }
+
     /** @test */
     public function itCanGetUserByEmailAndUsername()
     {
