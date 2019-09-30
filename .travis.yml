@@ -25,8 +25,8 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --prefer-source --no-interaction
   - if [ "$LARAVEL_VERSION" != "" ]; then composer require --dev "laravel/laravel:${LARAVEL_VERSION}" --no-update; fi;
-  - composer update
   - ./vendor/bin/upgrade-carbon
+  - composer update
 
 script:
   - composer test
