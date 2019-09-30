@@ -10,8 +10,8 @@ class TestCase extends Orchestra\Testbench\TestCase
         parent::setUp();
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->withFactories(__DIR__.'/database/factories');
-
     }
+
     /**
      * Define environment setup.
      *
@@ -55,6 +55,5 @@ class TestCase extends Orchestra\Testbench\TestCase
 //        $password.' -e "CREATE DATABASE IF NOT EXISTS '.$database.'"');
 //
 //        $app['config']->set('database.connections.mysql.database', $database);
-
     }
 }
