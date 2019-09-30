@@ -49,6 +49,7 @@ install:
   - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
 
 script:
+  - composer dump-autoload -o
   - composer test
 
 notifications:
