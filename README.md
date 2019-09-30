@@ -1,5 +1,6 @@
 # Eloquent Filter
 [![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
+[![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 
 A package for filter data of models by query string.Easy to use and full dynamic.
 
