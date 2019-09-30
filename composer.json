@@ -15,10 +15,10 @@
     "type": "lib",
     "require": {
         "php": "^7.1",
-        "illuminate/support": "5.5.*|5.6.*|~5.7.*|~5.8.*",
-        "illuminate/container": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-        "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
-        "illuminate/pagination": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*",
+        "illuminate/container": "5.5.*|~5.6.*|5.7.*|5.8.*",
+        "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*",
+        "illuminate/pagination": "5.5.*|5.6.*|5.7.*|5.8.*",
         "fzaninotto/faker": "^1.8"
     },
     "require-dev": {
