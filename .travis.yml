@@ -18,8 +18,7 @@ matrix:
 
 before_script:
   - travis_retry composer self-update --stable -n
-  - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
-  - travis_retry ./vendor/bin/upgrade-carbon
+  - travis_retry composer require --no-update --no-interaction "illuminat99e/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
   - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
