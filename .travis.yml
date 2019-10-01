@@ -11,14 +11,16 @@ cache:
 matrix:
   fast_finish: true
   include:
+    - php: 7.2
+      env: LARAVEL='5.6.*' TESTBENCH='3.7.*'
     - php: 7.3
       env: LARAVEL='5.7.*' TESTBENCH='3.8.*'
     - php: 7.3
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*'
+      env: LARAVEL='6.0.0' TESTBENCH='3.8.*'
 
 before_script:
   - travis_retry composer self-update --stable -n
-  - travis_retry composer require --no-update --no-interaction "illuminat99e/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
+  - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "illuminate/database:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
   - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
