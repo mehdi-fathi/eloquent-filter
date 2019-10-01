@@ -20,10 +20,8 @@ class modelFilters extends queryFilter
     public function __call($field, $arguments)
     {
         if ($this->handelWhiteListFields($field)) {
-
             if (Schema::hasColumn($this->table, $field) &&
                 !method_exists($this->builder->getModel(), $field)) {
-
                 if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
                     $arg['from'] = $arguments[0]['from'];
                     $arg['to'] = $arguments[0]['to'];
@@ -34,9 +32,7 @@ class modelFilters extends queryFilter
             } else {
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
-
         }
-
     }
 
     private function handelWhiteListFields($field)
@@ -46,7 +42,7 @@ class modelFilters extends queryFilter
                 $this->builder->getModel()->whiteListFilter[0] == '*') {
                 return true;
             }
-        }else{
+        } else {
             return true;
         }
 
