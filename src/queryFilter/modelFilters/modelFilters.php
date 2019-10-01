@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Schema;
  */
 class modelFilters extends queryFilter
 {
-
     /**
      * @param $field
      * @param $arguments
@@ -47,6 +46,7 @@ class modelFilters extends queryFilter
         }
 
         $class_name = class_basename($this->builder->getModel());
+
         throw new \Exception("You must set $field in whiteListFilter in $class_name");
     }
 }
