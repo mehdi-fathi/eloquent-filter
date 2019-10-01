@@ -12,7 +12,7 @@ class Category extends Model
 {
     use Filterable;
 
-    public $whiteListFilter =[
+    public $whiteListFilter = [
         'category',
         'created_at',
     ];
