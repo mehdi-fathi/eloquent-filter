@@ -14,6 +14,16 @@ class User extends Model
     use usersFilter,Filterable;
 
     /**
+     * @var array
+     */
+    public $whiteListFilter =[
+        'id',
+        'username',
+        'email',
+        'created_at',
+        'updated_at',
+    ];
+    /**
      * @var string
      */
     protected $table = 'users';

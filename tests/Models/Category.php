@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use Filterable;
+
+    public $whiteListFilter =[
+        'category',
+        'created_at',
+    ];
     protected $fillable = [
         'category',
     ];
