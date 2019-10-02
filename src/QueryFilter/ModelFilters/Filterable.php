@@ -1,8 +1,7 @@
 <?php
+namespace eloquentFilter\QueryFilter\ModelFilters;
 
-namespace eloquentFilter\QueryFilter\modelFilters;
-
-use eloquentFilter\QueryFilter\queryFilter;
+use eloquentFilter\QueryFilter\QueryFilter;
 
 /**
  * Trait Filterable.
@@ -10,8 +9,8 @@ use eloquentFilter\QueryFilter\queryFilter;
 trait Filterable
 {
     /**
-     * @param \eloquentFilter\QueryFilter\modelFilters\modelFilters $query
-     * @param \eloquentFilter\QueryFilter\queryFilter               $filters
+     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $query
+     * @param \eloquentFilter\QueryFilter\QueryFilter               $filters
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */

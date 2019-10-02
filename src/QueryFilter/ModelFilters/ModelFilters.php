@@ -1,14 +1,21 @@
 <?php
+/**
+ * Copyright (c) 2019. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
 
-namespace eloquentFilter\QueryFilter\modelFilters;
+namespace eloquentFilter\QueryFilter\ModelFilters;
 
-use eloquentFilter\QueryFilter\queryFilter;
+use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class modelFilters.
+ * Class ModelFilters.
  */
-class modelFilters extends queryFilter
+class ModelFilters extends QueryFilter
 {
     /**
      * @param $field
@@ -19,8 +26,8 @@ class modelFilters extends queryFilter
     public function __call($field, $arguments)
     {
         if ($this->handelWhiteListFields($field)) {
-            if (Schema::hasColumn($this->table, $field) &&
-                !method_exists($this->builder->getModel(), $field)) {
+            if (!$this->checkModelHasOverrideMethod($field)) {
+
                 if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
                     $arg['from'] = $arguments[0]['from'];
                     $arg['to'] = $arguments[0]['to'];
@@ -28,13 +35,35 @@ class modelFilters extends queryFilter
                 } else {
                     $this->builder->where("$field", $arguments[0]);
                 }
+
             } else {
+
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
         }
     }
 
-    private function handelWhiteListFields($field)
+    /**
+     * @param string $field
+     *
+     * @return bool
+     */
+    private function checkModelHasOverrideMethod(string $field):bool
+    {
+        if (Schema::hasColumn($this->table, $field) &&
+            !method_exists($this->builder->getModel(), $field)){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param string $field
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    private function handelWhiteListFields(string $field)
     {
         if (Schema::hasColumn($this->table, $field)) {
             if (in_array($field, $this->builder->getModel()->whiteListFilter) ||

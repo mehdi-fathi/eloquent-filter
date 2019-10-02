@@ -1,6 +1,6 @@
 <?php
 
-use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
@@ -31,7 +31,7 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 
@@ -58,7 +58,7 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 
@@ -93,7 +93,7 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelfilter = new  modelFilters(
+        $modelfilter = new  ModelFilters(
             $request
         );
 
@@ -137,7 +137,7 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelfilter = new  modelFilters(
+        $modelfilter = new  ModelFilters(
             $request
         );
 
@@ -170,7 +170,7 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new  modelFilters(
+        $modelfilter = new  ModelFilters(
             $request
         );
 
@@ -197,7 +197,7 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new  modelFilters(
+        $modelfilter = new  ModelFilters(
             $request
         );
 

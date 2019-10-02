@@ -2,7 +2,7 @@
 
 namespace Tests\Controllers;
 
-use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Tests\Models\User;
 
 /**
@@ -11,11 +11,11 @@ use Tests\Models\User;
 class UsersController
 {
     /**
-     * @param \eloquentFilter\QueryFilter\modelFilters\modelFilters $filters
+     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $filters
      *
      * @return mixed
      */
-    public static function filter_user(modelFilters $filters)
+    public static function filter_user(ModelFilters $filters)
     {
         $users = User::filter($filters)->get();
 

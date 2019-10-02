@@ -1,6 +1,6 @@
 <?php
 
-use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
 use Tests\Controllers\CategoriesController;
 use Tests\Models\Category;
@@ -28,7 +28,7 @@ class CategoryFilterTest extends TestCase
                 'created_at' => null,
             ]
         );
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 
@@ -52,7 +52,7 @@ class CategoryFilterTest extends TestCase
                 'created_at' => null,
             ]
         );
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 

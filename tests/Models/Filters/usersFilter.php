@@ -15,6 +15,12 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait usersFilter
 {
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param                                       $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function username_like(Builder $builder, $value)
     {
         return $builder->where('username', 'like', '%'.$value.'%');

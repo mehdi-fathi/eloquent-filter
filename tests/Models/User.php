@@ -2,7 +2,7 @@
 
 namespace Tests\Models;
 
-use eloquentFilter\QueryFilter\modelFilters\Filterable;
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Models\Filters\usersFilter;
 
