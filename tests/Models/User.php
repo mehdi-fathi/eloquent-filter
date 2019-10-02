@@ -19,6 +19,7 @@ class User extends Model
     public $whiteListFilter = [
         'id',
         'username',
+        'family',
         'email',
         'created_at',
         'updated_at',

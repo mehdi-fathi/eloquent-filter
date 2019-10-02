@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter;
 
+use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,10 @@ class QueryFilter
      * @var
      */
     protected $builder;
+    /**
+     * @var
+     */
+    protected $queryBuilder;
     /**
      * @var
      */
@@ -42,6 +47,7 @@ class QueryFilter
     public function apply(Builder $builder, $table) :Builder
     {
         $this->builder = $builder;
+        $this->queryBuilder = new QueryBuilder($builder);
         $this->table = $table;
 
         foreach ($this->filters() as $name => $value):

@@ -2,6 +2,7 @@
 
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
 use Tests\Seeds\UserTableSeeder;
@@ -18,7 +19,7 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function itCanGetUserByEmailAndUsername()
+    public function itCanGetUserByFamilyAndUsernames()
     {
         $this->__intiDb();
 
@@ -26,8 +27,11 @@ class UserFilterTest extends TestCase
 
         $request->merge(
             [
-                'username' => 'mehdi',
-                'email'    => 'mehdifathi.developer@gmail.com',
+                'username' => [
+                    'ali',
+                    'ali22'
+                ],
+                'family'    => 'ahmadi',
             ]
         );
 
@@ -35,13 +39,36 @@ class UserFilterTest extends TestCase
             $request
         );
 
+//        DB::enableQueryLog(); // Enable query log
         $users = UsersController::filterUser($modelfilter);
+//        dd(DB::getQueryLog());
 
+        $users_pure = User::where([
+            'family' => 'ahmadi',
+        ])->wherein('username', ['ali', 'ali22'])->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
+    public function itCanGetUserByEmailAndUsername()
+    {
+        $this->__intiDb();
+        $request = new Request();
+        $request->merge(
+            [
+                'username' => 'mehdi',
+                'email'    => 'mehdifathi.developer@gmail.com',
+            ]
+        );
+        $modelfilter = new ModelFilters(
+            $request
+        );
+        $users = UsersController::filterUser($modelfilter);
         $users_pure = User::where([
             'username' => 'mehdi',
             'email'    => 'mehdifathi.developer@gmail.com',
         ])->get();
-
         $this->assertEquals($users_pure, $users);
     }
 

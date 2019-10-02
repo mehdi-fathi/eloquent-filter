@@ -21,6 +21,7 @@ class UsersTestTable extends Migration
             $table->increments('id');
             $table->char('username');
             $table->char('name');
+            $table->char('family');
             $table->text('email');
             $table->text('password');
             $table->timestamps();

@@ -52,13 +52,26 @@ public function list(modelFilters\modelFilters $filters)
 }
 ```
 
+### Simple Where Example
+
 You just pass data blade form to query string or generate query string in controller method.For example:
 
 ```
 http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
+
+SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 ```
+
 ```
 http://eloquent-filter.local/users/list?first_name=mehdi&last_name=fathi
+
+SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
+```
+
+```
+http://eloquent-filter.local/users/list?username[]=ali&username[]=ali22&family=ahmadi
+
+SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
 
 Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
@@ -70,6 +83,8 @@ you can set it on query string as you know.this is a sample url with query strin
 
 ```
 http://eloquent-filter.local/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
+
+SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
 ### Custom query filter
 If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:

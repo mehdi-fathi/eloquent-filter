@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'mehdi',
                 'name'       => 'mahdi',
+                'family'     => 'fathi',
                 'email'      => 'mehdifathi.developer@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => now(),
@@ -29,7 +30,17 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'ali',
                 'name'       => 'ali',
+                'family'     => 'ahmadi',
                 'email'      => 'ali.2000@gmail.com',
+                'password'   => bcrypt('secret'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'username'   => 'ali22',
+                'name'       => 'ali',
+                'family'     => 'ahmadi',
+                'email'      => 'ali.2010.developer@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -37,6 +48,7 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'ahmad',
                 'name'       => 'ahmad',
+                'family'     => 'alavi',
                 'email'      => 'ahmad.x1998@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => now()->addDay(10),
@@ -45,6 +57,7 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'reza',
                 'name'       => 'reza',
+                'family'     => 'mohamadi',
                 'email'      => 'reza.rrz@yahoo.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-01-06 17:11:46',
@@ -53,6 +66,7 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'amir',
                 'name'       => 'amir',
+                'family'     => 'mahmoudi',
                 'email'      => 'amirccx1098xx@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-01-06 17:11:46',
@@ -61,6 +75,7 @@ class UserTableSeeder extends Seeder
             [
                 'username'   => 'ahmad',
                 'name'       => 'ahmad',
+                'family'     => 'kermani',
                 'email'      => 'ahmad.x1998@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-02-06 10:11:46',

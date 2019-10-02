@@ -10,6 +10,7 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\QueryFilter;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -27,13 +28,7 @@ class ModelFilters extends QueryFilter
     {
         if ($this->handelWhiteListFields($field)) {
             if (!$this->checkModelHasOverrideMethod($field)) {
-                if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
-                    $arg['from'] = $arguments[0]['from'];
-                    $arg['to'] = $arguments[0]['to'];
-                    $this->builder->whereBetween($field, [$arg['from'], $arg['to']]);
-                } else {
-                    $this->builder->where("$field", $arguments[0]);
-                }
+                $this->queryBuilder->buildQuery($field,$arguments);
             } else {
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
