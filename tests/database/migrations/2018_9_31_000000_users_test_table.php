@@ -20,6 +20,7 @@ class UsersTestTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->char('username');
+            $table->char('name');
             $table->text('email');
             $table->text('password');
             $table->timestamps();

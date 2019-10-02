@@ -183,4 +183,28 @@ class UserFilterTest extends TestCase
 
         $this->assertEquals($users_pure, $users);
     }
+
+    /** @test */
+    public function itThrowExceptionWhiteList()
+    {
+        $this->__intiDb();
+
+        $request = new Request();
+
+        $request->merge(
+            [
+                'name' => 'mehdi',
+            ]
+        );
+
+        $modelfilter = new  modelFilters(
+            $request
+        );
+
+        try {
+            $users = UsersController::filter_user($modelfilter);
+        } catch (Exception $e) {
+            $this->assertEquals(0, $e->getCode());
+        }
+    }
 }
