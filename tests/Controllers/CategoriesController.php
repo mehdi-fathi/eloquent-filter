@@ -2,7 +2,7 @@
 
 namespace Tests\Controllers;
 
-use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Tests\Models\Category;
 
 /**
@@ -11,11 +11,11 @@ use Tests\Models\Category;
 class CategoriesController
 {
     /**
-     * @param \eloquentFilter\QueryFilter\modelFilters\modelFilters $filters
+     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $filters
      *
      * @return mixed
      */
-    public static function filter_category(modelFilters $filters)
+    public static function filterCategory(ModelFilters $filters)
     {
         $categories = Category::filter($filters)->get();
 

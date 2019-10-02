@@ -1,6 +1,6 @@
 <?php
 
-use eloquentFilter\QueryFilter\modelFilters\modelFilters;
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
 use Tests\Controllers\CategoriesController;
 use Tests\Models\Category;
@@ -28,11 +28,11 @@ class CategoryFilterTest extends TestCase
                 'created_at' => null,
             ]
         );
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 
-        $category = CategoriesController::filter_category($modelfilter);
+        $category = CategoriesController::filterCategory($modelfilter);
         $category_pure = Category::where([
             'category'   => 'Html',
             'created_at' => null,
@@ -52,11 +52,11 @@ class CategoryFilterTest extends TestCase
                 'created_at' => null,
             ]
         );
-        $modelfilter = new modelFilters(
+        $modelfilter = new ModelFilters(
             $request
         );
 
-        $category = CategoriesController::filter_category($modelfilter);
+        $category = CategoriesController::filterCategory($modelfilter);
 
         $this->assertNotEmpty($category);
     }
