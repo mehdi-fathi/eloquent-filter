@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'username'   => 'ali',
-                'name'   => 'ali',
+                'name'       => 'ali',
                 'email'      => 'ali.2000@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => now(),
@@ -36,7 +36,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'username'   => 'ahmad',
-                'name'   => 'ahmad',
+                'name'       => 'ahmad',
                 'email'      => 'ahmad.x1998@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => now()->addDay(10),
@@ -44,7 +44,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'username'   => 'reza',
-                'name'   => 'reza',
+                'name'       => 'reza',
                 'email'      => 'reza.rrz@yahoo.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-01-06 17:11:46',
@@ -52,7 +52,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'username'   => 'amir',
-                'name'   => 'amir',
+                'name'       => 'amir',
                 'email'      => 'amirccx1098xx@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-01-06 17:11:46',
@@ -60,7 +60,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'username'   => 'ahmad',
-                'name'   => 'ahmad',
+                'name'       => 'ahmad',
                 'email'      => 'ahmad.x1998@gmail.com',
                 'password'   => bcrypt('secret'),
                 'created_at' => '2019-02-06 10:11:46',
