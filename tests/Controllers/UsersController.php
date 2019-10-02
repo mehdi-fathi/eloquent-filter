@@ -15,7 +15,7 @@ class UsersController
      *
      * @return mixed
      */
-    public static function filter_user(ModelFilters $filters)
+    public static function filterUser(ModelFilters $filters)
     {
         $users = User::filter($filters)->get();
 

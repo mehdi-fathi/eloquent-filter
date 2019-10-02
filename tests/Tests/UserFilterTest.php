@@ -35,7 +35,7 @@ class UserFilterTest extends TestCase
             $request
         );
 
-        $users = UsersController::filter_user($modelfilter);
+        $users = UsersController::filterUser($modelfilter);
 
         $users_pure = User::where([
             'username' => 'mehdi',
@@ -62,7 +62,7 @@ class UserFilterTest extends TestCase
             $request
         );
 
-        $users = UsersController::filter_user($modelfilter);
+        $users = UsersController::filterUser($modelfilter);
 
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
@@ -99,7 +99,7 @@ class UserFilterTest extends TestCase
 
         DB::connection()->enableQueryLog();
 
-        $users = UsersController::filter_user($modelfilter);
+        $users = UsersController::filterUser($modelfilter);
 
         $users_pure = User::whereBetween(
             'created_at',
@@ -143,7 +143,7 @@ class UserFilterTest extends TestCase
 
         DB::connection()->enableQueryLog();
 
-        $users = UsersController::filter_user($modelfilter);
+        $users = UsersController::filterUser($modelfilter);
 
         $users_pure = User::whereBetween(
             'created_at',
@@ -174,7 +174,7 @@ class UserFilterTest extends TestCase
             $request
         );
 
-        $users = UsersController::filter_user($modelfilter);
+        $users = UsersController::filterUser($modelfilter);
 
         $users_pure = User::where([
             'username' => 'mehdi',
@@ -202,7 +202,7 @@ class UserFilterTest extends TestCase
         );
 
         try {
-            $users = UsersController::filter_user($modelfilter);
+            $users = UsersController::filterUser($modelfilter);
         } catch (Exception $e) {
             $this->assertEquals(0, $e->getCode());
         }

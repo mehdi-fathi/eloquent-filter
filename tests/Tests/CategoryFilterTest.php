@@ -32,7 +32,7 @@ class CategoryFilterTest extends TestCase
             $request
         );
 
-        $category = CategoriesController::filter_category($modelfilter);
+        $category = CategoriesController::filterCategory($modelfilter);
         $category_pure = Category::where([
             'category'   => 'Html',
             'created_at' => null,
@@ -56,7 +56,7 @@ class CategoryFilterTest extends TestCase
             $request
         );
 
-        $category = CategoriesController::filter_category($modelfilter);
+        $category = CategoriesController::filterCategory($modelfilter);
 
         $this->assertNotEmpty($category);
     }
