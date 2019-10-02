@@ -12,12 +12,20 @@ Run the Composer command
 
 ## Basic Usage
 
-Add trait to your models.You can override this method in your models.
+Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
 
 ```php
 use Filterable;
+
+public $whiteListFilter =[
+    'id',
+    'username',
+    'email',
+    'created_at',
+    'updated_at',
+];
 ```
-Change your code on controller as like belove example:
+Change your code on controller as like below example:
 
 ```php
 public function list(modelFilters\modelFilters $filters)
@@ -43,7 +51,7 @@ http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
 http://eloquent-filter.local/users/list?first_name=mehdi&last_name=fathi
 ```
 
-Just fields of query string be same rows table database
+Just fields of query string be same rows table database and adjusted in $whiteListFilter in your model.
 
 ### Date query filter
 
@@ -65,7 +73,7 @@ trait usersFilter
     }
 }
 ```
-Note that fields of query string be same methods trait.use trait in your model :
+Note that fields of query string be same methods trait.use trait in your model:
 
 ```php
 class User extends Model
