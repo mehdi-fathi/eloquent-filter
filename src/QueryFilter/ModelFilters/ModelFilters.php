@@ -27,7 +27,6 @@ class ModelFilters extends QueryFilter
     {
         if ($this->handelWhiteListFields($field)) {
             if (!$this->checkModelHasOverrideMethod($field)) {
-
                 if (!empty($arguments[0]['from']) && !empty($arguments[0]['to'])) {
                     $arg['from'] = $arguments[0]['from'];
                     $arg['to'] = $arguments[0]['to'];
@@ -35,9 +34,7 @@ class ModelFilters extends QueryFilter
                 } else {
                     $this->builder->where("$field", $arguments[0]);
                 }
-
             } else {
-
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
         }
@@ -51,17 +48,19 @@ class ModelFilters extends QueryFilter
     private function checkModelHasOverrideMethod(string $field):bool
     {
         if (Schema::hasColumn($this->table, $field) &&
-            !method_exists($this->builder->getModel(), $field)){
+            !method_exists($this->builder->getModel(), $field)) {
             return false;
         }
+
         return true;
     }
 
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     private function handelWhiteListFields(string $field)
     {
