@@ -15,16 +15,26 @@ Run the Composer command
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
 
 ```php
-use Filterable;
-
-public $whiteListFilter =[
-    'id',
-    'username',
-    'email',
-    'created_at',
-    'updated_at',
-];
+use eloquentFilter\QueryFilter\modelFilters\Filterable;
+class User extends Model
+{
+    use Filterable;
+    
+    public $whiteListFilter =[
+        'id',
+        'username',
+        'email',
+        'created_at',
+        'updated_at',
+    ];
+}
 ```
+You can set `*` char for filter in all fields as like below example:
+ 
+```php
+public $whiteListFilter = ['*'];
+```
+
 Change your code on controller as like below example:
 
 ```php
@@ -51,7 +61,7 @@ http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
 http://eloquent-filter.local/users/list?first_name=mehdi&last_name=fathi
 ```
 
-Just fields of query string be same rows table database and adjusted in $whiteListFilter in your model.
+Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
 
 ### Date query filter
 
