@@ -5,9 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class QueryFilterBuilder
- *
- * @package eloquentFilter\QueryFilter\Queries
+ * Class QueryFilterBuilder.
  */
 class QueryFilterBuilder
 {

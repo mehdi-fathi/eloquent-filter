@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\QueryFilter;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -11,9 +10,8 @@ use Illuminate\Support\Facades\Schema;
  */
 class ModelFilters extends QueryFilter
 {
-
     private $_specificFields = [
-        'operator'
+        'operator',
     ];
 
     /**
@@ -51,9 +49,9 @@ class ModelFilters extends QueryFilter
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     private function handelWhiteListFields(string $field)
     {
@@ -76,6 +74,7 @@ class ModelFilters extends QueryFilter
         if (in_array($field, $this->_specificFields)) {
             return true;
         }
+
         return true;
     }
 }

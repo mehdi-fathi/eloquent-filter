@@ -5,9 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class QueryBuilder
- *
- * @package eloquentFilter\QueryFilter\Queries
+ * Class QueryBuilder.
  */
 class QueryBuilder
 {
@@ -38,7 +36,6 @@ class QueryBuilder
      */
     public function buildQuery($field, array $params)
     {
-
         if (!empty($params[0]['start']) && !empty($params[0]['end'])) {
             $this->queryFilterBuilder->whereBetween($field, $params);
         } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {

@@ -29,7 +29,7 @@ class UserFilterTest extends TestCase
             [
                 'username' => [
                     'ali',
-                    'ali22'
+                    'ali22',
                 ],
                 'family'    => 'ahmadi',
             ]
@@ -156,8 +156,8 @@ class UserFilterTest extends TestCase
         $data = [
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
-            ]
+                'value'    => 35,
+            ],
         ];
 
         $request->merge(
