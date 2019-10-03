@@ -1,4 +1,5 @@
 <?php
+
 namespace eloquentFilter\QueryFilter\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -37,8 +38,11 @@ class QueryBuilder
      */
     public function buildQuery($field, array $params)
     {
-        if (!empty($params[0]['from']) && !empty($params[0]['to'])) {
+
+        if (!empty($params[0]['start']) && !empty($params[0]['end'])) {
             $this->queryFilterBuilder->whereBetween($field, $params);
+        } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {
+            $this->queryFilterBuilder->whereByOpt($field, $params);
         } elseif (is_array($params[0])) {
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
         } else {

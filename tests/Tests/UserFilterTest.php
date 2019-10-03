@@ -35,12 +35,12 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new ModelFilters(
+        $modelFilter = new ModelFilters(
             $request
         );
 
 //        DB::enableQueryLog(); // Enable query log
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelFilter);
 //        dd(DB::getQueryLog());
 
         $users_pure = User::where([
@@ -85,11 +85,11 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new ModelFilters(
+        $modelFilter = new ModelFilters(
             $request
         );
 
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelFilter);
 
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
@@ -106,12 +106,12 @@ class UserFilterTest extends TestCase
 
         $data = [
             'created_at' => [
-                'from' => now()->subDays(10),
-                'to'   => now()->addDays(30),
+                'start' => now()->subDays(10),
+                'end'   => now()->addDays(30),
             ],
             'updated_at' => [
-                'from' => now()->subDays(10),
-                'to'   => now()->addDays(30),
+                'start' => now()->subDays(10),
+                'end'   => now()->addDays(30),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -131,16 +131,48 @@ class UserFilterTest extends TestCase
         $users_pure = User::whereBetween(
             'created_at',
             [
-                $data['created_at']['from'],
-                $data['created_at']['to'],
+                $data['created_at']['start'],
+                $data['created_at']['end'],
             ]
         )->whereBetween(
             'updated_at',
             [
-                $data['updated_at']['from'],
-                $data['updated_at']['to'],
+                $data['updated_at']['start'],
+                $data['updated_at']['end'],
             ]
         )->where('email', $data['email'])
+            ->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
+    public function itCanGetUsersThatHasGreaterThan35CountPosts()
+    {
+        $this->__intiDb();
+
+        $request = new Request();
+
+        $data = [
+            'count_posts' => [
+                'operator' => '>',
+                'value' => 35,
+            ]
+        ];
+
+        $request->merge(
+            $data
+        );
+
+        $modelFilter = new  ModelFilters(
+            $request
+        );
+
+        DB::connection()->enableQueryLog();
+
+        $users = UsersController::filterUser($modelFilter);
+
+        $users_pure = User::where('count_posts','>', 35)
             ->get();
 
         $this->assertEquals($users_pure, $users);
@@ -155,8 +187,8 @@ class UserFilterTest extends TestCase
 
         $data = [
             'created_at' => [
-                'from' => '2019-01-01 17:11:46',
-                'to'   => '2019-02-06 10:11:46',
+                'start' => '2019-01-01 17:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ];
 
@@ -164,19 +196,19 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelfilter = new  ModelFilters(
+        $modelFilter = new  ModelFilters(
             $request
         );
 
         DB::connection()->enableQueryLog();
 
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelFilter);
 
         $users_pure = User::whereBetween(
             'created_at',
             [
-                $data['created_at']['from'],
-                $data['created_at']['to'],
+                $data['created_at']['start'],
+                $data['created_at']['end'],
             ]
         )->get();
 
@@ -197,11 +229,11 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new  ModelFilters(
+        $modelFilter = new  ModelFilters(
             $request
         );
 
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelFilter);
 
         $users_pure = User::where([
             'username' => 'mehdi',
@@ -224,12 +256,12 @@ class UserFilterTest extends TestCase
             ]
         );
 
-        $modelfilter = new  ModelFilters(
+        $modelFilter = new  ModelFilters(
             $request
         );
 
         try {
-            $users = UsersController::filterUser($modelfilter);
+            $users = UsersController::filterUser($modelFilter);
         } catch (Exception $e) {
             $this->assertEquals(0, $e->getCode());
         }

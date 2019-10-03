@@ -21,6 +21,7 @@ class User extends Model
         'username',
         'family',
         'email',
+        'count_posts',
         'created_at',
         'updated_at',
     ];

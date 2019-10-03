@@ -33,8 +33,8 @@ class QueryFilterBuilder
      */
     public function whereBetween($field, array $params)
     {
-        $start = $params[0]['from'];
-        $end = $params[0]['to'];
+        $start = $params[0]['start'];
+        $end = $params[0]['end'];
         $this->builder->whereBetween($field, [$start, $end]);
     }
 
@@ -45,6 +45,17 @@ class QueryFilterBuilder
     public function where($field, $value)
     {
        $this->builder->where("$field", $value);
+    }
+
+    /**
+     * @param $field
+     * @param $params
+     */
+    public function whereByOpt($field,$params)
+    {
+        $opt = $params[0]['operator'];
+        $value = $params[0]['value'];
+        $this->builder->where("$field","$opt", $value);
     }
 
     /**

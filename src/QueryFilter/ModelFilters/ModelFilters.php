@@ -1,4 +1,5 @@
 <?php
+
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\QueryFilter;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Schema;
  */
 class ModelFilters extends QueryFilter
 {
+
+    private $_specificFields = [
+        'operator'
+    ];
+
     /**
      * @param $field
      * @param $arguments
@@ -20,11 +26,12 @@ class ModelFilters extends QueryFilter
     {
         if ($this->handelWhiteListFields($field)) {
             if (!$this->checkModelHasOverrideMethod($field)) {
-                $this->queryBuilder->buildQuery($field,$arguments);
+                $this->queryBuilder->buildQuery($field, $arguments);
             } else {
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
         }
+
     }
 
     /**
@@ -32,7 +39,7 @@ class ModelFilters extends QueryFilter
      *
      * @return bool
      */
-    private function checkModelHasOverrideMethod(string $field):bool
+    private function checkModelHasOverrideMethod(string $field): bool
     {
         if (Schema::hasColumn($this->table, $field) &&
             !method_exists($this->builder->getModel(), $field)) {
@@ -45,9 +52,9 @@ class ModelFilters extends QueryFilter
     /**
      * @param string $field
      *
+     * @return bool
      * @throws \Exception
      *
-     * @return bool
      */
     private function handelWhiteListFields(string $field)
     {
@@ -63,5 +70,13 @@ class ModelFilters extends QueryFilter
         $class_name = class_basename($this->builder->getModel());
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name");
+    }
+
+    public function handelSpecificFields(string $field)
+    {
+        if (in_array($field, $this->_specificFields)) {
+            return true;
+        }
+        return true;
     }
 }

@@ -74,6 +74,12 @@ http://eloquent-filter.local/users/list?username[]=ali&username[]=ali22&family=a
 SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
 
+```
+http://eloquent-filter.local/users/list?count_posts['operator']=>&count_posts['value']=35
+
+SELECT ... WHERE ... count_posts > 35
+```
+
 Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
 
 ### Date query filter
