@@ -172,7 +172,7 @@ class UserFilterTest extends TestCase
 
         $users = UsersController::filterUser($modelFilter);
 
-        $users_pure = User::where('count_posts','>', 35)
+        $users_pure = User::where('count_posts', '>', 35)
             ->get();
 
         $this->assertEquals($users_pure, $users);

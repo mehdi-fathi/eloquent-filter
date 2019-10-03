@@ -2,7 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -44,18 +43,18 @@ class QueryFilterBuilder
      */
     public function where($field, $value)
     {
-       $this->builder->where("$field", $value);
+        $this->builder->where("$field", $value);
     }
 
     /**
      * @param $field
      * @param $params
      */
-    public function whereByOpt($field,$params)
+    public function whereByOpt($field, $params)
     {
         $opt = $params[0]['operator'];
         $value = $params[0]['value'];
-        $this->builder->where("$field","$opt", $value);
+        $this->builder->where("$field", "$opt", $value);
     }
 
     /**

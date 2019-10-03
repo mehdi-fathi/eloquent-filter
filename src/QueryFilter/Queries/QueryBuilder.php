@@ -49,5 +49,4 @@ class QueryBuilder
             $this->queryFilterBuilder->where("$field", $params[0]);
         }
     }
-
 }
