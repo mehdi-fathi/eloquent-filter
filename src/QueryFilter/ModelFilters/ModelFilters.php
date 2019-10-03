@@ -27,7 +27,6 @@ class ModelFilters extends QueryFilter
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             }
         }
-
     }
 
     /**
