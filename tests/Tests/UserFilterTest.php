@@ -203,7 +203,7 @@ class UserFilterTest extends TestCase
 
         $users = UsersController::filterUser($modelFilter);
 
-        $users_pure = User::where('name','ali')
+        $users_pure = User::where('name', 'ali')
             ->get();
 
         $this->assertEquals($users_pure, $users);
