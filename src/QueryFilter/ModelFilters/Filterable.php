@@ -19,4 +19,22 @@ trait Filterable
     {
         return $filters->apply($query, $this->getTable());
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getWhiteListFilter()
+    {
+        return self::$whiteListFilter;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public static function setWhiteListFilter($value)
+    {
+        self::$whiteListFilter[]=$value;
+    }
 }

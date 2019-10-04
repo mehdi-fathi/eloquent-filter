@@ -38,7 +38,6 @@ class ModelFilters extends QueryFilter
             !method_exists($this->builder->getModel(), $field)) {
             return false;
         }
-
         return true;
     }
 
@@ -52,8 +51,8 @@ class ModelFilters extends QueryFilter
     private function handelWhiteListFields(string $field)
     {
         if (Schema::hasColumn($this->table, $field)) {
-            if (in_array($field, $this->builder->getModel()->whiteListFilter) ||
-                $this->builder->getModel()->whiteListFilter[0] == '*') {
+            if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
+                $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
                 return true;
             }
         } else {
@@ -61,7 +60,6 @@ class ModelFilters extends QueryFilter
         }
 
         $class_name = class_basename($this->builder->getModel());
-
         throw new \Exception("You must set $field in whiteListFilter in $class_name");
     }
 }

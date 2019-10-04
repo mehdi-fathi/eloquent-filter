@@ -179,6 +179,68 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
+    public function itCanGetUsersByNameWhiteList()
+    {
+        $this->__intiDb();
+
+        User::setWhiteListFilter('name');
+
+        $request = new Request();
+
+        $data = [
+            'name' => 'ali'
+        ];
+
+        $request->merge(
+            $data
+        );
+
+        $modelFilter = new  ModelFilters(
+            $request
+        );
+
+        DB::connection()->enableQueryLog();
+
+        $users = UsersController::filterUser($modelFilter);
+
+        $users_pure = User::where('name','ali')
+            ->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+    /** @test */
+    public function itCanGetUsersIsNot()
+    {
+        $this->__intiDb();
+
+        $request = new Request();
+
+        $data = [
+            'username' => [
+                'operator' => '!=',
+                'value'    => 'ali',
+            ],
+        ];
+
+        $request->merge(
+            $data
+        );
+
+        $modelFilter = new  ModelFilters(
+            $request
+        );
+
+        DB::connection()->enableQueryLog();
+
+        $users = UsersController::filterUser($modelFilter);
+
+        $users_pure = User::where('username', '!=', 'ali')
+            ->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
     public function itCanGetUserByDateFrom()
     {
         $this->__intiDb();
@@ -252,7 +314,7 @@ class UserFilterTest extends TestCase
 
         $request->merge(
             [
-                'name' => 'mehdi',
+                'role' => 'admin',
             ]
         );
 
