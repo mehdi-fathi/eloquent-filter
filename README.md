@@ -20,7 +20,7 @@ class User extends Model
 {
     use Filterable;
     
-    public $whiteListFilter =[
+    private static $whiteListFilter =[
         'id',
         'username',
         'email',
@@ -32,7 +32,7 @@ class User extends Model
 You can set `*` char for filter in all fields as like below example:
  
 ```php
-public $whiteListFilter = ['*'];
+private static $whiteListFilter = ['*'];
 ```
 You can add or set `$whiteListFilter` on the fly in your method.For example:
 
@@ -138,7 +138,7 @@ class User extends Model
 
     protected $table = 'users';
     protected $guarded = [];
-    public $whiteListFilter =[
+    private static $whiteListFilter =[
         'id',
         'username',
         'email',
