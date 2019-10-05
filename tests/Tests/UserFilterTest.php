@@ -52,7 +52,7 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.com',
+                'email'    => 'mehdifathi.developer@gmail.com',
             ]
         );
         $modelfilter = new ModelFilters(
@@ -61,7 +61,7 @@ class UserFilterTest extends TestCase
         $users = UsersController::filterUser($modelfilter);
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'    => 'mehdifathi.developer@gmail.com',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -91,11 +91,11 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => now()->subDays(10),
-                'end' => now()->addDays(30),
+                'end'   => now()->addDays(30),
             ],
             'updated_at' => [
                 'start' => now()->subDays(10),
-                'end' => now()->addDays(30),
+                'end'   => now()->addDays(30),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -130,7 +130,7 @@ class UserFilterTest extends TestCase
         $data = [
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ];
         $this->request->merge(
@@ -152,7 +152,7 @@ class UserFilterTest extends TestCase
         $this->__int();
         User::setWhiteListFilter(['name']);
         $data = [
-            'name' => 'ali'
+            'name' => 'ali',
         ];
         $this->request->merge(
             $data
@@ -183,7 +183,7 @@ class UserFilterTest extends TestCase
         $this->__int();
         User::addWhiteListFilter('name');
         $data = [
-            'name' => 'ali'
+            'name' => 'ali',
         ];
         $this->request->merge(
             $data
@@ -204,7 +204,7 @@ class UserFilterTest extends TestCase
         $data = [
             'username' => [
                 'operator' => '!=',
-                'value' => 'ali',
+                'value'    => 'ali',
             ],
         ];
         $this->request->merge(
@@ -226,7 +226,7 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ];
         $this->request->merge(
@@ -253,7 +253,7 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.ccom',
+                'email'    => 'mehdifathi.developer@gmail.ccom',
             ]
         );
         $modelFilter = new  ModelFilters(
@@ -262,7 +262,7 @@ class UserFilterTest extends TestCase
         $users = UsersController::filterUser($modelFilter);
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.ccom',
+            'email'    => 'mehdifathi.developer@gmail.ccom',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -279,6 +279,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
+
         try {
             $users = UsersController::filterUser($modelFilter);
         } catch (Exception $e) {

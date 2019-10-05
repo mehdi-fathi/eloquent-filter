@@ -38,6 +38,7 @@ class ModelFilters extends QueryFilter
             !method_exists($this->builder->getModel(), $field)) {
             return false;
         }
+
         return true;
     }
 
@@ -60,6 +61,7 @@ class ModelFilters extends QueryFilter
         }
 
         $class_name = class_basename($this->builder->getModel());
+
         throw new \Exception("You must set $field in whiteListFilter in $class_name");
     }
 }
