@@ -16,10 +16,12 @@ class User extends Model
     /**
      * @var array
      */
-    public $whiteListFilter = [
+    private static $whiteListFilter = [
         'id',
         'username',
+        'family',
         'email',
+        'count_posts',
         'created_at',
         'updated_at',
     ];
