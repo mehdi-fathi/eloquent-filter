@@ -15,7 +15,7 @@ trait Filterable
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFilter($query, QueryFilter $filters) :\Illuminate\Database\Eloquent\Builder
+    public function scopeFilter($query, QueryFilter $filters): \Illuminate\Database\Eloquent\Builder
     {
         return $filters->apply($query, $this->getTable());
     }
@@ -33,8 +33,17 @@ trait Filterable
      *
      * @return mixed
      */
-    public static function setWhiteListFilter($value)
+    public static function addWhiteListFilter($value)
     {
-        self::$whiteListFilter[]=$value;
+        self::$whiteListFilter[] = $value;
+    }
+    /**
+     * @param $array
+     *
+     * @return mixed
+     */
+    public static function setWhiteListFilter(array $array)
+    {
+        self::$whiteListFilter = $array;
     }
 }
