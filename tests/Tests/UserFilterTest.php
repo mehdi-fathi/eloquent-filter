@@ -183,7 +183,7 @@ class UserFilterTest extends TestCase
         $this->__int();
         User::addWhiteListFilter('name');
         $data = [
-            'name' => 'ali'
+            'name' => 'ali',
         ];
         $this->request->merge(
             $data
