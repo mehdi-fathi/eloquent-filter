@@ -34,6 +34,18 @@ You can set `*` char for filter in all fields as like below example:
 ```php
 public $whiteListFilter = ['*'];
 ```
+You can add or set `$whiteListFilter` on the fly in your method.For example:
+
+#### Set array to WhiteListFilter
+Note that this method override `$whiteListFilter`
+```php
+User::setWhiteListFilter(['name']); 
+```
+#### Add new field to WhiteListFilter
+```php
+User::addWhiteListFilter('name'); 
+```
+
 
 Change your code on controller as like below example:
 
@@ -52,43 +64,57 @@ public function list(modelFilters\modelFilters $filters)
 }
 ```
 
-### Simple Where Example
+### Simple Example
 
 You just pass data blade form to query string or generate query string in controller method.For example:
 
+**Simple Where**
 ```
-http://eloquent-filter.local/users/list?email=mehdifathi.developer@gmail.com
+?email=mehdifathi.developer@gmail.com
 
 SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 ```
 
 ```
-http://eloquent-filter.local/users/list?first_name=mehdi&last_name=fathi
+?first_name=mehdi&last_name=fathi
 
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
 ```
-http://eloquent-filter.local/users/list?username[]=ali&username[]=ali22&family=ahmadi
+?username[]=ali&username[]=ali22&family=ahmadi
 
 SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
+***Where by operator***
+
+You can set any operator mysql in query string.
 
 ```
-http://eloquent-filter.local/users/list?count_posts['operator']=>&count_posts['value']=35
+?count_posts['operator']=>&count_posts['value']=35
 
 SELECT ... WHERE ... count_posts > 35
+```
+```
+?count_posts['operator']=!=&username['value']=ali
+
+SELECT ... WHERE ... username != ali
+```
+```
+?count_posts['operator']=<&count_posts['value']=25
+
+SELECT ... WHERE ... count_posts < 25
 ```
 
 Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
 
-### Date query filter
+***Where between***
 
 If you are going to make query whereBetween.you just send array as the value.you must fill keys from and to in array.
 you can set it on query string as you know.this is a sample url with query string filter
 
 ```
-http://eloquent-filter.local/users/list?created_at[from]=2016/05/01&created_at[to]=2017/10/01
+?created_at[start]=2016/05/01&created_at[end]=2017/10/01
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
@@ -113,6 +139,13 @@ class User extends Model
 
     protected $table = 'users';
     protected $guarded = [];
+    public $whiteListFilter =[
+        'id',
+        'username',
+        'email',
+        'created_at',
+        'updated_at',
+    ];
     
 }
 ```
