@@ -37,6 +37,7 @@ trait Filterable
     {
         self::$whiteListFilter[] = $value;
     }
+
     /**
      * @param $array
      *
