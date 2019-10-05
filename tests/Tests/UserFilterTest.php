@@ -13,7 +13,7 @@ class UserFilterTest extends TestCase
 {
     public $request;
 
-    private function __int()
+    private function __init()
     {
         $seeder = new UserTableSeeder();
         $seeder->run();
@@ -23,7 +23,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByFamilyAndUsernames()
     {
-        $this->__int();
+        $this->__init();
         $this->request->merge(
             [
                 'username' => [
@@ -48,7 +48,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByEmailAndUsername()
     {
-        $this->__int();
+        $this->__init();
         $this->request->merge(
             [
                 'username' => 'mehdi',
@@ -69,7 +69,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByCustomfilter()
     {
-        $this->__int();
+        $this->__init();
         $this->request->merge(
             [
                 'username_like' => 'a',
@@ -87,7 +87,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByDateToAndFromAndEmail()
     {
-        $this->__int();
+        $this->__init();
         $data = [
             'created_at' => [
                 'start' => now()->subDays(10),
@@ -126,7 +126,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUsersThatHasGreaterThan35CountPosts()
     {
-        $this->__int();
+        $this->__init();
         $data = [
             'count_posts' => [
                 'operator' => '>',
@@ -149,7 +149,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUsersByNameSetWhiteList()
     {
-        $this->__int();
+        $this->__init();
         User::setWhiteListFilter(['name']);
         $data = [
             'name' => 'ali'
@@ -180,7 +180,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUsersByNameWhiteList()
     {
-        $this->__int();
+        $this->__init();
         User::addWhiteListFilter('name');
         $data = [
             'name' => 'ali',
@@ -200,7 +200,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUsersIsNot()
     {
-        $this->__int();
+        $this->__init();
         $data = [
             'username' => [
                 'operator' => '!=',
@@ -222,7 +222,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetUserByDateFrom()
     {
-        $this->__int();
+        $this->__init();
         $data = [
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
@@ -249,7 +249,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itCanGetGetUserByEmailUsername()
     {
-        $this->__int();
+        $this->__init();
         $this->request->merge(
             [
                 'username' => 'mehdi',
@@ -270,7 +270,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function itThrowExceptionWhiteList()
     {
-        $this->__int();
+        $this->__init();
         $this->request->merge(
             [
                 'role' => 'admin',
