@@ -90,17 +90,17 @@ SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi
 You can set any operator mysql in query string.
 
 ```
-?count_posts['operator']=>&count_posts['value']=35
+?count_posts[operator]=>&count_posts[value]=35
 
 SELECT ... WHERE ... count_posts > 35
 ```
 ```
-?count_posts['operator']=!=&username['value']=ali
+?count_posts[operator]=!=&username[value]=ali
 
 SELECT ... WHERE ... username != ali
 ```
 ```
-?count_posts['operator']=<&count_posts['value']=25
+?count_posts[operator]=<&count_posts[value]=25
 
 SELECT ... WHERE ... count_posts < 25
 ```
