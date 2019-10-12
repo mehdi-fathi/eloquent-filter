@@ -114,6 +114,21 @@ select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi'
 
 Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
 
+****Special Params****
+
+You can set special params `limit` and `orderBy` in query string for make query by that.
+```
+/users/list?f_params['limit']=1
+
+SELECT ... WHERE ... order by `id` desc limit 1 offset 0
+```
+
+```
+/users/list?f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
+
+SELECT ... WHERE ... order by `id` ASC limit 10 offset 0
+```
+
 ***Where between***
 
 If you are going to make query whereBetween.you just send array as the value.you must fill keys from and to in array.
