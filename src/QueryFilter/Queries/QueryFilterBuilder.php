@@ -65,7 +65,7 @@ class QueryFilterBuilder
     }
 
     /**
-     * @param       $limit
+     * @param $limit
      */
     public function limit(int $limit)
     {
@@ -73,8 +73,8 @@ class QueryFilterBuilder
     }
 
     /**
-     * @param       $field
-     * @param       $type
+     * @param $field
+     * @param $type
      */
     public function orderBy(string $field, string $type)
     {
