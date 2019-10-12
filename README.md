@@ -69,19 +69,19 @@ You just pass data blade form to query string or generate query string in contro
 
 **Simple Where**
 ```
-?email=mehdifathi.developer@gmail.com
+/users/list?email=mehdifathi.developer@gmail.com
 
 SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 ```
 
 ```
-?first_name=mehdi&last_name=fathi
+/users/list?first_name=mehdi&last_name=fathi
 
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
 ```
-?username[]=ali&username[]=ali22&family=ahmadi
+/users/list?username[]=ali&username[]=ali22&family=ahmadi
 
 SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
@@ -90,19 +90,26 @@ SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi
 You can set any operator mysql in query string.
 
 ```
-?count_posts[operator]=>&count_posts[value]=35
+/users/list?count_posts[operator]=>&count_posts[value]=35
 
 SELECT ... WHERE ... count_posts > 35
 ```
 ```
-?count_posts[operator]=!=&username[value]=ali
+/users/list?username[operator]=!=&username[value]=ali
 
-SELECT ... WHERE ... username != ali
+SELECT ... WHERE ... username != 'ali'
 ```
 ```
-?count_posts[operator]=<&count_posts[value]=25
+/users/list?count_posts[operator]=<&count_posts[value]=25
 
 SELECT ... WHERE ... count_posts < 25
+```
+****Advanced Where****
+```
+/users/list?count_posts[operator]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
+
+select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi') and 
+`family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' desc limit 10 offset 0
 ```
 
 Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
@@ -113,7 +120,7 @@ If you are going to make query whereBetween.you just send array as the value.you
 you can set it on query string as you know.this is a sample url with query string filter
 
 ```
-?created_at[start]=2016/05/01&created_at[end]=2017/10/01
+/users/list?created_at[start]=2016/05/01&created_at[end]=2017/10/01
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
@@ -121,15 +128,33 @@ SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:
 
 ```php
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * Trait usersFilter.
+ */
 trait usersFilter
 {
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param                                       $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function username_like(Builder $builder, $value)
     {
-        return $builder->where('username', 'like', '%' . $value . '%');
+        return $builder->where('username', 'like', '%'.$value.'%');
     }
 }
 ```
-Note that fields of query string be same methods trait.use trait in your model:
+
+Note that fields of query string be same methods of trait.use trait in your model:
+
+```
+/users/list?username_like=a
+
+select * from `users` where `username` like %a% order by `id` desc limit 10 offset 0
+```
 
 ```php
 class User extends Model
