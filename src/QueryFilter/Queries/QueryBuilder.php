@@ -16,7 +16,7 @@ class QueryBuilder
         'f_params' => [
             'limit',
             'orderBy',
-        ]
+        ],
     ];
 
     /**
