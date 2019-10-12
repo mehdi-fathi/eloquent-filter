@@ -76,8 +76,8 @@ class QueryFilterBuilder
      * @param       $field
      * @param       $type
      */
-    public function orderBy(string $field,string $type)
+    public function orderBy(string $field, string $type)
     {
-        $this->builder->orderBy($field,$type);
+        $this->builder->orderBy($field, $type);
     }
 }
