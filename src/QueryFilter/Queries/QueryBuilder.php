@@ -12,7 +12,7 @@ class QueryBuilder
     /**
      * @var array
      */
-    private $_reserve_param = [
+    private $reserve_param = [
         'f_params' => [
             'limit',
             'orderBy',
@@ -70,7 +70,7 @@ class QueryBuilder
     private function __buildQueryWithNewParams($field, array $params)
     {
         $method = key($params[0]);
-        if (!in_array($method, $this->_reserve_param['f_params'])) {
+        if (!in_array($method, $this->reserve_param['f_params'])) {
             throw new \Exception("$method is not in f_params array.");
         }
 
