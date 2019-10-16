@@ -309,7 +309,7 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
     /** @test */
-    public function itCanOrderbyIdListUsername()
+    public function itCanOrderByIdListUsername()
     {
         $this->__init();
         $this->request->merge(

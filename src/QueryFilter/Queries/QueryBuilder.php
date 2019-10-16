@@ -65,7 +65,6 @@ class QueryBuilder
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
 
         } else {
-
             $this->queryFilterBuilder->where("$field", $params[0]);
         }
     }
