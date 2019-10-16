@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Schema;
  */
 class ModelFilters extends QueryFilter
 {
-
     /**
      * @param $field
      * @param $arguments
@@ -38,15 +37,16 @@ class ModelFilters extends QueryFilter
         if (method_exists($this->builder->getModel(), $field)) {
             return true;
         }
+
         return false;
     }
 
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     private function __handelListFields(string $field)
     {

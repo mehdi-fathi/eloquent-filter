@@ -286,6 +286,7 @@ class UserFilterTest extends TestCase
             $this->assertEquals(0, $e->getCode());
         }
     }
+
     /** @test */
     public function itCanLimitListUsername()
     {
@@ -294,8 +295,8 @@ class UserFilterTest extends TestCase
             [
                 'username' => 'ahmad',
                 'f_params' => [
-                    'limit'  => 1
-                ]
+                    'limit'  => 1,
+                ],
             ]
         );
         $modelFilter = new  ModelFilters(
@@ -308,6 +309,7 @@ class UserFilterTest extends TestCase
 
         $this->assertEquals($users_pure, $users);
     }
+
     /** @test */
     public function itCanOrderByIdListUsername()
     {
@@ -318,9 +320,9 @@ class UserFilterTest extends TestCase
                 'f_params' => [
                     'orderBy'  => [
                        'field' => 'id',
-                       'type' => 'ASC',
-                    ]
-                ]
+                       'type'  => 'ASC',
+                    ],
+                ],
             ]
         );
         $modelFilter = new  ModelFilters(
@@ -333,6 +335,7 @@ class UserFilterTest extends TestCase
 
         $this->assertEquals($users_pure, $users);
     }
+
     /** @test */
     public function itCanThrowExceptionOrderbyIdListUsername()
     {
@@ -343,9 +346,9 @@ class UserFilterTest extends TestCase
                 'f_params' => [
                     'orderBys'  => [
                         'field' => 'id',
-                        'type' => 'ASC',
-                    ]
-                ]
+                        'type'  => 'ASC',
+                    ],
+                ],
             ]
         );
         $modelFilter = new  ModelFilters(
