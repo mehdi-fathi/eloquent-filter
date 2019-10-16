@@ -50,7 +50,6 @@ class ModelFilters extends QueryFilter
      */
     private function __handelListFields(string $field)
     {
-
         if ($output = $this->__checkSetWhiteListFields($field)) {
             return $output;
         } elseif ($field == 'f_params') {
@@ -76,6 +75,7 @@ class ModelFilters extends QueryFilter
                 return true;
             }
         }
+
         return false;
     }
 }

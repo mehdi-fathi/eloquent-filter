@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 /**
  * Class QueryFilter.
+ *
  * @property \eloquentFilter\QueryFilter\Queries\QueryBuilder queryBuilder
  */
 class QueryFilter
