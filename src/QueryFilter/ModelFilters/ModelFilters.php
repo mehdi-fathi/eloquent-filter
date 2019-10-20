@@ -18,8 +18,8 @@ class ModelFilters extends QueryFilter
      */
     public function __call($field, $arguments)
     {
-        if ($this->__handelListFields($field)) {
-            if ($this->__checkModelHasOverrideMethod($field)) {
+        if ($this->handelListFields($field)) {
+            if ($this->checkModelHasOverrideMethod($field)) {
                 $this->builder->getModel()->$field($this->builder, $arguments[0]);
             } else {
                 $this->queryBuilder->buildQuery($field, $arguments);
@@ -32,7 +32,7 @@ class ModelFilters extends QueryFilter
      *
      * @return bool
      */
-    private function __checkModelHasOverrideMethod(string $field): bool
+    private function checkModelHasOverrideMethod(string $field): bool
     {
         if (method_exists($this->builder->getModel(), $field)) {
             return true;
@@ -48,13 +48,13 @@ class ModelFilters extends QueryFilter
      *
      * @return bool
      */
-    private function __handelListFields(string $field)
+    private function handelListFields(string $field)
     {
-        if ($output = $this->__checkSetWhiteListFields($field)) {
+        if ($output = $this->checkSetWhiteListFields($field)) {
             return $output;
         } elseif ($field == 'f_params') {
             return true;
-        } elseif ($this->__checkModelHasOverrideMethod($field)) {
+        } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;
         }
         $class_name = class_basename($this->builder->getModel());
@@ -67,7 +67,7 @@ class ModelFilters extends QueryFilter
      *
      * @return bool
      */
-    private function __checkSetWhiteListFields(string $field): bool
+    private function checkSetWhiteListFields(string $field): bool
     {
         if (Schema::hasColumn($this->table, $field)) {
             if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
