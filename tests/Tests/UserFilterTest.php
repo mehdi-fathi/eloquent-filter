@@ -337,6 +337,33 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
+    public function itCanOrderByIdLimitListUsername()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username' => 'ahmad',
+                'f_params' => [
+                    'orderBy'  => [
+                        'field' => 'id',
+                        'type'  => 'ASC',
+                    ],
+                    'limit'  => 1,
+                ],
+            ]
+        );
+        $modelFilter = new  ModelFilters(
+            $this->request
+        );
+        $users = UsersController::filterUser($modelFilter);
+        $users_pure = User::where([
+            'username' => 'ahmad',
+        ])->orderBy('id', 'ASC')->limit(1)->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
     public function itCanThrowExceptionOrderbyIdListUsername()
     {
         $this->__init();
