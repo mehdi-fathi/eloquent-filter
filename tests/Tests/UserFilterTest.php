@@ -286,4 +286,79 @@ class UserFilterTest extends TestCase
             $this->assertEquals(0, $e->getCode());
         }
     }
+
+    /** @test */
+    public function itCanLimitListUsername()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username' => 'ahmad',
+                'f_params' => [
+                    'limit'  => 1,
+                ],
+            ]
+        );
+        $modelFilter = new  ModelFilters(
+            $this->request
+        );
+        $users = UsersController::filterUser($modelFilter);
+        $users_pure = User::where([
+            'username' => 'ahmad',
+        ])->limit(1)->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
+    public function itCanOrderByIdListUsername()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username' => 'ahmad',
+                'f_params' => [
+                    'orderBy'  => [
+                       'field' => 'id',
+                       'type'  => 'ASC',
+                    ],
+                ],
+            ]
+        );
+        $modelFilter = new  ModelFilters(
+            $this->request
+        );
+        $users = UsersController::filterUser($modelFilter);
+        $users_pure = User::where([
+            'username' => 'ahmad',
+        ])->orderBy('id', 'ASC')->get();
+
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
+    public function itCanThrowExceptionOrderbyIdListUsername()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username' => 'ahmad',
+                'f_params' => [
+                    'orderBys'  => [
+                        'field' => 'id',
+                        'type'  => 'ASC',
+                    ],
+                ],
+            ]
+        );
+        $modelFilter = new  ModelFilters(
+            $this->request
+        );
+
+        try {
+            $users = UsersController::filterUser($modelFilter);
+        } catch (Exception $e) {
+            $this->assertEquals(0, $e->getCode());
+        }
+    }
 }

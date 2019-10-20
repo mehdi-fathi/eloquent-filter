@@ -63,4 +63,21 @@ class QueryFilterBuilder
     {
         $this->builder->whereIn("$field", $params);
     }
+
+    /**
+     * @param $limit
+     */
+    public function limit(int $limit)
+    {
+        $this->builder->limit($limit);
+    }
+
+    /**
+     * @param $field
+     * @param $type
+     */
+    public function orderBy(string $field, string $type)
+    {
+        $this->builder->orderBy($field, $type);
+    }
 }
