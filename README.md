@@ -47,19 +47,33 @@ User::setWhiteListFilter(['name']);
 User::addWhiteListFilter('name'); 
 ```
 
+### Use in your controller
+
 Change your code on controller as like below example:
 
 ```php
+
+namespace App\Http\Controllers;
+
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 
-public function list(ModelFilters $modelFilters)
+/**
+ * Class UsersController.
+ */
+class UsersController
 {
-      if (!empty($modelFilters->filters())) {
-          $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate(10);
-          $users->appends($modelFilters->filters())->render();
-      } else {
-          $users = User::with('posts')->orderByDesc('id')->paginate(10);
-      }
+    /**
+     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $modelFilters
+     */
+    public function list(ModelFilters $modelFilters)
+    {
+          if (!empty($modelFilters->filters())) {
+              $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate(10);
+              $users->appends($modelFilters->filters())->render();
+          } else {
+              $users = User::with('posts')->orderByDesc('id')->paginate(10);
+          }
+    }
 }
 ```
 
