@@ -51,7 +51,6 @@ class QueryBuilder
         if (!empty($params[0]['start']) && !empty($params[0]['end'])) {
             $this->queryFilterBuilder->whereBetween($field, $params);
         } elseif ($field == 'f_params') {
-
             $this->__buildQueryWithNewParams($field, $params[0]);
         } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {
             $this->queryFilterBuilder->whereByOpt($field, $params);
@@ -80,6 +79,5 @@ class QueryBuilder
                 $this->queryFilterBuilder->$key($param);
             }
         }
-
     }
 }
