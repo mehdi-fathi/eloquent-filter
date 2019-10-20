@@ -48,7 +48,6 @@ class QueryBuilder
      */
     public function buildQuery($field, array $params)
     {
-
         if (!empty($params[0]['start']) && !empty($params[0]['end'])) {
             $this->queryFilterBuilder->whereBetween($field, $params);
         } elseif ($field == 'f_params') {
@@ -71,7 +70,6 @@ class QueryBuilder
     private function __buildQueryWithNewParams($field, array $params)
     {
         foreach ($params as $key => $param) {
-
             if (!in_array($key, $this->reserve_param['f_params'])) {
                 throw new \Exception("$key is not in f_params array.");
             }
