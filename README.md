@@ -16,6 +16,7 @@ Add Filterable trait to your models and set fields that you will want filter in 
 
 ```php
 use eloquentFilter\QueryFilter\modelFilters\Filterable;
+
 class User extends Model
 {
     use Filterable;
@@ -49,16 +50,15 @@ User::addWhiteListFilter('name');
 Change your code on controller as like below example:
 
 ```php
-public function list(modelFilters\modelFilters $filters)
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+
+public function list(ModelFilters $modelFilters)
 {
-      if (!empty($filters->filters())) {
-
-          $users = User::filter($filters)->with('orders')->orderByDesc('id')->paginate(10);
-
-          $users->appends($filters->filters())->render();
-
+      if (!empty($modelFilters->filters())) {
+          $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate(10);
+          $users->appends($modelFilters->filters())->render();
       } else {
-          $users = User::with('orders')->orderByDesc('id')->paginate(10);
+          $users = User::with('posts')->orderByDesc('id')->paginate(10);
       }
 }
 ```
@@ -104,21 +104,12 @@ SELECT ... WHERE ... username != 'ali'
 
 SELECT ... WHERE ... count_posts < 25
 ```
-****Advanced Where****
-```
-/users/list?count_posts[operator]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
-
-select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi') and 
-`family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' desc limit 10 offset 0
-```
-
-Just fields of query string be same rows table database and adjusted in `$whiteListFilter` in your model.
 
 ****Special Params****
 
 You can set special params `limit` and `orderBy` in query string for make query by that.
 ```
-/users/list?f_params['limit']=1
+/users/list?f_params[limit]=1
 
 SELECT ... WHERE ... order by `id` desc limit 1 offset 0
 ```
@@ -128,17 +119,29 @@ SELECT ... WHERE ... order by `id` desc limit 1 offset 0
 
 SELECT ... WHERE ... order by `id` ASC limit 10 offset 0
 ```
-
 ***Where between***
 
-If you are going to make query whereBetween.you just send array as the value.you must fill keys from and to in array.
-you can set it on query string as you know.this is a sample url with query string filter
+If you are going to make query whereBetween.You must fill keys `start` and `end` in query string.
+you can set it on query string as you know.
 
 ```
 /users/list?created_at[start]=2016/05/01&created_at[end]=2017/10/01
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
+
+****Advanced Where****
+```
+/users/list?count_posts[operator]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
+&f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
+
+select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi') and 
+`family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' asc limit 10 offset 0
+```
+
+Just fields of query string be same rows table database in `$whiteListFilter` in your model or declare method in your model as override method.
+Override method can be considered custom query filter.
+
 ### Custom query filter
 If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:
 
@@ -163,7 +166,7 @@ trait usersFilter
 }
 ```
 
-Note that fields of query string be same methods of trait.use trait in your model:
+Note that fields of query string be same methods of trait.Use trait in your model:
 
 ```
 /users/list?username_like=a

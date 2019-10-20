@@ -59,7 +59,7 @@ class ModelFilters extends QueryFilter
         }
         $class_name = class_basename($this->builder->getModel());
 
-        throw new \Exception("You must set $field in whiteListFilter in $class_name");
+        throw new \Exception("You must set $field in whiteListFilter in $class_name or create a override method $field in $class_name");
     }
 
     /**
