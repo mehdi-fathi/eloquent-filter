@@ -15,7 +15,7 @@ Run the Composer command
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
 
 ```php
-use eloquentFilter\QueryFilter\modelFilters\Filterable;
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 
 class User extends Model
 {
