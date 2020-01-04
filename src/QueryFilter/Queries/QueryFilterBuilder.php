@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
+use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryFilterBuilder
 {
+    use HelperFilter;
     /**
      * @var
      */
@@ -32,6 +34,11 @@ class QueryFilterBuilder
     {
         $start = $params[0]['start'];
         $end = $params[0]['end'];
+        $jdate = $this->convertJdateToG($params[0]);
+        if($jdate){
+            $start = $jdate['start'];
+            $end = $jdate['end'];
+        }
         $this->builder->whereBetween($field, [$start, $end]);
     }
 

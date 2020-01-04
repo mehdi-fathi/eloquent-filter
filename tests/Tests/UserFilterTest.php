@@ -2,6 +2,7 @@
 
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
+use Morilog\Jalali\CalendarUtils;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
 use Tests\Seeds\UserTableSeeder;
@@ -387,5 +388,35 @@ class UserFilterTest extends TestCase
         } catch (Exception $e) {
             $this->assertEquals(0, $e->getCode());
         }
+    }
+
+    /** @test */
+    public function itCanGetUserByJallaliDateFrom()
+    {
+        $this->__init();
+        $data = [
+            'created_at' => [
+                'start' => '1397/10/11 10:11:46',
+                'end'   => '1397/11/17 10:11:46',
+            ],
+        ];
+        $this->request->merge(
+            $data
+        );
+        $modelFilter = new  ModelFilters(
+            $this->request
+        );
+        $users = UsersController::filterUser($modelFilter);
+        $data['created_at']['start'] = CalendarUtils::createCarbonFromFormat('Y/m/d h:i:s', $data['created_at']['start'])->format('Y-m-d h:i:s');
+        $data['created_at']['end'] = CalendarUtils::createCarbonFromFormat('Y/m/d h:i:s', $data['created_at']['end'])->format('Y-m-d h:i:s');
+        $users_pure = User::whereBetween(
+            'created_at',
+            [
+                $data['created_at']['start'],
+                $data['created_at']['end'],
+            ]
+        )->get();
+
+        $this->assertEquals($users_pure, $users);
     }
 }
