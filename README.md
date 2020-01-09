@@ -144,6 +144,14 @@ you can set it on query string as you know.
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
 
+Also you can set jallali date in your params and eloquent-filter will detect jallali date and convert to gregorian then eloquent-filter generate new query. You just pass a jallali date by param
+
+```
+/users/list?created_at[start]=1397/10/11 10:11:46&created_at[end]=1397/11/17 10:11:46
+
+SELECT ... WHERE ... created_at BETWEEN '2019-01-01 10:11:46' AND '2019-02-06 10:11:46'
+``` 
+
 ****Advanced Where****
 ```
 /users/list?count_posts[operator]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
