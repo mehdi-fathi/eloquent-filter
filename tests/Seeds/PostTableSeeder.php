@@ -40,31 +40,29 @@ class PostTableSeeder extends Seeder
             ],
         ];
 
-        foreach (range(1, 100) as $index) :
-
+        foreach (range(1, 100) as $index) {
             $this->data[0] = [
                 'post'       => $faker->text,
                 'user_id'    => $users_id[0]['user_id'],
                 'created_at' => now()->addDays(rand(1, 30)),
                 'updated_at' => now()->addDays(rand(30, 40)),
             ];
-        $this->data[1] = [
+            $this->data[1] = [
                 'post'       => $faker->text,
                 'user_id'    => $users_id[1]['user_id'],
                 'created_at' => now()->addDays(rand(1, 30)),
                 'updated_at' => now()->addDays(rand(30, 40)),
             ];
-        $this->data[2] = [
+            $this->data[2] = [
                 'post'       => $faker->text,
                 'user_id'    => $users_id[2]['user_id'],
                 'created_at' => now()->addDays(rand(1, 30)),
                 'updated_at' => now()->addDays(rand(30, 40)),
             ];
 
-        DB::table('posts')->insert(
+            DB::table('posts')->insert(
                 $this->data
             );
-
-        endforeach;
+        }
     }
 }
