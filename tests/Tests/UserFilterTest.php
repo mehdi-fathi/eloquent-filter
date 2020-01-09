@@ -320,8 +320,8 @@ class UserFilterTest extends TestCase
                 'username' => 'ahmad',
                 'f_params' => [
                     'orderBy'  => [
-                       'field' => 'id',
-                       'type'  => 'ASC',
+                        'field' => 'id',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]
