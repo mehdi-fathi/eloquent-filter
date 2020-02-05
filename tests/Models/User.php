@@ -11,8 +11,8 @@ use Tests\Models\Filters\usersFilter;
  */
 class User extends Model
 {
-    use usersFilter,Filterable;
-
+    use usersFilter;
+    use Filterable;
     /**
      * @var array
      */
