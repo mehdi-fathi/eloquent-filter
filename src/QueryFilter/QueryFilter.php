@@ -46,16 +46,16 @@ class QueryFilter
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Builder $builder, $table) :Builder
+    public function apply(Builder $builder, $table): Builder
     {
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
         $this->table = $table;
 
-        foreach ($this->filters() as $name => $value):
-                call_user_func([$this, $name], $value);
-        // It resolve methods in filters class in child
-        endforeach;
+        foreach ($this->filters() as $name => $value) {
+            call_user_func([$this, $name], $value);
+            // It resolve methods in filters class in child
+        }
 
         return $this->builder;
     }
@@ -63,7 +63,7 @@ class QueryFilter
     /**
      * @return array
      */
-    public function filters() :array
+    public function filters(): array
     {
         return $this->request->all();
     }

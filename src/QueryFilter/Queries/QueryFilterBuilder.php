@@ -35,7 +35,7 @@ class QueryFilterBuilder
         $start = $params[0]['start'];
         $end = $params[0]['end'];
         $jdate = $this->convertJdateToG($params[0]);
-        if($jdate){
+        if ($jdate) {
             $start = $jdate['start'];
             $end = $jdate['end'];
         }
