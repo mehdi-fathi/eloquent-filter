@@ -38,11 +38,42 @@ class UserFilterTest extends TestCase
             $this->request
         );
 //        DB::enableQueryLog(); // Enable query log
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
 //        dd(DB::getQueryLog());
         $users_pure = User::where([
             'family' => 'ahmadi',
         ])->wherein('username', ['ali', 'ali22'])->get();
+        $this->assertEquals($users_pure, $users);
+    }
+    /** @test */
+    public function itCanGetUserByFamilyAndUsernamesPaginate()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username' => [
+                    'ali',
+                    'ali22',
+                ],
+                'family' => 'ahmadi',
+                'page' => 1,
+                'perpage' => 2,
+            ]
+        );
+
+        $modelFilter = new ModelFilters(
+            $this->request
+        );
+
+        $perpage = $this->request['perpage'];
+        unset($this->request['perpage']);
+        $users = UsersController::filterUser($modelFilter)->paginate($perpage,['*'],'page');
+
+        $users_pure = User::where([
+            'family' => 'ahmadi',
+        ])->wherein('username', ['ali', 'ali22'])->paginate($perpage,['*'],'page');
+
+
         $this->assertEquals($users_pure, $users);
     }
 
@@ -59,7 +90,7 @@ class UserFilterTest extends TestCase
         $modelfilter = new ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelfilter)->get();
         $users_pure = User::where([
             'username' => 'mehdi',
             'email'    => 'mehdifathi.developer@gmail.com',
@@ -79,7 +110,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -106,7 +137,7 @@ class UserFilterTest extends TestCase
         $modelfilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelfilter);
+        $users = UsersController::filterUser($modelfilter)->get();
         $users_pure = User::whereBetween(
             'created_at',
             [
@@ -141,7 +172,7 @@ class UserFilterTest extends TestCase
             $this->request
         );
 
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('count_posts', '>', 35)
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -162,7 +193,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('name', 'ali')
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -192,7 +223,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('name', 'ali')
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -214,7 +245,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('username', '!=', 'ali')
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -236,7 +267,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::whereBetween(
             'created_at',
             [
@@ -260,7 +291,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'mehdi',
             'email'    => 'mehdifathi.developer@gmail.ccom',
@@ -282,7 +313,7 @@ class UserFilterTest extends TestCase
         );
 
         try {
-            $users = UsersController::filterUser($modelFilter);
+            $users = UsersController::filterUser($modelFilter)->get();
         } catch (Exception $e) {
             $this->assertEquals(0, $e->getCode());
         }
@@ -303,7 +334,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
         ])->limit(1)->get();
@@ -329,7 +360,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
         ])->orderBy('id', 'ASC')->get();
@@ -356,7 +387,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
         ])->orderBy('id', 'ASC')->limit(1)->get();
@@ -406,7 +437,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new  ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUser($modelFilter);
+        $users = UsersController::filterUser($modelFilter)->get();
         $data['created_at']['start'] = CalendarUtils::createCarbonFromFormat('Y/m/d h:i:s', $data['created_at']['start'])->format('Y-m-d h:i:s');
         $data['created_at']['end'] = CalendarUtils::createCarbonFromFormat('Y/m/d h:i:s', $data['created_at']['end'])->format('Y-m-d h:i:s');
         $users_pure = User::whereBetween(

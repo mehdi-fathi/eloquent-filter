@@ -68,14 +68,18 @@ class UsersController
     public function list(ModelFilters $modelFilters)
     {
           if (!empty($modelFilters->filters())) {
-              $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate(10);
-              $users->appends($modelFilters->filters())->render();
+          
+              $perpage = Request::input('perpage');
+              Request::offsetUnset('perpage');
+              $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate($perpage,['*'],'page');
           } else {
               $users = User::with('posts')->orderByDesc('id')->paginate(10);
           }
     }
 }
 ```
+
+Note that you must unset your own param as perpage.Just you can set page param for paginate this param ignore from filter.
 
 ### Simple Example
 

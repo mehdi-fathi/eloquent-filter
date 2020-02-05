@@ -17,7 +17,7 @@ class UsersController
      */
     public static function filterUser(ModelFilters $filters)
     {
-        $users = User::filter($filters)->get();
+        $users = User::filter($filters);
 
         return $users;
     }
