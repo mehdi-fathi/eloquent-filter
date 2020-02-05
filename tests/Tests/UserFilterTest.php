@@ -45,6 +45,7 @@ class UserFilterTest extends TestCase
         ])->wherein('username', ['ali', 'ali22'])->get();
         $this->assertEquals($users_pure, $users);
     }
+
     /** @test */
     public function itCanGetUserByFamilyAndUsernamesPaginate()
     {
@@ -55,8 +56,8 @@ class UserFilterTest extends TestCase
                     'ali',
                     'ali22',
                 ],
-                'family' => 'ahmadi',
-                'page' => 1,
+                'family'  => 'ahmadi',
+                'page'    => 1,
                 'perpage' => 2,
             ]
         );
@@ -67,12 +68,11 @@ class UserFilterTest extends TestCase
 
         $perpage = $this->request['perpage'];
         unset($this->request['perpage']);
-        $users = UsersController::filterUser($modelFilter)->paginate($perpage,['*'],'page');
+        $users = UsersController::filterUser($modelFilter)->paginate($perpage, ['*'], 'page');
 
         $users_pure = User::where([
             'family' => 'ahmadi',
-        ])->wherein('username', ['ali', 'ali22'])->paginate($perpage,['*'],'page');
-
+        ])->wherein('username', ['ali', 'ali22'])->paginate($perpage, ['*'], 'page');
 
         $this->assertEquals($users_pure, $users);
     }
