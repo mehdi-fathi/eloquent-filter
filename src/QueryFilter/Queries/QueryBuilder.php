@@ -56,7 +56,7 @@ class QueryBuilder
             $this->queryFilterBuilder->whereByOpt($field, $params);
         } elseif (is_array($params[0])) {
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
-        } elseif(!empty($params[0])) {
+        } elseif (!empty($params[0])) {
             $this->queryFilterBuilder->where("$field", $params[0]);
         }
     }

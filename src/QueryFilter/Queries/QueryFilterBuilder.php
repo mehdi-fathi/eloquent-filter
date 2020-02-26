@@ -68,12 +68,12 @@ class QueryFilterBuilder
      */
     public function whereIn($field, array $params)
     {
-        foreach($params as $key=>$value)
-        {
-            if(is_null($value) || $value == '')
+        foreach ($params as $key => $value) {
+            if (is_null($value) || $value == '') {
                 unset($params[$key]);
+            }
         }
-        if(!empty($params)){
+        if (!empty($params)) {
             $this->builder->whereIn("$field", $params);
         }
     }
