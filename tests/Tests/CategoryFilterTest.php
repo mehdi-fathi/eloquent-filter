@@ -25,7 +25,6 @@ class CategoryFilterTest extends TestCase
         $request->merge(
             [
                 'category'   => 'Html',
-                'created_at' => null,
             ]
         );
         $modelfilter = new ModelFilters(
@@ -35,7 +34,6 @@ class CategoryFilterTest extends TestCase
         $category = CategoriesController::filterCategory($modelfilter);
         $category_pure = Category::where([
             'category'   => 'Html',
-            'created_at' => null,
         ])->get();
 
         $this->assertEquals($category, $category_pure);
