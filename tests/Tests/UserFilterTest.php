@@ -122,12 +122,12 @@ class UserFilterTest extends TestCase
         $this->__init();
         $data = [
             'created_at' => [
-                'start' => now()->subDays(10),
-                'end'   => now()->addDays(30),
+                'start' => now()->subDays(10)->format('Y/m/d'),
+                'end'   => now()->addDays(30)->format('Y/m/d'),
             ],
             'updated_at' => [
-                'start' => now()->subDays(10),
-                'end'   => now()->addDays(30),
+                'start' => now()->subDays(10)->format('Y/m/d'),
+                'end'   => now()->addDays(30)->format('Y/m/d'),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];

@@ -6,7 +6,7 @@ use Morilog\Jalali\CalendarUtils;
 
 trait HelperFilter
 {
-    private $_regex_j_date = '/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/';
+    private $_regex_j_date = '/^[1][1-4]\d{2}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/';
 
     public function checkDataIsJallaiDate($date)
     {
