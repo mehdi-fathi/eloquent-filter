@@ -77,7 +77,6 @@ class UserFilterTest extends TestCase
         $this->assertEquals($users_pure, $users);
     }
 
-
     /** @test */
     public function itCanGetUserPaginate()
     {
@@ -95,9 +94,9 @@ class UserFilterTest extends TestCase
 
         $perpage = $this->request['perpage'];
         unset($this->request['perpage']);
-        $users = UsersController::filterUser($modelFilter)->paginate($perpage, ['*'], 'page',$this->request['page']);
+        $users = UsersController::filterUser($modelFilter)->paginate($perpage, ['*'], 'page', $this->request['page']);
 
-        $users_pure = User::paginate($perpage, ['*'], 'page',$this->request['page']);
+        $users_pure = User::paginate($perpage, ['*'], 'page', $this->request['page']);
 
         $this->assertEquals($users_pure, $users);
     }
