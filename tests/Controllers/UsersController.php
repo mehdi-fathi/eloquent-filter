@@ -21,12 +21,13 @@ class UsersController
 
         return $users;
     }
+
     /**
      * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $filters
      *
      * @return mixed
      */
-    public static function filterUserWith(ModelFilters $filters,array $models)
+    public static function filterUserWith(ModelFilters $filters, array $models)
     {
         $users = User::with($models)->filter($filters);
 

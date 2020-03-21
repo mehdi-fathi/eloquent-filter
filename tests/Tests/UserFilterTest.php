@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\CalendarUtils;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
-use Tests\Seeds\UserTableSeeder;
 use Tests\Seeds\PostTableSeeder;
+use Tests\Seeds\UserTableSeeder;
 
 /**
  * Class UserFilterTest.
@@ -157,7 +157,7 @@ class UserFilterTest extends TestCase
         $modelFilter = new ModelFilters(
             $this->request
         );
-        $users = UsersController::filterUserWith($modelFilter,['Posts'])->get();
+        $users = UsersController::filterUserWith($modelFilter, ['Posts'])->get();
 
         $users_pure = User::with('Posts')->where('username', 'like', '%mehdi%')
             ->get();
