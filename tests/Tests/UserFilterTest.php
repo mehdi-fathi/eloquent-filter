@@ -6,6 +6,7 @@ use Morilog\Jalali\CalendarUtils;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
 use Tests\Seeds\UserTableSeeder;
+use Tests\Seeds\PostTableSeeder;
 
 /**
  * Class UserFilterTest.
@@ -18,6 +19,10 @@ class UserFilterTest extends TestCase
     {
         $seeder = new UserTableSeeder();
         $seeder->run();
+
+        $seeder = new PostTableSeeder();
+        $seeder->run();
+
         $this->request = new Request();
     }
 
@@ -137,6 +142,26 @@ class UserFilterTest extends TestCase
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
+        $this->assertEquals($users_pure, $users);
+    }
+
+    /** @test */
+    public function itCanGetUserPostsByCustomfilter()
+    {
+        $this->__init();
+        $this->request->merge(
+            [
+                'username_like' => 'mehdi',
+            ]
+        );
+        $modelFilter = new ModelFilters(
+            $this->request
+        );
+        $users = UsersController::filterUserWith($modelFilter,['Posts'])->get();
+
+        $users_pure = User::with('Posts')->where('username', 'like', '%mehdi%')
+            ->get();
+
         $this->assertEquals($users_pure, $users);
     }
 
