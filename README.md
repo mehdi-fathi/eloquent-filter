@@ -1,4 +1,11 @@
 # Eloquent Filter
+
+
+![alt text](./eloquent-filter.jpg "eloquent-filter")
+
+[![Latest Stable Version](https://poser.pugx.org/mehdi-fathi/eloquent-filter/v/stable)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
+[![License](https://poser.pugx.org/mehdi-fathi/eloquent-filter/license)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
+[![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
 [![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 
