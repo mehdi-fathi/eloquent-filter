@@ -15,7 +15,7 @@ class TestCase extends Orchestra\Testbench\TestCase
     /**
      * Get application providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
      *
      * @return array
      */
