@@ -10,13 +10,13 @@ php:
   - 7.3
 
 env:
-  - ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=~5.7
-  - ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~6.0
-  - ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0
-  - ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=~7.0
-  - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=^7.5 COVERAGE=true
-  - ILLUMINATE_VERSION=6.0.* PHPUNIT_VERSION=~7.0
-  - ILLUMINATE_VERSION=7.0.* PHPUNIT_VERSION=~7.0
+  - ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=~5.7 ORCHESTRA_VERSION=3.4.*
+  - ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~6.0 ORCHESTRA_VERSION=3.5.*
+  - ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0 ORCHESTRA_VERSION=3.6.*
+  - ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=~7.0 ORCHESTRA_VERSION=3.6.*
+  - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=~7.0 ORCHESTRA_VERSION=3.6.* COVERAGE=true
+  - ILLUMINATE_VERSION=6.0.* PHPUNIT_VERSION=~7.0 ORCHESTRA_VERSION=3.6.*
+  - ILLUMINATE_VERSION=7.0.* PHPUNIT_VERSION=~7.0 ORCHESTRA_VERSION=3.6.*
 
 before_install:
   - echo "memory_limit=3G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -24,10 +24,11 @@ before_install:
   - phpenv config-rm xdebug.ini
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer global require hirak/prestissimo --update-no-dev
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update --prefer-dist
-  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "orchestra/testbench:${ORCHESTRA_VERSION}" --no-update --prefer-dist
   - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --no-update --prefer-dist
 
-install: COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction --prefer-dist
+install: COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --prefer-dist --no-interaction
+
 
 before_script: phpenv config-add ~/xdebug.ini
 
