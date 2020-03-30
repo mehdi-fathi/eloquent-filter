@@ -6,7 +6,6 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
-  - 5.6
   - 7.0
   - 7.1
   - 7.3
@@ -24,16 +23,11 @@ env:
 matrix:
   # For each PHP version we exclude the coverage env, except for PHP 7.1
   exclude:
-    # Don't test Laravel 5.5 and up on PHP 5.6
-    - php: 5.6
+    # Don't test Laravel 5.4 and up on PHP 7.0
+    - php: 7.0
+      env: ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=~6.0
+    - php: 7.0
       env: ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~6.0
-    - php: 5.6
-      env: ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0
-    - php: 5.6
-      env: ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=~7.0
-    - php: 5.6
-      env: ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=^7.5 COVERAGE=true
-    # Test Laravel 5.5 and down on PHP 7.0
     - php: 7.0
       env: ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0
     - php: 7.0
@@ -49,7 +43,7 @@ matrix:
       env: ILLUMINATE_VERSION=5.3.* PHPUNIT_VERSION=~5.0
 
 before_install:
-  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo "memory_limit=3G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
   - phpenv config-rm xdebug.ini
   - composer global require hirak/prestissimo --update-no-dev
