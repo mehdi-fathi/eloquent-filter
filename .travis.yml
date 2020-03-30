@@ -32,13 +32,13 @@ matrix:
       env: ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~5.0
 
 before_install:
-  - echo "memory_limit=5G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
   - phpenv config-rm xdebug.ini
-  - composer global require hirak/prestissimo --update-no-dev
-  - composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update --prefer-dist
-  - composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist
-  - composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --no-update --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer global require hirak/prestissimo --update-no-dev
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --no-update --prefer-dist
 
 install: travis_retry composer install --no-interaction --prefer-dist
 
