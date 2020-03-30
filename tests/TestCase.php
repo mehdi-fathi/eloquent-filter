@@ -13,6 +13,21 @@ class TestCase extends Orchestra\Testbench\TestCase
     }
 
     /**
+     * Get application providers.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     *
+     * @return array
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            // your package service provider,
+            Orchestra\Database\ConsoleServiceProvider::class,
+        ];
+    }
+
+    /**
      * Define environment setup.
      *
      * @param Illuminate\Foundation\Application $app
