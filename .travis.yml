@@ -6,30 +6,16 @@ cache:
     - $HOME/.composer/cache/files
 
 php:
-  - 7.1
   - 7.2
   - 7.3
 
 env:
-  - ILLUMINATE_VERSION=5.1.* PHPUNIT_VERSION=~4.0
-  - ILLUMINATE_VERSION=5.2.* PHPUNIT_VERSION=~4.0
   - ILLUMINATE_VERSION=5.3.* PHPUNIT_VERSION=~5.0
   - ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=~5.7
   - ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~6.0
   - ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0
   - ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=~7.0
   - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=^7.5 COVERAGE=true
-
-matrix:
-  # For each PHP version we exclude the coverage env, except for PHP 7.1
-  exclude:
-    # Test only Laravel 5.4 and up on PHP 7.1
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.3.* PHPUNIT_VERSION=~4.0
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=~4.0
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=~5.0
 
 before_install:
   - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
