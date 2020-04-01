@@ -12,6 +12,8 @@
 
 A package for filter data of models by query string.Easy to use and full dynamic.
 
+The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
+
 ## Installation
 
 Run the Composer command
@@ -225,3 +227,4 @@ class User extends Model
     
 }
 ```
+If you have any idea about the Eloquent Filter i will glad to hear that.You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
