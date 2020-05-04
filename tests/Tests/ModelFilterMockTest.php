@@ -57,7 +57,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = new ModelFilters($this->request);
         $this->model = $this->model->apply($this->builder, 'users');
         $this->assertEquals($this->model, $this->builder);
-
     }
 
 
@@ -70,7 +69,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = new ModelFilters($this->request);
         $this->model = $this->model->apply($this->builder, 'users');
         $this->assertEquals($this->model, $this->builder);
-
     }
 
     public function testWhereByOpt()
@@ -87,7 +85,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = new ModelFilters($this->request);
         $this->model = $this->model->apply($this->builder, 'users');
         $this->assertEquals($this->model, $this->builder);
-
     }
 
     public function testWhereBetween()
@@ -107,7 +104,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = new ModelFilters($this->request);
         $this->model = $this->model->apply($this->builder, 'users');
         $this->assertEquals($this->model, $this->builder);
-
     }
 
     public function testPaginate()
@@ -134,12 +130,10 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals($paginate, $this->builder->paginate(5, ['*'], 'page', 1));
         $this->assertEquals($this->model, $this->builder);
-
     }
 
     public function tearDown(): void
     {
         m::close();
     }
-
 }
