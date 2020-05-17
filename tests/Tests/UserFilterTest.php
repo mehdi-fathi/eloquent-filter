@@ -8,7 +8,6 @@ use Tests\Models\User;
 use Tests\Seeds\PostTableSeeder;
 use Tests\Seeds\UserTableSeeder;
 
-
 /**
  * Class UserFilterTest.
  */
