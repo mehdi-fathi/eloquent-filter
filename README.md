@@ -9,8 +9,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
 [![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
+![Packagist Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter)
 
-A package for filter data of models by query string.Easy to use and full dynamic.
+A package for filter data of models by query string. Easy to use and full dynamic.
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
