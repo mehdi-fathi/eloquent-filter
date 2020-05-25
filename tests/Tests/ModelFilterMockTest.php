@@ -40,7 +40,6 @@ class ModelFilterMockTest extends \TestCase
     {
         parent::setUp();
         $this->builder = m::mock(Builder::class);
-
     }
 
     protected function getMockModel()
@@ -64,12 +63,10 @@ class ModelFilterMockTest extends \TestCase
     {
         if (!empty($obj)) {
             $this->builder->shouldReceive('getModel')->andReturn($obj);
-
         } else {
             $this->userModel = $this->getMockModel();
 
             $this->builder->shouldReceive('getModel')->andReturn($this->userModel);
-
         }
     }
 
@@ -189,7 +186,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = $this->model->apply($this->builder, 'users');
 
         $this->assertEquals($this->model, $this->builder);
-
     }
 
 
