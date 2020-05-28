@@ -79,6 +79,25 @@ class QueryFilterBuilder
     }
 
     /**
+     * @param       $field
+     * @param array $params
+     */
+    public function like($field, array $params)
+    {
+        foreach ($params as $key => $value) {
+            if (is_null($value) || $value == '') {
+                unset($params[$key]);
+            }
+        }
+
+        if (!empty($params)) {
+            foreach ($params as $key => $value) {
+                $this->builder->where("$field", 'like', '%'.$value['like'].'%');
+            }
+        }
+    }
+
+    /**
      * @param $limit
      */
     public function limit(int $limit)

@@ -54,6 +54,8 @@ class QueryBuilder
             $this->__buildQueryWithNewParams($field, $params[0]);
         } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {
             $this->queryFilterBuilder->whereByOpt($field, $params);
+        } elseif (!empty($params[0]['like'])) {
+            $this->queryFilterBuilder->like($field, $params);
         } elseif (is_array($params[0])) {
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
         } elseif (!empty($params[0])) {
