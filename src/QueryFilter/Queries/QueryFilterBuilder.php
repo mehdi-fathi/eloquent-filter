@@ -89,10 +89,10 @@ class QueryFilterBuilder
                 unset($params[$key]);
             }
         }
-    
+
         if (!empty($params)) {
             foreach ($params as $key => $value) {
-                $this->builder->where("$field", 'like', '%' . $value['like'] . '%');
+                $this->builder->where("$field", 'like', '%'.$value['like'].'%');
             }
         }
     }
