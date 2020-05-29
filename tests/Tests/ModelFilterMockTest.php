@@ -5,6 +5,7 @@ namespace Tests\Tests;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
@@ -139,8 +140,11 @@ class ModelFilterMockTest extends \TestCase
         ]);
 
         $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
-        $this->assertEquals($this->model, $this->builder);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder, $this->model);
+
+        $this->assertEquals($users, $this->builder);
     }
 
     public function testPaginate()
@@ -172,12 +176,7 @@ class ModelFilterMockTest extends \TestCase
     public function testSetWhiteList()
     {
 
-        $userModel2 = m::mock(\Tests\Models\User::class);
-//        $userModel2->shouldReceive('getWhiteListFilter')->andReturn([
-//            'name',
-//        ]);
-
-        $userModel2->shouldReceive('setWhiteListFilter')->with(['name']);
+        $userModel2 = m::mock(User::class);
         $userModel2->shouldReceive('getWhiteListFilter')->andReturn(['name']);
         $this->__initQuery($userModel2);
 
@@ -192,10 +191,68 @@ class ModelFilterMockTest extends \TestCase
 
     }
 
+    public function testAddWhiteList()
+    {
+        $userModel2 = m::mock(User::class);
+        $userModel2->shouldReceive('getWhiteListFilter')->andReturn([
+            'id',
+            'username',
+            'family',
+            'email',
+            'count_posts',
+            'created_at',
+            'updated_at',
+            'name',
+        ]);
+
+        $user_model = new User();
+        $user_model->addWhiteListFilter('name');
+
+        $this->assertEquals($user_model->getWhiteListFilter(), $userModel2->getWhiteListFilter());
+
+    }
+    public function testWhereLike()
+    {
+        $this->__initQuery();
+        $this->builder->shouldReceive('where')->with('username','like','%meh%');
+        $this->request->shouldReceive('all')->andReturn([
+            'username' => [
+                'like' => '%meh%'
+            ],
+        ]);
+
+        $this->model = new ModelFilters($this->request);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder, $this->model);
+
+        $this->assertEquals($users, $this->builder);
+    }
+
+    public function testWhereLike2()
+    {
+        $this->__initQuery();
+        $this->builder->shouldReceive('where')->once()->with('username','like','%ahm%');
+        $this->builder->shouldReceive('where')->once()->with('family','mehdi');
+
+        $this->request->shouldReceive('all')->andReturn([
+            'username' => [
+                'like' => '%ahm%'
+            ],
+            'family' => 'mehdi'
+        ]);
+
+        $this->model = new ModelFilters($this->request);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder, $this->model);
+
+        $this->assertEquals($users, $this->builder);
+    }
+
 
     public function tearDown(): void
     {
         m::close();
-        unset($this->userModel);
     }
 }

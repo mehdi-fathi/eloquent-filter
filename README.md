@@ -151,12 +151,23 @@ SELECT ... WHERE ... order by `id` ASC limit 10 offset 0
 ***Where between***
 
 If you are going to make query whereBetween.You must fill keys `start` and `end` in query string.
-you can set it on query string as you know.
+you can set it on query string as you know. this params is good fit for filter by date.
 
 ```
 /users/list?created_at[start]=2016/05/01&created_at[end]=2017/10/01
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
+```
+
+***Where like***
+
+If you are going to make query by like conditions. You can do it that by this example.
+
+```
+/users/list?first_name[like]=%John%
+
+SELECT ... WHERE ... first_name LIKE '%John%'
+
 ```
 
 Also you can set jallali date in your params and eloquent-filter will detect jallali date and convert to gregorian then eloquent-filter generate new query. You just pass a jallali date by param
