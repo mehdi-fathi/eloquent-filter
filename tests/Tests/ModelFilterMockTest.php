@@ -5,9 +5,7 @@ namespace Tests\Tests;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
-use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -41,7 +39,6 @@ class ModelFilterMockTest extends \TestCase
     {
         parent::setUp();
         $this->builder = m::mock(Builder::class);
-
     }
 
     protected function getMockModel()
@@ -60,17 +57,14 @@ class ModelFilterMockTest extends \TestCase
         return $model;
     }
 
-
     protected function makeBuilderWithModel($obj = null)
     {
         if (!empty($obj)) {
             $this->builder->shouldReceive('getModel')->andReturn($obj);
-
         } else {
             $this->userModel = $this->getMockModel();
 
             $this->builder->shouldReceive('getModel')->andReturn($this->userModel);
-
         }
     }
 
@@ -81,7 +75,6 @@ class ModelFilterMockTest extends \TestCase
 
     protected function __initQuery($obj = null)
     {
-
         $this->makeBuilderWithModel($obj);
         $this->makeRequest();
     }
@@ -116,7 +109,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -135,7 +128,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -159,7 +152,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
             'page' => 5,
         ]);
@@ -175,7 +168,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testSetWhiteList()
     {
-
         $userModel2 = m::mock(User::class);
         $userModel2->shouldReceive('getWhiteListFilter')->andReturn(['name']);
         $this->__initQuery($userModel2);
@@ -188,7 +180,6 @@ class ModelFilterMockTest extends \TestCase
         $this->model = $this->model->apply($this->builder, 'users');
 
         $this->assertEquals($this->model, $this->builder);
-
     }
 
     public function testAddWhiteList()
@@ -209,15 +200,15 @@ class ModelFilterMockTest extends \TestCase
         $user_model->addWhiteListFilter('name');
 
         $this->assertEquals($user_model->getWhiteListFilter(), $userModel2->getWhiteListFilter());
-
     }
+
     public function testWhereLike()
     {
         $this->__initQuery();
-        $this->builder->shouldReceive('where')->with('username','like','%meh%');
+        $this->builder->shouldReceive('where')->with('username', 'like', '%meh%');
         $this->request->shouldReceive('all')->andReturn([
             'username' => [
-                'like' => '%meh%'
+                'like' => '%meh%',
             ],
         ]);
 
@@ -232,14 +223,14 @@ class ModelFilterMockTest extends \TestCase
     public function testWhereLike2()
     {
         $this->__initQuery();
-        $this->builder->shouldReceive('where')->once()->with('username','like','%ahm%');
-        $this->builder->shouldReceive('where')->once()->with('family','mehdi');
+        $this->builder->shouldReceive('where')->once()->with('username', 'like', '%ahm%');
+        $this->builder->shouldReceive('where')->once()->with('family', 'mehdi');
 
         $this->request->shouldReceive('all')->andReturn([
             'username' => [
-                'like' => '%ahm%'
+                'like' => '%ahm%',
             ],
-            'family' => 'mehdi'
+            'family' => 'mehdi',
         ]);
 
         $this->model = new ModelFilters($this->request);
@@ -249,7 +240,6 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals($users, $this->builder);
     }
-
 
     public function tearDown(): void
     {
