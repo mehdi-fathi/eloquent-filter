@@ -24,6 +24,7 @@ class User extends Model
         'count_posts',
         'created_at',
         'updated_at',
+        'orders.name',
     ];
     /**
      * @var string
@@ -40,5 +41,12 @@ class User extends Model
     public function posts()
     {
         return $this->hasMany('Tests\Models\Post');
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('Tests\Models\Order');
     }
 }

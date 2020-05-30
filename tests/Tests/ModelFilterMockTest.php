@@ -228,6 +228,43 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals($users, $this->builder);
     }
+    public function testWhereRelation()
+    {
+        $this->__initQuery();
+        $this->builder->shouldReceive('with')->once()->with(['orders']);
+        $value = 'ali';
+
+        $this->builder->shouldReceive('whereHas')->once()->with(
+            'orders', function ($q) use ($value) {
+            $q->where('name', '=', $value);
+        }
+        );
+        $this->request->shouldReceive('all')->andReturn([
+            'orders.name' => 'ali'
+        ]);
+
+        $this->model = new ModelFilters($this->request);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder, $this->model);
+
+        $this->assertEquals($users, $this->builder);
+    }
+
+    public function testWhereRelation1()
+    {
+        $model = new EloquentBuilderTestModelParentStub;
+
+        $builder = $model->where('bar', 'baz');
+        $builder->whereHas('foo', function ($q) {
+            $q->having('bam', '>', 'qux');
+        })->where('quux', 'quuux');
+
+        dd($builder->toSql());
+
+        $this->assertSame('select * from "eloquent_builder_test_model_parent_stubs" where "bar" = ? and exists (select * from "eloquent_builder_test_model_close_related_stubs" where "eloquent_builder_test_model_parent_stubs"."foo_id" = "eloquent_builder_test_model_close_related_stubs"."id" having "bam" > ?) and "quux" = ?', $builder->toSql());
+        $this->assertEquals(['baz', 'qux', 'quuux'], $builder->getBindings());
+    }
 
     public function testWhereLike2()
     {
@@ -255,4 +292,83 @@ class ModelFilterMockTest extends \TestCase
     {
         m::close();
     }
+}
+
+
+class EloquentBuilderTestModelParentStub extends Model
+{
+    public function foo()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id');
+    }
+
+    public function activeFoo()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id')->where('active', true);
+    }
+}
+
+class EloquentBuilderTestModelCloseRelatedStub extends Model
+{
+    public function bar()
+    {
+        return $this->hasMany(\Illuminate\Tests\Database\EloquentBuilderTestModelFarRelatedStub::class);
+    }
+
+    public function baz()
+    {
+        return $this->hasMany(EloquentBuilderTestModelFarRelatedStub::class);
+    }
+}
+
+class EloquentBuilderTestModelFarRelatedStub extends Model
+{
+    //
+}
+
+class EloquentBuilderTestModelSelfRelatedStub extends Model
+{
+    protected $table = 'self_related_stubs';
+
+    public function parentFoo()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id', 'parent');
+    }
+
+    public function childFoo()
+    {
+        return $this->hasOne(self::class, 'parent_id', 'id');
+    }
+
+    public function childFoos()
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id', 'children');
+    }
+
+    public function parentBars()
+    {
+        return $this->belongsToMany(self::class, 'self_pivot', 'child_id', 'parent_id', 'parent_bars');
+    }
+
+    public function childBars()
+    {
+        return $this->belongsToMany(self::class, 'self_pivot', 'parent_id', 'child_id', 'child_bars');
+    }
+
+    public function bazes()
+    {
+        return $this->hasMany(EloquentBuilderTestModelFarRelatedStub::class, 'foreign_key', 'id', 'bar');
+    }
+}
+
+class EloquentBuilderTestStubWithoutTimestamp extends Model
+{
+    const UPDATED_AT = null;
+
+    protected $table = 'table';
 }

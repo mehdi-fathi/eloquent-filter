@@ -62,6 +62,7 @@ class ModelFilters extends QueryFilter
         if ($field == 'page') {
             return;
         }
+        return true;
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name
          or create a override method.");

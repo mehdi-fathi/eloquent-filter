@@ -97,6 +97,15 @@ class QueryFilterBuilder
         }
     }
 
+    public function status( $field, $value)
+    {
+        return $this->builder->with(['orders'])->whereHas('orders', function ($q) use ($value) {
+            $q->where('name', '=', $value);
+        }
+        );
+
+    }
+
     /**
      * @param $limit
      */
@@ -109,7 +118,8 @@ class QueryFilterBuilder
      * @param $field
      * @param $type
      */
-    public function orderBy(string $field, string $type)
+    public
+    function orderBy(string $field, string $type)
     {
         $this->builder->orderBy($field, $type);
     }
