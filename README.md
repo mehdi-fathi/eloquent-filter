@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
 [![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
-![Packagist Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter)
+[![Total Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/downloads)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 
 A package for filter data of models by query string. Easy to use and full dynamic.
 
