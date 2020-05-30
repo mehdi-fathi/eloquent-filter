@@ -6,6 +6,7 @@ use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -109,7 +110,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ]);
 
@@ -128,7 +129,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
+                'end' => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -152,7 +153,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
+                'end' => '2019-02-06 10:11:46',
             ],
             'page' => 5,
         ]);
@@ -193,11 +194,14 @@ class ModelFilterMockTest extends \TestCase
             'count_posts',
             'created_at',
             'updated_at',
+            'orders.name',
             'name',
         ]);
 
         $user_model = new User();
         $user_model->addWhiteListFilter('name');
+
+//        dd($user_model->getWhiteListFilter(),$userModel2->getWhiteListFilter());
 
         $this->assertEquals($user_model->getWhiteListFilter(), $userModel2->getWhiteListFilter());
     }
@@ -219,42 +223,30 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals($users, $this->builder);
     }
-    public function testWhereRelation()
-    {
-        $this->__initQuery();
-        $this->builder->shouldReceive('with')->once()->with(['orders']);
-        $value = 'ali';
-
-        $this->builder->shouldReceive('whereHas')->once()->with(
-            'orders', function ($q) use ($value) {
-            $q->where('name', '=', $value);
-        }
-        );
-        $this->request->shouldReceive('all')->andReturn([
-            'orders.name' => 'ali'
-        ]);
-
-        $this->model = new ModelFilters($this->request);
-
-        $users = new User();
-        $users = $users->scopeFilter($this->builder, $this->model);
-
-        $this->assertEquals($users, $this->builder);
-    }
 
     public function testWhereRelation1()
     {
         $model = new EloquentBuilderTestModelParentStub;
 
-        $builder = $model->where('bar', 'baz');
+        $builder = $model->with('foo');
         $builder->whereHas('foo', function ($q) {
-            $q->having('bam', '>', 'qux');
-        })->where('quux', 'quuux');
+            $q->where('bam', 'qux');
+        })->where('baz','joo');
 
-        dd($builder->toSql());
+        $this->makeRequest();
 
-        $this->assertSame('select * from "eloquent_builder_test_model_parent_stubs" where "bar" = ? and exists (select * from "eloquent_builder_test_model_close_related_stubs" where "eloquent_builder_test_model_parent_stubs"."foo_id" = "eloquent_builder_test_model_close_related_stubs"."id" having "bam" > ?) and "quux" = ?', $builder->toSql());
-        $this->assertEquals(['baz', 'qux', 'quuux'], $builder->getBindings());
+        $this->request->shouldReceive('all')->andReturn([
+            'foo.bam' => 'qux',
+            'baz' => 'joo',
+        ]);
+
+        $filters = new ModelFilters($this->request);
+
+        $users = EloquentBuilderTestModelParentStub::filter($filters);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['qux','joo'], $builder->getBindings());
+        $this->assertEquals(['qux','joo'], $users->getBindings());
     }
 
     public function testWhereLike2()
@@ -287,6 +279,16 @@ class ModelFilterMockTest extends \TestCase
 
 class EloquentBuilderTestModelParentStub extends Model
 {
+    use Filterable;
+
+    /**
+     * @var array
+     */
+    private static $whiteListFilter = [
+        'baz',
+        'foo.bam',
+    ];
+
     public function foo()
     {
         return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class);

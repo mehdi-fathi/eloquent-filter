@@ -44,9 +44,9 @@ class ModelFilters extends QueryFilter
     /**
      * @param string $field
      *
+     * @return bool
      * @throws \Exception
      *
-     * @return bool
      */
     private function handelListFields(string $field)
     {
@@ -56,13 +56,15 @@ class ModelFilters extends QueryFilter
             return true;
         } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;
+        } elseif ($output = $this->checkSetWhiteListFields($field,true)) {
+            return $output;
         }
+
         $class_name = class_basename($this->builder->getModel());
 
         if ($field == 'page') {
             return;
         }
-        return true;
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name
          or create a override method.");
@@ -70,12 +72,13 @@ class ModelFilters extends QueryFilter
 
     /**
      * @param string $field
+     * @param bool $is_relation
      *
      * @return bool
      */
-    private function checkSetWhiteListFields(string $field): bool
+    private function checkSetWhiteListFields(string $field, bool $is_relation = false): bool
     {
-        if (Schema::hasColumn($this->table, $field)) {
+        if (Schema::hasColumn($this->table, $field) || $is_relation) {
             if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
                 $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
                 return true;

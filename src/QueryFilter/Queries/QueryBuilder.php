@@ -58,9 +58,12 @@ class QueryBuilder
             $this->queryFilterBuilder->like($field, $params);
         } elseif (is_array($params[0])) {
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
+        } elseif (stripos($field, '.')) {
+            $this->queryFilterBuilder->wherehas("$field", $params[0]);
         } elseif (!empty($params[0])) {
-            $this->queryFilterBuilder->status("$field", $params[0]);
+            $this->queryFilterBuilder->where("$field", $params[0]);
         }
+
     }
 
     /**

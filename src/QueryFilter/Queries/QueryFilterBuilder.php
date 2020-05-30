@@ -97,10 +97,11 @@ class QueryFilterBuilder
         }
     }
 
-    public function status( $field, $value)
+    public function wherehas($field, $value)
     {
-        return $this->builder->with(['orders'])->whereHas('orders', function ($q) use ($value) {
-            $q->where('name', '=', $value);
+        $fields = explode('.', $field);
+        return $this->builder->whereHas($fields[0], function ($q) use ($value, $fields) {
+            $q->where($fields[1], $value);
         }
         );
 
