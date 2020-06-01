@@ -134,6 +134,55 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
+***Where nested relation Model***
+
+-You can set all nested relation in the query string just by separator `.`.For example, the users model has a relation with posts.
+ You can make query condition by set `posts.count_post` in the query string. Just be careful you must set `posts.count_post`
+ in `$whiteListFilter` in the model.
+
+```php
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+
+class User extends Model
+{
+    use Filterable;
+   
+    private static $whiteListFilter =[
+        'username',
+        'posts.count_post',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('Tests\Models\Post');
+    }
+}
+``` 
+
+```
+/users/list?posts.count_post=876&username=mehdi
+
+select * from "users" where exists 
+         (select * from "posts" where 
+         "posts"."user_id" = "users"."id" 
+         and "posts"."count_post" = 876)
+         and "username" = "mehdi"
+
+```
+-The above example as the same code that you use without eloquent filter. Check it under code
+
+```php
+$user = new User();
+$builder = $user->with('posts');
+        $builder->whereHas('posts', function ($q) {
+            $q->where('count_post', 876);
+        })->where('username','mehdi');
+
+```
+
 ****Special Params****
 
 You can set special params `limit` and `orderBy` in query string for make query by that.

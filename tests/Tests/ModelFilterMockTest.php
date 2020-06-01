@@ -226,10 +226,9 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereRelation1()
     {
-        $model = new EloquentBuilderTestModelParentStub;
+        $builder = new EloquentBuilderTestModelParentStub;
 
-        $builder = $model->with('foo');
-        $builder->whereHas('foo', function ($q) {
+        $builder = $builder->whereHas('foo', function ($q) {
             $q->where('bam', 'qux');
         })->where('baz','joo');
 
@@ -251,10 +250,9 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereRelation2()
     {
-        $model = new EloquentBuilderTestModelParentStub;
+        $builder = new EloquentBuilderTestModelParentStub;
 
-        $builder = $model->with('foo');
-        $builder->whereHas('foo.baz', function ($q) {
+        $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
         })->where('baz','joo');
 
@@ -277,10 +275,9 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereRelation3()
     {
-        $model = new EloquentBuilderTestModelParentStub;
+        $builder = new EloquentBuilderTestModelParentStub;
 
-        $builder = $model->with('foo');
-        $builder->whereHas('foo.baz', function ($q) {
+        $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
         })->whereHas('foo', function ($q) {
             $q->where('bam', 'boom');
