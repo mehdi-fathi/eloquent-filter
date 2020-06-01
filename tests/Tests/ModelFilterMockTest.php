@@ -230,12 +230,14 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->whereHas('foo', function ($q) {
             $q->where('bam', 'qux');
-        })->where('baz','joo');
+        })->where('baz', 'joo');
 
         $this->makeRequest();
 
         $this->request->shouldReceive('all')->andReturn([
-            'foo.bam' => 'qux',
+            'foo' => [
+                'bam' => 'qux'
+            ],
             'baz' => 'joo',
         ]);
 
@@ -244,22 +246,28 @@ class ModelFilterMockTest extends \TestCase
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
         $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals(['qux','joo'], $builder->getBindings());
-        $this->assertEquals(['qux','joo'], $users->getBindings());
+        $this->assertEquals(['qux', 'joo'], $builder->getBindings());
+        $this->assertEquals(['qux', 'joo'], $users->getBindings());
     }
 
     public function testWhereRelation2()
     {
+        /// change request query string . to []
         $builder = new EloquentBuilderTestModelParentStub;
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
-        })->where('baz','joo');
+        })->where('baz', 'joo');
 
         $this->makeRequest();
 
         $this->request->shouldReceive('all')->andReturn([
             'foo.baz.bam' => 'qux',
+            'foo' => [
+                'baz' => [
+                    'bam' => 'qux'
+                ]
+            ],
             'baz' => 'joo',
         ]);
 
@@ -268,8 +276,8 @@ class ModelFilterMockTest extends \TestCase
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
         $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals(['qux','joo'], $builder->getBindings());
-        $this->assertEquals(['qux','joo'], $users->getBindings());
+        $this->assertEquals(['qux', 'joo'], $builder->getBindings());
+        $this->assertEquals(['qux', 'joo'], $users->getBindings());
     }
 
 
@@ -281,13 +289,17 @@ class ModelFilterMockTest extends \TestCase
             $q->where('bam', 'qux');
         })->whereHas('foo', function ($q) {
             $q->where('bam', 'boom');
-        })->where('baz','joo');
+        })->where('baz', 'joo');
 
         $this->makeRequest();
 
         $this->request->shouldReceive('all')->andReturn([
-            'foo.baz.bam' => 'qux',
-            'foo.bam' => 'boom',
+            'foo' => [
+                'baz' => [
+                    'bam' => 'qux'
+                ],
+                'bam' => 'boom'
+            ],
             'baz' => 'joo',
         ]);
 
@@ -296,8 +308,8 @@ class ModelFilterMockTest extends \TestCase
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
         $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals(['qux','boom','joo'], $builder->getBindings());
-        $this->assertEquals(['qux','boom','joo'], $users->getBindings());
+        $this->assertEquals(['qux', 'boom', 'joo'], $builder->getBindings());
+        $this->assertEquals(['qux', 'boom', 'joo'], $users->getBindings());
     }
 
 

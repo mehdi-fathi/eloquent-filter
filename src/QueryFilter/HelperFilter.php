@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter;
 
+use Illuminate\Support\Arr;
 use Morilog\Jalali\CalendarUtils;
 
 trait HelperFilter
@@ -42,5 +43,23 @@ trait HelperFilter
         }
 
         return $output;
+    }
+
+    public function isAssoc(array $arr)
+    {
+        if (array() === $arr) return false;
+        return array_keys($arr) !== range(0, count($arr) - 1);
+    }
+
+    private function convertRelationArrayRequestToStr($field, array $args)
+    {
+        $out = null;
+//        dd($field);
+        if (method_exists($this->builder->getModel(), $field)) {
+//            foreach ($args as $arg) {
+            $out = Arr::dot($args, $field . '.');
+//            }
+        }
+        return $out;
     }
 }

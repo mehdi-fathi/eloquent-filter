@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
  */
 class QueryFilter
 {
+    use HelperFilter;
     /**
      * @var \Illuminate\Http\Request
      */
@@ -52,7 +53,19 @@ class QueryFilter
         $this->queryBuilder = new QueryBuilder($builder);
         $this->table = $table;
 
-        foreach ($this->filters() as $name => $value) {
+        $requests = $this->filters();
+        foreach ($requests as $name => $value) {
+
+            if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
+                if ($this->isAssoc($value)) {
+                    unset($requests[$name]);
+                    $out = $this->convertRelationArrayRequestToStr($name, $value);
+                    $requests = array_merge($out, $requests);
+                }
+            }
+        }
+
+        foreach ($requests as $name => $value) {
             call_user_func([$this, $name], $value);
             // It resolve methods in filters class in child
         }
