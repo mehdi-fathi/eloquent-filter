@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\QueryFilter;
-use Illuminate\Support\Facades\Schema;
 
 /**
  * Class ModelFilters.
@@ -56,7 +55,8 @@ class ModelFilters extends QueryFilter
             return true;
         } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;
-        } elseif ($output = $this->checkSetWhiteListFields($field,true)) {
+        } elseif (stripos($field, '.')) {
+            $output = $this->checkSetWhiteListFields($field);
             return $output;
         }
 
@@ -72,17 +72,14 @@ class ModelFilters extends QueryFilter
 
     /**
      * @param string $field
-     * @param bool $is_relation
      *
      * @return bool
      */
-    private function checkSetWhiteListFields(string $field, bool $is_relation = false): bool
+    private function checkSetWhiteListFields(string $field): bool
     {
-        if (Schema::hasColumn($this->table, $field) || $is_relation) {
-            if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
-                $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
-                return true;
-            }
+        if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
+            $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
+            return true;
         }
 
         return false;

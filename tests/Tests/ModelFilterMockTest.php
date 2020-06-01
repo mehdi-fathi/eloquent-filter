@@ -249,6 +249,61 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['qux','joo'], $users->getBindings());
     }
 
+    public function testWhereRelation2()
+    {
+        $model = new EloquentBuilderTestModelParentStub;
+
+        $builder = $model->with('foo');
+        $builder->whereHas('foo.baz', function ($q) {
+            $q->where('bam', 'qux');
+        })->where('baz','joo');
+
+        $this->makeRequest();
+
+        $this->request->shouldReceive('all')->andReturn([
+            'foo.baz.bam' => 'qux',
+            'baz' => 'joo',
+        ]);
+
+        $filters = new ModelFilters($this->request);
+
+        $users = EloquentBuilderTestModelParentStub::filter($filters);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['qux','joo'], $builder->getBindings());
+        $this->assertEquals(['qux','joo'], $users->getBindings());
+    }
+
+
+    public function testWhereRelation3()
+    {
+        $model = new EloquentBuilderTestModelParentStub;
+
+        $builder = $model->with('foo');
+        $builder->whereHas('foo.baz', function ($q) {
+            $q->where('bam', 'qux');
+        })->whereHas('foo', function ($q) {
+            $q->where('bam', 'boom');
+        })->where('baz','joo');
+
+        $this->makeRequest();
+
+        $this->request->shouldReceive('all')->andReturn([
+            'foo.baz.bam' => 'qux',
+            'foo.bam' => 'boom',
+            'baz' => 'joo',
+        ]);
+
+        $filters = new ModelFilters($this->request);
+
+        $users = EloquentBuilderTestModelParentStub::filter($filters);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['qux','boom','joo'], $builder->getBindings());
+        $this->assertEquals(['qux','boom','joo'], $users->getBindings());
+    }
+
+
     public function testWhereLike2()
     {
         $this->__initQuery();
@@ -287,6 +342,7 @@ class EloquentBuilderTestModelParentStub extends Model
     private static $whiteListFilter = [
         'baz',
         'foo.bam',
+        'foo.baz.bam',
     ];
 
     public function foo()

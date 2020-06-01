@@ -97,14 +97,24 @@ class QueryFilterBuilder
         }
     }
 
+    /**
+     * @param $field
+     * @param $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function wherehas($field, $value)
     {
-        $fields = explode('.', $field);
-        return $this->builder->whereHas($fields[0], function ($q) use ($value, $fields) {
-            $q->where($fields[1], $value);
-        }
-        );
+        $field_row = explode('.', $field);
+        $field_row = end($field_row);
 
+        $conditions = str_replace("." . $field_row, '', $field);
+
+        return $this->builder->whereHas($conditions,
+            function ($q) use ($value, $field_row) {
+                $q->where($field_row, $value);
+            }
+        );
     }
 
     /**
