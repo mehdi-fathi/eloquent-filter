@@ -55,9 +55,6 @@ class ModelFilters extends QueryFilter
             return true;
         } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;
-        } elseif (stripos($field, '.')) {
-            $output = $this->checkSetWhiteListFields($field);
-            return $output;
         }
 
         $class_name = class_basename($this->builder->getModel());
