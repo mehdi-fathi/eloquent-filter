@@ -224,7 +224,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals($users, $this->builder);
     }
 
-    public function testWhereRelation1()
+    public function testWhereHasRelationOneNestedModel()
     {
         $builder = new EloquentBuilderTestModelParentStub;
 
@@ -250,7 +250,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['qux', 'joo'], $users->getBindings());
     }
 
-    public function testWhereRelation2()
+    public function testWhereHasRelationTwoNested()
     {
         /// change request query string . to []
         $builder = new EloquentBuilderTestModelParentStub;
@@ -281,7 +281,7 @@ class ModelFilterMockTest extends \TestCase
     }
 
 
-    public function testWhereRelation3()
+    public function testWhereHasRelationThereNested()
     {
         $builder = new EloquentBuilderTestModelParentStub;
 

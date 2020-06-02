@@ -3,3 +3,6 @@ vendor
 composer.lock
 build
 .phpunit.result.cache
+.DS_Store
+tests/.DS_Store
+
