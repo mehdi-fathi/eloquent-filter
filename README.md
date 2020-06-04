@@ -181,9 +181,9 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
-**Where nested relation Model (New feature)**
+**Where nested relation Model (:fire: New feature)**
 
--You can set all nested relation in the query string just by array query string.For example, the users model has a relation with posts.
+You can set all nested relation in the query string just by array query string.For example, the users model has a relation with posts.
  and posts table has relation with orders. You can make query condition by set `posts[count_post]` and `posts[orders][name]`
  in the query string. Just be careful you must set `posts.count_post` and `posts.orders.name` in the User model.
 
@@ -221,7 +221,7 @@ select * from "users" where exists
          and "username" = "mehdi"
 
 ```
--The above example as the same code that you use without eloquent filter. Check it under code
+- The above example as the same code that you use without eloquent filter. Check it under code
 
 ```php
 $user = new User();
