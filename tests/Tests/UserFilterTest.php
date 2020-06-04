@@ -2,7 +2,6 @@
 
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Http\Request;
-use Morilog\Jalali\CalendarUtils;
 use Tests\Controllers\UsersController;
 use Tests\Models\User;
 use Tests\Seeds\PostTableSeeder;
@@ -54,7 +53,7 @@ class UserFilterTest extends TestCase
         $this->__init();
         $this->request->merge(
             [
-                'category' => 'Html',
+                'category'   => 'Html',
                 'created_at' => null,
             ]
         );
@@ -97,8 +96,8 @@ class UserFilterTest extends TestCase
                     'ali',
                     'ali22',
                 ],
-                'family' => 'ahmadi',
-                'page' => 1,
+                'family'  => 'ahmadi',
+                'page'    => 1,
                 'perpage' => 2,
             ]
         );
@@ -120,7 +119,7 @@ class UserFilterTest extends TestCase
         $this->__init();
         $this->request->merge(
             [
-                'page' => 2,
+                'page'    => 2,
                 'perpage' => 2,
             ]
         );
@@ -143,14 +142,14 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.com',
+                'email'    => 'mehdifathi.developer@gmail.com',
             ]
         );
         $modelfilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'    => 'mehdifathi.developer@gmail.com',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -195,11 +194,11 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => now()->subDays(10)->format('Y/m/d'),
-                'end' => now()->addDays(30)->format('Y/m/d'),
+                'end'   => now()->addDays(30)->format('Y/m/d'),
             ],
             'updated_at' => [
                 'start' => now()->subDays(10)->format('Y/m/d'),
-                'end' => now()->addDays(30)->format('Y/m/d'),
+                'end'   => now()->addDays(30)->format('Y/m/d'),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -234,7 +233,7 @@ class UserFilterTest extends TestCase
         $data = [
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ];
         $this->request->merge(
@@ -306,7 +305,7 @@ class UserFilterTest extends TestCase
         $data = [
             'username' => [
                 'operator' => '!=',
-                'value' => 'ali',
+                'value'    => 'ali',
             ],
         ];
         $this->request->merge(
@@ -326,7 +325,7 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ];
         $this->request->merge(
@@ -351,14 +350,14 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email' => 'mehdifathi.developer@gmail.ccom',
+                'email'    => 'mehdifathi.developer@gmail.ccom',
             ]
         );
         $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email' => 'mehdifathi.developer@gmail.ccom',
+            'email'    => 'mehdifathi.developer@gmail.ccom',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -412,7 +411,7 @@ class UserFilterTest extends TestCase
                 'f_params' => [
                     'orderBy' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]
@@ -436,7 +435,7 @@ class UserFilterTest extends TestCase
                 'f_params' => [
                     'orderBy' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                     'limit' => 1,
                 ],
@@ -461,7 +460,7 @@ class UserFilterTest extends TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]

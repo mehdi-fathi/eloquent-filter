@@ -2,7 +2,6 @@
 
 namespace Tests\Controllers;
 
-use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Tests\Models\Category;
 
 /**
