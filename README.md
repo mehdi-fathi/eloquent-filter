@@ -101,9 +101,7 @@ class UsersController
 
           } else {
               $users = User::filter(
-                [
-                'username' => ['mehdi','ali']
-                ]           
+                ['username' => ['mehdi','ali']]           
                 )->with('posts')->orderByDesc('id')->paginate(10,['*'],'page');
           }
     }
