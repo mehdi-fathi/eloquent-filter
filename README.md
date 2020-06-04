@@ -15,7 +15,7 @@ A package for filter data of models by query string. Easy to use and full dynami
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
-## Installation
+## :electric_plug: Installation
 
 1- Run the Composer command
 
@@ -40,8 +40,8 @@ The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
     'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
 ],
 ```
-That's it enjoy!
-## Basic Usage
+That's it enjoy! :boom:
+## :wrench: Basic Usage
 
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
 
@@ -181,7 +181,7 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
-**Where nested relation Model (:fire: New feature)**
+**Where nested relation Model (New feature :fire:)**
 
 You can set all nested relation in the query string just by array query string.For example, the users model has a relation with posts.
  and posts table has relation with orders. You can make query condition by set `posts[count_post]` and `posts[orders][name]`
@@ -318,4 +318,5 @@ class User extends Model
     
 }
 ```
-- If you have any idea about the Eloquent Filter i will glad to hear that.You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
+- If you have any idea about the Eloquent Filter i will glad to hear that.
+You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
