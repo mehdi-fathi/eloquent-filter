@@ -41,7 +41,7 @@ The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 ],
 ```
 That's it enjoy! :boom:
-## :wrench: Basic Usage
+## :book: Basic Usage
 
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
 
