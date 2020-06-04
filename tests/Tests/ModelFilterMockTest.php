@@ -6,10 +6,8 @@ use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\ModelFilters\FilterableTest;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -255,7 +253,6 @@ class ModelFilterMockTest extends \TestCase
 //        app()->instance(\Illuminate\Http\Request::class,$this->request);
 
 
-
         // Define behaviour
 //        $this->app->instance('request', $this->request->all());
 
@@ -266,7 +263,6 @@ class ModelFilterMockTest extends \TestCase
 //        Container::getInstance()->extend(Kernel::class);
 
 //        $this->app->make('request',['test']);
-
 
 
         $users = EloquentBuilderTestModelParentStub::filter();
@@ -388,6 +384,33 @@ class ModelFilterMockTest extends \TestCase
             []);
 
         $this->assertEquals($users, $this->builder);
+    }
+
+    public function testWhereIgnoreParam()
+    {
+        $builder = new EloquentBuilderTestModelParentStub;
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('all')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'is_payment' => true
+            ]
+        );
+
+        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+            'google_index',
+            'is_payment'
+        ])->filter($this->request->all());
+
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
+
+//        $this->assertEquals($this->model, $this->builder);
     }
 
 

@@ -86,8 +86,6 @@ Change your code on controller as like below example:
 
 namespace App\Http\Controllers;
 
-use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
-
 /**
  * Class UsersController.
  */
@@ -98,9 +96,8 @@ class UsersController
     {
           if (!empty(request()->get('username'))) {
           
-              $perpage = Request::input('perpage');
-              Request::offsetUnset('perpage');
-              $users = User::filter()->with('posts')->orderByDesc('id')->paginate($perpage,['*'],'page');
+              $users = User::ignoreRequest('perpage')->filter()->with('posts')
+                        ->orderByDesc('id')->paginate(request()->get('perpage'),['*'],'page');
 
           } else {
               $users = User::filter(
@@ -112,12 +109,25 @@ class UsersController
     }
 }
 ```
-Eloquent filter by default using query string to make query. Also you can set array to `filter` method Model for make
+- Note that Eloquent filter by default using query string to make query. Also you can set array to `filter` method Model for make
 your own custom condition without querystring.
 
-Note that you must unset your own param as perpage.Just you can set page param for paginate this param ignore from filter.
+- Note that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
 
-### Simple Example
+You can ignore some request param by use of code it
+
+```php
+
+User::ignoreRequest(['perpage'])->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+Call `ignoreRequest` will ignore some request that you don't want to use in conditions eloquent filter.
+For example perpage param will never be in the conditions eloquent filter. it's releated to paginate method.
+`page` param ignore by default in the Eloquent filter.
+ 
+
+### Simple Examples
 
 You just pass data blade form to query string or generate query string in controller method.For example:
 
@@ -308,4 +318,4 @@ class User extends Model
     
 }
 ```
-If you have any idea about the Eloquent Filter i will glad to hear that.You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
+- If you have any idea about the Eloquent Filter i will glad to hear that.You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.

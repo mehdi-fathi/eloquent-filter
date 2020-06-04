@@ -5,6 +5,7 @@ namespace eloquentFilter\QueryFilter;
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /**
  * Class QueryFilter.
@@ -39,21 +40,23 @@ class QueryFilter
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param                                       $table
+     * @param array|null                            $reqeust
+     * @param array|null                            $ignore_request
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Builder $builder,array $reqeust=null): Builder
+    public function apply(Builder $builder, array $reqeust = null, array $ignore_request = null): Builder
     {
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
 
-        if(!empty($reqeust)){
+        if (!empty($reqeust)) {
             $this->request = $reqeust;
         }
 
-        $requests = $this->filters();
-        if (empty($requests)){
+        $requests = $this->filters($ignore_request);
+
+        if (empty($requests)) {
             return $this->builder;
         }
         foreach ($requests as $name => $value) {
@@ -75,11 +78,17 @@ class QueryFilter
         return $this->builder;
     }
 
+
     /**
-     * @return array
+     * @param array|null $ignore_request
+     *
+     * @return array|null
      */
-    public function filters(): ?array
+    public function filters(array $ignore_request = null): ?array
     {
+        if (!empty($ignore_request)) {
+            $this->request = Arr::except($this->request, $ignore_request);
+        }
         return $this->request;
     }
 }

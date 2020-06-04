@@ -102,12 +102,10 @@ class UserFilterTest extends TestCase
                 'perpage' => 2,
             ]
         );
-
         $perpage = $this->request['perpage'];
-        unset($this->request['perpage']);
-        $modelFilter = new ModelFilters($this->request->all());
 
-        $users = UsersController::filterUser($this->request->all())->paginate($perpage, ['*'], 'page');
+        $users = User::ignoreRequest(['perpage'])->filter()
+            ->paginate($perpage, ['*'], 'page');
 
         $users_pure = User::where([
             'family' => 'ahmadi',
