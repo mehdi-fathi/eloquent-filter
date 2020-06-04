@@ -74,6 +74,7 @@ class ModelFilters extends QueryFilter
      */
     private function checkSetWhiteListFields(string $field): bool
     {
+//        dd($this->builder->getModel()->getWhiteListFilter());
         if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
             $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
             return true;

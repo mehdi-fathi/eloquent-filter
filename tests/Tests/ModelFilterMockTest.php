@@ -87,8 +87,8 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('where')->with('family', 'mehdi');
         $this->request->shouldReceive('all')->andReturn(['username' => 'mehdi', 'family' => 'mehdi']);
 
-        $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
+        $this->model = new ModelFilters($this->request->all());
+        $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
 
@@ -98,8 +98,8 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('whereIn')->with('username', ['mehdi', 'ali']);
         $this->request->shouldReceive('all')->andReturn(['username' => ['mehdi', 'ali']]);
 
-        $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
+        $this->model = new ModelFilters($this->request->all());
+        $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
 
@@ -114,8 +114,8 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
+        $this->model = new ModelFilters($this->request->all());
+        $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
 
@@ -133,10 +133,10 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $this->model = new ModelFilters($this->request);
+        $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $this->model);
+        $users = $users->scopeFilter($this->builder, $ModelFilters);
 
         $this->assertEquals($users, $this->builder);
     }
@@ -158,8 +158,8 @@ class ModelFilterMockTest extends \TestCase
             'page' => 5,
         ]);
 
-        $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
+        $ModelFilters = new ModelFilters($this->request->all());
+        $this->model = $ModelFilters->apply($this->builder);
 
         $paginate = $this->model->paginate(5, ['*'], 'page', 1);
 
@@ -177,8 +177,8 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('where')->with('name', 'mehdi');
         $this->request->shouldReceive('all')->andReturn(['name' => 'mehdi']);
 
-        $this->model = new ModelFilters($this->request);
-        $this->model = $this->model->apply($this->builder, 'users');
+        $ModelFilters = new ModelFilters($this->request->all());
+        $this->model = $ModelFilters->apply($this->builder);
 
         $this->assertEquals($this->model, $this->builder);
     }
@@ -216,10 +216,10 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $this->model = new ModelFilters($this->request);
+        $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $this->model);
+        $users = $users->scopeFilter($this->builder, $ModelFilters);
 
         $this->assertEquals($users, $this->builder);
     }
@@ -241,7 +241,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request);
+        $filters = new ModelFilters($this->request->all());
 
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
@@ -271,7 +271,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request);
+        $filters = new ModelFilters($this->request->all());
 
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
@@ -303,7 +303,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request);
+        $filters = new ModelFilters($this->request->all());
 
         $users = EloquentBuilderTestModelParentStub::filter($filters);
 
@@ -326,13 +326,20 @@ class ModelFilterMockTest extends \TestCase
             'family' => 'mehdi',
         ]);
 
-        $this->model = new ModelFilters($this->request);
+        $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $this->model);
+        $users = $users->scopeFilter($this->builder, $ModelFilters,
+            [
+                'username' => [
+                    'like' => '%ahm%',
+                ],
+                'family' => 'mehdi',
+            ]);
 
         $this->assertEquals($users, $this->builder);
     }
+
 
     public function tearDown(): void
     {

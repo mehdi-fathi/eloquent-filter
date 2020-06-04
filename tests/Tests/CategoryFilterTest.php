@@ -28,7 +28,7 @@ class CategoryFilterTest extends TestCase
             ]
         );
         $modelfilter = new ModelFilters(
-            $request
+            $request->all()
         );
 
         $category = CategoriesController::filterCategory($modelfilter);
@@ -51,7 +51,7 @@ class CategoryFilterTest extends TestCase
             ]
         );
         $modelfilter = new ModelFilters(
-            $request
+            $request->all()
         );
 
         $category = CategoriesController::filterCategory($modelfilter);

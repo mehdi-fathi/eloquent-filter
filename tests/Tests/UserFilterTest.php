@@ -39,9 +39,7 @@ class UserFilterTest extends TestCase
                 'family' => 'ahmadi',
             ]
         );
-        $modelFilter = new ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
 //        DB::enableQueryLog(); // Enable query log
         $users = UsersController::filterUser($modelFilter)->get();
 //        dd(DB::getQueryLog());
@@ -61,18 +59,16 @@ class UserFilterTest extends TestCase
                     'ali',
                     'ali22',
                 ],
-                'family'  => 'ahmadi',
-                'page'    => 1,
+                'family' => 'ahmadi',
+                'page' => 1,
                 'perpage' => 2,
             ]
         );
 
-        $modelFilter = new ModelFilters(
-            $this->request
-        );
-
         $perpage = $this->request['perpage'];
         unset($this->request['perpage']);
+        $modelFilter = new ModelFilters($this->request->all());
+
         $users = UsersController::filterUser($modelFilter)->paginate($perpage, ['*'], 'page');
 
         $users_pure = User::where([
@@ -88,17 +84,15 @@ class UserFilterTest extends TestCase
         $this->__init();
         $this->request->merge(
             [
-                'page'    => 2,
+                'page' => 2,
                 'perpage' => 2,
             ]
         );
 
-        $modelFilter = new ModelFilters(
-            $this->request
-        );
-
         $perpage = $this->request['perpage'];
         unset($this->request['perpage']);
+        $modelFilter = new ModelFilters($this->request->all());
+
         $users = UsersController::filterUser($modelFilter)->paginate($perpage, ['*'], 'page', $this->request['page']);
 
         $users_pure = User::paginate($perpage, ['*'], 'page', $this->request['page']);
@@ -113,16 +107,14 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email'    => 'mehdifathi.developer@gmail.com',
+                'email' => 'mehdifathi.developer@gmail.com',
             ]
         );
-        $modelfilter = new ModelFilters(
-            $this->request
-        );
+        $modelfilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelfilter)->get();
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email'    => 'mehdifathi.developer@gmail.com',
+            'email' => 'mehdifathi.developer@gmail.com',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -136,9 +128,7 @@ class UserFilterTest extends TestCase
                 'username_like' => 'a',
             ]
         );
-        $modelFilter = new ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
@@ -154,9 +144,7 @@ class UserFilterTest extends TestCase
                 'username_like' => 'mehdi',
             ]
         );
-        $modelFilter = new ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUserWith($modelFilter, ['Posts'])->get();
 
         $users_pure = User::with('Posts')->where('username', 'like', '%mehdi%')
@@ -172,11 +160,11 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => now()->subDays(10)->format('Y/m/d'),
-                'end'   => now()->addDays(30)->format('Y/m/d'),
+                'end' => now()->addDays(30)->format('Y/m/d'),
             ],
             'updated_at' => [
                 'start' => now()->subDays(10)->format('Y/m/d'),
-                'end'   => now()->addDays(30)->format('Y/m/d'),
+                'end' => now()->addDays(30)->format('Y/m/d'),
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ];
@@ -184,7 +172,7 @@ class UserFilterTest extends TestCase
             $data
         );
         $modelfilter = new  ModelFilters(
-            $this->request
+            $this->request->all()
         );
         $users = UsersController::filterUser($modelfilter)->get();
         $users_pure = User::whereBetween(
@@ -211,14 +199,14 @@ class UserFilterTest extends TestCase
         $data = [
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ];
         $this->request->merge(
             $data
         );
         $modelFilter = new  ModelFilters(
-            $this->request
+            $this->request->all()
         );
 
         $users = UsersController::filterUser($modelFilter)->get();
@@ -240,7 +228,7 @@ class UserFilterTest extends TestCase
         );
 
         $modelFilter = new  ModelFilters(
-            $this->request
+            $this->request->all()
         );
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('name', 'ali')
@@ -269,9 +257,7 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('name', 'ali')
             ->get();
@@ -285,15 +271,13 @@ class UserFilterTest extends TestCase
         $data = [
             'username' => [
                 'operator' => '!=',
-                'value'    => 'ali',
+                'value' => 'ali',
             ],
         ];
         $this->request->merge(
             $data
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where('username', '!=', 'ali')
             ->get();
@@ -307,15 +291,13 @@ class UserFilterTest extends TestCase
         $data = [
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
+                'end' => '2019-02-06 10:11:46',
             ],
         ];
         $this->request->merge(
             $data
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::whereBetween(
             'created_at',
@@ -334,16 +316,14 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             [
                 'username' => 'mehdi',
-                'email'    => 'mehdifathi.developer@gmail.ccom',
+                'email' => 'mehdifathi.developer@gmail.ccom',
             ]
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'mehdi',
-            'email'    => 'mehdifathi.developer@gmail.ccom',
+            'email' => 'mehdifathi.developer@gmail.ccom',
         ])->get();
         $this->assertEquals($users_pure, $users);
     }
@@ -357,9 +337,7 @@ class UserFilterTest extends TestCase
                 'role' => 'admin',
             ]
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
 
         try {
             $users = UsersController::filterUser($modelFilter)->get();
@@ -376,13 +354,11 @@ class UserFilterTest extends TestCase
             [
                 'username' => 'ahmad',
                 'f_params' => [
-                    'limit'  => 1,
+                    'limit' => 1,
                 ],
             ]
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
@@ -399,16 +375,14 @@ class UserFilterTest extends TestCase
             [
                 'username' => 'ahmad',
                 'f_params' => [
-                    'orderBy'  => [
+                    'orderBy' => [
                         'field' => 'id',
-                        'type'  => 'ASC',
+                        'type' => 'ASC',
                     ],
                 ],
             ]
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
@@ -425,17 +399,15 @@ class UserFilterTest extends TestCase
             [
                 'username' => 'ahmad',
                 'f_params' => [
-                    'orderBy'  => [
+                    'orderBy' => [
                         'field' => 'id',
-                        'type'  => 'ASC',
+                        'type' => 'ASC',
                     ],
-                    'limit'  => 1,
+                    'limit' => 1,
                 ],
             ]
         );
-        $modelFilter = new  ModelFilters(
-            $this->request
-        );
+        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($modelFilter)->get();
         $users_pure = User::where([
             'username' => 'ahmad',
@@ -452,15 +424,15 @@ class UserFilterTest extends TestCase
             [
                 'username' => 'ahmad',
                 'f_params' => [
-                    'orderBys'  => [
+                    'orderBys' => [
                         'field' => 'id',
-                        'type'  => 'ASC',
+                        'type' => 'ASC',
                     ],
                 ],
             ]
         );
         $modelFilter = new  ModelFilters(
-            $this->request
+            $this->request->all()
         );
 
         try {

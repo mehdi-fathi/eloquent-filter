@@ -26,17 +26,13 @@ class QueryFilter
      * @var
      */
     protected $queryBuilder;
-    /**
-     * @var
-     */
-    protected $table;
 
     /**
      * QueryFilter constructor.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param array $request
      */
-    public function __construct(Request $request)
+    public function __construct(array $request)
     {
         $this->request = $request;
     }
@@ -47,11 +43,14 @@ class QueryFilter
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Builder $builder, $table): Builder
+    public function apply(Builder $builder,array $reqeust=null): Builder
     {
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
-        $this->table = $table;
+
+        if(!empty($reqeust)){
+            $this->request = $reqeust;
+        }
 
         $requests = $this->filters();
         foreach ($requests as $name => $value) {
@@ -78,6 +77,6 @@ class QueryFilter
      */
     public function filters(): array
     {
-        return $this->request->all();
+        return $this->request;
     }
 }

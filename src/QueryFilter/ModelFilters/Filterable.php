@@ -15,9 +15,9 @@ trait Filterable
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFilter($query, QueryFilter $filters): \Illuminate\Database\Eloquent\Builder
+    public function scopeFilter($query, QueryFilter $filters,array $reqesut = null): \Illuminate\Database\Eloquent\Builder
     {
-        return $filters->apply($query, $this->getTable());
+        return $filters->apply($query,$reqesut);
     }
 
     /**
