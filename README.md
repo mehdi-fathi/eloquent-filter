@@ -17,10 +17,30 @@ The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
 ## Installation
 
-Run the Composer command
+1- Run the Composer command
 
       $ composer require mehdi-fathi/eloquent-filter
+2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
+   
+   ```php
+   'providers' => [
+     /*
+      * Package Service Providers...
+      */
+       eloquentFilter\ServiceProvider::class
+   ],
+   ```
+3- Add Facade `'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class` to aliases app.php
 
+```php
+'alias' => [
+  /*
+   * Facade alias...
+   */
+    'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
+],
+```
+That's it enjoy!
 ## Basic Usage
 
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
@@ -73,22 +93,27 @@ use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
  */
 class UsersController
 {
-    /**
-     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $modelFilters
-     */
-    public function list(ModelFilters $modelFilters)
+
+    public function list()
     {
-          if (!empty($modelFilters->filters())) {
+          if (!empty(request()->get('username'))) {
           
               $perpage = Request::input('perpage');
               Request::offsetUnset('perpage');
-              $users = User::filter($modelFilters)->with('posts')->orderByDesc('id')->paginate($perpage,['*'],'page');
+              $users = User::filter()->with('posts')->orderByDesc('id')->paginate($perpage,['*'],'page');
+
           } else {
-              $users = User::with('posts')->orderByDesc('id')->paginate(10);
+              $users = User::filter(
+                [
+                'username' => ['mehdi','ali']
+                ]           
+                )->with('posts')->orderByDesc('id')->paginate(10,['*'],'page');
           }
     }
 }
 ```
+Eloquent filter by default using query string to make query. Also you can set array to `filter` method Model for make
+your own custom condition without querystring.
 
 Note that you must unset your own param as perpage.Just you can set page param for paginate this param ignore from filter.
 
@@ -114,6 +139,18 @@ SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 
 SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
+
+***Where like***
+
+If you are going to make query by like conditions. You can do it that by this example.
+
+```
+/users/list?first_name[like]=%John%
+
+SELECT ... WHERE ... first_name LIKE '%John%'
+
+```
+
 ***Where by operator***
 
 You can set any operator mysql in query string.
@@ -134,11 +171,11 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
-***Where nested relation Model***
+**Where nested relation Model (New feature)**
 
--You can set all nested relation in the query string just by separator `.`.For example, the users model has a relation with posts.
- You can make query condition by set `posts.count_post` in the query string. Just be careful you must set `posts.count_post`
- in `$whiteListFilter` in the model.
+-You can set all nested relation in the query string just by array query string.For example, the users model has a relation with posts.
+ and posts table has relation with orders. You can make query condition by set `posts[count_post]` and `posts[orders][name]`
+ in the query string. Just be careful you must set `posts.count_post` and `posts.orders.name` in the User model.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -150,20 +187,22 @@ class User extends Model
     private static $whiteListFilter =[
         'username',
         'posts.count_post',
+        'posts.orders.name',
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function posts()
     {
-        return $this->hasMany('Tests\Models\Post');
+        return $this->belongsTo('Tests\Models\Post');
     }
+
 }
 ``` 
 
 ```
-/users/list?posts.count_post=876&username=mehdi
+/users/list?posts[count_post]=876&username=mehdi
 
 select * from "users" where exists 
          (select * from "posts" where 
@@ -207,25 +246,6 @@ you can set it on query string as you know. this params is good fit for filter b
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
-
-***Where like***
-
-If you are going to make query by like conditions. You can do it that by this example.
-
-```
-/users/list?first_name[like]=%John%
-
-SELECT ... WHERE ... first_name LIKE '%John%'
-
-```
-
-Also you can set jallali date in your params and eloquent-filter will detect jallali date and convert to gregorian then eloquent-filter generate new query. You just pass a jallali date by param
-
-```
-/users/list?created_at[start]=1397/10/11 10:11:46&created_at[end]=1397/11/17 10:11:46
-
-SELECT ... WHERE ... created_at BETWEEN '2019-01-01 10:11:46' AND '2019-02-06 10:11:46'
-``` 
 
 ****Advanced Where****
 ```

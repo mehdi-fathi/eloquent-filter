@@ -32,7 +32,7 @@ class QueryFilter
      *
      * @param array $request
      */
-    public function __construct(array $request)
+    public function __construct(?array $request)
     {
         $this->request = $request;
     }
@@ -53,6 +53,9 @@ class QueryFilter
         }
 
         $requests = $this->filters();
+        if (empty($requests)){
+            return $this->builder;
+        }
         foreach ($requests as $name => $value) {
 
             if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
@@ -75,7 +78,7 @@ class QueryFilter
     /**
      * @return array
      */
-    public function filters(): array
+    public function filters(): ?array
     {
         return $this->request;
     }

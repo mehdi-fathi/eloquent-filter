@@ -1,15 +1,31 @@
 <?php
 
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+use Illuminate\Http\Request;
+use Mockery as m;
+
 /**
  * Class TestCase.
  */
 class TestCase extends Orchestra\Testbench\TestCase
 {
+    public $request;
+
     public function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->withFactories(__DIR__.'/database/factories');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->withFactories(__DIR__ . '/database/factories');
+
+        $this->request = m::mock(\Illuminate\Http\Request::class);
+
+        $this->app->singleton('eloquentFilter',
+            function () {
+//                dump($this->request->all());
+
+                return new ModelFilters($this->request->all());
+            });
+
     }
 
     /**
@@ -21,6 +37,11 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     protected function getPackageProviders($app)
     {
+
+        $rw= $this->request;
+
+
+//        dd(909);
         return [
             // your package service provider,
             Orchestra\Database\ConsoleServiceProvider::class,

@@ -63,7 +63,7 @@ class ModelFilters extends QueryFilter
             return;
         }
 
-        throw new \Exception("You must set $field in whiteListFilter in $class_name
+        throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method.");
     }
 

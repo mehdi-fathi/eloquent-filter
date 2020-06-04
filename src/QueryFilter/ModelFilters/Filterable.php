@@ -2,22 +2,23 @@
 
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
-use eloquentFilter\QueryFilter\QueryFilter;
+use eloquentFilter\Facade\EloquentFilter;
 
 /**
  * Trait Filterable.
  */
 trait Filterable
 {
+
     /**
-     * @param \eloquentFilter\QueryFilter\ModelFilters\ModelFilters $query
-     * @param \eloquentFilter\QueryFilter\QueryFilter               $filters
+     * @param            $query
+     * @param array|null $reqesut
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFilter($query, QueryFilter $filters,array $reqesut = null): \Illuminate\Database\Eloquent\Builder
+    public function scopeFilter($query, ?array $reqesut = null): \Illuminate\Database\Eloquent\Builder
     {
-        return $filters->apply($query,$reqesut);
+        return EloquentFilter::apply($query, $reqesut);
     }
 
     /**

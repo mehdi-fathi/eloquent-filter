@@ -15,7 +15,7 @@ class CategoriesController
      *
      * @return mixed
      */
-    public static function filterCategory(ModelFilters $filters)
+    public static function filterCategory($filters)
     {
         $categories = Category::filter($filters)->get();
 

@@ -5,13 +5,16 @@ namespace eloquentFilter;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
+
+class ServiceProviderTest extends BaseServiceProvider
 {
+
     /**
      * Perform post-registration booting of services.
      */
     public function boot(): void
     {
+
     }
 
     /**
@@ -19,6 +22,8 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
+
+
         $this->registerBindings();
 //
 //        $this->registerConsole();
@@ -39,11 +44,12 @@ class ServiceProvider extends BaseServiceProvider
     private function registerBindings()
     {
 
+
         $this->app->singleton('eloquentFilter',
             function () {
-                dd($this->app->get('request')->all());
+                dd(request()->all());
 
-                return new ModelFilters($this->app->get('request')->all());
+                return new ModelFilters($this->request->all());
             });
 
     }

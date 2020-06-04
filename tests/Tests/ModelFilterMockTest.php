@@ -4,9 +4,12 @@ namespace Tests\Tests;
 
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+use eloquentFilter\QueryFilter\ModelFilters\FilterableTest;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -71,7 +74,7 @@ class ModelFilterMockTest extends \TestCase
 
     protected function makeRequest()
     {
-        $this->request = m::mock(\Illuminate\Http\Request::class);
+//        $this->request = m::mock(\Illuminate\Http\Request::class);
     }
 
     protected function __initQuery($obj = null)
@@ -136,7 +139,7 @@ class ModelFilterMockTest extends \TestCase
         $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $ModelFilters);
+        $users = $users->scopeFilter($this->builder, $this->request->all());
 
         $this->assertEquals($users, $this->builder);
     }
@@ -219,7 +222,7 @@ class ModelFilterMockTest extends \TestCase
         $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $ModelFilters);
+        $users = $ModelFilters->apply($this->builder, $this->request->all());
 
         $this->assertEquals($users, $this->builder);
     }
@@ -241,9 +244,32 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request->all());
+//        App::shouldReceive('request')
+//            ->andReturn($this->request->all());
 
-        $users = EloquentBuilderTestModelParentStub::filter($filters);
+
+//        $this->app->instance('request', $this->request);
+
+//        dd('run method');
+
+//        app()->instance(\Illuminate\Http\Request::class,$this->request);
+
+
+
+        // Define behaviour
+//        $this->app->instance('request', $this->request->all());
+
+//        $this->app->extend('request', function ($service, $app) {
+//            return $this->request;
+//        });
+
+//        Container::getInstance()->extend(Kernel::class);
+
+//        $this->app->make('request',['test']);
+
+
+
+        $users = EloquentBuilderTestModelParentStub::filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
@@ -271,9 +297,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request->all());
-
-        $users = EloquentBuilderTestModelParentStub::filter($filters);
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->all());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
@@ -303,9 +327,8 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $filters = new ModelFilters($this->request->all());
 
-        $users = EloquentBuilderTestModelParentStub::filter($filters);
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->all());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'boom', 'joo'], $builder->getBindings());
@@ -329,13 +352,40 @@ class ModelFilterMockTest extends \TestCase
         $ModelFilters = new ModelFilters($this->request->all());
 
         $users = new User();
-        $users = $users->scopeFilter($this->builder, $ModelFilters,
+        $users = $users->scopeFilter($this->builder,
             [
                 'username' => [
                     'like' => '%ahm%',
                 ],
                 'family' => 'mehdi',
             ]);
+
+        $this->assertEquals($users, $this->builder);
+    }
+
+    public function testNullReqeust()
+    {
+        $this->__initQuery();
+
+        $this->request->shouldReceive('all')->andReturn(null);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder,
+            null);
+
+        $this->assertEquals($users, $this->builder);
+    }
+
+    public function testNullArrReqeust()
+    {
+        $this->__initQuery();
+
+        $this->request->shouldReceive('all')->andReturn([
+        ]);
+
+        $users = new User();
+        $users = $users->scopeFilter($this->builder,
+            []);
 
         $this->assertEquals($users, $this->builder);
     }
