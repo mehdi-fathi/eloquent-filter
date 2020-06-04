@@ -9,8 +9,8 @@ use eloquentFilter\Facade\EloquentFilter;
  */
 trait Filterable
 {
+    protected $ignore_request = null;
 
-    protected $ignore_request =null;
     /**
      * @param            $query
      * @param array|null $reqesut
@@ -19,7 +19,7 @@ trait Filterable
      */
     public function scopeFilter($query, ?array $reqesut = null): \Illuminate\Database\Eloquent\Builder
     {
-        return EloquentFilter::apply($query, $reqesut,$this->ignore_request);
+        return EloquentFilter::apply($query, $reqesut, $this->ignore_request);
     }
 
     public function scopeIgnoreRequest($query, ?array $reqesut = null)
@@ -27,7 +27,6 @@ trait Filterable
         $this->ignore_request = $reqesut;
 
         return $this;
-
     }
 
     /**

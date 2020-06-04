@@ -60,7 +60,6 @@ class QueryFilter
             return $this->builder;
         }
         foreach ($requests as $name => $value) {
-
             if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
                 if ($this->isAssoc($value)) {
                     unset($requests[$name]);
@@ -78,7 +77,6 @@ class QueryFilter
         return $this->builder;
     }
 
-
     /**
      * @param array|null $ignore_request
      *
@@ -89,6 +87,7 @@ class QueryFilter
         if (!empty($ignore_request)) {
             $this->request = Arr::except($this->request, $ignore_request);
         }
+
         return $this->request;
     }
 }

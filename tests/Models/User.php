@@ -42,6 +42,7 @@ class User extends Model
     {
         return $this->hasMany('Tests\Models\Post');
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

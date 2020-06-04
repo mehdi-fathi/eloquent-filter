@@ -5,9 +5,7 @@ namespace eloquentFilter\QueryFilter;
 use Illuminate\Support\Arr;
 
 /**
- * Trait HelperFilter
- *
- * @package eloquentFilter\QueryFilter
+ * Trait HelperFilter.
  */
 trait HelperFilter
 {
@@ -18,7 +16,10 @@ trait HelperFilter
      */
     public function isAssoc(array $arr)
     {
-        if (array() === $arr) return false;
+        if ([] === $arr) {
+            return false;
+        }
+
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
@@ -32,8 +33,9 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
         }
+
         return $out;
     }
 }
