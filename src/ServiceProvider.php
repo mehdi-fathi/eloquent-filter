@@ -22,7 +22,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->registerBindings();
 //
 //        $this->registerConsole();
-
     }
 
     protected function bootPublishes(): void
@@ -38,13 +37,13 @@ class ServiceProvider extends BaseServiceProvider
 
     private function registerBindings()
     {
-
-        $this->app->singleton('eloquentFilter',
+        $this->app->singleton(
+            'eloquentFilter',
             function () {
                 dd($this->app->get('request')->all());
 
                 return new ModelFilters($this->app->get('request')->all());
-            });
-
+            }
+        );
     }
 }

@@ -63,7 +63,6 @@ class QueryBuilder
         } elseif (!empty($params[0])) {
             $this->queryFilterBuilder->where("$field", $params[0]);
         }
-
     }
 
     /**

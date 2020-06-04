@@ -103,9 +103,10 @@ class QueryFilterBuilder
         $field_row = explode('.', $field);
         $field_row = end($field_row);
 
-        $conditions = str_replace("." . $field_row, '', $field);
+        $conditions = str_replace('.'.$field_row, '', $field);
 
-        return $this->builder->whereHas($conditions,
+        return $this->builder->whereHas(
+            $conditions,
             function ($q) use ($value, $field_row) {
                 $q->where($field_row, $value);
             }
@@ -124,8 +125,7 @@ class QueryFilterBuilder
      * @param $field
      * @param $type
      */
-    public
-    function orderBy(string $field, string $type)
+    public function orderBy(string $field, string $type)
     {
         $this->builder->orderBy($field, $type);
     }
