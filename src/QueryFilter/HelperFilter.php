@@ -33,9 +33,39 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field.'.');
+            $out = Arr::dot($args, $field . '.');
         }
 
         return $out;
+    }
+
+    /**
+     * @param array|null $request
+     */
+    public function setRequest($request): void
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getRequest(): ?array
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param array|null $ignore_request
+     *
+     * @return array|null
+     */
+    public function filters(array $ignore_request = null): ?array
+    {
+        if (!empty($ignore_request)) {
+            $this->setRequest(Arr::except($this->getRequest(), $ignore_request));
+        }
+
+        return $this->getRequest();
     }
 }

@@ -4,8 +4,6 @@ namespace eloquentFilter\QueryFilter;
 
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 /**
  * Class QueryFilter.
@@ -51,43 +49,29 @@ class QueryFilter
         $this->queryBuilder = new QueryBuilder($builder);
 
         if (!empty($reqeust)) {
-            $this->request = $reqeust;
+            $this->setRequest($reqeust);
         }
 
-        $requests = $this->filters($ignore_request);
+        $this->filters($ignore_request);
 
-        if (empty($requests)) {
-            return $this->builder;
-        }
-        foreach ($requests as $name => $value) {
-            if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
-                if ($this->isAssoc($value)) {
-                    unset($requests[$name]);
-                    $out = $this->convertRelationArrayRequestToStr($name, $value);
-                    $requests = array_merge($out, $requests);
+        if (!empty($this->getRequest())) {
+
+            foreach ($this->getRequest() as $name => $value) {
+                if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
+                    if ($this->isAssoc($value)) {
+                        unset($this->request[$name]);
+                        $out = $this->convertRelationArrayRequestToStr($name, $value);
+                        $this->request = array_merge($out, $this->request);
+                    }
                 }
+            }
+
+            foreach ($this->getRequest() as $name => $value) {
+                call_user_func([$this, $name], $value);
+                // It resolve methods in filters class in child
             }
         }
 
-        foreach ($requests as $name => $value) {
-            call_user_func([$this, $name], $value);
-            // It resolve methods in filters class in child
-        }
-
         return $this->builder;
-    }
-
-    /**
-     * @param array|null $ignore_request
-     *
-     * @return array|null
-     */
-    public function filters(array $ignore_request = null): ?array
-    {
-        if (!empty($ignore_request)) {
-            $this->request = Arr::except($this->request, $ignore_request);
-        }
-
-        return $this->request;
     }
 }
