@@ -241,26 +241,6 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-//        App::shouldReceive('request')
-//            ->andReturn($this->request->all());
-
-//        $this->app->instance('request', $this->request);
-
-//        dd('run method');
-
-//        app()->instance(\Illuminate\Http\Request::class,$this->request);
-
-        // Define behaviour
-//        $this->app->instance('request', $this->request->all());
-
-//        $this->app->extend('request', function ($service, $app) {
-//            return $this->request;
-//        });
-
-//        Container::getInstance()->extend(Kernel::class);
-
-//        $this->app->make('request',['test']);
-
         $users = EloquentBuilderTestModelParentStub::filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
