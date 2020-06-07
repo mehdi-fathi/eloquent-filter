@@ -44,7 +44,10 @@ trait HelperFilter
      */
     public function setRequest($request): void
     {
-        $this->request = $request;
+
+        if (!empty($request)) {
+            $this->request = $request;
+        }
     }
 
     /**
@@ -55,6 +58,7 @@ trait HelperFilter
         return $this->request;
     }
 
+
     /**
      * @param array|null $ignore_request
      *
@@ -62,10 +66,13 @@ trait HelperFilter
      */
     public function filters(array $ignore_request = null): ?array
     {
-        if (!empty($ignore_request)) {
-            $this->setRequest(Arr::except($this->getRequest(), $ignore_request));
+        if (!empty($ignore_request) && !empty($this->getRequest())) {
+            $data = Arr::except($this->getRequest(), $ignore_request);
+            $this->setRequest($data);
         }
 
         return $this->getRequest();
     }
+
+
 }

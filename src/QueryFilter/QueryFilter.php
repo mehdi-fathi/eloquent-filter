@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter;
 
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 /**
  * Class QueryFilter.
@@ -48,9 +49,7 @@ class QueryFilter
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
 
-        if (!empty($reqeust)) {
-            $this->setRequest($reqeust);
-        }
+        $this->setRequest($reqeust);
 
         $this->filters($ignore_request);
 
@@ -59,9 +58,9 @@ class QueryFilter
             foreach ($this->getRequest() as $name => $value) {
                 if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
                     if ($this->isAssoc($value)) {
-                        unset($this->request[$name]);
+                        unset($this->getRequest()[$name]);
                         $out = $this->convertRelationArrayRequestToStr($name, $value);
-                        $this->request = array_merge($out, $this->request);
+                        $this->setRequest(array_merge($out, $this->request));
                     }
                 }
             }
