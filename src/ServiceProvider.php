@@ -40,7 +40,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             'eloquentFilter',
             function () {
-
                 return new ModelFilters($this->app->get('request')->all());
             }
         );

@@ -33,7 +33,7 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
         }
 
         return $out;
@@ -44,7 +44,6 @@ trait HelperFilter
      */
     public function setRequest($request): void
     {
-
         if (!empty($request)) {
             $this->request = $request;
         }
@@ -57,7 +56,6 @@ trait HelperFilter
     {
         return $this->request;
     }
-
 
     /**
      * @param array|null $ignore_request
@@ -73,6 +71,4 @@ trait HelperFilter
 
         return $this->getRequest();
     }
-
-
 }
