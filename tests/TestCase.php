@@ -44,6 +44,7 @@ class TestCase extends Orchestra\Testbench\TestCase
         return [
             // your package service provider,
             Orchestra\Database\ConsoleServiceProvider::class,
+            \eloquentFilter\ServiceProvider::class
         ];
     }
 
