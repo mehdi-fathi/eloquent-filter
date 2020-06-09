@@ -63,11 +63,6 @@ class QueryFilterBuilder
      */
     public function whereIn($field, array $params)
     {
-        foreach ($params as $key => $value) {
-            if (is_null($value) || $value == '') {
-                unset($params[$key]);
-            }
-        }
         if (!empty($params)) {
             $this->builder->whereIn("$field", $params);
         }
@@ -79,11 +74,6 @@ class QueryFilterBuilder
      */
     public function like($field, array $params)
     {
-        foreach ($params as $key => $value) {
-            if (is_null($value) || $value == '') {
-                unset($params[$key]);
-            }
-        }
 
         if (!empty($params)) {
             foreach ($params as $key => $value) {
@@ -103,7 +93,7 @@ class QueryFilterBuilder
         $field_row = explode('.', $field);
         $field_row = end($field_row);
 
-        $conditions = str_replace('.'.$field_row, '', $field);
+        $conditions = str_replace('.' . $field_row, '', $field);
 
         return $this->builder->whereHas(
             $conditions,

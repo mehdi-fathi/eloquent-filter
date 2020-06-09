@@ -33,7 +33,7 @@ class QueryFilter
      */
     public function __construct(?array $request)
     {
-        $this->request = $request;
+        $this->setRequest($request);
     }
 
     /**
