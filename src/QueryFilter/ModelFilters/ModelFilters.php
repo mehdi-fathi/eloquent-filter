@@ -64,7 +64,7 @@ class ModelFilters extends QueryFilter
         }
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
-         or create a override method.");
+         or create a override method with name $field or call ignoreRequest function for ignore $field.");
     }
 
     /**
