@@ -110,7 +110,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -129,7 +129,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -153,7 +153,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('all')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
             'page' => 5,
         ]);
@@ -261,7 +261,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('all')->andReturn([
             'foo.baz.bam' => 'qux',
-            'foo' => [
+            'foo'         => [
                 'baz' => [
                     'bam' => 'qux',
                 ],
@@ -315,15 +315,15 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('all')->andReturn([
             'baz' => [
-                'boom', 'joe', null
+                'boom', 'joe', null,
             ],
         ]);
 
         $users = EloquentBuilderTestModelParentStub::filter($this->request->all());
 
         $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals([ 'boom', 'joe' , null], $builder->getBindings());
-        $this->assertEquals([ 'boom', 'joe' , null], $users->getBindings());
+        $this->assertEquals(['boom', 'joe', null], $builder->getBindings());
+        $this->assertEquals(['boom', 'joe', null], $users->getBindings());
     }
 
     public function testWhereLike2()
@@ -394,9 +394,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('all')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
