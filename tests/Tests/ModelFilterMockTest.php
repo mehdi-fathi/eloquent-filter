@@ -201,8 +201,6 @@ class ModelFilterMockTest extends \TestCase
         $user_model = new User();
         $user_model->addWhiteListFilter('name');
 
-//        dd($user_model->getWhiteListFilter(),$userModel2->getWhiteListFilter());
-
         $this->assertEquals($user_model->getWhiteListFilter(), $userModel2->getWhiteListFilter());
     }
 

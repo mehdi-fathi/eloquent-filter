@@ -76,10 +76,8 @@ class UserFilterTest extends TestCase
                 'family' => 'ahmadi',
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
 //        DB::enableQueryLog(); // Enable query log
         $users = UsersController::filterUser($this->request->all())->get();
-//        dd(DB::getQueryLog());
         $users_pure = User::where([
             'family' => 'ahmadi',
         ])->wherein('username', ['ali', 'ali22'])->get();

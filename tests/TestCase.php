@@ -38,9 +38,6 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     protected function getPackageProviders($app)
     {
-        $rw = $this->request;
-
-//        dd(909);
         return [
             // your package service provider,
             Orchestra\Database\ConsoleServiceProvider::class,
