@@ -107,12 +107,12 @@ class UsersController
     }
 }
 ```
-- Note that Eloquent filter by default using query string to make query. Also you can set array to `filter` method Model for make
-your own custom condition without querystring.
+- Note that the Eloquent Filter by default using the query string or request data to make queries.
+ Also, you can set the array to `filter` method Model for making your own custom condition without query string.
 
 - Note that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
 
-You can ignore some request param by use of code it
+You can ignore some request params by use of code it.
 
 ```php
 
@@ -120,9 +120,15 @@ User::ignoreRequest(['perpage'])->filter()
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `ignoreRequest` will ignore some request that you don't want to use in conditions eloquent filter.
-For example perpage param will never be in the conditions eloquent filter. it's releated to paginate method.
-`page` param ignore by default in the Eloquent filter.
+Call `ignoreRequest` will ignore some requests that you don't want to use in conditions eloquent filter. 
+For example perpage param will never be in the conditions eloquent filter. 
+it's related to the paginate method. `page` param ignore by default in the Eloquent filter.
+
+
+- Another example use of a filter eloquent filter.
+```php
+User::filter()->paginate();
+```
  
 
 ### Simple Examples
@@ -179,11 +185,11 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
-**Where nested relation Model (New feature :fire:)**
+**Where the nested relation Model (New feature :fire:)**
 
 
 You can set all nested relation in the query string just by the array query string. For example, the user model has a relation with posts.
-and posts table has a relation with orders. You can make query condition by set 'posts[count_post]' and 'posts[orders][name]' in the query string.
+and posts table has a relation with orders. You can make query conditions by set 'posts[count_post]' and 'posts[orders][name]' in the query string.
 Just be careful you must set 'posts.count_post' and 'posts.orders.name' in the User model.
 
 ```php
@@ -220,7 +226,7 @@ select * from "users" where exists
          and "username" = "mehdi"
 
 ```
-- The above example as the same code that you use without the eloquent filter. Check it under code
+- The above example as the same code that you use without the eloquent filter. Check it under code.
 
 ```php
 $user = new User();
