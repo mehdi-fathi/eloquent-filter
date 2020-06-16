@@ -11,7 +11,7 @@
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Total Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/downloads)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 
-A package for filter data of models by query string. Easy to use and full dynamic.
+The Eloquent filter is a package for filter data of models by the query string. Easy to use and fully dynamic.
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
