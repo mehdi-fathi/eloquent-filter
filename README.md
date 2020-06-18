@@ -11,7 +11,8 @@
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Total Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/downloads)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 
-The Eloquent filter is a package for filter data of models by the query string. Easy to use and fully dynamic.
+The Eloquent filter is a package for filter data of models by the query string in the Laravel application.
+It's easy to use and fully dynamic.
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
@@ -80,7 +81,7 @@ User::addWhiteListFilter('name');
 
 ### Use in your controller
 
-Change your code on controller as like below example:
+Change your code on controller of laravel as like below example:
 
 ```php
 
@@ -107,7 +108,7 @@ class UsersController
     }
 }
 ```
-- Note that the Eloquent Filter by default using the query string or request data to make queries.
+- Note that the Eloquent Filter by default using the query string or request data to make queries in the laravel.
  Also, you can set the array to `filter` method Model for making your own custom condition without query string.
 
 - Note that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
