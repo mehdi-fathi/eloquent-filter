@@ -129,7 +129,8 @@ it's related to the paginate method. `page` param ignore by default in the Eloqu
 ```php
 User::filter()->paginate();
 ```
- 
+- `EloquentFilter::filterRequests()` get all params eloquent filter. You can set key to get specific index.
+For example `EloquentFilter::filterRequests('username')` it's getting username index.
 
 ### Simple Examples
 
