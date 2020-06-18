@@ -1,7 +1,6 @@
 <?php
 
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
-use Illuminate\Http\Request;
 use Mockery as m;
 
 /**

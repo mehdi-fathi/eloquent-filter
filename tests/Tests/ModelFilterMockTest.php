@@ -111,7 +111,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -130,7 +130,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -154,7 +154,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
             'page' => 5,
         ]);
@@ -260,7 +260,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'foo.baz.bam' => 'qux',
-            'foo' => [
+            'foo'         => [
                 'baz' => [
                     'bam' => 'qux',
                 ],
@@ -393,9 +393,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
@@ -419,7 +419,6 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
         $this->assertSame($this->request->query(), EloquentFilter::filterRequests());
-
     }
 
     public function tearDown(): void
