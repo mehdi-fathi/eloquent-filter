@@ -33,7 +33,7 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
         }
 
         return $out;
@@ -74,9 +74,10 @@ trait HelperFilter
 
     public function filterRequests($index = null)
     {
-        if (!empty($index)){
+        if (!empty($index)) {
             return $this->getRequest()[$index];
         }
+
         return $this->getRequest();
     }
 }
