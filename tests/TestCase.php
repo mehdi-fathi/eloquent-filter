@@ -22,9 +22,7 @@ class TestCase extends Orchestra\Testbench\TestCase
         $this->app->singleton(
             'eloquentFilter',
             function () {
-//                dump($this->request->all());
-
-                return new ModelFilters($this->request->all());
+                return new ModelFilters($this->request->query());
             }
         );
     }

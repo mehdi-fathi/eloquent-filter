@@ -14,7 +14,7 @@ trait HelperFilter
      *
      * @return bool
      */
-    public function isAssoc(array $arr)
+    private function isAssoc(array $arr)
     {
         if ([] === $arr) {
             return false;
@@ -33,7 +33,7 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field.'.');
+            $out = Arr::dot($args, $field . '.');
         }
 
         return $out;
@@ -42,7 +42,7 @@ trait HelperFilter
     /**
      * @param array|null $request
      */
-    public function setRequest($request): void
+    private function setRequest($request): void
     {
         if (!empty($request)) {
             $this->request = $request;
@@ -52,7 +52,7 @@ trait HelperFilter
     /**
      * @return array|null
      */
-    public function getRequest(): ?array
+    private function getRequest(): ?array
     {
         return $this->request;
     }
@@ -62,13 +62,21 @@ trait HelperFilter
      *
      * @return array|null
      */
-    public function filters(array $ignore_request = null): ?array
+    private function filters(array $ignore_request = null): ?array
     {
         if (!empty($ignore_request) && !empty($this->getRequest())) {
             $data = Arr::except($this->getRequest(), $ignore_request);
             $this->setRequest($data);
         }
 
+        return $this->getRequest();
+    }
+
+    public function filterRequests($index = null)
+    {
+        if (!empty($index)){
+            return $this->getRequest()[$index];
+        }
         return $this->getRequest();
     }
 }

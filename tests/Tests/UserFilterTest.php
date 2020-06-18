@@ -123,10 +123,8 @@ class UserFilterTest extends TestCase
         );
 
         $perpage = $this->request['perpage'];
-        unset($this->request['perpage']);
-        $modelFilter = new ModelFilters($this->request->all());
 
-        $users = UsersController::filterUser($this->request->all())->paginate($perpage, ['*'], 'page', $this->request['page']);
+        $users = User::ignoreRequest(['perpage'])->filter()->paginate($perpage, ['*'], 'page', $this->request['page']);
 
         $users_pure = User::paginate($perpage, ['*'], 'page', $this->request['page']);
 

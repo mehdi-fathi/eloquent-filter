@@ -22,6 +22,12 @@ trait Filterable
         return EloquentFilter::apply($query, $reqesut, $this->ignore_request);
     }
 
+    /**
+     * @param            $query
+     * @param array|null $reqesut
+     *
+     * @return $this
+     */
     public function scopeIgnoreRequest($query, ?array $reqesut = null)
     {
         $this->ignore_request = $reqesut;
