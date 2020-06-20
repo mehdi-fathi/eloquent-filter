@@ -141,7 +141,6 @@ class UserFilterTest extends TestCase
                 'email'    => 'mehdifathi.developer@gmail.com',
             ]
         );
-        $modelfilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'mehdi',
@@ -159,7 +158,6 @@ class UserFilterTest extends TestCase
                 'username_like' => 'a',
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
@@ -235,10 +233,6 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelFilter = new  ModelFilters(
-            $this->request->all()
-        );
-
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where('count_posts', '>', 35)
             ->get();
@@ -257,9 +251,6 @@ class UserFilterTest extends TestCase
             $data
         );
 
-        $modelFilter = new  ModelFilters(
-            $this->request->all()
-        );
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where('name', 'ali')
             ->get();
@@ -287,7 +278,6 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where('name', 'ali')
             ->get();
@@ -307,8 +297,7 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelFilter = new ModelFilters($this->request->all());
-        $users = UsersController::filterUser($this->request->all())->get();
+        $users = UsersController::filterUser($this->request->query())->get();
         $users_pure = User::where('username', '!=', 'ali')
             ->get();
         $this->assertEquals($users_pure, $users);
@@ -327,7 +316,6 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::whereBetween(
             'created_at',
@@ -349,7 +337,6 @@ class UserFilterTest extends TestCase
                 'email'    => 'mehdifathi.developer@gmail.ccom',
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'mehdi',
@@ -367,7 +354,6 @@ class UserFilterTest extends TestCase
                 'role' => 'admin',
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
 
         try {
             $users = UsersController::filterUser($this->request->all())->get();
@@ -388,7 +374,6 @@ class UserFilterTest extends TestCase
                 ],
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'ahmad',
@@ -412,7 +397,6 @@ class UserFilterTest extends TestCase
                 ],
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'ahmad',
@@ -437,7 +421,6 @@ class UserFilterTest extends TestCase
                 ],
             ]
         );
-        $modelFilter = new ModelFilters($this->request->all());
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where([
             'username' => 'ahmad',
