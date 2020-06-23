@@ -86,7 +86,7 @@ class QueryFilterBuilder
         $field_row = explode('.', $field);
         $field_row = end($field_row);
 
-        $conditions = str_replace('.' . $field_row, '', $field);
+        $conditions = str_replace('.'.$field_row, '', $field);
 
         return $this->builder->whereHas(
             $conditions,

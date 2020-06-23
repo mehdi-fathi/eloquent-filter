@@ -33,7 +33,7 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
         }
 
         return $out;
