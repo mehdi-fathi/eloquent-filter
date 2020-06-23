@@ -33,8 +33,7 @@ class QueryFilter
      */
     public function __construct(?array $request)
     {
-
-        if(!empty($request)){
+        if (!empty($request)) {
 //            dump($request);
 
             $this->setRequest($request);
@@ -53,7 +52,7 @@ class QueryFilter
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
 
-        if(!empty($request)){
+        if (!empty($request)) {
             $this->setRequest($request);
         }
         $this->setFilterRequests($ignore_request, $this->builder->getModel());
