@@ -114,12 +114,13 @@ class ModelFilterMockTest extends \TestCase
     {
         $this->__initQuery();
         $this->builder->shouldReceive('where')->with('username', 'mehdi');
-        $this->request->shouldReceive('query')->andReturn([
-                'username' => 'mehdi',
-                'family' => null,
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username'   => 'mehdi',
+                'family'     => null,
                 'created_at' => [
-                    "start" => null,
-                    "end" => null
+                    'start' => null,
+                    'end'   => null,
                 ],
             ]
         );
@@ -166,7 +167,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
