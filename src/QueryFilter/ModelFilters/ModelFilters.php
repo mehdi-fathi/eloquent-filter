@@ -15,11 +15,11 @@ class ModelFilters extends QueryFilter
      *
      * @throws \Exception
      */
-    public function __call($field, $arguments)
+    protected function resolveQuery($field, $arguments)
     {
         if ($this->handelListFields($field)) {
             if ($this->checkModelHasOverrideMethod($field)) {
-                $this->builder->getModel()->$field($this->builder, $arguments[0]);
+                $this->builder->getModel()->$field($this->builder, $arguments);
             } else {
                 $this->queryBuilder->buildQuery($field, $arguments);
             }
@@ -43,9 +43,9 @@ class ModelFilters extends QueryFilter
     /**
      * @param string $field
      *
+     * @return bool
      * @throws \Exception
      *
-     * @return bool
      */
     private function handelListFields(string $field)
     {

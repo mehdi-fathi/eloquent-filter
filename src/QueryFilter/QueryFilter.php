@@ -50,21 +50,11 @@ class QueryFilter
 
         $this->setRequest($reqeust);
 
-        $this->filters($ignore_request);
+        $this->setFilterRequests($ignore_request,$this->builder->getModel());
 
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
-                if (is_array($value) && method_exists($this->builder->getModel(), $name)) {
-                    if ($this->isAssoc($value)) {
-                        unset($this->getRequest()[$name]);
-                        $out = $this->convertRelationArrayRequestToStr($name, $value);
-                        $this->setRequest(array_merge($out, $this->request));
-                    }
-                }
-            }
-
-            foreach ($this->getRequest() as $name => $value) {
-                call_user_func([$this, $name], $value);
+                $this->resolveQuery($name, $value);
                 // It resolve methods in filters class in child
             }
         }

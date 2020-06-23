@@ -33,7 +33,7 @@ trait HelperFilter
     {
         $out = null;
         if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field.'.');
+            $out = Arr::dot($args, $field . '.');
         }
 
         return $out;
@@ -62,11 +62,22 @@ trait HelperFilter
      *
      * @return array|null
      */
-    private function filters(array $ignore_request = null): ?array
+    private function setFilterRequests(array $ignore_request = null, $builder_model): ?array
     {
         if (!empty($ignore_request) && !empty($this->getRequest())) {
             $data = Arr::except($this->getRequest(), $ignore_request);
             $this->setRequest($data);
+        }
+        if (!empty($this->getRequest())) {
+            foreach ($this->getRequest() as $name => $value) {
+                if (is_array($value) && method_exists($builder_model, $name)) {
+                    if ($this->isAssoc($value)) {
+                        unset($this->getRequest()[$name]);
+                        $out = $this->convertRelationArrayRequestToStr($name, $value);
+                        $this->setRequest(array_merge($out, $this->request));
+                    }
+                }
+            }
         }
 
         return $this->getRequest();

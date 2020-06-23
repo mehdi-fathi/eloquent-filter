@@ -46,23 +46,33 @@ class QueryBuilder
      *
      * @throws \Exception
      */
-    public function buildQuery($field, array $params)
+    public function buildQuery($field, $params)
     {
-        if (!empty($params[0]['start']) && !empty($params[0]['end'])) {
-            $this->queryFilterBuilder->whereBetween($field, $params);
-        } elseif ($field == 'f_params') {
-            $this->__buildQueryWithNewParams($field, $params[0]);
-        } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {
-            $this->queryFilterBuilder->whereByOpt($field, $params);
-        } elseif (!empty($params[0]['like'])) {
-            $this->queryFilterBuilder->like($field, $params);
-        } elseif (is_array($params[0])) {
-            $this->queryFilterBuilder->whereIn("$field", $params[0]);
-        } elseif (stripos($field, '.')) {
-            $this->queryFilterBuilder->wherehas("$field", $params[0]);
-        } elseif (!empty($params[0])) {
-            $this->queryFilterBuilder->where("$field", $params[0]);
+        $method_builder_detcted = $this->detectMethodByParams($field, $params);
+
+        if ($field == 'f_params') {
+            $this->__buildQueryBySpecialParams($field, $params);
+        }else{
+            $this->queryFilterBuilder->$method_builder_detcted($field, $params);
         }
+    }
+
+    private function detectMethodByParams($field, $params)
+    {
+        if (!empty($params['start']) && !empty($params['end'])) {
+            $method = 'whereBetween';
+        } elseif (!empty($params['operator']) && !empty($params['value'])) {
+            $method = 'whereByOpt';
+        } elseif (!empty($params['like'])) {
+            $method = 'like';
+        } elseif (is_array($params)) {
+            $method = 'whereIn';
+        } elseif (stripos($field, '.')) {
+            $method = 'wherehas';
+        } else {
+            $method = 'where';
+        }
+        return $method;
     }
 
     /**
@@ -71,11 +81,11 @@ class QueryBuilder
      *
      * @throws \Exception
      */
-    private function __buildQueryWithNewParams($field, array $params)
+    private function __buildQueryBySpecialParams($field, array $params)
     {
         foreach ($params as $key => $param) {
             if (!in_array($key, $this->reserve_param['f_params'])) {
-                throw new \Exception("$key is not in f_params array.");
+                throw new \Exception("$key is not in f_params array."); //TODO make exception test for it
             }
             if (is_array($param)) {
                 $this->queryFilterBuilder->$key($param['field'], $param['type']);

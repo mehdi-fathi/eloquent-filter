@@ -32,8 +32,8 @@ class QueryFilterBuilder
      */
     public function whereBetween($field, array $params)
     {
-        $start = $params[0]['start'];
-        $end = $params[0]['end'];
+        $start = $params['start'];
+        $end = $params['end'];
         $this->builder->whereBetween($field, [$start, $end]);
     }
 
@@ -52,8 +52,8 @@ class QueryFilterBuilder
      */
     public function whereByOpt($field, $params)
     {
-        $opt = $params[0]['operator'];
-        $value = $params[0]['value'];
+        $opt = $params['operator'];
+        $value = $params['value'];
         $this->builder->where("$field", "$opt", $value);
     }
 
@@ -63,9 +63,7 @@ class QueryFilterBuilder
      */
     public function whereIn($field, array $params)
     {
-        if (!empty($params)) {
-            $this->builder->whereIn("$field", $params);
-        }
+        $this->builder->whereIn("$field", $params);
     }
 
     /**
@@ -74,11 +72,7 @@ class QueryFilterBuilder
      */
     public function like($field, array $params)
     {
-        if (!empty($params)) {
-            foreach ($params as $key => $value) {
-                $this->builder->where("$field", 'like', $value['like']);
-            }
-        }
+        $this->builder->where("$field", 'like', $params['like']);
     }
 
     /**
@@ -92,7 +86,7 @@ class QueryFilterBuilder
         $field_row = explode('.', $field);
         $field_row = end($field_row);
 
-        $conditions = str_replace('.'.$field_row, '', $field);
+        $conditions = str_replace('.' . $field_row, '', $field);
 
         return $this->builder->whereHas(
             $conditions,
