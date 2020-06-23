@@ -43,9 +43,9 @@ class ModelFilters extends QueryFilter
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     private function handelListFields(string $field)
     {

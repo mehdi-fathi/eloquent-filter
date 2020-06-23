@@ -52,7 +52,7 @@ class QueryBuilder
 
         if ($field == 'f_params') {
             $this->__buildQueryBySpecialParams($field, $params);
-        }else{
+        } else {
             $this->queryFilterBuilder->$method_builder_detcted($field, $params);
         }
     }
@@ -72,6 +72,7 @@ class QueryBuilder
         } else {
             $method = 'where';
         }
+
         return $method;
     }
 

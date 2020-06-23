@@ -50,7 +50,7 @@ class QueryFilter
 
         $this->setRequest($reqeust);
 
-        $this->setFilterRequests($ignore_request,$this->builder->getModel());
+        $this->setFilterRequests($ignore_request, $this->builder->getModel());
 
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
