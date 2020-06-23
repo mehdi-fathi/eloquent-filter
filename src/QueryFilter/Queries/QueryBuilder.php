@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
+use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryBuilder
 {
+    use HelperFilter;
     /**
      * @var array
      */
@@ -71,11 +73,11 @@ class QueryBuilder
             $method = 'whereByOpt';
         } elseif (!empty($params['like'])) {
             $method = 'like';
-        } elseif (is_array($params)) {
+        } elseif (is_array($params) && !$this->isAssoc($params)) {
             $method = 'whereIn';
         } elseif (stripos($field, '.')) {
             $method = 'wherehas';
-        } elseif (!empty($params)) {
+        } elseif (is_string($params)) {
             $method = 'where';
         }
 
