@@ -93,15 +93,15 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals($this->model, $this->builder);
     }
 
-
     public function testWhereSomeParamNull()
     {
         $this->__initQuery();
         $this->builder->shouldReceive('where')->with('username', 'mehdi');
-        $this->request->shouldReceive('query')->andReturn([
-            'username' => 'mehdi',
-            'family' => null,
-            'email' => null,
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => 'mehdi',
+                'family'   => null,
+                'email'    => null,
             ]
         );
 
