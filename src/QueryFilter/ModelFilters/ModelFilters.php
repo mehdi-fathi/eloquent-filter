@@ -59,10 +59,6 @@ class ModelFilters extends QueryFilter
 
         $class_name = class_basename($this->builder->getModel());
 
-        if ($field == 'page') {
-            return;
-        }
-
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");
     }

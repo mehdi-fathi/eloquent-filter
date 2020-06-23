@@ -33,23 +33,29 @@ class QueryFilter
      */
     public function __construct(?array $request)
     {
-        $this->setRequest($request);
+
+        if(!empty($request)){
+//            dump($request);
+
+            $this->setRequest($request);
+        }
     }
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param array|null                            $reqeust
+     * @param array|null                            $request
      * @param array|null                            $ignore_request
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Builder $builder, array $reqeust = null, array $ignore_request = null): Builder
+    public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
     {
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($builder);
 
-        $this->setRequest($reqeust);
-
+        if(!empty($request)){
+            $this->setRequest($request);
+        }
         $this->setFilterRequests($ignore_request, $this->builder->getModel());
 
         if (!empty($this->getRequest())) {

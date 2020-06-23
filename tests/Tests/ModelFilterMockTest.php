@@ -240,7 +240,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter();
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
