@@ -52,11 +52,17 @@ class QueryBuilder
 
         if ($field == 'f_params') {
             $this->__buildQueryBySpecialParams($field, $params);
-        } else {
+        } elseif (!empty($method_builder_detcted)) {
             $this->queryFilterBuilder->$method_builder_detcted($field, $params);
         }
     }
 
+    /**
+     * @param $field
+     * @param $params
+     *
+     * @return string|null
+     */
     private function detectMethodByParams($field, $params)
     {
         if (!empty($params['start']) && !empty($params['end'])) {
@@ -69,11 +75,11 @@ class QueryBuilder
             $method = 'whereIn';
         } elseif (stripos($field, '.')) {
             $method = 'wherehas';
-        } else {
+        } elseif (!empty($params)) {
             $method = 'where';
         }
 
-        return $method;
+        return $method ?? null;
     }
 
     /**
