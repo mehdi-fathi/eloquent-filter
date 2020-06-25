@@ -10,6 +10,7 @@
 [![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Total Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/downloads)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
+[![Daily Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/d/daily)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 
 The Eloquent filter is a package for filter data of models by the query string in the Laravel application.
 It's easy to use and fully dynamic.
@@ -123,19 +124,19 @@ User::ignoreRequest(['perpage'])->filter()
 
 Call `ignoreRequest` will ignore some requests that you don't want to use in conditions eloquent filter. 
 For example perpage param will never be in the conditions eloquent filter. 
-it's related to the paginate method. `page` param ignore by default in the Eloquent filter.
+it's related to the paginate method. `page` param ignore by default in the Eloquent Filter Laravel.
 
 
 - Another example use of a filter eloquent filter.
 ```php
 User::filter()->paginate();
 ```
-- `EloquentFilter::filterRequests()` get all params eloquent filter. You can set key to get specific index.
+- `EloquentFilter::filterRequests()` get all params that used by the Eloquent Filter. You can set key to get specific index.
 For example `EloquentFilter::filterRequests('username')` it's getting username index.
 
 ### Simple Examples
 
-You just pass data blade form to query string or generate query string in controller method.For example:
+You just pass data blade form to query string or generate query string in controller method. For example:
 
 **Simple Where**
 ```
