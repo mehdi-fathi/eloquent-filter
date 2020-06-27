@@ -44,8 +44,9 @@ class QueryFilter extends ModelFilters
      * @param array|null                            $request
      * @param array|null                            $ignore_request
      *
-     * @return \Illuminate\Database\Eloquent\Builder
      * @throws \Exception
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
     {

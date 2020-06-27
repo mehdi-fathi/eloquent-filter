@@ -2,7 +2,6 @@
 
 namespace eloquentFilter;
 
-use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProviderTest extends BaseServiceProvider
