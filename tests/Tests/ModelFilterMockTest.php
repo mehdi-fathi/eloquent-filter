@@ -6,6 +6,7 @@ use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
@@ -88,7 +89,7 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('where')->with('family', 'mehdi');
         $this->request->shouldReceive('query')->andReturn(['username' => 'mehdi', 'family' => 'mehdi']);
 
-        $this->model = new ModelFilters($this->request->query());
+        $this->model = new QueryFilter($this->request->query());
         $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
@@ -105,7 +106,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $this->model = new ModelFilters($this->request->query());
+        $this->model = new QueryFilter($this->request->query());
         $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
@@ -114,17 +115,18 @@ class ModelFilterMockTest extends \TestCase
     {
         $this->__initQuery();
         $this->builder->shouldReceive('where')->with('username', 'mehdi');
-        $this->request->shouldReceive('query')->andReturn([
-                'username' => 'mehdi',
-                'family' => null,
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username'   => 'mehdi',
+                'family'     => null,
                 'created_at' => [
-                    "start" => null,
-                    "end" => null
+                    'start' => null,
+                    'end'   => null,
                 ],
             ]
         );
 
-        $this->model = new ModelFilters($this->request->query());
+        $this->model = new QueryFilter($this->request->query());
         $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
@@ -135,7 +137,7 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('whereIn')->with('username', ['mehdi', 'ali']);
         $this->request->shouldReceive('query')->andReturn(['username' => ['mehdi', 'ali']]);
 
-        $this->model = new ModelFilters($this->request->query());
+        $this->model = new QueryFilter($this->request->query());
         $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
@@ -151,7 +153,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $this->model = new ModelFilters($this->request->query());
+        $this->model = new QueryFilter($this->request->query());
         $this->model = $this->model->apply($this->builder);
         $this->assertEquals($this->model, $this->builder);
     }
@@ -166,11 +168,11 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
-        $ModelFilters = new ModelFilters($this->request->query());
+        $ModelFilters = new QueryFilter($this->request->query());
 
         $users = new User();
         $users = $users->scopeFilter($this->builder, $this->request->query());
@@ -195,7 +197,7 @@ class ModelFilterMockTest extends \TestCase
             'page' => 5,
         ]);
 
-        $ModelFilters = new ModelFilters($this->request->query());
+        $ModelFilters = new QueryFilter($this->request->query());
         $this->model = $ModelFilters->apply($this->builder);
 
         $paginate = $this->model->paginate(5, ['*'], 'page', 1);
@@ -214,7 +216,7 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('where')->with('name', 'mehdi');
         $this->request->shouldReceive('query')->andReturn(['name' => 'mehdi']);
 
-        $ModelFilters = new ModelFilters($this->request->query());
+        $ModelFilters = new QueryFilter($this->request->query());
         $this->model = $ModelFilters->apply($this->builder);
 
         $this->assertEquals($this->model, $this->builder);
@@ -251,7 +253,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $ModelFilters = new ModelFilters($this->request->query());
+        $ModelFilters = new QueryFilter($this->request->query());
 
         $users = new User();
         $users = $ModelFilters->apply($this->builder, $this->request->query());
@@ -374,7 +376,7 @@ class ModelFilterMockTest extends \TestCase
             'family' => 'mehdi',
         ]);
 
-        $ModelFilters = new ModelFilters($this->request->query());
+        $ModelFilters = new QueryFilter($this->request->query());
 
         $users = new User();
         $users = $users->scopeFilter(

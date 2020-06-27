@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter;
 
+use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  *
  * @property \eloquentFilter\QueryFilter\Queries\QueryBuilder queryBuilder
  */
-class QueryFilter
+class QueryFilter extends ModelFilters
 {
     use HelperFilter;
     /**
@@ -34,8 +35,6 @@ class QueryFilter
     public function __construct(?array $request)
     {
         if (!empty($request)) {
-//            dump($request);
-
             $this->setRequest($request);
         }
     }
@@ -46,6 +45,7 @@ class QueryFilter
      * @param array|null                            $ignore_request
      *
      * @return \Illuminate\Database\Eloquent\Builder
+     * @throws \Exception
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
     {

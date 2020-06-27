@@ -1,6 +1,6 @@
 <?php
 
-use eloquentFilter\QueryFilter\ModelFilters\ModelFilters;
+use eloquentFilter\QueryFilter\QueryFilter;
 use Mockery as m;
 
 /**
@@ -21,7 +21,7 @@ class TestCase extends Orchestra\Testbench\TestCase
         $this->app->singleton(
             'eloquentFilter',
             function () {
-                return new ModelFilters($this->request->query());
+                return new QueryFilter($this->request->query());
             }
         );
     }

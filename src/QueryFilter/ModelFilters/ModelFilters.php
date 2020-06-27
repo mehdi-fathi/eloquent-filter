@@ -7,7 +7,7 @@ use eloquentFilter\QueryFilter\QueryFilter;
 /**
  * Class ModelFilters.
  */
-class ModelFilters extends QueryFilter
+class ModelFilters
 {
     /**
      * @param $field

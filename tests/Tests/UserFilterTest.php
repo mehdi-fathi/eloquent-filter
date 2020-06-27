@@ -199,9 +199,6 @@ class UserFilterTest extends TestCase
         $this->request->merge(
             $data
         );
-        $modelfilter = new  ModelFilters(
-            $this->request->all()
-        );
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::whereBetween(
             'created_at',

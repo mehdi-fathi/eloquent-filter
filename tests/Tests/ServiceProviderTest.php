@@ -40,7 +40,7 @@ class ServiceProviderTest extends BaseServiceProvider
         $this->app->singleton(
             'eloquentFilter',
             function () {
-                return new ModelFilters($this->request->all());
+                return new QueryFilter($this->request->all());
             }
         );
     }
