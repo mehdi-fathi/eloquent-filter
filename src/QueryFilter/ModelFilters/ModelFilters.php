@@ -2,8 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
-use eloquentFilter\QueryFilter\QueryFilter;
-
 /**
  * Class ModelFilters.
  */
