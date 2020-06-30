@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryFilter extends ModelFilters
 {
-
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param array|null                            $request
