@@ -42,7 +42,7 @@ trait HelperFilter
     /**
      * @param array|null $request
      */
-    private function setRequest($request): void
+    protected function setRequest($request): void
     {
         if (!empty($request['page'])) {
             unset($request['page']);
@@ -53,7 +53,7 @@ trait HelperFilter
     /**
      * @return array|null
      */
-    private function getRequest(): ?array
+    protected function getRequest(): ?array
     {
         return $this->request;
     }
@@ -63,7 +63,7 @@ trait HelperFilter
      *
      * @return array|null
      */
-    private function setFilterRequests(array $ignore_request = null, $builder_model): ?array
+    protected function setFilterRequests(array $ignore_request = null, $builder_model): ?array
     {
         if (!empty($ignore_request) && !empty($this->getRequest())) {
             $data = Arr::except($this->getRequest(), $ignore_request);

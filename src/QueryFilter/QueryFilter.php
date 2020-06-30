@@ -13,31 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryFilter extends ModelFilters
 {
-    use HelperFilter;
-    /**
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
-    /**
-     * @var
-     */
-    protected $builder;
-    /**
-     * @var
-     */
-    protected $queryBuilder;
-
-    /**
-     * QueryFilter constructor.
-     *
-     * @param array $request
-     */
-    public function __construct(?array $request)
-    {
-        if (!empty($request)) {
-            $this->setRequest($request);
-        }
-    }
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder

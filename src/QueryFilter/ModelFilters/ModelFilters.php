@@ -2,11 +2,40 @@
 
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
+use eloquentFilter\QueryFilter\HelperFilter;
+
 /**
  * Class ModelFilters.
  */
 class ModelFilters
 {
+    use HelperFilter;
+
+    /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+    /**
+     * @var
+     */
+    protected $builder;
+    /**
+     * @var
+     */
+    protected $queryBuilder;
+
+    /**
+     * QueryFilter constructor.
+     *
+     * @param array $request
+     */
+    public function __construct(?array $request)
+    {
+        if (!empty($request)) {
+            $this->setRequest($request);
+        }
+    }
+
     /**
      * @param $field
      * @param $arguments
@@ -34,16 +63,15 @@ class ModelFilters
         if (method_exists($this->builder->getModel(), $field)) {
             return true;
         }
-
         return false;
     }
 
     /**
      * @param string $field
      *
+     * @return bool
      * @throws \Exception
      *
-     * @return bool
      */
     private function handelListFields(string $field)
     {
