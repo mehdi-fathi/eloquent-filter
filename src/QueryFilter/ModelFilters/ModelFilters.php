@@ -63,15 +63,16 @@ class ModelFilters
         if (method_exists($this->builder->getModel(), $field)) {
             return true;
         }
+
         return false;
     }
 
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     private function handelListFields(string $field)
     {
