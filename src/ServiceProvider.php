@@ -6,9 +6,7 @@ use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
- * Class ServiceProvider
- *
- * @package eloquentFilter
+ * Class ServiceProvider.
  */
 class ServiceProvider extends BaseServiceProvider
 {

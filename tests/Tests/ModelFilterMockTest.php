@@ -469,7 +469,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $users->getBindings());
     }
 
-
     public function testFilterRequests()
     {
         $this->request->shouldReceive('query')->andReturn(
