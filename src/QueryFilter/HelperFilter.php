@@ -31,7 +31,8 @@ trait HelperFilter
      */
     private function convertRelationArrayRequestToStr($field, array $args)
     {
-        $out = Arr::dot($args, $field . '.');
+        $out = Arr::dot($args, $field.'.');
+
         return $out;
     }
 
@@ -56,7 +57,6 @@ trait HelperFilter
 
     /**
      * @param array|null $ignore_request
-     *
      * @param            $builder_model
      *
      * @return array|null
@@ -100,6 +100,7 @@ trait HelperFilter
         if (!empty($index)) {
             return $this->getRequest()[$index];
         }
+
         return $this->getRequest();
     }
 }
