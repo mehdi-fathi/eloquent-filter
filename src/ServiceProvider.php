@@ -5,6 +5,11 @@ namespace eloquentFilter;
 use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
+/**
+ * Class ServiceProvider
+ *
+ * @package eloquentFilter
+ */
 class ServiceProvider extends BaseServiceProvider
 {
     /**

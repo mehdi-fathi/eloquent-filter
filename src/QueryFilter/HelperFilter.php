@@ -31,11 +31,7 @@ trait HelperFilter
      */
     private function convertRelationArrayRequestToStr($field, array $args)
     {
-        $out = null;
-        if (method_exists($this->builder->getModel(), $field)) {
-            $out = Arr::dot($args, $field.'.');
-        }
-
+        $out = Arr::dot($args, $field . '.');
         return $out;
     }
 
@@ -61,19 +57,20 @@ trait HelperFilter
     /**
      * @param array|null $ignore_request
      *
+     * @param            $builder_model
+     *
      * @return array|null
      */
     protected function setFilterRequests(array $ignore_request = null, $builder_model): ?array
     {
         if (!empty($ignore_request) && !empty($this->getRequest())) {
-            $data = Arr::except($this->getRequest(), $ignore_request);
-            $this->setRequest($data);
+            $this->setIgnoreReqeust($ignore_request);
         }
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
                 if (is_array($value) && method_exists($builder_model, $name)) {
                     if ($this->isAssoc($value)) {
-                        unset($this->getRequest()[$name]);
+                        unset($this->request[$name]);
                         $out = $this->convertRelationArrayRequestToStr($name, $value);
                         $this->setRequest(array_merge($out, $this->request));
                     }
@@ -82,6 +79,15 @@ trait HelperFilter
         }
 
         return $this->getRequest();
+    }
+
+    /**
+     * @param array $ignore_request
+     */
+    private function setIgnoreReqeust(array $ignore_request): void
+    {
+        $data = Arr::except($this->getRequest(), $ignore_request);
+        $this->setRequest($data);
     }
 
     /**
@@ -94,7 +100,6 @@ trait HelperFilter
         if (!empty($index)) {
             return $this->getRequest()[$index];
         }
-
         return $this->getRequest();
     }
 }

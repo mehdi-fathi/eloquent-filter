@@ -446,6 +446,30 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $users->getBindings());
     }
 
+    public function testWhereIgnoreParamThatNotExistRequest()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz'          => 'joo',
+                'google_index' => true,
+            ]
+        );
+
+        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+            'google_index',
+            'is_payment_paypal',
+        ])->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
+    }
+
+
     public function testFilterRequests()
     {
         $this->request->shouldReceive('query')->andReturn(
