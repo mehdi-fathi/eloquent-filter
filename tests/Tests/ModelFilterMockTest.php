@@ -100,8 +100,8 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn(
             [
                 'username' => 'mehdi',
-                'family' => null,
-                'email' => null,
+                'family'   => null,
+                'email'    => null,
             ]
         );
 
@@ -116,11 +116,11 @@ class ModelFilterMockTest extends \TestCase
         $this->builder->shouldReceive('where')->with('username', 'mehdi');
         $this->request->shouldReceive('query')->andReturn(
             [
-                'username' => 'mehdi',
-                'family' => null,
+                'username'   => 'mehdi',
+                'family'     => null,
                 'created_at' => [
                     'start' => null,
-                    'end' => null,
+                    'end'   => null,
                 ],
             ]
         );
@@ -149,7 +149,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -168,7 +168,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -192,7 +192,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
             'page' => 5,
         ]);
@@ -298,7 +298,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'foo.baz.bam' => 'qux',
-            'foo' => [
+            'foo'         => [
                 'baz' => [
                     'bam' => 'qux',
                 ],
@@ -431,9 +431,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
@@ -455,7 +455,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
             ]
         );
@@ -490,7 +490,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($this->request->query()['baz'], EloquentFilter::filterRequests('baz'));
     }
 
-
     //TODO make whereor document readme
     public function testWhereOr1()
     {
@@ -504,21 +503,20 @@ class ModelFilterMockTest extends \TestCase
         $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
-            'baz' => 'boo',
+            'baz'         => 'boo',
             'count_posts' => 22,
-            'or' => [
+            'or'          => [
                 'baz' => 'joo',
-            ]
+            ],
         ]);
 
         $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
 
-        $users_to_sql = str_replace('(','',$users->toSql());
-        $users_to_sql = str_replace(')','',$users_to_sql);
+        $users_to_sql = str_replace('(', '', $users->toSql());
+        $users_to_sql = str_replace(')', '', $users_to_sql);
         $this->assertSame($users_to_sql, $builder->toSql());
-        $this->assertEquals(['boo',22, 'joo'], $users->getBindings());
+        $this->assertEquals(['boo', 22, 'joo'], $users->getBindings());
     }
-
 
     public function testWhereInt()
     {
@@ -529,7 +527,7 @@ class ModelFilterMockTest extends \TestCase
         $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => 345
+            'count_posts' => 345,
         ]);
 
         $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
@@ -538,7 +536,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([345], $builder->getBindings());
         $this->assertEquals([345], $users->getBindings());
     }
-
 
     public function tearDown(): void
     {
