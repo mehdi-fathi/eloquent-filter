@@ -54,6 +54,10 @@ class QueryBuilder
 
         if ($field == 'f_params') {
             $this->__buildQueryBySpecialParams($field, $params);
+        } elseif ($method_builder_detcted == 'orWhere') {
+            $field = key($params);
+            $value = reset($params);
+            $this->queryFilterBuilder->orWhere($field, $value);
         } elseif (!empty($method_builder_detcted)) {
             $this->queryFilterBuilder->$method_builder_detcted($field, $params);
         }
@@ -75,9 +79,11 @@ class QueryBuilder
             $method = 'like';
         } elseif (is_array($params) && !$this->isAssoc($params)) {
             $method = 'whereIn';
+        } elseif ($field == 'or') {
+            $method = 'orWhere';
         } elseif (stripos($field, '.')) {
             $method = 'wherehas';
-        } elseif (is_string($params)) {
+        } elseif (!empty($params)) {
             $method = 'where';
         }
 

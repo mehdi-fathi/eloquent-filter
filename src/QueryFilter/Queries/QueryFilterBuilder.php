@@ -68,6 +68,15 @@ class QueryFilterBuilder
 
     /**
      * @param       $field
+     * @param       $param
+     */
+    public function orWhere($field, $param)
+    {
+        $this->builder->orWhere($field, $param);
+    }
+
+    /**
+     * @param       $field
      * @param array $params
      */
     public function like($field, array $params)
@@ -86,7 +95,7 @@ class QueryFilterBuilder
         $field_row = explode('.', $field);
         $field_row = end($field_row);
 
-        $conditions = str_replace('.'.$field_row, '', $field);
+        $conditions = str_replace('.' . $field_row, '', $field);
 
         return $this->builder->whereHas(
             $conditions,

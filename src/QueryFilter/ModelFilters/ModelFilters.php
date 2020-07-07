@@ -78,7 +78,7 @@ class ModelFilters
     {
         if ($output = $this->checkSetWhiteListFields($field)) {
             return $output;
-        } elseif ($field == 'f_params') {
+        } elseif ($field == 'f_params' || $field == 'or') {
             return true;
         } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;

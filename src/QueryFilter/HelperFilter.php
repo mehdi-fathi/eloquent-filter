@@ -31,7 +31,7 @@ trait HelperFilter
      */
     private function convertRelationArrayRequestToStr($field, array $args)
     {
-        $out = Arr::dot($args, $field.'.');
+        $out = Arr::dot($args, $field . '.');
 
         return $out;
     }
@@ -44,6 +44,23 @@ trait HelperFilter
         if (!empty($request['page'])) {
             unset($request['page']);
         }
+        $request = array_filter($request, function ($value) {
+            return !is_null($value) && $value !== '';
+        });
+
+        foreach ($request as $key => $item) {
+
+            if (is_array($item)) {
+
+                if (array_key_exists('start', $item) && array_key_exists('end', $item)) {
+                    if (empty($item['start']) && empty($item['end'])) {
+                        unset($request[$key]);
+                    }
+                }
+            }
+
+        }
+
         $this->request = $request;
     }
 
