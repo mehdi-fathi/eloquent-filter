@@ -34,7 +34,6 @@ class QueryFilter extends ModelFilters
 
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
-//                dump($value);
                 $this->resolveQuery($name, $value);
                 // It resolve methods in filters class in child
             }
