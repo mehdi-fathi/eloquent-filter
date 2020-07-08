@@ -151,10 +151,24 @@ SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
+***Where In***
+
+This example make method `whereIn`.
+
 ```
 /users/list?username[]=ali&username[]=ali22&family=ahmadi
 
-SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
+SELECT ... WHERE ... username in ('ali','ali22') AND family = 'ahmadi'
+```
+
+***OrWhere***
+
+This example make method `orWhere`.
+
+```
+/users/list?name=mehdi&username=fathi&or[username]=ali
+
+SELECT ... WHERE ... name = 'mehdi' AND username = 'fathi' or username = 'ali'
 ```
 
 ***Where like***
