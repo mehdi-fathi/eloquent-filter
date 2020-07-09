@@ -292,7 +292,8 @@ Just fields of query string be same rows table database in `$whiteListFilter` in
 Override method can be considered custom query filter.
 
 ### Custom query filter
-If you are going to make yourself query filter you can do it easily.You just make a trait and use it on model:
+The Eloquent Filter doesn't support all of the conditions by default. For this situation you can make a override method.
+If you are going to make yourself query filter you can do it easily. You just make a trait and use it on model:
 
 ```php
 use Illuminate\Database\Eloquent\Builder;
