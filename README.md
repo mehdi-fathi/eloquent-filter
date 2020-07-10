@@ -17,6 +17,76 @@ It's easy to use and fully dynamic.
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
+## :microphone: Introduction
+
+Let's say we want to make an advanced search page with multiple filter option params. When we navigate to:
+                                                                                     
+    http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function index(Request $request)
+    {
+        $users = User::where('is_active', true);
+
+        if ($request->has('age_more_than')) {
+            $users->where('age', '>', $request->age_more_than);
+        }
+
+        if ($request->has('gender')) {
+            $users->where('gender', $request->gender);
+        }
+
+        if ($request->has('created_at')) {
+            $users->where('created_at','>=', $request->created_at);
+        }
+
+        return $users->get();
+    }
+}
+```
+We check out a condition for each request.
+
+In the future, if your project will need more filter requests at that time you should add many conditions to the above code.
+Imagine some of the queries may be advanced therefore your code to be like MONSTER! ## :boom:
+
+The eloquent filter is proper for make advanced search filters or report pages. 
+Eloquent filter saves your time and destroys the complexity of your code.
+
+To filter that same input With Eloquent Filters:
+
+Just change query string as the this example :
+             
+       http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
+
+```php
+/**
+ * Class UsersController.
+ */
+
+namespace App\Http\Controllers;
+
+use App\User;
+use Illuminate\Http\Request;
+
+class UsersController
+{
+    public function list(Request $request)
+    {
+        return User::filter()->get();
+    }
+}
+```
+Just this !
+
 ## :electric_plug: Installation
 
 1- Run the Composer command
