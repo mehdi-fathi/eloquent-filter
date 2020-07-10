@@ -56,16 +56,16 @@ class UserController extends Controller
 We check out a condition for each request.
 
 In the future, if your project will need more filter requests at that time you should add many conditions to the above code.
-Imagine some of the queries may be advanced therefore your code to be like MONSTER! ## :boom:
+Imagine some of the queries may be advanced therefore your code to be like MONSTER! :boom:
 
 The eloquent filter is proper for make advanced search filters or report pages. 
 Eloquent filter saves your time and destroys the complexity of your code.
 
 To filter that same input With Eloquent Filters:
 
-Just change query string as the this example :
+Just change query string as the this example:
              
-       http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
+    http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
 ```php
 /**
