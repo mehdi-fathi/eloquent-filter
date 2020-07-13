@@ -558,6 +558,30 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi22', 'ali22', 'mehdi'], $users->getBindings());
     }
 
+
+    public function testWhereByOpt2()
+    {
+
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->query()->where('count_posts', '>',35);
+
+        $this->makeRequest();
+
+        $this->request->shouldReceive('query')->andReturn([
+            'count_posts' => [
+                'operator' => '>',
+                'value'    => 35,
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals([35], $users->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();
