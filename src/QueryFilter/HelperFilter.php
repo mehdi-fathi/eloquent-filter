@@ -34,25 +34,21 @@ trait HelperFilter
         $arg_last = Arr::last($args);
 
         if (is_array($arg_last)) {
-
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
             if (!$this->isAssoc($arg_last)) {
-
-                $out = Arr::dot($args, $field . '.');
+                $out = Arr::dot($args, $field.'.');
                 foreach ($out as $key => $item) {
                     $index = $key;
                     for ($i = 0; $i <= 9; $i++) {
-                        $index = rtrim($index, '.' . $i);
+                        $index = rtrim($index, '.'.$i);
                     }
                     $new[$index][] = $out[$key];
                 }
                 $out = $new;
             }
         } else {
-
-            $out = Arr::dot($args, $field . '.');
+            $out = Arr::dot($args, $field.'.');
         }
-
 
         return $out;
     }
