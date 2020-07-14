@@ -77,7 +77,7 @@ class QueryBuilder
             $method = 'whereByOpt';
         } elseif (!empty($params['like'])) {
             $method = 'like';
-        } elseif (is_array($params) && !$this->isAssoc($params)) {
+        } elseif (is_array($params) && !$this->isAssoc($params) && !stripos($field, '.')) {
             $method = 'whereIn';
         } elseif ($field == 'or') {
             $method = 'orWhere';
