@@ -231,7 +231,7 @@ This example make method `whereIn`.
 SELECT ... WHERE ... username in ('ali','ali22') AND family = 'ahmadi'
 ```
 
-***OrWhere***
+***OrWhere (New feature :fire:)***
 
 This example make method `orWhere`.
 
@@ -289,6 +289,7 @@ class User extends Model
     private static $whiteListFilter =[
         'username',
         'posts.count_post',
+        'posts.category',
         'posts.orders.name',
     ];
 
@@ -297,7 +298,7 @@ class User extends Model
      */
     public function posts()
     {
-        return $this->belongsTo('Tests\Models\Post');
+        return $this->belongsTo('Models\Post');
     }
 
 }
@@ -307,11 +308,9 @@ class User extends Model
 /users/list?posts[count_post]=876&username=mehdi
 
 select * from "users" where exists 
-         (select * from "posts" where 
-         "posts"."user_id" = "users"."id" 
+         (select * from "posts" where "posts"."user_id" = "users"."id" 
          and "posts"."count_post" = 876)
          and "username" = "mehdi"
-
 ```
 - The above example as the same code that you use without the eloquent filter. Check it under code.
 
@@ -322,6 +321,19 @@ $builder = $user->with('posts');
             $q->where('count_post', 876);
         })->where('username','mehdi');
 
+```
+
+***Where array the nested relation Model***
+
+You can pass array to make whereIn condition.
+
+```
+/users/list?posts[category][]=php&posts[category][]=laravel&posts[category][]=jquery&username=mehdi
+
+select * from "users" where exists 
+         (select * from "posts" where 
+         "posts"."category" in ('php','laravel','jquery') )
+         and "username" = "mehdi"
 ```
 
 ****Special Params****
