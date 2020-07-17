@@ -607,7 +607,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasInRelationThereNested()
     {
-        //TODO change readme.file just for new feature whereIn in nested models
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
