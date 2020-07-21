@@ -70,15 +70,9 @@ class ModelFilterMockTest extends \TestCase
         }
     }
 
-    protected function makeRequest()
-    {
-//        $this->request = m::mock(\Illuminate\Http\Request::class);
-    }
-
     protected function __initQuery($obj = null)
     {
         $this->makeBuilderWithModel($obj);
-        $this->makeRequest();
     }
 
     public function testWhere()
@@ -269,7 +263,6 @@ class ModelFilterMockTest extends \TestCase
             $q->where('bam', 'qux');
         })->where('baz', 'joo');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
@@ -294,7 +287,6 @@ class ModelFilterMockTest extends \TestCase
             $q->where('bam', 'qux');
         })->where('baz', 'joo');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'foo.baz.bam' => 'qux',
@@ -323,7 +315,6 @@ class ModelFilterMockTest extends \TestCase
             $q->where('bam', 'boom');
         })->where('baz', 'joo');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
@@ -348,7 +339,6 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->whereIn('baz', ['boom', 'joe', null]);
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
@@ -499,7 +489,6 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', 22)
             ->orWhere('baz', 'joo');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'baz'         => 'boo',
@@ -523,7 +512,6 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->where('count_posts', 345);
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 345,
@@ -543,7 +531,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()->whereIn('username', ['mehdi22', 'ali22'])
             ->where('name', 'mehdi');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi22', 'ali22'],
@@ -563,7 +550,6 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->query()->where('count_posts', '>', 35);
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
@@ -579,8 +565,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([35], $users->getBindings());
     }
 
-    //TODO /users/list?names[first]=tom&names[first]=jerry for nested relation
-
     public function testWhereHasWhereInRelationOneNestedModel()
     {
         $builder = new EloquentBuilderTestModelParentStub();
@@ -589,7 +573,6 @@ class ModelFilterMockTest extends \TestCase
             $q->whereIn('bam', ['qux', 'mehdi']);
         })->where('baz', 'joo');
 
-        $this->makeRequest();
 
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
@@ -615,8 +598,6 @@ class ModelFilterMockTest extends \TestCase
             $q->whereIn('bam', ['boom', 'noon']);
         })->where('baz', 'joo');
 
-        $this->makeRequest();
-
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
                 'baz' => [
@@ -633,6 +614,40 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['qux', 'mehdi', 'boom', 'noon', 'joo'], $builder->getBindings());
         $this->assertEquals(['qux', 'mehdi', 'boom', 'noon', 'joo'], $users->getBindings());
     }
+
+    public function testWhereBetween1()
+    {
+
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->whereBetween(
+            'created_at',
+            [
+                '2019-01-01 17:11:46',
+                '2019-02-06 10:11:46',
+            ]
+        )->where('email', 'mehdifathi.developer@gmail.com')
+            ->where('count_posts', '>', 35);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'start' => '2019-01-01 17:11:46',
+                'end' => '2019-02-06 10:11:46',
+            ],
+            'email' => 'mehdifathi.developer@gmail.com',
+            'count_posts' => [
+                'operator' => '>',
+                'value' => 35,
+            ]
+        ]);
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $builder->getBindings());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $users->getBindings());
+    }
+
 
     public function tearDown(): void
     {
@@ -653,6 +668,8 @@ class EloquentBuilderTestModelParentStub extends Model
         'count_posts',
         'foo.bam',
         'foo.baz.bam',
+        'created_at',
+        'email',
     ];
 
     public function foo()
