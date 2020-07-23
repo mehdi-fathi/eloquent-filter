@@ -6,13 +6,8 @@ use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\QueryFilter;
-use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Grammars\Grammar;
-use Illuminate\Database\Query\Processors\Processor;
-use Illuminate\Pagination\AbstractPaginator as Paginator;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -254,6 +249,7 @@ class ModelFilterMockTest extends \TestCase
 
         $ModelFilters = new QueryFilter($this->request->query());
 
+        $users = new User();
         $users = $ModelFilters->apply($this->builder, $this->request->query());
 
         $this->assertEquals($users, $this->builder);
@@ -266,7 +262,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->whereHas('foo', function ($q) {
             $q->where('bam', 'qux');
         })->where('baz', 'joo');
-
 
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
@@ -290,7 +285,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
         })->where('baz', 'joo');
-
 
         $this->request->shouldReceive('query')->andReturn([
             'foo.baz.bam' => 'qux',
@@ -319,7 +313,6 @@ class ModelFilterMockTest extends \TestCase
             $q->where('bam', 'boom');
         })->where('baz', 'joo');
 
-
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
                 'baz' => [
@@ -342,7 +335,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->whereIn('baz', ['boom', 'joe', null]);
-
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
@@ -493,7 +485,6 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', 22)
             ->orWhere('baz', 'joo');
 
-
         $this->request->shouldReceive('query')->andReturn([
             'baz'         => 'boo',
             'count_posts' => 22,
@@ -516,7 +507,6 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->where('count_posts', 345);
 
-
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 345,
         ]);
@@ -535,7 +525,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()->whereIn('username', ['mehdi22', 'ali22'])
             ->where('name', 'mehdi');
 
-
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi22', 'ali22'],
             'name'     => 'mehdi',
@@ -553,7 +542,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->query()->where('count_posts', '>', 35);
-
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
@@ -576,7 +564,6 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->whereHas('foo', function ($q) {
             $q->whereIn('bam', ['qux', 'mehdi']);
         })->where('baz', 'joo');
-
 
         $this->request->shouldReceive('query')->andReturn([
             'foo' => [
@@ -621,7 +608,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetween1()
     {
-
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->whereBetween(
@@ -636,13 +622,13 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'       => 'mehdifathi.developer@gmail.com',
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
-            ]
+                'value'    => 35,
+            ],
         ]);
 
         $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
