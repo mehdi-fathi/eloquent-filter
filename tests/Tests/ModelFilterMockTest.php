@@ -6,8 +6,13 @@ use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\QueryFilter;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Grammars\Grammar;
+use Illuminate\Database\Query\Processors\Processor;
+use Illuminate\Pagination\AbstractPaginator as Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery as m;
 use Tests\Models\User;
 
@@ -249,7 +254,6 @@ class ModelFilterMockTest extends \TestCase
 
         $ModelFilters = new QueryFilter($this->request->query());
 
-        $users = new User();
         $users = $ModelFilters->apply($this->builder, $this->request->query());
 
         $this->assertEquals($users, $this->builder);
@@ -647,6 +651,26 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $builder->getBindings());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $users->getBindings());
     }
+
+
+    public function testWhereLike1()
+    {
+
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->query()->where('email', 'like', '%meh%');
+        $this->request->shouldReceive('query')->andReturn([
+            'email' => [
+                'like' => '%meh%',
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertSame(['%meh%'], $builder->getBindings());
+    }
+
 
 
     public function tearDown(): void
