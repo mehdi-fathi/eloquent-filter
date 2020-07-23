@@ -638,10 +638,8 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $users->getBindings());
     }
 
-
     public function testWhereLike1()
     {
-
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->query()->where('email', 'like', '%meh%');
@@ -656,8 +654,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertSame(['%meh%'], $builder->getBindings());
     }
-
-
 
     public function tearDown(): void
     {
