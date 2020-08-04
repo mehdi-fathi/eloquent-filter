@@ -2,7 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-use eloquentFilter\QueryFilter\Detection\DetectorConditions;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
@@ -10,6 +9,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
+use eloquentFilter\QueryFilter\Detection\DetectorConditions;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
