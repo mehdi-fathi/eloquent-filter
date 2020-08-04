@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Detection;
-
 
 class WhereLikeCondition implements Detector
 {

@@ -79,7 +79,8 @@ class QueryBuilder
      */
     private function detectMethodByParams($field, $params)
     {
-        $detect = new DetectorConditions([
+        $detect = new DetectorConditions(
+            [
                 new WhereBetweenCondition(),
                 new WhereByOptCondition(),
                 new WhereLikeCondition(),

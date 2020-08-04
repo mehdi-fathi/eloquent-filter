@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Detection;
-
 
 class WhereByOptCondition implements Detector
 {
@@ -10,6 +8,7 @@ class WhereByOptCondition implements Detector
     {
         if (!empty($params['operator']) && !empty($params['value'])) {
             $method = 'whereByOpt';
+
             return $method;
         }
     }
