@@ -1,6 +1,5 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Detection;
 
 
