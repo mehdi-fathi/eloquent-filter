@@ -1,8 +1,9 @@
 <?php
 
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
+use eloquentFilter\QueryFilter\Detection\Detector;
 
 class WhereHasCondition implements Detector
 {

@@ -3,13 +3,13 @@
 namespace eloquentFilter\QueryFilter\Queries;
 
 use eloquentFilter\QueryFilter\Detection\DetectorConditions;
-use eloquentFilter\QueryFilter\Detection\WhereBetweenCondition;
-use eloquentFilter\QueryFilter\Detection\WhereByOptCondition;
-use eloquentFilter\QueryFilter\Detection\WhereCondition;
-use eloquentFilter\QueryFilter\Detection\WhereHasCondition;
-use eloquentFilter\QueryFilter\Detection\WhereInCondition;
-use eloquentFilter\QueryFilter\Detection\WhereLikeCondition;
-use eloquentFilter\QueryFilter\Detection\WhereOrCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 

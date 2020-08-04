@@ -1,10 +1,11 @@
 <?php
 
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 
 use eloquentFilter\QueryFilter\HelperFilter;
+use eloquentFilter\QueryFilter\Detection\Detector;
 
 class WhereInCondition implements Detector
 {
