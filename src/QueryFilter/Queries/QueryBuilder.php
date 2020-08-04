@@ -2,6 +2,14 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
+use eloquentFilter\QueryFilter\Detection\DetectorConditions;
+use eloquentFilter\QueryFilter\Detection\WhereBetweenCondition;
+use eloquentFilter\QueryFilter\Detection\WhereByOptCondition;
+use eloquentFilter\QueryFilter\Detection\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\WhereHasCondition;
+use eloquentFilter\QueryFilter\Detection\WhereInCondition;
+use eloquentFilter\QueryFilter\Detection\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\WhereOrCondition;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -71,21 +79,17 @@ class QueryBuilder
      */
     private function detectMethodByParams($field, $params)
     {
-        if (!empty($params['start']) && !empty($params['end'])) {
-            $method = 'whereBetween';
-        } elseif (!empty($params['operator']) && !empty($params['value'])) {
-            $method = 'whereByOpt';
-        } elseif (!empty($params['like'])) {
-            $method = 'like';
-        } elseif (is_array($params) && !$this->isAssoc($params) && !stripos($field, '.')) {
-            $method = 'whereIn';
-        } elseif ($field == 'or') {
-            $method = 'orWhere';
-        } elseif (stripos($field, '.')) {
-            $method = 'wherehas';
-        } elseif (!empty($params)) {
-            $method = 'where';
-        }
+        $detect = new DetectorConditions([
+                new WhereBetweenCondition(),
+                new WhereByOptCondition(),
+                new WhereLikeCondition(),
+                new WhereInCondition(),
+                new WhereOrCondition(),
+                new WhereHasCondition(),
+                new WhereCondition(),
+            ]
+        );
+        $method = $detect->detect($field, $params);
 
         return $method ?? null;
     }
