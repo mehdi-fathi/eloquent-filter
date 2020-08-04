@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
-
 
 use eloquentFilter\QueryFilter\Detection\Detector;
 
@@ -12,6 +10,7 @@ class WhereBetweenCondition implements Detector
     {
         if (!empty($params['start']) && !empty($params['end'])) {
             $method = 'whereBetween';
+
             return $method;
         }
     }

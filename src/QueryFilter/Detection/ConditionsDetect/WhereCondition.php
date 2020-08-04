@@ -1,6 +1,5 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\Detector;
