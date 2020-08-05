@@ -13,5 +13,5 @@ interface Detector
      *
      * @return mixed
      */
-    public function detect($field, $params);
+    public static function detect($field, $params);
 }

@@ -6,7 +6,7 @@ use eloquentFilter\QueryFilter\Detection\Detector;
 
 class WhereHasCondition implements Detector
 {
-    public function detect($field, $params)
+    public static function detect($field, $params)
     {
         if (stripos($field, '.')) {
             return 'wherehas';

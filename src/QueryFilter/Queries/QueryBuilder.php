@@ -2,14 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
-use eloquentFilter\QueryFilter\Detection\DetectorConditions;
+use eloquentFilter\QueryFilter\Detection\DetectionFactory;
+use eloquentFilter\QueryFilter\Detection\Detector;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -35,19 +29,26 @@ class QueryBuilder
     private $builder;
 
     /**
+     * @var Detector
+     */
+    private $detector;
+
+    /**
      * @var
      */
     private $queryFilterBuilder;
 
+
     /**
      * QueryBuilder constructor.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param Builder $builder
+     * @param Detector $detector
      */
-    public function __construct(Builder $builder)
+    public function __construct(Builder $builder, Detector $detector)
     {
         $this->builder = $builder;
         $this->queryFilterBuilder = new QueryFilterBuilder($builder);
+        $this->detector = $detector;
     }
 
     /**
@@ -79,20 +80,8 @@ class QueryBuilder
      */
     private function detectMethodByParams($field, $params)
     {
-        $detect = new DetectorConditions(
-            [
-                new WhereBetweenCondition(),
-                new WhereByOptCondition(),
-                new WhereLikeCondition(),
-                new WhereInCondition(),
-                new WhereOrCondition(),
-                new WhereHasCondition(),
-                new WhereCondition(),
-            ]
-        );
-        $method = $detect->detect($field, $params);
-
-        return $method ?? null;
+        $method = $this->detector::detect($field, $params);
+        return $method;
     }
 
     /**

@@ -11,29 +11,13 @@ class ModelFilters
 {
     use HelperFilter;
 
-    /**
-     * @var \Illuminate\Http\Request
-     */
-    protected $request;
-    /**
-     * @var
-     */
     protected $builder;
-    /**
-     * @var
-     */
     protected $queryBuilder;
 
-    /**
-     * QueryFilter constructor.
-     *
-     * @param array $request
-     */
-    public function __construct(?array $request)
+    public function __construct($builder,$queryBuilder)
     {
-        if (!empty($request)) {
-            $this->setRequest($request);
-        }
+        $this->builder = $builder;
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
@@ -42,7 +26,7 @@ class ModelFilters
      *
      * @throws \Exception
      */
-    protected function resolveQuery($field, $arguments)
+    public function resolveQuery($field, $arguments)
     {
         if ($this->handelListFields($field)) {
             if ($this->checkModelHasOverrideMethod($field)) {

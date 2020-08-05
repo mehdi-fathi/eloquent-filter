@@ -9,9 +9,9 @@ class WhereInCondition implements Detector
 {
     use HelperFilter;
 
-    public function detect($field, $params)
+    public static function detect($field, $params)
     {
-        if (is_array($params) && !$this->isAssoc($params) && !stripos($field, '.')) {
+        if (is_array($params) && !self::isAssoc($params) && !stripos($field, '.')) {
             return 'whereIn';
         }
     }

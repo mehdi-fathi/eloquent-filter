@@ -14,7 +14,7 @@ trait HelperFilter
      *
      * @return bool
      */
-    private function isAssoc(array $arr)
+    private static function isAssoc(array $arr)
     {
         if ([] === $arr) {
             return false;
@@ -35,7 +35,7 @@ trait HelperFilter
 
         if (is_array($arg_last)) {
             $out = Arr::dot($args, $field.'.');
-            if (!$this->isAssoc($arg_last)) {
+            if (!self::isAssoc($arg_last)) {
                 $out = Arr::dot($args, $field.'.');
                 foreach ($out as $key => $item) {
                     $index = $key;
@@ -100,7 +100,7 @@ trait HelperFilter
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
                 if (is_array($value) && method_exists($builder_model, $name)) {
-                    if ($this->isAssoc($value)) {
+                    if (self::isAssoc($value)) {
                         unset($this->request[$name]);
                         $out = $this->convertRelationArrayRequestToStr($name, $value);
                         $this->setRequest(array_merge($out, $this->request));

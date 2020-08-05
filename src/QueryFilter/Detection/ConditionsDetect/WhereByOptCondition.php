@@ -6,7 +6,7 @@ use eloquentFilter\QueryFilter\Detection\Detector;
 
 class WhereByOptCondition implements Detector
 {
-    public function detect($field, $params)
+    public static function detect($field, $params)
     {
         if (!empty($params['operator']) && !empty($params['value'])) {
             $method = 'whereByOpt';

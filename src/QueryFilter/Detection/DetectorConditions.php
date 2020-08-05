@@ -12,15 +12,18 @@ class DetectorConditions
      */
     private $detector;
 
+
     /**
      * DetectorConditions constructor.
-     *
      * @param array $detector
+     * @throws \ReflectionException
      */
     public function __construct(array $detector)
     {
         foreach ($detector as $detector_obj) {
-            if ($detector_obj instanceof Detector) {
+
+            $reflect = new \ReflectionClass($detector_obj);
+            if ($reflect->implementsInterface(Detector::class)) {
                 $this->detector[] = $detector_obj;
             }
         }
@@ -35,7 +38,7 @@ class DetectorConditions
     public function detect(string $field, $params): ?string
     {
         foreach ($this->detector as $detector_obj) {
-            $out = $detector_obj->detect($field, $params);
+            $out = $detector_obj::detect($field, $params);
             if (!empty($out)) {
                 return $out;
             }
