@@ -2,7 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 use eloquentFilter\QueryFilter\Detection\Detector;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,10 +37,10 @@ class QueryBuilder
      */
     private $queryFilterBuilder;
 
-
     /**
      * QueryBuilder constructor.
-     * @param Builder $builder
+     *
+     * @param Builder  $builder
      * @param Detector $detector
      */
     public function __construct(Builder $builder, Detector $detector)
@@ -81,6 +80,7 @@ class QueryBuilder
     private function detectMethodByParams($field, $params)
     {
         $method = $this->detector::detect($field, $params);
+
         return $method;
     }
 
