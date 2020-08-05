@@ -14,7 +14,7 @@ class ModelFilters
     protected $builder;
     protected $queryBuilder;
 
-    public function __construct($builder,$queryBuilder)
+    public function __construct($builder, $queryBuilder)
     {
         $this->builder = $builder;
         $this->queryBuilder = $queryBuilder;

@@ -12,16 +12,16 @@ class DetectorConditions
      */
     private $detector;
 
-
     /**
      * DetectorConditions constructor.
+     *
      * @param array $detector
+     *
      * @throws \ReflectionException
      */
     public function __construct(array $detector)
     {
         foreach ($detector as $detector_obj) {
-
             $reflect = new \ReflectionClass($detector_obj);
             if ($reflect->implementsInterface(Detector::class)) {
                 $this->detector[] = $detector_obj;

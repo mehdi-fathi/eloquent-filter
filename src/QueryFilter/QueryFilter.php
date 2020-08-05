@@ -16,11 +16,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class QueryFilter.
- *
  */
 class QueryFilter
 {
-
     use HelperFilter;
 
     /**
@@ -50,12 +48,12 @@ class QueryFilter
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param array|null $request
-     * @param array|null $ignore_request
+     * @param array|null                            $request
+     * @param array|null                            $ignore_request
      *
-     * @return \Illuminate\Database\Eloquent\Builder
      * @throws \Exception
      *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
     {
@@ -84,16 +82,16 @@ class QueryFilter
     private function __getDetectorsInstanceArray()
     {
         return
-            new DetectionFactory([
+            new DetectionFactory(
+                [
                     WhereBetweenCondition::class,
                     WhereByOptCondition::class,
                     WhereLikeCondition::class,
                     WhereInCondition::class,
                     WhereOrCondition::class,
                     WhereHasCondition::class,
-                    WhereCondition::class
+                    WhereCondition::class,
                 ]
             );
-
     }
 }
