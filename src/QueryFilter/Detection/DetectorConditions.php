@@ -23,7 +23,7 @@ class DetectorConditions
     {
         foreach ($detector as $detector_obj) {
             $reflect = new \ReflectionClass($detector_obj);
-            if ($reflect->implementsInterface(Detector::class)) {
+            if ($reflect->implementsInterface(DetectorContract::class)) {
                 $this->detector[] = $detector_obj;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-use eloquentFilter\QueryFilter\Detection\Detector;
+use eloquentFilter\QueryFilter\Detection\DetectorContract;
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -41,9 +41,9 @@ class QueryBuilder
      * QueryBuilder constructor.
      *
      * @param Builder  $builder
-     * @param Detector $detector
+     * @param DetectorContract $detector
      */
-    public function __construct(Builder $builder, Detector $detector)
+    public function __construct(Builder $builder, DetectorContract $detector)
     {
         $this->builder = $builder;
         $this->queryFilterBuilder = new QueryFilterBuilder($builder);

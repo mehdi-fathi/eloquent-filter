@@ -2,12 +2,12 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
-use eloquentFilter\QueryFilter\Detection\Detector;
+use eloquentFilter\QueryFilter\Detection\DetectorContract;
 
 /**
  * Class WhereHasCondition.
  */
-class WhereHasCondition implements Detector
+class WhereHasCondition implements DetectorContract
 {
     /**
      * @param $field

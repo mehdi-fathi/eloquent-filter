@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
-use eloquentFilter\QueryFilter\Detection\Detector;
+use eloquentFilter\QueryFilter\Detection\DetectorContract;
 use eloquentFilter\QueryFilter\HelperFilter;
 
 /**
  * Class WhereInCondition.
  */
-class WhereInCondition implements Detector
+class WhereInCondition implements DetectorContract
 {
     use HelperFilter;
 

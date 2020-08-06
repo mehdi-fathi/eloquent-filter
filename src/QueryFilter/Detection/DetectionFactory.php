@@ -5,7 +5,7 @@ namespace eloquentFilter\QueryFilter\Detection;
 /**
  * Class DetectionFactory.
  */
-class DetectionFactory implements Detector
+class DetectionFactory implements DetectorContract
 {
     /**
      * @var
