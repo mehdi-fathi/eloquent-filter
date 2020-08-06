@@ -6,8 +6,7 @@ use eloquentFilter\QueryFilter\Detection\Detector;
 use eloquentFilter\QueryFilter\HelperFilter;
 
 /**
- * Class WhereInCondition
- * @package eloquentFilter\QueryFilter\Detection\ConditionsDetect
+ * Class WhereInCondition.
  */
 class WhereInCondition implements Detector
 {
@@ -16,6 +15,7 @@ class WhereInCondition implements Detector
     /**
      * @param $field
      * @param $params
+     *
      * @return mixed|string
      */
     public static function detect($field, $params)

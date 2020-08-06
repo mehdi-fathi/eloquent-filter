@@ -3,8 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection;
 
 /**
- * Class DetectionFactory
- * @package eloquentFilter\QueryFilter\Detection
+ * Class DetectionFactory.
  */
 class DetectionFactory implements Detector
 {
@@ -15,6 +14,7 @@ class DetectionFactory implements Detector
 
     /**
      * DetectionFactory constructor.
+     *
      * @param $detector
      */
     public function __construct($detector)
@@ -25,8 +25,10 @@ class DetectionFactory implements Detector
     /**
      * @param $field
      * @param $params
-     * @return mixed|string|null
+     *
      * @throws \ReflectionException
+     *
+     * @return mixed|string|null
      */
     public static function detect($field, $params)
     {

@@ -22,10 +22,10 @@ class ModelFilters
      */
     protected $queryBuilder;
 
-
     /**
      * ModelFilters constructor.
-     * @param Builder $builder
+     *
+     * @param Builder      $builder
      * @param QueryBuilder $queryBuilder
      */
     public function __construct(Builder $builder, QueryBuilder $queryBuilder)
