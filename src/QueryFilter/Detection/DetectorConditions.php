@@ -32,6 +32,7 @@ class DetectorConditions
     /**
      * @param string $field
      * @param $params
+     *
      * @return string|null
      */
     public function detect(string $field, $params): ?string
