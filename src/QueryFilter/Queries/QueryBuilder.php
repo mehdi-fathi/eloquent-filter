@@ -40,7 +40,7 @@ class QueryBuilder
     /**
      * QueryBuilder constructor.
      *
-     * @param Builder  $builder
+     * @param Builder          $builder
      * @param DetectorContract $detector
      */
     public function __construct(Builder $builder, DetectorContract $detector)
