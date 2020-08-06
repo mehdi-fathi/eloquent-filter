@@ -3,6 +3,8 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\HelperFilter;
+use eloquentFilter\QueryFilter\Queries\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ModelFilters.
@@ -11,10 +13,22 @@ class ModelFilters
 {
     use HelperFilter;
 
+    /**
+     * @var
+     */
     protected $builder;
+    /**
+     * @var
+     */
     protected $queryBuilder;
 
-    public function __construct($builder, $queryBuilder)
+
+    /**
+     * ModelFilters constructor.
+     * @param Builder $builder
+     * @param QueryBuilder $queryBuilder
+     */
+    public function __construct(Builder $builder, QueryBuilder $queryBuilder)
     {
         $this->builder = $builder;
         $this->queryBuilder = $queryBuilder;
