@@ -95,7 +95,7 @@ trait HelperFilter
     protected function setFilterRequests(array $ignore_request = null, $builder_model): ?array
     {
         if (!empty($ignore_request) && !empty($this->getRequest())) {
-            $this->setIgnoreReqeust($ignore_request);
+            $this->setIgnoreRequest($ignore_request);
         }
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
@@ -115,7 +115,7 @@ trait HelperFilter
     /**
      * @param array $ignore_request
      */
-    private function setIgnoreReqeust(array $ignore_request): void
+    private function setIgnoreRequest(array $ignore_request): void
     {
         $data = Arr::except($this->getRequest(), $ignore_request);
         $this->setRequest($data);

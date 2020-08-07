@@ -59,7 +59,7 @@ class QueryFilter
     {
         $this->builder = $builder;
         $this->queryBuilder = new QueryBuilder($this->builder, $this->__getDetectorsInstanceArray());
-        $ModelFilters = new ModelFilters($this->builder, $this->queryBuilder);
+        $ModelFilters = new ModelFilters($this->queryBuilder);
 
         if (!empty($request)) {
             $this->setRequest($request);

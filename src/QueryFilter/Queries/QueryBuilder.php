@@ -45,9 +45,42 @@ class QueryBuilder
      */
     public function __construct(Builder $builder, DetectorContract $detector)
     {
-        $this->builder = $builder;
-        $this->queryFilterBuilder = new QueryFilterBuilder($builder);
+        $this->setBuilder($builder);
+        $this->setQueryFilterBuilder($this->getBuilder());
+//        $this->queryFilterBuilder = new QueryFilterBuilder($this->getBuilder());
         $this->detector = $detector;
+    }
+
+    /**
+     * @param mixed $builder
+     */
+    public function setBuilder($builder): void
+    {
+        $this->builder = $builder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBuilder()
+    {
+        return $this->builder;
+    }
+
+    /**
+     * @param mixed $queryFilterBuilder
+     */
+    public function setQueryFilterBuilder($queryFilterBuilder): void
+    {
+        $this->queryFilterBuilder = new QueryFilterBuilder($queryFilterBuilder);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQueryFilterBuilder()
+    {
+        return $this->queryFilterBuilder;
     }
 
     /**

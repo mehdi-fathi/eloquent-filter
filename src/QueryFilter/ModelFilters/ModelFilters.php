@@ -16,21 +16,15 @@ class ModelFilters
     /**
      * @var
      */
-    protected $builder;
-    /**
-     * @var
-     */
     protected $queryBuilder;
 
     /**
      * ModelFilters constructor.
      *
-     * @param Builder      $builder
      * @param QueryBuilder $queryBuilder
      */
-    public function __construct(Builder $builder, QueryBuilder $queryBuilder)
+    public function __construct(QueryBuilder $queryBuilder)
     {
-        $this->builder = $builder;
         $this->queryBuilder = $queryBuilder;
     }
 
@@ -44,7 +38,7 @@ class ModelFilters
     {
         if ($this->handelListFields($field)) {
             if ($this->checkModelHasOverrideMethod($field)) {
-                $this->builder->getModel()->$field($this->builder, $arguments);
+                $this->queryBuilder->getBuilder()->getModel()->$field($this->queryBuilder->getBuilder(), $arguments);
             } else {
                 $this->queryBuilder->buildQuery($field, $arguments);
             }
@@ -58,7 +52,7 @@ class ModelFilters
      */
     private function checkModelHasOverrideMethod(string $field): bool
     {
-        if (method_exists($this->builder->getModel(), $field)) {
+        if (method_exists($this->queryBuilder->getBuilder()->getModel(), $field)) {
             return true;
         }
 
@@ -82,7 +76,7 @@ class ModelFilters
             return true;
         }
 
-        $class_name = class_basename($this->builder->getModel());
+        $class_name = class_basename($this->queryBuilder->getBuilder()->getModel());
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");
@@ -95,8 +89,8 @@ class ModelFilters
      */
     private function checkSetWhiteListFields(string $field): bool
     {
-        if (in_array($field, $this->builder->getModel()->getWhiteListFilter()) ||
-            $this->builder->getModel()->getWhiteListFilter()[0] == '*') {
+        if (in_array($field, $this->queryBuilder->getBuilder()->getModel()->getWhiteListFilter()) ||
+            $this->queryBuilder->getBuilder()->getModel()->getWhiteListFilter()[0] == '*') {
             return true;
         }
 
