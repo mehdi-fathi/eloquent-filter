@@ -93,7 +93,6 @@ class ModelFilters
             $this->queryBuilder->getBuilder()->getModel()->getWhiteListFilter()[0] == '*') {
             return true;
         }
-
         return false;
     }
 }
