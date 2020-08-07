@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\QueryFilter\HelperFilter;
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ModelFilters.
