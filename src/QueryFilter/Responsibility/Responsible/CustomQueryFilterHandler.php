@@ -1,20 +1,14 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Responsibility\Responsible;
 
-
-use DesignPatterns\Behavioral\ChainOfResponsibilities\Handler;
-use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use eloquentFilter\QueryFilter\Responsibility\FilterHandler;
 
 class CustomQueryFilterHandler extends FilterHandler
 {
-
     public function __construct(FilterHandler $handler = null)
     {
         parent::__construct($handler);
-
     }
 
     protected function processing($field, $arguments)
@@ -24,7 +18,7 @@ class CustomQueryFilterHandler extends FilterHandler
         if ($this->checkModelHasOverrideMethod($field)) {
             return $this->queryBuilder->getBuilder()->getModel()->$field($this->queryBuilder->getBuilder(), $arguments);
         }
+
         return null;
     }
-
 }

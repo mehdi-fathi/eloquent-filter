@@ -2,8 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
-use DesignPatterns\Behavioral\ChainOfResponsibilities\Responsible\HttpInMemoryCacheHandler;
-use DesignPatterns\Behavioral\ChainOfResponsibilities\Responsible\SlowDatabaseHandler;
 use eloquentFilter\QueryFilter\HelperFilter;
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 use eloquentFilter\QueryFilter\Responsibility\Responsible\CustomQueryFilterHandler;
@@ -48,6 +46,6 @@ class ModelFilters
      */
     public function resolveQuery($field, $arguments)
     {
-       $this->chainFilterHandler->handle($this->queryBuilder,$field, $arguments);
+        $this->chainFilterHandler->handle($this->queryBuilder, $field, $arguments);
     }
 }

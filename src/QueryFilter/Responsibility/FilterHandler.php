@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Responsibility;
-
 
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 
@@ -18,32 +16,29 @@ abstract class FilterHandler
 
     /**
      * This approach by using a template method pattern ensures you that
-     * each subclass will not forget to call the successor
+     * each subclass will not forget to call the successor.
      */
-    final public function handle(QueryBuilder $queryBuilder,$field, $arguments)
+    final public function handle(QueryBuilder $queryBuilder, $field, $arguments)
     {
-
         $this->queryBuilder = $queryBuilder;
         if ($this->handelListFields($field)) {
-
             $processed = $this->processing($field, $arguments);
 
             if ($processed === null && $this->successor !== null) {
                 // the request has not been processed by this handler => see the next
-                $processed = $this->successor->handle($this->queryBuilder ,$field, $arguments);
+                $processed = $this->successor->handle($this->queryBuilder, $field, $arguments);
             }
 
             return $processed;
         }
     }
 
-
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
     private function handelListFields(string $field)
     {
@@ -60,7 +55,6 @@ abstract class FilterHandler
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");
     }
-
 
     /**
      * @param string $field
