@@ -5,14 +5,14 @@ namespace eloquentFilter\QueryFilter\Responsibility\Responsible;
 use eloquentFilter\QueryFilter\Responsibility\FilterHandler;
 
 /**
- * Class QueryFilterHandler
- * @package eloquentFilter\QueryFilter\Responsibility\Responsible
+ * Class QueryFilterHandler.
  */
 class QueryFilterHandler extends FilterHandler
 {
     /**
      * @param $field
      * @param $arguments
+     *
      * @return string|null
      */
     protected function processing($field, $arguments): ?string

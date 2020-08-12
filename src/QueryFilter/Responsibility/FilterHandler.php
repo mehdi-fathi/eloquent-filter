@@ -5,8 +5,7 @@ namespace eloquentFilter\QueryFilter\Responsibility;
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 
 /**
- * Class FilterHandler
- * @package eloquentFilter\QueryFilter\Responsibility
+ * Class FilterHandler.
  */
 abstract class FilterHandler
 {
@@ -21,6 +20,7 @@ abstract class FilterHandler
 
     /**
      * FilterHandler constructor.
+     *
      * @param FilterHandler|null $handler
      */
     public function __construct(FilterHandler $handler = null)
@@ -32,8 +32,10 @@ abstract class FilterHandler
      * @param QueryBuilder $queryBuilder
      * @param $field
      * @param $arguments
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     final public function handle(QueryBuilder $queryBuilder, $field, $arguments)
     {
@@ -105,6 +107,7 @@ abstract class FilterHandler
     /**
      * @param $field
      * @param $arguments
+     *
      * @return mixed
      */
     abstract protected function processing($field, $arguments);
