@@ -68,7 +68,7 @@ class QueryFilter
 
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
-                $ModelFilters->resolveQuery($name, $value);
+                $ModelFilters->buildFilter($name, $value);
                 // It resolve methods in filters class in child
             }
         }

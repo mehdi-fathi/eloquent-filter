@@ -44,7 +44,7 @@ class ModelFilters
      *
      * @throws \Exception
      */
-    public function resolveQuery($field, $arguments)
+    public function buildFilter($field, $arguments)
     {
         $this->chainFilterHandler->handle($this->queryBuilder, $field, $arguments);
     }

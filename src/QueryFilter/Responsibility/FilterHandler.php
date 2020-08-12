@@ -4,19 +4,36 @@ namespace eloquentFilter\QueryFilter\Responsibility;
 
 use eloquentFilter\QueryFilter\Queries\QueryBuilder;
 
+/**
+ * Class FilterHandler
+ * @package eloquentFilter\QueryFilter\Responsibility
+ */
 abstract class FilterHandler
 {
+    /**
+     * @var FilterHandler|null
+     */
     private $successor = null;
+    /**
+     * @var null
+     */
     protected $queryBuilder = null;
 
+    /**
+     * FilterHandler constructor.
+     * @param FilterHandler|null $handler
+     */
     public function __construct(FilterHandler $handler = null)
     {
         $this->successor = $handler;
     }
 
     /**
-     * This approach by using a template method pattern ensures you that
-     * each subclass will not forget to call the successor.
+     * @param QueryBuilder $queryBuilder
+     * @param $field
+     * @param $arguments
+     * @return mixed
+     * @throws \Exception
      */
     final public function handle(QueryBuilder $queryBuilder, $field, $arguments)
     {
@@ -77,7 +94,6 @@ abstract class FilterHandler
      */
     private function checkSetWhiteListFields(string $field): bool
     {
-//        dd($this->queryBuilder->getBuilder());
         if (in_array($field, $this->queryBuilder->getBuilder()->getModel()->getWhiteListFilter()) ||
             $this->queryBuilder->getBuilder()->getModel()->getWhiteListFilter()[0] == '*') {
             return true;
@@ -86,5 +102,10 @@ abstract class FilterHandler
         return false;
     }
 
+    /**
+     * @param $field
+     * @param $arguments
+     * @return mixed
+     */
     abstract protected function processing($field, $arguments);
 }

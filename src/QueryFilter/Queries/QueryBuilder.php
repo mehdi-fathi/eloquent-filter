@@ -47,7 +47,6 @@ class QueryBuilder
     {
         $this->setBuilder($builder);
         $this->setQueryFilterBuilder($this->getBuilder());
-//        $this->queryFilterBuilder = new QueryFilterBuilder($this->getBuilder());
         $this->detector = $detector;
     }
 

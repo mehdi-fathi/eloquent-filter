@@ -4,21 +4,31 @@ namespace eloquentFilter\QueryFilter\Responsibility\Responsible;
 
 use eloquentFilter\QueryFilter\Responsibility\FilterHandler;
 
+/**
+ * Class CustomQueryFilterHandler
+ * @package eloquentFilter\QueryFilter\Responsibility\Responsible
+ */
 class CustomQueryFilterHandler extends FilterHandler
 {
+    /**
+     * CustomQueryFilterHandler constructor.
+     * @param FilterHandler|null $handler
+     */
     public function __construct(FilterHandler $handler = null)
     {
         parent::__construct($handler);
     }
 
+    /**
+     * @param $field
+     * @param $arguments
+     * @return mixed|null
+     */
     protected function processing($field, $arguments)
     {
-        // this is a mockup, in production code you would ask a slow (compared to in-memory) DB for the results
-
         if ($this->checkModelHasOverrideMethod($field)) {
             return $this->queryBuilder->getBuilder()->getModel()->$field($this->queryBuilder->getBuilder(), $arguments);
         }
-
         return null;
     }
 }
