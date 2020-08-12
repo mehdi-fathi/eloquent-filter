@@ -5,13 +5,13 @@ namespace eloquentFilter\QueryFilter\Responsibility\Responsible;
 use eloquentFilter\QueryFilter\Responsibility\FilterHandler;
 
 /**
- * Class CustomQueryFilterHandler
- * @package eloquentFilter\QueryFilter\Responsibility\Responsible
+ * Class CustomQueryFilterHandler.
  */
 class CustomQueryFilterHandler extends FilterHandler
 {
     /**
      * CustomQueryFilterHandler constructor.
+     *
      * @param FilterHandler|null $handler
      */
     public function __construct(FilterHandler $handler = null)
@@ -22,6 +22,7 @@ class CustomQueryFilterHandler extends FilterHandler
     /**
      * @param $field
      * @param $arguments
+     *
      * @return mixed|null
      */
     protected function processing($field, $arguments)
@@ -29,6 +30,7 @@ class CustomQueryFilterHandler extends FilterHandler
         if ($this->checkModelHasOverrideMethod($field)) {
             return $this->queryBuilder->getBuilder()->getModel()->$field($this->queryBuilder->getBuilder(), $arguments);
         }
+
         return null;
     }
 }
