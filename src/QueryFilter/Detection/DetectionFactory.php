@@ -27,10 +27,11 @@ class DetectionFactory implements DetectorContract
     /**
      * @param $field
      * @param $params
-     *
      * @param Model|null $model
-     * @return mixed|string|null
+     *
      * @throws \ReflectionException
+     *
+     * @return mixed|string|null
      */
     public static function detect($field, $params, Model $model = null)
     {
@@ -38,7 +39,7 @@ class DetectionFactory implements DetectorContract
             self::$detectors
         );
 
-        $method = $detect->detect($field, $params,$model);
+        $method = $detect->detect($field, $params, $model);
 
         return $method;
     }

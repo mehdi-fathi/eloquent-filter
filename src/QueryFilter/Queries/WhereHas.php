@@ -1,17 +1,13 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Queries;
-
 
 use Illuminate\Database\Eloquent\Builder;
 
 class WhereHas extends BaseClause
 {
-
     public function apply($query): Builder
     {
-
         $field_row = explode('.', $this->filter);
         $field_row = end($field_row);
 
@@ -30,5 +26,4 @@ class WhereHas extends BaseClause
             }
         );
     }
-
 }

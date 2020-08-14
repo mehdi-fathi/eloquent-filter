@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WhereHasCondition implements DetectorContract
 {
-
     /**
      * @param $field
      * @param $params
      * @param Model|null $model
+     *
      * @return mixed|string
      */
     public static function detect($field, $params, Model $model = null)

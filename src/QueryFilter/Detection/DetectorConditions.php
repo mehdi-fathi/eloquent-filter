@@ -33,40 +33,39 @@ class DetectorConditions
      * @param string $field
      * @param $params
      * @param null $model
-     * @return string|null
+     *
      * @throws \Exception
+     *
+     * @return string|null
      */
     public function detect(string $field, $params, $model = null): ?string
     {
         foreach ($this->detector as $detector_obj) {
             if ($this->handelListFields($field, $model)) {
-
                 $out = $detector_obj::detect($field, $params, $model);
                 if (!empty($out)) {
                     return $out;
                 }
             }
-
         }
 
         return null;
     }
 
-
     /**
      * @param string $field
      *
-     * @return bool
      * @throws \Exception
      *
+     * @return bool
      */
-    private function handelListFields(string $field,$query)
+    private function handelListFields(string $field, $query)
     {
-        if ($output = $this->checkSetWhiteListFields($field,$query)) {
+        if ($output = $this->checkSetWhiteListFields($field, $query)) {
             return $output;
         } elseif ($field == 'f_params' || $field == 'or') {
             return true;
-        } elseif ($this->checkModelHasOverrideMethod($field,$query)) {
+        } elseif ($this->checkModelHasOverrideMethod($field, $query)) {
             return true;
         }
 
@@ -81,7 +80,7 @@ class DetectorConditions
      *
      * @return bool
      */
-    protected function checkModelHasOverrideMethod(string $field,$query): bool
+    protected function checkModelHasOverrideMethod(string $field, $query): bool
     {
         if (method_exists($query, $field)) {
             return true;
@@ -95,7 +94,7 @@ class DetectorConditions
      *
      * @return bool
      */
-    private function checkSetWhiteListFields(string $field,$query): bool
+    private function checkSetWhiteListFields(string $field, $query): bool
     {
         if (in_array($field, $query->getWhiteListFilter()) ||
             $query->getWhiteListFilter()[0] == '*') {
@@ -104,5 +103,4 @@ class DetectorConditions
 
         return false;
     }
-
 }

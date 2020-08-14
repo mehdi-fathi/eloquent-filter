@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class BaseClause
 {
-
     protected $query;
     protected $filter;
     protected $values;
@@ -20,6 +19,7 @@ abstract class BaseClause
     public function handle($query, $nextFilter)
     {
         $query = $nextFilter($query);
+
         return static::apply($query);
     }
 
