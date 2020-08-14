@@ -427,7 +427,6 @@ class UserFilterTest extends TestCase
         ])->orderBy('id', 'ASC')->limit(1)->get();
 
         $this->assertEquals($users_pure, $users);
-
     }
 
     /** @test */

@@ -22,7 +22,6 @@ class QueryFilter
 {
     use HelperFilter;
 
-
     /**
      * @var
      */
@@ -50,11 +49,11 @@ class QueryFilter
         $this->detect = $this->__getDetectorsInstanceArray();
     }
 
-
     /**
-     * @param Builder $builder
+     * @param Builder    $builder
      * @param array|null $request
      * @param array|null $ignore_request
+     *
      * @return Builder
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
@@ -104,12 +103,15 @@ class QueryFilter
      * @param $filterName
      * @param $values
      * @param $model
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     *
      * @throws \ReflectionException
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {
         $detect = $this->detect::detect($filterName, $values, $model);
+
         return app($detect, ['filter' => $filterName, 'values' => $values]);
     }
 }
