@@ -80,6 +80,8 @@ class UserFilterTest extends TestCase
         $users_pure = User::where([
             'family' => 'ahmadi',
         ])->wherein('username', ['ali', 'ali22'])->get();
+
+//        dd($users_pure,$users);
         $this->assertEquals($users_pure, $users);
     }
 
@@ -160,6 +162,8 @@ class UserFilterTest extends TestCase
         $users = UsersController::filterUser($this->request->all())->get();
         $users_pure = User::where('username', 'like', '%a%')
             ->get();
+//        dd($users);
+
         $this->assertEquals($users_pure, $users);
     }
 
@@ -423,6 +427,7 @@ class UserFilterTest extends TestCase
         ])->orderBy('id', 'ASC')->limit(1)->get();
 
         $this->assertEquals($users_pure, $users);
+
     }
 
     /** @test */

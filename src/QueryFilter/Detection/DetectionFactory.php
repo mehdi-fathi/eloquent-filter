@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Class DetectionFactory.
  */
@@ -26,17 +28,17 @@ class DetectionFactory implements DetectorContract
      * @param $field
      * @param $params
      *
-     * @throws \ReflectionException
-     *
+     * @param Model|null $model
      * @return mixed|string|null
+     * @throws \ReflectionException
      */
-    public static function detect($field, $params)
+    public static function detect($field, $params, Model $model = null)
     {
         $detect = new DetectorConditions(
             self::$detectors
         );
 
-        $method = $detect->detect($field, $params);
+        $method = $detect->detect($field, $params,$model);
 
         return $method;
     }

@@ -3,22 +3,26 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use eloquentFilter\QueryFilter\Queries\Where;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class WhereCondition.
  */
 class WhereCondition implements DetectorContract
 {
+
     /**
      * @param $field
      * @param $params
-     *
+     * @param Model|null $model
      * @return mixed|string
      */
-    public static function detect($field, $params)
+    public static function detect($field, $params, Model $model = null)
     {
+
         if (!empty($params)) {
-            return 'where';
+            return Where::class;
         }
     }
 }

@@ -3,14 +3,20 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\Queries\WhereLike;
+use eloquentFilter\QueryFilter\HelperFilter;
+use eloquentFilter\QueryFilter\Queries\Limit;
+use eloquentFilter\QueryFilter\Queries\OrderBy;
+use eloquentFilter\QueryFilter\Queries\Special;
+use eloquentFilter\QueryFilter\Queries\WhereIn;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class WhereLikeCondition.
+ * Class WhereInCondition.
  */
-class WhereLikeCondition implements DetectorContract
+class SpecialCondition implements DetectorContract
 {
+    use HelperFilter;
+
     /**
      * @param $field
      * @param $params
@@ -20,8 +26,8 @@ class WhereLikeCondition implements DetectorContract
      */
     public static function detect($field, $params, Model $model = null)
     {
-        if (!empty($params['like'])) {
-            return WhereLike::class;
+        if($field == 'f_params'){
+            return Special::class;
         }
     }
 }

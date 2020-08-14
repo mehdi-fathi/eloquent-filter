@@ -2,16 +2,19 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Interface Detector.
  */
 interface DetectorContract
 {
+
     /**
      * @param $field
      * @param $params
-     *
+     * @param Model|null $model
      * @return mixed
      */
-    public static function detect($field, $params);
+    public static function detect($field, $params, Model $model = null);
 }
