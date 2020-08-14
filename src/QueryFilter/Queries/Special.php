@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Queries;
-
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -20,7 +18,6 @@ class Special extends BaseClause
 
     public function apply($query): Builder
     {
-
         foreach ($this->values as $key => $param) {
             if (!in_array($key, self::$reserve_param['f_params'])) {
                 throw new \Exception("$key is not in f_params array."); //TODO make exception test for it
@@ -29,12 +26,9 @@ class Special extends BaseClause
                 $query->orderBy($this->values['orderBy']['field'], $this->values['orderBy']['type']);
             } else {
                 $query->limit($this->values);
-
             }
         }
+
         return $query;
-
-
     }
-
 }
