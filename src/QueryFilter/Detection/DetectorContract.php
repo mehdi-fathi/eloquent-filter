@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 interface DetectorContract
 {
-
     /**
      * @param $field
      * @param $params
      * @param Model|null $model
+     *
      * @return mixed
      */
     public static function detect($field, $params, Model $model = null);
