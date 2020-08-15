@@ -15,14 +15,25 @@
 The Eloquent filter is a package for filter data of models by the query string in the Laravel application.
 It's easy to use and fully dynamic.
 
-The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
+
+## Table of Content
+- [Introduction](#Introduction)
+- [Basic Usage](#Basic Usage)
+    - [Config Model](#Config Model and set whitelist)
+    - [Use in Controller](#Use in Controller)
+    - [Simple Examples](#Simple Examples)
+    - [Custom query filter](#Custom query filter)
+
+## Requirements
+- PHP 7.1+
+- Laravel 5.8+,6.x,7.x.
 
 ## :microphone: Introduction
 
 Let's say we want to make an advanced search page with multiple filter option params. When we navigate to:
                                                                                      
     http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
-
+ 
 ```php
 <?php
 
@@ -75,23 +86,27 @@ Just change query string as the this example:
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class UsersController
 {
-    public function list(Request $request)
+    public function list()
     {
         return User::filter()->get();
     }
 }
 ```
-Just this !
+Just this!
 
 ## :electric_plug: Installation
 
-1- Run the Composer command
+1- Run the Composer command for installing latest version
 
       $ composer require mehdi-fathi/eloquent-filter
+      
+- **Note**  that installed for laravel version previous of 5.8 you should install version 2.2.5 
+
+        $ composer require mehdi-fathi/eloquent-filter:2.2.5
+
 2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
    
    ```php
@@ -115,7 +130,9 @@ Just this !
 That's it enjoy! :boom:
 ## :book: Basic Usage
 
-Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
+### Config Model and set whitelist
+
+Add Filterable trait to your models and set fields that you will want filter in whitelist. You can override this method in your models.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -140,17 +157,18 @@ private static $whiteListFilter = ['*'];
 ```
 You can add or set `$whiteListFilter` on the fly in your method.For example:
 
-#### Set array to WhiteListFilter
-Note that this method override `$whiteListFilter`
+***Set array to WhiteListFilter***
+
+- **Note** that this method override `$whiteListFilter`
 ```php
 User::setWhiteListFilter(['name']); 
 ```
-#### Add new field to WhiteListFilter
+*** Add new field to WhiteListFilter ***
 ```php
 User::addWhiteListFilter('name'); 
 ```
 
-### Use in your controller
+### Use in Controller
 
 Change your code on controller of laravel as like below example:
 
@@ -179,10 +197,10 @@ class UsersController
     }
 }
 ```
-- Note that the Eloquent Filter by default using the query string or request data to make queries in the laravel.
+-**Note**  that the Eloquent Filter by default using the query string or request data to make queries in the laravel.
  Also, you can set the array to `filter` method Model for making your own custom condition without query string.
 
-- Note that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
+-**Note**  that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
 
 You can ignore some request params by use of code it.
 
@@ -398,7 +416,7 @@ trait usersFilter
 }
 ```
 
-Note that fields of query string be same methods of trait.Use trait in your model:
+-**Note** that fields of query string be same methods of trait. Use trait in your model:
 
 ```
 /users/list?username_like=a
