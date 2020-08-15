@@ -18,11 +18,11 @@ It's easy to use and fully dynamic.
 
 ## Table of Content
 - [Introduction](#Introduction)
-- [Basic Usage](#Basic Usage)
-    - [Config Model](#Config Model and set whitelist)
-    - [Use in Controller](#Use in Controller)
-    - [Simple Examples](#Simple Examples)
-    - [Custom query filter](#Custom query filter)
+- [Basic Usage](#Basic-Usage)
+    - [Config Model](#Config-Model-and-set-whitelist)
+    - [Use in Controller](#Use-in-Controller)
+    - [Simple Examples](#Simple-Examples)
+    - [Custom query filter](#Custom-query-filter)
 
 ## Requirements
 - PHP 7.1+
