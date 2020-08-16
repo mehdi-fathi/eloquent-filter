@@ -4,8 +4,16 @@ namespace eloquentFilter\QueryFilter\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class WhereByOpt
+ * @package eloquentFilter\QueryFilter\Queries
+ */
 class WhereByOpt extends BaseClause
 {
+    /**
+     * @param $query
+     * @return Builder
+     */
     public function apply($query): Builder
     {
         $opt = $this->values['operator'];

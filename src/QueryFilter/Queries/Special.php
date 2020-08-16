@@ -4,6 +4,10 @@ namespace eloquentFilter\QueryFilter\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class Special
+ * @package eloquentFilter\QueryFilter\Queries
+ */
 class Special extends BaseClause
 {
     /**
@@ -16,6 +20,11 @@ class Special extends BaseClause
         ],
     ];
 
+    /**
+     * @param $query
+     * @return Builder
+     * @throws \Exception
+     */
     public function apply($query): Builder
     {
         foreach ($this->values as $key => $param) {

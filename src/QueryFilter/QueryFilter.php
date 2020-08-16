@@ -12,8 +12,10 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
+use ReflectionException;
 
 /**
  * Class QueryFilter.
@@ -103,10 +105,8 @@ class QueryFilter
      * @param $filterName
      * @param $values
      * @param $model
-     *
-     * @throws \ReflectionException
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     * @return Application|mixed
+     * @throws ReflectionException
      */
     private function resolve($filterName, $values, $model)
     {

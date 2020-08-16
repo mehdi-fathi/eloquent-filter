@@ -3,21 +3,25 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\Facade\EloquentFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Trait Filterable.
  */
 trait Filterable
 {
+    /**
+     * @var null
+     */
     protected $ignore_request = null;
 
     /**
      * @param            $query
      * @param array|null $reqesut
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeFilter($query, ?array $reqesut = null): \Illuminate\Database\Eloquent\Builder
+    public function scopeFilter($query, ?array $reqesut = null): Builder
     {
         return EloquentFilter::apply($query, $reqesut, $this->ignore_request);
     }
