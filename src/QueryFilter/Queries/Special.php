@@ -5,8 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class Special
- * @package eloquentFilter\QueryFilter\Queries
+ * Class Special.
  */
 class Special extends BaseClause
 {
@@ -22,8 +21,10 @@ class Special extends BaseClause
 
     /**
      * @param $query
-     * @return Builder
+     *
      * @throws \Exception
+     *
+     * @return Builder
      */
     public function apply($query): Builder
     {
