@@ -8,7 +8,6 @@ class Where extends BaseClause
 {
     public function apply($query): Builder
     {
-
         return $query->where($this->filter, $this->values);
     }
 }

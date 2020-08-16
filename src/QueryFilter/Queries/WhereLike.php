@@ -5,13 +5,13 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereLike
- * @package eloquentFilter\QueryFilter\Queries
+ * Class WhereLike.
  */
 class WhereLike extends BaseClause
 {
     /**
      * @param $query
+     *
      * @return Builder
      */
     public function apply($query): Builder

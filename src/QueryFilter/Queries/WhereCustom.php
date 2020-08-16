@@ -5,13 +5,13 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereCustom
- * @package eloquentFilter\QueryFilter\Queries
+ * Class WhereCustom.
  */
 class WhereCustom extends BaseClause
 {
     /**
      * @param $query
+     *
      * @return Builder
      */
     public function apply($query): Builder

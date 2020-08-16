@@ -105,8 +105,10 @@ class QueryFilter
      * @param $filterName
      * @param $values
      * @param $model
-     * @return Application|mixed
+     *
      * @throws ReflectionException
+     *
+     * @return Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {

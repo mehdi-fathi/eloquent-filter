@@ -5,8 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class BaseClause
- * @package eloquentFilter\QueryFilter\Queries
+ * Class BaseClause.
  */
 abstract class BaseClause
 {
@@ -21,6 +20,7 @@ abstract class BaseClause
 
     /**
      * BaseClause constructor.
+     *
      * @param $values
      * @param $filter
      */
@@ -33,6 +33,7 @@ abstract class BaseClause
     /**
      * @param $query
      * @param $nextFilter
+     *
      * @return Builder
      */
     public function handle($query, $nextFilter)
@@ -44,6 +45,7 @@ abstract class BaseClause
 
     /**
      * @param $query
+     *
      * @return Builder
      */
     abstract protected function apply($query): Builder;
