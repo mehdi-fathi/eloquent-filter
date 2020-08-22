@@ -23,7 +23,7 @@ class WhereCondition implements DetectorContract
         if (!empty($params)) {
             $method = Where::class;
         }
-        return $method ?? null;
 
+        return $method ?? null;
     }
 }

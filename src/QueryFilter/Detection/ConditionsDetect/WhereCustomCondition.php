@@ -21,8 +21,9 @@ class WhereCustomCondition implements DetectorContract
     public static function detect($field, $params, Model $model = null): ?string
     {
         if (self::isCustomFilter($model, $field)) {
-            $method =  WhereCustom::class;
+            $method = WhereCustom::class;
         }
+
         return $method ?? null;
     }
 

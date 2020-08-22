@@ -23,7 +23,7 @@ class WhereByOptCondition implements DetectorContract
         if (!empty($params['operator']) && !empty($params['value'])) {
             $method = WhereByOpt::class;
         }
-        return $method ?? null;
 
+        return $method ?? null;
     }
 }

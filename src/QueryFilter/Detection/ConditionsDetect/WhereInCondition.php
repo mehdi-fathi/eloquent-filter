@@ -24,8 +24,9 @@ class WhereInCondition implements DetectorContract
     public static function detect($field, $params, Model $model = null): ?string
     {
         if (is_array($params) && !self::isAssoc($params) && !stripos($field, '.')) {
-            $method =  WhereIn::class;
+            $method = WhereIn::class;
         }
+
         return $method ?? null;
     }
 }

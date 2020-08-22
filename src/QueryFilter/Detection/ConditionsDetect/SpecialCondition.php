@@ -26,6 +26,7 @@ class SpecialCondition implements DetectorContract
         if ($field == 'f_params') {
             return Special::class;
         }
+
         return null;
     }
 }
