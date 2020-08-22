@@ -18,10 +18,11 @@ class WhereLikeCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (!empty($params['like'])) {
-            return WhereLike::class;
+            $method = WhereLike::class;
         }
+        return $method ?? null;
     }
 }

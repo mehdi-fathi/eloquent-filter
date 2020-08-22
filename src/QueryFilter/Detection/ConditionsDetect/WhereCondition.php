@@ -18,10 +18,12 @@ class WhereCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (!empty($params)) {
-            return Where::class;
+            $method = Where::class;
         }
+        return $method ?? null;
+
     }
 }

@@ -18,10 +18,11 @@ class WhereHasCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (stripos($field, '.')) {
-            return WhereHas::class;
+            $method =  WhereHas::class;
         }
+        return $method ?? null;
     }
 }

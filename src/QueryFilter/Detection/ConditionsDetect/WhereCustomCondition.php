@@ -18,11 +18,12 @@ class WhereCustomCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (self::isCustomFilter($model, $field)) {
-            return WhereCustom::class;
+            $method =  WhereCustom::class;
         }
+        return $method ?? null;
     }
 
     /**

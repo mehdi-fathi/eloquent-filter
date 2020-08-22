@@ -18,12 +18,12 @@ class WhereByOptCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (!empty($params['operator']) && !empty($params['value'])) {
             $method = WhereByOpt::class;
-
-            return $method;
         }
+        return $method ?? null;
+
     }
 }

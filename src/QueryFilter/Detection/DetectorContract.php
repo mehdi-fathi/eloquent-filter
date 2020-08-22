@@ -16,5 +16,5 @@ interface DetectorContract
      *
      * @return mixed
      */
-    public static function detect($field, $params, Model $model = null);
+    public static function detect($field, $params, Model $model = null): ?string;
 }

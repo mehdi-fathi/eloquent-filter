@@ -18,12 +18,13 @@ class WhereBetweenCondition implements DetectorContract
      *
      * @return mixed|string
      */
-    public static function detect($field, $params, Model $model = null)
+    public static function detect($field, $params, Model $model = null): ?string
     {
         if (!empty($params['start']) && !empty($params['end'])) {
             $method = WhereBetween::class;
-
-            return $method;
         }
+
+
+        return $method ?? null;
     }
 }
