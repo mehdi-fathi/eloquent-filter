@@ -24,7 +24,6 @@ class WhereBetweenCondition implements DetectorContract
             $method = WhereBetween::class;
         }
 
-
         return $method ?? null;
     }
 }

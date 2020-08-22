@@ -21,8 +21,9 @@ class WhereOrCondition implements DetectorContract
     public static function detect($field, $params, Model $model = null): ?string
     {
         if ($field == 'or') {
-            $method =  WhereOr::class;
+            $method = WhereOr::class;
         }
+
         return $method ?? null;
     }
 }

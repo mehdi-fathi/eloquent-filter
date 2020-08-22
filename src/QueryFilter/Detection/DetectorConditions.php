@@ -82,7 +82,7 @@ class DetectorConditions
      */
     protected function checkModelHasOverrideMethod(string $field, $query): bool
     {
-        return (bool)method_exists($query, $field);
+        return (bool) method_exists($query, $field);
     }
 
     /**

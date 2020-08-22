@@ -21,8 +21,9 @@ class WhereHasCondition implements DetectorContract
     public static function detect($field, $params, Model $model = null): ?string
     {
         if (stripos($field, '.')) {
-            $method =  WhereHas::class;
+            $method = WhereHas::class;
         }
+
         return $method ?? null;
     }
 }

@@ -23,6 +23,7 @@ class WhereLikeCondition implements DetectorContract
         if (!empty($params['like'])) {
             $method = WhereLike::class;
         }
+
         return $method ?? null;
     }
 }
