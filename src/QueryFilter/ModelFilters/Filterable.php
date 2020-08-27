@@ -67,7 +67,6 @@ trait Filterable
         self::$whiteListFilter = $array;
     }
 
-
     /**
      * @param string $method
      *
@@ -75,6 +74,6 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
-        return (bool)method_exists($this, $method);
+        return (bool) method_exists($this, $method);
     }
 }
