@@ -2,8 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class DetectorConditions.
  */
@@ -76,8 +74,9 @@ class DetectorConditions
     }
 
     /**
-     * @param string $field
+     * @param string     $field
      * @param array|null $query
+     *
      * @return bool
      */
     private function checkSetWhiteListFields(string $field, ?array $query): bool
