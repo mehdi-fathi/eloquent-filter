@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Class DetectorConditions.
  */
@@ -41,7 +43,7 @@ class DetectorConditions
     public function detect(string $field, $params, $model = null): ?string
     {
         foreach ($this->detector as $detector_obj) {
-            if ($this->handelListFields($field, $model)) {
+            if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field))) {
                 $out = $detector_obj::detect($field, $params, $model);
                 if (!empty($out)) {
                     return $out;
@@ -59,17 +61,15 @@ class DetectorConditions
      *
      * @return bool
      */
-    private function handelListFields(string $field, $query)
+    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method)
     {
-        if ($output = $this->checkSetWhiteListFields($field, $query)) {
+        if ($output = $this->checkSetWhiteListFields($field, $list_white_filter_model)) {
             return $output;
-        } elseif ($field == 'f_params' || $field == 'or') {
-            return true;
-        } elseif ($this->checkModelHasOverrideMethod($field, $query)) {
+        } elseif (($field == 'f_params' || $field == 'or') || $has_method) {
             return true;
         }
 
-        $class_name = class_basename($query);
+        $class_name = class_basename($query); // todo make test for this
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");
@@ -77,23 +77,13 @@ class DetectorConditions
 
     /**
      * @param string $field
-     *
+     * @param array|null $query
      * @return bool
      */
-    protected function checkModelHasOverrideMethod(string $field, $query): bool
+    private function checkSetWhiteListFields(string $field, ?array $query): bool
     {
-        return (bool) method_exists($query, $field);
-    }
-
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
-    private function checkSetWhiteListFields(string $field, $query): bool
-    {
-        if (in_array($field, $query->getWhiteListFilter()) ||
-            $query->getWhiteListFilter()[0] == '*') {
+        if (in_array($field, $query) ||
+            $query[0] == '*') {
             return true;
         }
 
