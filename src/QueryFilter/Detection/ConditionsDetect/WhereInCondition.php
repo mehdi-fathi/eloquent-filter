@@ -14,14 +14,14 @@ class WhereInCondition implements DetectorContract
 {
     use HelperFilter;
 
+
     /**
      * @param $field
      * @param $params
-     * @param Model|null $model
-     *
-     * @return mixed|string
+     * @param $is_overide_method
+     * @return string|null
      */
-    public static function detect($field, $params, Model $model = null): ?string
+    public static function detect($field, $params, $is_overide_method = false): ?string
     {
         if (is_array($params) && !self::isAssoc($params) && !stripos($field, '.')) {
             $method = WhereIn::class;

@@ -11,30 +11,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WhereCustomCondition implements DetectorContract
 {
+
     /**
      * @param $field
      * @param $params
-     * @param Model|null $model
-     *
-     * @return mixed|string
+     * @param $is_override_method
+     * @return string|null
      */
-    public static function detect($field, $params, Model $model = null): ?string
+    public static function detect($field, $params, $is_override_method = false): ?string
     {
-        if (self::isCustomFilter($model, $field)) {
+        if ($is_override_method == true) {
             $method = WhereCustom::class;
         }
 
         return $method ?? null;
-    }
-
-    /**
-     * @param $query
-     * @param $filterName
-     *
-     * @return bool
-     */
-    private static function isCustomFilter($query, $filterName)
-    {
-        return method_exists($query->getmodel(), $filterName);
     }
 }

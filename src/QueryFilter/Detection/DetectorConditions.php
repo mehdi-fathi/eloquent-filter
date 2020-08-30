@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCustomCondition;
+
 /**
  * Class DetectorConditions.
  */
@@ -41,8 +43,8 @@ class DetectorConditions
     public function detect(string $field, $params, $model = null): ?string
     {
         foreach ($this->detector as $detector_obj) {
-            if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field))) {
-                $out = $detector_obj::detect($field, $params, $model);
+            if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
+                $out = $detector_obj::detect($field, $params, $model->checkModelHasOverrideMethod($field));
                 if (!empty($out)) {
                     return $out;
                 }
@@ -52,14 +54,16 @@ class DetectorConditions
         return null;
     }
 
+
     /**
      * @param string $field
-     *
-     * @throws \Exception
-     *
+     * @param array|null $list_white_filter_model
+     * @param bool $has_method
+     * @param $model_class
      * @return bool
+     * @throws \Exception
      */
-    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method)
+    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class)
     {
         if ($output = $this->checkSetWhiteListFields($field, $list_white_filter_model)) {
             return $output;
@@ -67,7 +71,7 @@ class DetectorConditions
             return true;
         }
 
-        $class_name = class_basename($query); // todo make test for this
+        $class_name = class_basename($model_class); // todo make test for this
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");

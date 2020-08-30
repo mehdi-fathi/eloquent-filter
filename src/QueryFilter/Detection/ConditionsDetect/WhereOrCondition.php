@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WhereOrCondition implements DetectorContract
 {
+
     /**
      * @param $field
      * @param $params
-     * @param Model|null $model
-     *
-     * @return mixed|string
+     * @param $is_overide_method
+     * @return string|null
      */
-    public static function detect($field, $params, Model $model = null): ?string
+    public static function detect($field, $params, $is_overide_method = false): ?string
     {
         if ($field == 'or') {
             $method = WhereOr::class;

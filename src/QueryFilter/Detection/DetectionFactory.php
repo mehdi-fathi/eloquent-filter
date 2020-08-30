@@ -33,7 +33,7 @@ class DetectionFactory implements DetectorContract
      *
      * @return mixed|string|null
      */
-    public static function detect($field, $params, Model $model = null): ?string
+    public static function detect($field, $params, $model = null): ?string
     {
         $detect = new DetectorConditions(
             self::$detectors

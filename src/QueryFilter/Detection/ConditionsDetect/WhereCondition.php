@@ -4,21 +4,20 @@ namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
 use eloquentFilter\QueryFilter\Queries\Where;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class WhereCondition.
  */
 class WhereCondition implements DetectorContract
 {
+
     /**
      * @param $field
      * @param $params
-     * @param Model|null $model
-     *
-     * @return mixed|string
+     * @param $is_override_method
+     * @return string|null
      */
-    public static function detect($field, $params, Model $model = null): ?string
+    public static function detect($field, $params, $is_override_method = false): ?string
     {
         if (!empty($params)) {
             $method = Where::class;
