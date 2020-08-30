@@ -271,19 +271,16 @@ class ModelFilterMockTest extends \TestCase
     public function testSetWhiteList()
     {
         try {
-
             $this->request->shouldReceive('query')->andReturn([
                 'role' => [
-                    'admin', 'user'
+                    'admin', 'user',
                 ],
             ]);
 
             EloquentBuilderTestModelParentStub::filter($this->request->query());
-
         } catch (\Exception $e) {
             $this->assertEquals(0, $e->getCode());
         }
-
     }
 
     public function testAddWhiteList()
