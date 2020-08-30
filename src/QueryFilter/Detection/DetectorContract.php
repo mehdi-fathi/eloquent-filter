@@ -16,5 +16,5 @@ interface DetectorContract
      *
      * @return mixed
      */
-    public static function detect($field, $params,  $is_override_method = false): ?string;
+    public static function detect($field, $params, $is_override_method = false): ?string;
 }
