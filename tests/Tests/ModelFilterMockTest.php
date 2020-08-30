@@ -268,22 +268,23 @@ class ModelFilterMockTest extends \TestCase
 //
 //    }
 
-//    public function testSetWhiteList()
-//    {
-//        //todo refactor this
-    ////        $userModel2 = m::mock(User::class);
-    ////        $userModel2->shouldReceive('getWhiteListFilter')->andReturn(['name']);
-    ////        $this->__initQuery($userModel2);
-    ////
-    ////        $this->builder->shouldReceive('where')->with('name', 'mehdi');
-    ////        $this->builder->shouldReceive('where')->with('name', 'mehdi');
-    ////        $this->request->shouldReceive('query')->andReturn(['name' => 'mehdi']);
-    ////
-    ////        $ModelFilters = new QueryFilter($this->request->query());
-    ////        $this->model = $ModelFilters->apply($this->builder);
-    ////
-    ////        $this->assertEquals($this->model, $this->builder);
-//    }
+    public function testSetWhiteList()
+    {
+        try {
+
+            $this->request->shouldReceive('query')->andReturn([
+                'role' => [
+                    'admin', 'user'
+                ],
+            ]);
+
+            EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        } catch (\Exception $e) {
+            $this->assertEquals(0, $e->getCode());
+        }
+
+    }
 
     public function testAddWhiteList()
     {
