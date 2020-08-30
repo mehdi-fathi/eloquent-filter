@@ -2,8 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCustomCondition;
-
 /**
  * Class DetectorConditions.
  */
@@ -54,14 +52,15 @@ class DetectorConditions
         return null;
     }
 
-
     /**
-     * @param string $field
+     * @param string     $field
      * @param array|null $list_white_filter_model
-     * @param bool $has_method
+     * @param bool       $has_method
      * @param $model_class
-     * @return bool
+     *
      * @throws \Exception
+     *
+     * @return bool
      */
     private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class)
     {

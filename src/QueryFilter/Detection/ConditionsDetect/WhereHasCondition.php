@@ -10,11 +10,11 @@ use eloquentFilter\QueryFilter\Queries\WhereHas;
  */
 class WhereHasCondition implements DetectorContract
 {
-
     /**
      * @param $field
      * @param $params
      * @param bool $is_overide_method
+     *
      * @return string|null
      */
     public static function detect($field, $params, $is_overide_method = false): ?string

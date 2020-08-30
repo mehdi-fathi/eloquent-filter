@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
 use eloquentFilter\QueryFilter\Queries\WhereBetween;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class WhereBetweenCondition.
