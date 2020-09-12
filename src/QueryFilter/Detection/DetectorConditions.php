@@ -70,7 +70,7 @@ class DetectorConditions
             return true;
         }
 
-        $class_name = class_basename($model_class); // todo make test for this
+        $class_name = class_basename($model_class);
 
         throw new \Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");

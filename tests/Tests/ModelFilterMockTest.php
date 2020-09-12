@@ -283,6 +283,24 @@ class ModelFilterMockTest extends \TestCase
         }
     }
 
+    public function testFParamException()
+    {
+        try {
+            $this->request->shouldReceive('query')->andReturn([
+                'f_params' => [
+                    'orderBys' => [
+                        'field' => 'id',
+                        'type' => 'ASC',
+                    ],
+                ],
+            ]);
+
+            EloquentBuilderTestModelParentStub::filter($this->request->query());
+        } catch (\Exception $e) {
+            $this->assertEquals(0, $e->getCode());
+        }
+    }
+
     public function testAddWhiteList()
     {
         $userModel2 = m::mock(User::class);
