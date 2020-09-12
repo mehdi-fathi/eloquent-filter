@@ -163,7 +163,7 @@ You can add or set `$whiteListFilter` on the fly in your method.For example:
 ```php
 User::setWhiteListFilter(['name']); 
 ```
-*** Add new field to WhiteListFilter ***
+***Add new field to WhiteListFilter***
 ```php
 User::addWhiteListFilter('name'); 
 ```
