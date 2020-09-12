@@ -290,7 +290,7 @@ class ModelFilterMockTest extends \TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]);
