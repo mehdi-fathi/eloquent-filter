@@ -18,12 +18,16 @@ jobs:
         include:
           - laravel: 8.*
             testbench: 6.*
+            database: 6.x-dev
           - laravel: 7.*
             testbench: 5.*
+            database: 5.*
           - laravel: 6.*
             testbench: 4.*
+            database: 4.*
           - laravel: 5.8.*
             testbench: 3.8.*
+            database: 3.8.*
         exclude:
           - laravel: 5.8.*
             php: 7.4
