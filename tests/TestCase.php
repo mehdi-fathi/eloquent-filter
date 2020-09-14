@@ -13,8 +13,11 @@ class TestCase extends Orchestra\Testbench\TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->withFactories(__DIR__.'/database/factories');
+        if (substr(app()->version(), 0, 1) != '8') {
+
+            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+            $this->withFactories(__DIR__ . '/database/factories');
+        }
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
 

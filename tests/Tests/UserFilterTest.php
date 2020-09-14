@@ -15,6 +15,10 @@ class UserFilterTest extends TestCase
 
     private function __init()
     {
+
+        if (substr(app()->version(), 0, 1) == '8') {
+            return ;
+        }
         $seeder = new UserTableSeeder();
         $seeder->run();
 
