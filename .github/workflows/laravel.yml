@@ -16,6 +16,8 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         include:
+          - laravel: 8.*
+            testbench: 6.*
           - laravel: 7.*
             testbench: 5.*
           - laravel: 6.*
@@ -25,6 +27,9 @@ jobs:
         exclude:
           - laravel: 5.8.*
             php: 7.4
+          - laravel: 8.*
+            php: 7.2
+
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
