@@ -19,7 +19,6 @@ jobs:
           - laravel: 8.*
             testbench: 6.*
             database: 6.x-dev
-            dependency-version: prefer-stable
           - laravel: 7.*
             testbench: 5.*
             database: 5.*
@@ -36,6 +35,8 @@ jobs:
             php: 7.2
           - laravel: 8.*
             php: 7.2
+          - laravel: 8.*
+            dependency-version: prefer-lowest
           - laravel: 7.*
             php: 7.2
           - laravel: 6.*
