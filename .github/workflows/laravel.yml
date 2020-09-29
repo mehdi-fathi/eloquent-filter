@@ -60,7 +60,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "orchestra/database:${{ matrix.database }}" "laravel/legacy-factories:${{ matrix.factories }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "orchestra/database:${{ matrix.database }}" "laravel/legacy-factories:${{ matrix.factories }}" "laravel/legacy-factories:^5.0" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
