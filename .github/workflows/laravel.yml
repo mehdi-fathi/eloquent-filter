@@ -20,12 +20,12 @@ jobs:
             testbench: 6.*
             database: 6.x-dev
             factories: 1.0.5
-            finder: 5.0.0
+            finder: ^5.1
           - laravel: 7.*
             testbench: 5.*
             database: 5.*
             factories: 1.0.4
-            finder: 5.0.0
+            finder: ^5.1
           - laravel: 6.*
             testbench: 4.*
             database: 4.*
@@ -35,7 +35,7 @@ jobs:
             testbench: 3.8.*
             database: 3.8.*
             factories: 1.0.2
-            finder: 4.0
+            finder: ^5.0
         exclude:
           - laravel: 5.8.*
             php: 7.4
