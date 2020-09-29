@@ -15,7 +15,6 @@ class UserFilterTest extends TestCase
 
     private function __init()
     {
-
         $seeder = new UserTableSeeder();
         $seeder->run();
 
