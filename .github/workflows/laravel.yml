@@ -20,18 +20,22 @@ jobs:
             testbench: 6.*
             database: 6.x-dev
             factories: 1.0.5
+            finder: 5.0.0
           - laravel: 7.*
             testbench: 5.*
             database: 5.*
             factories: 1.0.4
+            finder: 5.0.0
           - laravel: 6.*
             testbench: 4.*
             database: 4.*
             factories: 1.0.3
+            finder: 4.3.4
           - laravel: 5.8.*
             testbench: 3.8.*
             database: 3.8.*
             factories: 1.0.2
+            finder: 4.0
         exclude:
           - laravel: 5.8.*
             php: 7.4
@@ -60,7 +64,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "orchestra/database:${{ matrix.database }}" "laravel/legacy-factories:${{ matrix.factories }}" "symfony/finder:^5.0" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "orchestra/database:${{ matrix.database }}" "laravel/legacy-factories:${{ matrix.factories }}" "symfony/finder:${{ matrix.finder }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
