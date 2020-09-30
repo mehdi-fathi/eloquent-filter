@@ -25,8 +25,8 @@ It's easy to use and fully dynamic.
     - [Custom query filter](#Custom-query-filter)
 
 ## Requirements
-- PHP 7.1+
-- Laravel 5.8+,6.x,7.x.
+- PHP 7.2+
+- Laravel 5.8+,6.x,7.x,8(prefer-stable)
 
 ## :microphone: Introduction
 
