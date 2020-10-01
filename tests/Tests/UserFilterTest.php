@@ -5,6 +5,7 @@ use Tests\Controllers\UsersController;
 use Tests\Models\User;
 use Tests\Seeds\PostTableSeeder;
 use Tests\Seeds\UserTableSeeder;
+use Tests\Seeds\CategoryTableSeeder;
 
 /**
  * Class UserFilterTest.
@@ -21,7 +22,7 @@ class UserFilterTest extends TestCase
         $seeder = new PostTableSeeder();
         $seeder->run();
 
-        $seeder = new \Tests\Seeds\CategoryTableSeeder();
+        $seeder = new CategoryTableSeeder();
         $seeder->run();
 
         $this->request = new Request();
