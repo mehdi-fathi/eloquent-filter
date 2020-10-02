@@ -47,6 +47,7 @@ trait Filterable
     /**
      * @param $query
      * @param array|null $object_custom_detect
+     *
      * @return $this
      */
     public function scopeSetCustomDetection($query, ?array $object_custom_detect = null)
@@ -61,10 +62,10 @@ trait Filterable
      */
     public function getObjectCustomDetect()
     {
-
         if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect)) {
             $this->setObjectCustomDetect($this->EloquentFilterCustomDetection());
         }
+
         return $this->object_custom_detect;
     }
 

@@ -19,10 +19,10 @@ class WhereLikeRelation extends BaseClause
     {
         return $query
             ->whereHas('foo', function ($q) {
-                $q->where('bam', 'like', "%" . $this->values['like_relation_value'] . "%");
+                $q->where('bam', 'like', '%'.$this->values['like_relation_value'].'%');
             })
             ->where("$this->filter", '<>', $this->values['value'])
-            ->where('email', 'like', "%" . $this->values['email'] . "%")
+            ->where('email', 'like', '%'.$this->values['email'].'%')
             ->limit($this->values['limit']);
     }
 }

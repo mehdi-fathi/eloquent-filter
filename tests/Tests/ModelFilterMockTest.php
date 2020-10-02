@@ -4,14 +4,13 @@ namespace Tests\Tests;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
-use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
-use Tests\Models\User;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
+use Tests\Models\User;
 
 class ModelFilterMockTest extends \TestCase
 {
@@ -695,7 +694,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame(['%meh%'], $builder->getBindings());
     }
 
-
     public function testSetDetection()
     {
         $builder = new EloquentBuilderTestModelNewStrategyStub();
@@ -709,15 +707,14 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
-                'like_relation_value' => 'mehdi'
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
+                'like_relation_value' => 'mehdi',
             ],
-            'count_posts' => 10
+            'count_posts' => 10,
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
@@ -741,15 +738,14 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
-                'like_relation_value' => 'mehdi'
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
+                'like_relation_value' => 'mehdi',
             ],
-            'count_posts' => 10
+            'count_posts' => 10,
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter();
@@ -803,7 +799,7 @@ class EloquentBuilderTestModelNewStrategyStub extends Model
     public function EloquentFilterCustomDetection(): array
     {
         return [
-            WhereRelationLikeCondition::class
+            WhereRelationLikeCondition::class,
         ];
     }
 }

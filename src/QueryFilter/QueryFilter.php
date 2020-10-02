@@ -41,7 +41,7 @@ class QueryFilter
     /**
      * QueryFilter constructor.
      *
-     * @param array $request
+     * @param array      $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
@@ -53,10 +53,11 @@ class QueryFilter
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder    $builder
      * @param array|null $request
      * @param array|null $ignore_request
-     * @param array $detect_injected
+     * @param array      $detect_injected
+     *
      * @return Builder
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $detect_injected = null): Builder
@@ -88,6 +89,7 @@ class QueryFilter
 
     /**
      * @param array|null $detect_injected
+     *
      * @return DetectionFactory
      */
     private function __getDetectorsInstanceArray(array $detect_injected = null)
@@ -101,13 +103,14 @@ class QueryFilter
             WhereInCondition::class,
             WhereOrCondition::class,
             WhereHasCondition::class,
-            WhereCondition::class
+            WhereCondition::class,
         ];
 
         $detections = $default_detect;
         if (!empty($detect_injected)) {
             $detections = array_merge($detect_injected, $default_detect);
         }
+
         return
             new DetectionFactory(
                 $detections
