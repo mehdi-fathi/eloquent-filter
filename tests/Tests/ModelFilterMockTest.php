@@ -4,12 +4,14 @@ namespace Tests\Tests;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 use Tests\Models\User;
+use Tests\Models\CustomDetect\WhereRelationLikeCondition;
 
 class ModelFilterMockTest extends \TestCase
 {
@@ -693,9 +695,116 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame(['%meh%'], $builder->getBindings());
     }
 
+
+    public function testSetDetection()
+    {
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->whereHas('foo', function ($q) {
+                $q->where('bam', 'like', '%mehdi%');
+            })
+            ->where('baz', '<>', 'boo')
+            ->where('email', 'like', '%mehdifathi%')
+            ->where('count_posts', '=', 10)
+            ->limit(10);
+
+
+        $this->request->shouldReceive('query')->andReturn([
+            'baz' => [
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
+                'like_relation_value' => 'mehdi'
+            ],
+            'count_posts' => 10
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+
+        //todo - make disable new strategy on the fly
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
+    }
+
+    public function testEloquentFilterCustomDetection()
+    {
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->whereHas('foo', function ($q) {
+                $q->where('bam', 'like', '%mehdi%');
+            })
+            ->where('baz', '<>', 'boo')
+            ->where('email', 'like', '%mehdifathi%')
+            ->where('count_posts', '=', 10)
+            ->limit(10);
+
+
+        $this->request->shouldReceive('query')->andReturn([
+            'baz' => [
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
+                'like_relation_value' => 'mehdi'
+            ],
+            'count_posts' => 10
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter();
+
+        //todo
+        // - make disable new strategy on the fly
+        // -update readme
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();
+    }
+}
+
+class EloquentBuilderTestModelNewStrategyStub extends Model
+{
+    use Filterable;
+
+    /**
+     * @var array
+     */
+    private static $whiteListFilter = [
+        'baz',
+        'too',
+        'count_posts',
+        'foo.bam',
+        'foo.baz.bam',
+        'created_at',
+        'email',
+    ];
+
+    public function foo()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id');
+    }
+
+    public function activeFoo()
+    {
+        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id')->where('active', true);
+    }
+
+    public function EloquentFilterCustomDetection(): array
+    {
+        return [
+            WhereRelationLikeCondition::class
+        ];
     }
 }
 

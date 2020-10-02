@@ -22,9 +22,12 @@ class DetectorConditions
     public function __construct(array $detector)
     {
         foreach ($detector as $detector_obj) {
-            $reflect = new \ReflectionClass($detector_obj);
-            if ($reflect->implementsInterface(DetectorContract::class)) {
-                $this->detector[] = $detector_obj;
+            if (!empty($detector_obj)) {
+
+                $reflect = new \ReflectionClass($detector_obj);
+                if ($reflect->implementsInterface(DetectorContract::class)) {
+                    $this->detector[] = $detector_obj;
+                }
             }
         }
     }
@@ -64,6 +67,7 @@ class DetectorConditions
      */
     private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class)
     {
+
         if ($output = $this->checkSetWhiteListFields($field, $list_white_filter_model)) {
             return $output;
         } elseif (($field == 'f_params' || $field == 'or') || $has_method) {

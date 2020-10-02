@@ -42,23 +42,24 @@ class QueryFilter
      * QueryFilter constructor.
      *
      * @param array $request
+     * @param array|null $detect_injected
      */
-    public function __construct(?array $request)
+    public function __construct(?array $request, array $detect_injected = null)
     {
         if (!empty($request)) {
             $this->setRequest($request);
         }
-        $this->detect = $this->__getDetectorsInstanceArray();
+        $this->detect = $this->__getDetectorsInstanceArray($detect_injected);
     }
 
     /**
-     * @param Builder    $builder
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
-     *
+     * @param array $detect_injected
      * @return Builder
      */
-    public function apply(Builder $builder, array $request = null, array $ignore_request = null): Builder
+    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $detect_injected = null): Builder
     {
         $this->builder = $builder;
 
@@ -68,6 +69,11 @@ class QueryFilter
         $this->setFilterRequests($ignore_request, $this->builder->getModel());
 
         $model = $this->builder->getModel();
+
+        if (!empty($detect_injected)) {
+            $this->detect = $this->__getDetectorsInstanceArray($detect_injected);
+        }
+
         $filters = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
             return $this->resolve($filter, $values, $model);
         })->toArray();
@@ -81,23 +87,30 @@ class QueryFilter
     }
 
     /**
+     * @param array|null $detect_injected
      * @return DetectionFactory
      */
-    private function __getDetectorsInstanceArray()
+    private function __getDetectorsInstanceArray(array $detect_injected = null)
     {
+        $default_detect = [
+            SpecialCondition::class,
+            WhereCustomCondition::class,
+            WhereBetweenCondition::class,
+            WhereByOptCondition::class,
+            WhereLikeCondition::class,
+            WhereInCondition::class,
+            WhereOrCondition::class,
+            WhereHasCondition::class,
+            WhereCondition::class
+        ];
+
+        $detections = $default_detect;
+        if (!empty($detect_injected)) {
+            $detections = array_merge($detect_injected, $default_detect);
+        }
         return
             new DetectionFactory(
-                [
-                    SpecialCondition::class,
-                    WhereCustomCondition::class,
-                    WhereBetweenCondition::class,
-                    WhereByOptCondition::class,
-                    WhereLikeCondition::class,
-                    WhereInCondition::class,
-                    WhereOrCondition::class,
-                    WhereHasCondition::class,
-                    WhereCondition::class,
-                ]
+                $detections
             );
     }
 

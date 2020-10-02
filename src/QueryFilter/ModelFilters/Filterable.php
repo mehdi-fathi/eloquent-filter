@@ -16,6 +16,11 @@ trait Filterable
     protected $ignore_request = null;
 
     /**
+     * @var
+     */
+    protected $object_custom_detect = null;
+
+    /**
      * @param            $query
      * @param array|null $reqesut
      *
@@ -23,7 +28,7 @@ trait Filterable
      */
     public function scopeFilter($query, ?array $reqesut = null): Builder
     {
-        return EloquentFilter::apply($query, $reqesut, $this->ignore_request);
+        return EloquentFilter::apply($query, $reqesut, $this->ignore_request, $this->getObjectCustomDetect());
     }
 
     /**
@@ -37,6 +42,38 @@ trait Filterable
         $this->ignore_request = $reqesut;
 
         return $this;
+    }
+
+    /**
+     * @param $query
+     * @param array|null $object_custom_detect
+     * @return $this
+     */
+    public function scopeSetCustomDetection($query, ?array $object_custom_detect = null)
+    {
+        $this->setObjectCustomDetect($object_custom_detect);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjectCustomDetect()
+    {
+
+        if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect)) {
+            $this->setObjectCustomDetect($this->EloquentFilterCustomDetection());
+        }
+        return $this->object_custom_detect;
+    }
+
+    /**
+     * @param mixed $object_custom_detect
+     */
+    public function setObjectCustomDetect($object_custom_detect): void
+    {
+        $this->object_custom_detect = $object_custom_detect;
     }
 
     /**

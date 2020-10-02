@@ -23,6 +23,7 @@ It's easy to use and fully dynamic.
     - [Use in Controller](#Use-in-Controller)
     - [Simple Examples](#Simple-Examples)
     - [Custom query filter](#Custom-query-filter)
+    - [Custom Detection Condition](#Custom-Detection-Condition)
 
 ## Requirements
 - PHP 7.2+
@@ -441,5 +442,165 @@ class User extends Model
     
 }
 ```
+-**Note** that fields of query string be same methods of trait. Use trait in your model:
+
+```
+/users/list?username_like=a
+select * from `users` where `username` like %a% order by `id` desc limit 10 offset 0
+```
+
+```php
+class User extends Model
+{
+    use usersFilter,Filterable;
+
+    protected $table = 'users';
+    protected $guarded = [];
+    private static $whiteListFilter =[
+        'id',
+        'username',
+        'email',
+        'created_at',
+        'updated_at',
+    ];
+    
+}
+```
+### Custom Detection Condition
+Sometimes you want to make your own custom condition for make new query that eloquent filter doesn't support it by default. Good news you can make
+custom condition in the eloquent filter from now on. In fact you can make condition for the generate new query after check by that. For example :
+
+We must make two class first class to detect conditions another class to generate query.
+ 
+- Make class detect condition
+
+```php
+
+use eloquentFilter\QueryFilter\Detection\DetectorContract;
+
+/**
+ * Class WhereCondition.
+ */
+class WhereRelationLikeCondition implements DetectorContract
+{
+    /**
+     * @param $field
+     * @param $params
+     * @param $is_override_method
+     *
+     * @return string|null
+     */
+    public static function detect($field, $params, $is_override_method = false): ?string
+    {
+        if (!empty($params['value']) && !empty($params['limit']) && !empty($params['email'])) {
+            $method = WhereLikeRelation::class;
+        }
+
+        return $method ?? null;
+    }
+}
+```
+
+- After that make a class `WhereLikeRelation` for generate query 
+
+```php
+use eloquentFilter\QueryFilter\Queries\BaseClause;
+use Illuminate\Database\Eloquent\Builder;
+
+/**
+ * Class WhereLike.
+ */
+class WhereLikeRelation extends BaseClause
+{
+    /**
+     * @param $query
+     *
+     * @return Builder
+     */
+    public function apply($query): Builder
+    {
+        return $query
+            ->whereHas('posts', function ($q) {
+                $q->where('comment', 'like', "%" . $this->values['like_relation_value'] . "%");
+            })
+            ->where("$this->filter", '<>', $this->values['value'])
+            ->where('email', 'like', "%" . $this->values['email'] . "%")
+            ->limit($this->values['limit']);
+    }
+}
+```
+- step 3: You just make method `EloquentFilterCustomDetection` for return array detections condition in the model.
+
+```php
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+
+class User extends Model
+{
+    use Filterable;
+   
+    private static $whiteListFilter =[
+        'username',
+        'posts.count_post',
+        'posts.category',
+        'posts.orders.name',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function posts()
+    {
+        return $this->belongsTo('Models\Post');
+    }
+
+    public function EloquentFilterCustomDetection(): array
+    {
+        return [
+            WhereRelationLikeCondition::class
+        ];
+    }
+
+}
+``` 
+
+every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
+
+Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
+
+```
+/users/list?username[value]=mehdi&username[limit]=10&username[email]=mehdifathi&username[like_relation_value]=mehdi&count_posts=10
+
+select * from "users"
+ where exists (select * from "posts" where 
+"users"."post_id" = "posts"."id" 
+and "comment" like ?) and "username" <> ? and "email" like ? and "count_posts" = ? limit 10
+```
+You just run code ` User::filter();` for see result.
+
+- Also you can set custom detection on the fly by use of mehdot `SetCustomDetection`. For example :
+
+```php
+$users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+```
+
+-**Note** You can set many detection condition for example:
+
+```php
+
+class User extends Model
+{
+    use Filterable;
+    public function EloquentFilterCustomDetection(): array
+    {
+        return [
+            WhereRelationLikeCondition::class,
+            WhereRelationLikeVersion2Condition::class,
+            WhereRelationLikeVersion3Condition::class,
+        ];
+    }
+}
+```
+-**Note** Every custom detection will run before default detection eloquent filter.
+
 - If you have any idea about the Eloquent Filter i will glad to hear that.
 You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
