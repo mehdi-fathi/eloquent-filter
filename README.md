@@ -480,7 +480,7 @@ We must make two class first class to detect conditions another class to generat
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
 
 /**
- * Class WhereCondition.
+ * Class WhereRelationLikeCondition.
  */
 class WhereRelationLikeCondition implements DetectorContract
 {
@@ -509,7 +509,7 @@ use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereLike.
+ * Class WhereLikeRelation.
  */
 class WhereLikeRelation extends BaseClause
 {
