@@ -467,12 +467,13 @@ class User extends Model
 }
 ```
 ### Custom Detection Condition
+
 Sometimes you want to make your own custom condition for make new query that eloquent filter doesn't support it by default. Good news you can make
 custom condition in the eloquent filter from now on. In fact you can make condition for the generate new query after check by that. For example :
 
 We must make two class first class to detect conditions another class to generate query.
  
-- Make class detect condition
+- Step 1: Make class detect condition
 
 ```php
 
@@ -501,7 +502,7 @@ class WhereRelationLikeCondition implements DetectorContract
 }
 ```
 
-- After that make a class `WhereLikeRelation` for generate query 
+- Step 2: After that make a class `WhereLikeRelation` for generate query :
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -529,7 +530,7 @@ class WhereLikeRelation extends BaseClause
     }
 }
 ```
-- step 3: You just make method `EloquentFilterCustomDetection` for return array detections condition in the model.
+- Step 3: You just make method `EloquentFilterCustomDetection` for return array detections condition in the model.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -563,7 +564,7 @@ class User extends Model
 }
 ``` 
 
-every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
+- Every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
 
 Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
 
@@ -577,7 +578,7 @@ and "comment" like ?) and "username" <> ? and "email" like ? and "count_posts" =
 ```
 You just run code ` User::filter();` for see result.
 
-- Also you can set custom detection on the fly by use of mehdot `SetCustomDetection`. For example :
+-**Note** Also you can set custom detection on the fly by use of method `SetCustomDetection`. For example :
 
 ```php
 $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
@@ -600,7 +601,7 @@ class User extends Model
     }
 }
 ```
--**Note** Every custom detection will run before default detection eloquent filter.
+-**Note** Every custom detection will run before detection by default eloquent filter.
 
 - If you have any idea about the Eloquent Filter i will glad to hear that.
 You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
