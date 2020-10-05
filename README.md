@@ -473,7 +473,7 @@ custom condition in the eloquent filter from now on. In fact you can make condit
 
 We must make two class first class to detect conditions another class to generate query.
  
-- Step 1: Make class detect condition
+- Step 1: Create a class to detect the condition
 
 ```php
 
@@ -494,7 +494,7 @@ class WhereRelationLikeCondition implements DetectorContract
     public static function detect($field, $params, $is_override_method = false): ?string
     {
         if (!empty($params['value']) && !empty($params['limit']) && !empty($params['email'])) {
-            $method = WhereLikeRelation::class;
+            $method = WhereRelationLikeCondition::class;
         }
 
         return $method ?? null;
@@ -502,16 +502,16 @@ class WhereRelationLikeCondition implements DetectorContract
 }
 ```
 
-- Step 2: After that make a class `WhereLikeRelation` for generate query :
+- Step 2: After that create a class to generate query. In this example we make `WhereRelationLikeCondition` class:
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereLikeRelation.
+ * Class WhereRelationLikeCondition.
  */
-class WhereLikeRelation extends BaseClause
+class WhereRelationLikeCondition extends BaseClause
 {
     /**
      * @param $query
@@ -530,7 +530,7 @@ class WhereLikeRelation extends BaseClause
     }
 }
 ```
-- Step 3: You just make method `EloquentFilterCustomDetection` for return array detections condition in the model.
+- Step 3: You just make the method `EloquentFilterCustomDetection` for return array detections of the condition in the model.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
