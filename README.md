@@ -18,6 +18,7 @@ It's easy to use and fully dynamic.
 
 ## Table of Content
 - [Introduction](#Introduction)
+- [Installation](#Installation)
 - [Basic Usage](#Basic-Usage)
     - [Config Model](#Config-Model-and-set-whitelist)
     - [Use in Controller](#Use-in-Controller)
@@ -68,9 +69,9 @@ class UserController extends Controller
 We check out a condition for each request.
 
 In the future, if your project will need more filter requests at that time you should add many conditions to the above code.
-Imagine some of the queries may be advanced therefore your code to be like MONSTER! :boom:
+Imagine some of the queries may be advanced or complex therefore your code to be like MONSTER! :boom:
 
-The eloquent filter is proper for make advanced search filters or report pages. 
+The eloquent filter is proper to make advanced search filters or report pages. 
 Eloquent filter saves your time and destroys the complexity of your code.
 
 To filter that same input With Eloquent Filters:
