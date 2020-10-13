@@ -470,7 +470,7 @@ class User extends Model
 ### Custom Detection Condition
 
 Sometimes you want to make your own custom condition for make new query that eloquent filter doesn't support it by default. Good news you can make
-custom condition in the eloquent filter from now on. In fact you can make condition for the generate new query after check by that (New feature :fire:). For example :
+custom condition in the eloquent filter from now on. In fact you can make condition for the generate new query after check by that (New feature :fire: ). For example :
 
 We must make two class first class to detect conditions another class to generate query.
  
