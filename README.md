@@ -12,8 +12,10 @@
 [![Total Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/downloads)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 [![Daily Downloads](https://poser.pugx.org/mehdi-fathi/eloquent-filter/d/daily)](//packagist.org/packages/mehdi-fathi/eloquent-filter)
 
-The Eloquent filter is a package for filter data of models by the query string in the Laravel application.
+Eloquent Filter adds custom filters to your Eloquent Models in Laravel.
 It's easy to use and fully dynamic.
+
+
 
 
 ## Table of Content
@@ -32,9 +34,14 @@ It's easy to use and fully dynamic.
 
 ## :microphone: Introduction
 
-Let's say we want to make an advanced search page with multiple filter option params. When we navigate to:
+Let's say we want to make an advanced search page with multiple filter option params.
+
+### a simple implementation without Eloquent Filter
+The Request URI could look like this:
                                                                                      
     http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
+ 
+And a simple implementation in the Controller would look like this:
  
 ```php
 <?php
@@ -66,20 +73,22 @@ class UserController extends Controller
     }
 }
 ```
-We check out a condition for each request.
+This solution is simple and would work fine.
+But you'd have to add a condition for each filter you need. 
+Especially with more complex filtering your code can become a Monster very fast! :boom: 
 
-In the future, if your project will need more filter requests at that time you should add many conditions to the above code.
-Imagine some of the queries may be advanced or complex therefore your code to be like MONSTER! :boom:
 
-The eloquent filter is proper to make advanced search filters or report pages. 
-Eloquent filter saves your time and destroys the complexity of your code.
+### a simple implementation with Eloquent Filter
 
-To filter that same input With Eloquent Filters:
+Eloquent Filter can help you to fix that problem. 
+It will save you time and minimize the complexity of your code.
 
-Just change query string as the this example:
+After installing Eloquent Filter the request URI could look like this:
              
     http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
+
+And in the controller you'd just need that one line: 
 ```php
 /**
  * Class UsersController.
@@ -91,21 +100,21 @@ use App\User;
 
 class UsersController
 {
-    public function list()
+    public function list(Request $request)
     {
         return User::filter()->get();
     }
 }
 ```
-Just this!
+With this Eloquent filter implementation you can use all the documented filters!
 
 ## :electric_plug: Installation
 
-1- Run the Composer command for installing latest version
+1- Run this Composer command to install the latest version
 
       $ composer require mehdi-fathi/eloquent-filter
       
-- **Note**  that installed for laravel version previous of 5.8 you should install version 2.2.5 
+- **Note**  for Laravel versions older than 5.8 you should install version 2.2.5 
 
         $ composer require mehdi-fathi/eloquent-filter:2.2.5
 
