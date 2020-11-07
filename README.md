@@ -17,7 +17,6 @@ It's easy to use and fully dynamic.
 
 
 
-
 ## Table of Content
 - [Introduction](#Introduction)
 - [Installation](#Installation)
@@ -36,7 +35,7 @@ It's easy to use and fully dynamic.
 
 Let's say we want to make an advanced search page with multiple filter option params.
 
-### a simple implementation without Eloquent Filter
+### A simple implementation without Eloquent Filter
 The Request URI could look like this:
                                                                                      
     http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
@@ -78,9 +77,9 @@ But you'd have to add a condition for each filter you need.
 Especially with more complex filtering your code can become a Monster very fast! :boom: 
 
 
-### a simple implementation with Eloquent Filter
+### A simple implementation with Eloquent Filter
 
-Eloquent Filter can help you to fix that problem. 
+Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
 It will save you time and minimize the complexity of your code.
 
 After installing Eloquent Filter the request URI could look like this:
@@ -100,7 +99,7 @@ use App\User;
 
 class UsersController
 {
-    public function list(Request $request)
+    public function list()
     {
         return User::filter()->get();
     }
@@ -208,7 +207,7 @@ class UsersController
     }
 }
 ```
--**Note**  that the Eloquent Filter by default using the query string or request data to make queries in the laravel.
+-**Note**  that the Eloquent Filter by default using the query string to make queries in the laravel.
  Also, you can set the array to `filter` method Model for making your own custom condition without query string.
 
 -**Note**  that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
