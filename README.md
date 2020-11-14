@@ -216,13 +216,26 @@ You can ignore some request params by use of code it.
 
 ```php
 
-User::ignoreRequest(['perpage'])->filter()
+User::ignoreRequest(['perpage'])
+            ->filter()
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
 Call `ignoreRequest` will ignore some requests that you don't want to use in conditions eloquent filter. 
 For example perpage param will never be in the conditions eloquent filter. 
 it's related to the paginate method. `page` param ignore by default in the Eloquent Filter Laravel.
+
+
+```php
+
+User::AcceptRequest(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+Call `AcceptRequest` will accept requests that you want to use in conditions eloquent filter. 
+For example `username` and `id` param will be in the conditions eloquent filter. Just notice you must set `$whiteListFilter`
+in Model. This method is useful for query string manipulation by user.
 
 
 - Another example use of a filter eloquent filter.
