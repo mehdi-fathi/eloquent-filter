@@ -68,7 +68,7 @@ class QueryFilter
         if (!empty($request)) {
             $this->setRequest($request);
         }
-        $this->setFilterRequests($ignore_request,$accept_request, $this->builder->getModel());
+        $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
 
         $model = $this->builder->getModel();
 

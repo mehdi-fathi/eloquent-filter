@@ -42,9 +42,9 @@ trait Filterable
     public function scopeIgnoreRequest($query, ?array $reqesut = null)
     {
         $this->ignore_request = $reqesut;
+
         return $this;
     }
-
 
     /**
      * @param            $query
@@ -55,9 +55,9 @@ trait Filterable
     public function scopeAcceptRequest($query, ?array $reqesut = null)
     {
         $this->accept_request = $reqesut;
+
         return $this;
     }
-
 
     /**
      * @param $query

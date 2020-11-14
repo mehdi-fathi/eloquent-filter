@@ -768,12 +768,12 @@ class ModelFilterMockTest extends \TestCase
             [
                 'baz'          => 'joo',
                 'google_index' => true,
-                'gmail_api' => 'dfsmfjkvx#$cew45',
+                'gmail_api'    => 'dfsmfjkvx#$cew45',
             ]
         );
 
         $users = EloquentBuilderTestModelParentStub::AcceptRequest([
-            'baz'
+            'baz',
         ])->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
