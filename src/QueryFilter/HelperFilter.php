@@ -96,7 +96,7 @@ trait HelperFilter
     protected function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
     {
         if (!empty($this->getRequest())) {
-            if(!empty($ignore_request)){
+            if (!empty($ignore_request)) {
                 $this->setIgnoreRequest($ignore_request);
             }
             if (!empty($accept_request)) {
@@ -155,10 +155,10 @@ trait HelperFilter
             $keys = array_keys($array);
         }
         if (!is_array($keys)) {
-            $keys = array($keys);
+            $keys = [$keys];
         }
         if (!is_array($array)) {
-            return array();
+            return [];
         } else {
             return array_intersect_key($array, array_fill_keys($keys, '1'));
         }
