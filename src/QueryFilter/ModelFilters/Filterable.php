@@ -15,6 +15,8 @@ trait Filterable
      */
     protected $ignore_request = null;
 
+    protected $accept_request = null;
+
     /**
      * @var
      */
@@ -28,7 +30,7 @@ trait Filterable
      */
     public function scopeFilter($query, ?array $reqesut = null): Builder
     {
-        return EloquentFilter::apply($query, $reqesut, $this->ignore_request, $this->getObjectCustomDetect());
+        return EloquentFilter::apply($query, $reqesut, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
     }
 
     /**
@@ -40,9 +42,22 @@ trait Filterable
     public function scopeIgnoreRequest($query, ?array $reqesut = null)
     {
         $this->ignore_request = $reqesut;
-
         return $this;
     }
+
+
+    /**
+     * @param            $query
+     * @param array|null $reqesut
+     *
+     * @return $this
+     */
+    public function scopeAcceptRequest($query, ?array $reqesut = null)
+    {
+        $this->accept_request = $reqesut;
+        return $this;
+    }
+
 
     /**
      * @param $query

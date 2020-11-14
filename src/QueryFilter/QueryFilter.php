@@ -56,18 +56,19 @@ class QueryFilter
      * @param Builder    $builder
      * @param array|null $request
      * @param array|null $ignore_request
+     * @param array|null $accept_request
      * @param array      $detect_injected
      *
      * @return Builder
      */
-    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $detect_injected = null): Builder
+    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null): Builder
     {
         $this->builder = $builder;
 
         if (!empty($request)) {
             $this->setRequest($request);
         }
-        $this->setFilterRequests($ignore_request, $this->builder->getModel());
+        $this->setFilterRequests($ignore_request,$accept_request, $this->builder->getModel());
 
         $model = $this->builder->getModel();
 

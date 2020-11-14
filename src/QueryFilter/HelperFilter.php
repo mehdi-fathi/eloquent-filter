@@ -88,14 +88,20 @@ trait HelperFilter
 
     /**
      * @param array|null $ignore_request
+     * @param array|null $accept_request
      * @param            $builder_model
      *
      * @return array|null
      */
-    protected function setFilterRequests(array $ignore_request = null, $builder_model): ?array
+    protected function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
     {
-        if (!empty($ignore_request) && !empty($this->getRequest())) {
-            $this->setIgnoreRequest($ignore_request);
+        if (!empty($this->getRequest())) {
+            if(!empty($ignore_request)){
+                $this->setIgnoreRequest($ignore_request);
+            }
+            if (!empty($accept_request)) {
+                $this->setAcceptRequest($accept_request);
+            }
         }
         if (!empty($this->getRequest())) {
             foreach ($this->getRequest() as $name => $value) {
@@ -121,6 +127,14 @@ trait HelperFilter
         $this->setRequest($data);
     }
 
+    private function setAcceptRequest(array $accept_request): void
+    {
+        if (!empty($accept_request)) {
+            $req = $this->array_slice_keys($this->getRequest(), $accept_request);
+            $this->setRequest($req);
+        }
+    }
+
     /**
      * @param null $index
      *
@@ -133,5 +147,20 @@ trait HelperFilter
         }
 
         return $this->getRequest();
+    }
+
+    public function array_slice_keys($array, $keys = null)
+    {
+        if (empty($keys)) {
+            $keys = array_keys($array);
+        }
+        if (!is_array($keys)) {
+            $keys = array($keys);
+        }
+        if (!is_array($array)) {
+            return array();
+        } else {
+            return array_intersect_key($array, array_fill_keys($keys, '1'));
+        }
     }
 }
