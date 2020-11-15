@@ -212,7 +212,7 @@ class UsersController
 
 -**Note**  that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
 
-You can ignore some request params by use of code it.
+- You can ignore some request params by use of code it.
 
 ```php
 
@@ -225,6 +225,7 @@ Call `ignoreRequest` will ignore some requests that you don't want to use in con
 For example perpage param will never be in the conditions eloquent filter. 
 it's related to the paginate method. `page` param ignore by default in the Eloquent Filter Laravel.
 
+- You can filter some request params for using in eloquent filter.
 
 ```php
 
