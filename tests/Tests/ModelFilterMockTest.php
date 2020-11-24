@@ -201,8 +201,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([35], $users->getBindings());
     }
 
-
-
     public function testWhereByOptZero()
     {
         $builder = new EloquentBuilderTestModelCloseRelatedStub();
@@ -223,6 +221,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals([0], $users->getBindings());
     }
+
 //
 //    public function testWhereBetween()
 //    {
