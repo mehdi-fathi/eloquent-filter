@@ -68,7 +68,7 @@ trait HelperFilter
         foreach ($request as $key => $item) {
             if (is_array($item)) {
                 if (array_key_exists('start', $item) && array_key_exists('end', $item)) {
-                    if (empty($item['start']) && empty($item['end'])) {
+                    if (!isset($item['start']) && !isset($item['end'])) {
                         unset($request[$key]);
                     }
                 }

@@ -19,7 +19,7 @@ class WhereByOptCondition implements DetectorContract
      */
     public static function detect($field, $params, $is_override_method = false): ?string
     {
-        if (!empty($params['operator']) && !empty($params['value'])) {
+        if (!empty($params['operator']) && isset($params['value'])) {
             $method = WhereByOpt::class;
         }
 

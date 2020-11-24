@@ -201,6 +201,28 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([35], $users->getBindings());
     }
 
+
+
+    public function testWhereByOptZero()
+    {
+        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+
+        $builder = $builder->newQuery()
+            ->where('count_posts', '>', 0);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'count_posts' => [
+                'operator' => '>',
+                'value'    => 0,
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals([0], $users->getBindings());
+    }
 //
 //    public function testWhereBetween()
 //    {
@@ -675,6 +697,33 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $builder->getBindings());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $users->getBindings());
+    }
+
+    public function testWhereBetweenWithZero()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->whereBetween(
+            'count_posts',
+            [
+                0,
+                200,
+            ]
+        )->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'count_posts' => [
+                'start' => 0,
+                'end'   => 200,
+            ],
+            'email'       => 'mehdifathi.developer@gmail.com',
+        ]);
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([0, 200, 'mehdifathi.developer@gmail.com'], $builder->getBindings());
+        $this->assertEquals([0, 200, 'mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
     public function testWhereLike1()

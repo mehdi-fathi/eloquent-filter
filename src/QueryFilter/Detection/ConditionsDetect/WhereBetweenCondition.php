@@ -19,7 +19,7 @@ class WhereBetweenCondition implements DetectorContract
      */
     public static function detect($field, $params, $is_override_method = false): ?string
     {
-        if (!empty($params['start']) && !empty($params['end'])) {
+        if (isset($params['start']) && isset($params['end'])) {
             $method = WhereBetween::class;
         }
 
