@@ -105,6 +105,25 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi'], $users->getBindings());
     }
 
+    public function testWhereZero()
+    {
+
+        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+
+        $builder = $builder->query()
+            ->where('count_posts', 0);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'count_posts' => 0,
+        ]);
+
+        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['0'], $users->getBindings());
+    }
+
     public function testWhereSomeParamNull()
     {
         $builder = new EloquentBuilderTestModelCloseRelatedStub();
