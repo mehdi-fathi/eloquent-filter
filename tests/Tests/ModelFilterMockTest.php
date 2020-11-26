@@ -107,7 +107,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereZero()
     {
-
         $builder = new EloquentBuilderTestModelCloseRelatedStub();
 
         $builder = $builder->query()
