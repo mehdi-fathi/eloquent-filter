@@ -28,7 +28,7 @@ It's easy to use and fully dynamic.
     - [Custom Detection Condition](#Custom-Detection-Condition)
 
 ## Requirements
-- PHP 7.2+
+- PHP 7.2+, 8.0 (new version)
 - Laravel 5.8+,6.x,7.x,8(prefer-stable)
 
 ## :microphone: Introduction
