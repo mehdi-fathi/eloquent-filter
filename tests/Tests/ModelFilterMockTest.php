@@ -78,17 +78,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhere()
     {
-        // todo refactor this
-
-//        $this->__initQuery();
-//        $this->builder->shouldReceive('where')->with('username', 'mehdi');
-//        $this->builder->shouldReceive('where')->with('family', 'mehdi');
-//        $this->request->shouldReceive('query')->andReturn(['username' => 'mehdi', 'family' => 'mehdi']);
-//
-//        $this->model = new QueryFilter($this->request->query());
-//        $this->model = $this->model->apply($this->builder);
-//        $this->assertEquals($this->model, $this->builder);
-
         $builder = new EloquentBuilderTestModelCloseRelatedStub();
 
         $builder = $builder->query()
@@ -241,72 +230,32 @@ class ModelFilterMockTest extends \TestCase
     }
 
 //
-//    public function testWhereBetween()
-//    {
-//        $this->__initQuery();
-//        $this->builder->shouldReceive('whereBetween')->with('created_at', [
-//            '2019-01-01 17:11:46',
-//            '2019-02-06 10:11:46',
-//        ]);
-//        $this->request->shouldReceive('query')->andReturn([
-//            'created_at' => [
-//                'start' => '2019-01-01 17:11:46',
-//                'end'   => '2019-02-06 10:11:46',
-//            ],
-//        ]);
-//
-//        $ModelFilters = new QueryFilter($this->request->query());
-//
-//        $users = new User();
-//        $users = $users->scopeFilter($this->builder, $this->request->query());
-//
-//        $this->assertEquals($users, $this->builder);
-//    }
+    public function testWhereBetween()
+    {
 
-//    public function testPaginate()
-//    {
-//        //todo refactor this
-    ////        $this->__initQuery();
-    ////        $this->builder->shouldReceive('whereBetween')->with('created_at', [
-    ////            '2019-01-01 17:11:46',
-    ////            '2019-02-06 10:11:46',
-    ////        ]);
-    ////        $this->builder->shouldReceive('paginate')->with(5, ['*'], 'page', 1)->andReturn([]);
-    ////
-    ////        $this->request->shouldReceive('query')->andReturn([
-    ////            'created_at' => [
-    ////                'start' => '2019-01-01 17:11:46',
-    ////                'end'   => '2019-02-06 10:11:46',
-    ////            ],
-    ////            'page' => 5,
-    ////        ]);
-    ////
-    ////        $ModelFilters = new QueryFilter($this->request->query());
-    ////        $this->model = $ModelFilters->apply($this->builder);
-    ////
-    ////        $paginate = $this->model->paginate(5, ['*'], 'page', 1);
-    ////
-    ////        $this->assertEquals($paginate, $this->builder->paginate(5, ['*'], 'page', 1));
-    ////        $this->assertEquals($this->model, $this->builder);
-//
-//
-//
-//        $builder = new EloquentBuilderTestModelCloseRelatedStub();
-//
-//        $builder = $builder->newQuery()
-//            ->where('count_posts', '>', 35)->paginate();
-//
-//        $this->request->shouldReceive('query')->andReturn([
-//            'count_posts' => [
-//                'operator' => '>',
-//                'value'    => 35,
-//            ],
-//        ]);
-//
-//        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query())->paginate();
-//        dd($users);
-//
-//    }
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->whereBetween(
+            'created_at',
+            [
+                '2019-01-01 17:11:46',
+                '2019-02-06 10:11:46',
+            ]
+        );
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'start' => '2019-01-01 17:11:46',
+                'end' => '2019-02-06 10:11:46',
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $builder->getBindings());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $users->getBindings());
+    }
 
     public function testSetWhiteList()
     {
@@ -684,7 +633,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['qux', 'mehdi', 'boom', 'noon', 'joo'], $users->getBindings());
     }
 
-    public function testWhereBetween1()
+    public function testWhereBetweenWithEmailCountPosts()
     {
         $builder = new EloquentBuilderTestModelParentStub();
 
