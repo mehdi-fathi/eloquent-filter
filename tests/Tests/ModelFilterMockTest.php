@@ -765,12 +765,28 @@ class ModelFilterMockTest extends \TestCase
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter();
 
-        //todo
-        // - make disable new strategy on the fly
-        // -update readme
-
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
+    }
+
+
+    public function testSetDetection1()
+    {
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('count_posts', '=', 10);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'count_posts' => 10,
+        ]);
+
+        //todo disable load detection default -- update doc
+
+        $users = EloquentBuilderTestModelNewStrategyStub::SetLoadDefaultDetection(false)->filter();
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([10], $users->getBindings());
     }
 
     public function testAcceptRequest()

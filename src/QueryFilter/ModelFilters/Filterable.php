@@ -15,7 +15,15 @@ trait Filterable
      */
     protected $ignore_request = null;
 
+    /**
+     * @var null
+     */
     protected $accept_request = null;
+
+    /**
+     * @var null
+     */
+    protected $load_default_detection = true;
 
     /**
      * @var
@@ -77,7 +85,7 @@ trait Filterable
      */
     public function getObjectCustomDetect()
     {
-        if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect)) {
+        if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect) && $this->getLoadDefaultDetection()) {
             $this->setObjectCustomDetect($this->EloquentFilterCustomDetection());
         }
 
@@ -127,6 +135,25 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
-        return (bool) method_exists($this, $method);
+        return (bool)method_exists($this, $method);
+    }
+
+    /**
+     * @param $query
+     * @param $load_default_detection
+     * @return $this
+     */
+    public function scopeSetLoadDefaultDetection($query, $load_default_detection)
+    {
+        $this->load_default_detection = $load_default_detection;
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getLoadDefaultDetection()
+    {
+        return $this->load_default_detection;
     }
 }
