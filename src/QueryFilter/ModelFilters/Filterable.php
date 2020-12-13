@@ -135,17 +135,19 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
-        return (bool)method_exists($this, $method);
+        return (bool) method_exists($this, $method);
     }
 
     /**
      * @param $query
      * @param $load_default_detection
+     *
      * @return $this
      */
     public function scopeSetLoadDefaultDetection($query, $load_default_detection)
     {
         $this->load_default_detection = $load_default_detection;
+
         return $this;
     }
 
