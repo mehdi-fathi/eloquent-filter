@@ -5,7 +5,6 @@ namespace Tests\Tests;
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
-use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
@@ -232,7 +231,6 @@ class ModelFilterMockTest extends \TestCase
 //
     public function testWhereBetween()
     {
-
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->whereBetween(
@@ -246,7 +244,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -768,7 +766,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
     }
-
 
     public function testSetDetection1()
     {
