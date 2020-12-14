@@ -1,7 +1,6 @@
 <?php
 
 use eloquentFilter\QueryFilter\QueryFilter;
-use eloquentFilter\ServiceProvider;
 use Mockery as m;
 
 /**
