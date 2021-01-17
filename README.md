@@ -3,7 +3,7 @@
 
 ![alt text](./eloquent-filter.jpg "eloquent-filter")
 
-[![Latest Stable Version](https://poser.pugx.org/mehdi-fathi/eloquent-filter/v/stable)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mehdi-fathi/eloquent-filter)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 ![Run tests](https://github.com/mehdi-fathi/eloquent-filter/workflows/Run%20tests/badge.svg?branch=master)
 [![License](https://poser.pugx.org/mehdi-fathi/eloquent-filter/license)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
