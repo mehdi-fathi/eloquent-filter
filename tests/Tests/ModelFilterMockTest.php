@@ -778,7 +778,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 10,
-            'baz' => [
+            'baz'         => [
                 'value'               => 'boo',
                 'limit'               => 10,
                 'email'               => 'mehdifathi',
