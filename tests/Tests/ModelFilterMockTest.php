@@ -767,23 +767,30 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
     }
 
+    //todo we can make a feature for override custom detection over default detection
     public function testSetDetection1()
     {
         $builder = new EloquentBuilderTestModelNewStrategyStub();
 
         $builder = $builder->query()
-            ->where('count_posts', '=', 10);
+            ->where('count_posts', '=', 10)
+            ->where('baz', '=', []);
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 10,
+            'baz' => [
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
+                'like_relation_value' => 'mehdi',
+            ],
         ]);
 
-        //todo disable load detection default -- update doc
+        //todo this method disable load detection default
 
         $users = EloquentBuilderTestModelNewStrategyStub::SetLoadDefaultDetection(false)->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals([10], $users->getBindings());
     }
 
     public function testAcceptRequest()

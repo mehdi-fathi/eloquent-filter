@@ -589,6 +589,12 @@ class User extends Model
 
 - Every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
 
+-**Note** You can disable `EloquentFilterCustomDetection` on the fly by this code :
+
+```php
+ USer::SetLoadDefaultDetection(false)->filter();
+```
+
 Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
 
 ```
