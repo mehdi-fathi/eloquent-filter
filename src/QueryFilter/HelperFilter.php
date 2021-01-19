@@ -141,6 +141,7 @@ trait HelperFilter
     /**
      * @param $array
      * @param null $keys
+     *
      * @return array
      */
     private function array_slice_keys($array, $keys = null)
