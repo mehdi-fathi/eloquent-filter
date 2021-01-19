@@ -7,7 +7,6 @@ namespace eloquentFilter\QueryFilter;
  */
 trait HelperEloquentFilter
 {
-
     /**
      * @param null $index
      *
