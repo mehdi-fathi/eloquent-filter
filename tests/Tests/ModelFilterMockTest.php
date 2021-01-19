@@ -732,8 +732,6 @@ class ModelFilterMockTest extends \TestCase
 
         $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
-        //todo - make disable new strategy on the fly
-
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
     }

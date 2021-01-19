@@ -22,7 +22,7 @@ use ReflectionException;
  */
 class QueryFilter
 {
-    use HelperFilter;
+    use HelperFilter,HelperEloquentFilter;
 
     /**
      * @var

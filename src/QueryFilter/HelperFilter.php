@@ -127,6 +127,9 @@ trait HelperFilter
         $this->setRequest($data);
     }
 
+    /**
+     * @param array $accept_request
+     */
     private function setAcceptRequest(array $accept_request): void
     {
         if (!empty($accept_request)) {
@@ -136,20 +139,11 @@ trait HelperFilter
     }
 
     /**
-     * @param null $index
-     *
-     * @return array|mixed|null
+     * @param $array
+     * @param null $keys
+     * @return array
      */
-    public function filterRequests($index = null)
-    {
-        if (!empty($index)) {
-            return $this->getRequest()[$index];
-        }
-
-        return $this->getRequest();
-    }
-
-    public function array_slice_keys($array, $keys = null)
+    private function array_slice_keys($array, $keys = null)
     {
         if (empty($keys)) {
             $keys = array_keys($array);
