@@ -138,7 +138,6 @@ trait HelperFilter
         }
     }
 
-
     /**
      * @return mixed
      */
