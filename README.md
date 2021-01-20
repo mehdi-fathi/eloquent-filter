@@ -245,6 +245,8 @@ User::filter()->paginate();
 - `EloquentFilter::filterRequests()` get all params that used by the Eloquent Filter. You can set key to get specific index.
 For example `EloquentFilter::filterRequests('username')` it's getting username index.
 
+- `EloquentFilter::getAcceptedRequest()` get all params that set by the AcceptRequest method.
+
 ### Simple Examples
 
 You just pass data blade form to query string or generate query string in controller method. For example:

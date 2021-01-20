@@ -81,7 +81,7 @@ trait HelperFilter
     /**
      * @return array|null
      */
-    protected function getRequest(): ?array
+    private function getRequest(): ?array
     {
         return $this->request;
     }
@@ -101,6 +101,7 @@ trait HelperFilter
             }
             if (!empty($accept_request)) {
                 $this->setAcceptRequest($accept_request);
+                $this->updateRequestByAcceptRequest($this->getAcceptRequest());
             }
         }
         if (!empty($this->getRequest())) {
@@ -133,9 +134,26 @@ trait HelperFilter
     private function setAcceptRequest(array $accept_request): void
     {
         if (!empty($accept_request)) {
-            $req = $this->array_slice_keys($this->getRequest(), $accept_request);
-            $this->setRequest($req);
+            $this->accept_request = $accept_request;
         }
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAcceptRequest()
+    {
+        return $this->accept_request;
+    }
+
+    /**
+     * @param $accept_request
+     */
+    private function updateRequestByAcceptRequest($accept_request)
+    {
+        $this->accept_request = $this->array_slice_keys($this->getRequest(), $accept_request);
+        $this->setRequest($this->getAcceptRequest());
     }
 
     /**

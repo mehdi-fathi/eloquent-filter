@@ -20,4 +20,12 @@ trait HelperEloquentFilter
 
         return $this->getRequest();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAcceptedRequest()
+    {
+        return $this->getAcceptRequest();
+    }
 }

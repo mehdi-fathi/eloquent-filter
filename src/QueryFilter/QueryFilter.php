@@ -40,6 +40,11 @@ class QueryFilter
     protected $detect;
 
     /**
+     * @var
+     */
+    protected $accept_request;
+
+    /**
      * QueryFilter constructor.
      *
      * @param array      $request

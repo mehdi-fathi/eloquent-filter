@@ -812,6 +812,8 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
         $this->assertEquals(['joo'], $users->getBindings());
+
+        $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
     }
 
     public function tearDown(): void
