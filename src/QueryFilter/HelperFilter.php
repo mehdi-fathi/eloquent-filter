@@ -125,6 +125,8 @@ trait HelperFilter
     private function setIgnoreRequest(array $ignore_request): void
     {
         $data = Arr::except($this->getRequest(), $ignore_request);
+
+        $this->ignore_request = $ignore_request;
         $this->setRequest($data);
     }
 
@@ -151,7 +153,7 @@ trait HelperFilter
      */
     private function updateRequestByAcceptRequest($accept_request)
     {
-        $this->accept_request = $this->array_slice_keys($this->getRequest(), $accept_request);
+        $this->setAcceptRequest($this->array_slice_keys($this->getRequest(), $accept_request));
         $this->setRequest($this->getAcceptRequest());
     }
 
