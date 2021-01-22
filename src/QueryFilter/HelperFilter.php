@@ -153,7 +153,6 @@ trait HelperFilter
         return $this->ignore_request;
     }
 
-
     /**
      * @param $ignore_request
      */
