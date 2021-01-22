@@ -28,4 +28,12 @@ trait HelperEloquentFilter
     {
         return $this->getAcceptRequest();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIgnoredRequest()
+    {
+        return $this->getIgnoreRequest();
+    }
 }

@@ -97,7 +97,7 @@ trait HelperFilter
     {
         if (!empty($this->getRequest())) {
             if (!empty($ignore_request)) {
-                $this->setIgnoreRequest($ignore_request);
+                $this->updateRequestByIgnoreRequest($ignore_request);
             }
             if (!empty($accept_request)) {
                 $this->setAcceptRequest($accept_request);
@@ -124,10 +124,7 @@ trait HelperFilter
      */
     private function setIgnoreRequest(array $ignore_request): void
     {
-        $data = Arr::except($this->getRequest(), $ignore_request);
-
         $this->ignore_request = $ignore_request;
-        $this->setRequest($data);
     }
 
     /**
@@ -143,9 +140,28 @@ trait HelperFilter
     /**
      * @return mixed
      */
-    public function getAcceptRequest()
+    private function getAcceptRequest()
     {
         return $this->accept_request;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getIgnoreRequest()
+    {
+        return $this->ignore_request;
+    }
+
+
+    /**
+     * @param $ignore_request
+     */
+    private function updateRequestByIgnoreRequest($ignore_request)
+    {
+        $this->setIgnoreRequest($ignore_request);
+        $data = Arr::except($this->getRequest(), $ignore_request);
+        $this->setRequest($data);
     }
 
     /**

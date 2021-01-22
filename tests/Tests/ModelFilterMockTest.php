@@ -491,6 +491,31 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($this->request->query(), EloquentFilter::filterRequests());
     }
 
+    public function testIgnoreRequest()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'is_payment' => true,
+            ]
+        );
+
+        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+            'google_index',
+            'is_payment',
+        ])->filter($this->request->query());
+
+        $this->assertSame([
+            'google_index',
+            'is_payment',
+        ], EloquentFilter::getIgnoredRequest());
+    }
+
     public function testFilterRequestsIndex()
     {
         $this->request->shouldReceive('query')->andReturn(

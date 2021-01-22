@@ -45,6 +45,11 @@ class QueryFilter
     protected $accept_request;
 
     /**
+     * @var
+     */
+    protected $ignore_request;
+
+    /**
      * QueryFilter constructor.
      *
      * @param array      $request
