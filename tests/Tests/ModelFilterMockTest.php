@@ -499,9 +499,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
