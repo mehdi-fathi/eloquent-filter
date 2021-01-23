@@ -5,8 +5,10 @@ namespace eloquentFilter\Facade;
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
 /**
- * @method static string apply(Illuminate\Database\Eloquent\Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null) :Illuminate\Database\Eloquent\Builder
- * @method static string filterRequests($index = null)
+ * @method static object apply(Illuminate\Database\Eloquent\Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
+ * @method static array|string filterRequests($index = null)
+ * @method static array getAcceptedRequest()
+ * @method static array getIgnoredRequest()
  *
  * @see eloquentFilter\QueryFilter\QueryFilter
  */
