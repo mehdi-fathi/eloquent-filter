@@ -247,6 +247,8 @@ For example `EloquentFilter::filterRequests('username')` it's getting username i
 
 - `EloquentFilter::getAcceptedRequest()` get all params that set by the AcceptRequest method.
 
+- `EloquentFilter::getIgnoredRequest()` get all ignored params that set by the getIgnoreRequest method.
+
 ### Simple Examples
 
 You just pass data blade form to query string or generate query string in controller method. For example:
