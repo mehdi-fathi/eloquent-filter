@@ -81,11 +81,11 @@ class QueryFilter
         }
         $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
 
-        $model = $this->builder->getModel();
-
         if (!empty($detect_injected)) {
             $this->detect = $this->__getDetectorsInstanceArray($detect_injected);
         }
+
+        $model = $this->builder->getModel();
 
         $filters = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
             return $this->resolve($filter, $values, $model);

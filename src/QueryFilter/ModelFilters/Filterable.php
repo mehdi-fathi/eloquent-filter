@@ -21,12 +21,12 @@ trait Filterable
     protected $accept_request = null;
 
     /**
-     * @var null
+     * @var bool
      */
     protected $load_default_detection = true;
 
     /**
-     * @var
+     * @var null
      */
     protected $object_custom_detect = null;
 
@@ -83,7 +83,7 @@ trait Filterable
     /**
      * @return mixed
      */
-    public function getObjectCustomDetect()
+    private function getObjectCustomDetect()
     {
         if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect) && $this->getLoadDefaultDetection()) {
             $this->setObjectCustomDetect($this->EloquentFilterCustomDetection());
@@ -95,7 +95,7 @@ trait Filterable
     /**
      * @param mixed $object_custom_detect
      */
-    public function setObjectCustomDetect($object_custom_detect): void
+    private function setObjectCustomDetect($object_custom_detect): void
     {
         $this->object_custom_detect = $object_custom_detect;
     }
@@ -103,7 +103,7 @@ trait Filterable
     /**
      * @return mixed
      */
-    public static function getWhiteListFilter()
+    public static function getWhiteListFilter(): array
     {
         return self::$whiteListFilter;
     }
@@ -119,9 +119,7 @@ trait Filterable
     }
 
     /**
-     * @param $array
-     *
-     * @return mixed
+     * @param array $array
      */
     public static function setWhiteListFilter(array $array)
     {
@@ -152,9 +150,9 @@ trait Filterable
     }
 
     /**
-     * @return null
+     * @return bool
      */
-    public function getLoadDefaultDetection()
+    public function getLoadDefaultDetection(): bool
     {
         return $this->load_default_detection;
     }

@@ -36,7 +36,7 @@ abstract class BaseClause
      *
      * @return Builder
      */
-    public function handle($query, $nextFilter)
+    public function handle(Builder $query, $nextFilter)
     {
         $query = $nextFilter($query);
 
