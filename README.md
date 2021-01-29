@@ -592,12 +592,6 @@ class User extends Model
 
 - Every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
 
--**Note** You can disable `EloquentFilterCustomDetection` on the fly by this code :
-
-```php
- USer::SetLoadDefaultDetection(false)->filter();
-```
-
 Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
 
 ```
@@ -614,6 +608,12 @@ You just run code ` User::filter();` for see result.
 
 ```php
 $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+```
+
+-**Note** You can disable `EloquentFilterCustomDetection` on the fly by this code :
+
+```php
+ USer::SetLoadDefaultDetection(false)->filter();
 ```
 
 -**Note** You can set many detection condition for example:
@@ -633,10 +633,10 @@ class User extends Model
     }
 }
 ```
+
+- `EloquentFilter::getInjectedDetections()` get all your custom injected detection.
+
 -**Note** Every custom detection will run before detection by default eloquent filter.
 
 - If you have any idea about the Eloquent Filter i will glad to hear that.
 You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
-
-[ico-downloads]: https://img.shields.io/packagist/dt/imanghafoori/laravel-microscope.svg?style=flat-square
-[ico-today-downloads]: https://img.shields.io/packagist/dd/imanghafoori/laravel-microscope.svg?style=flat-square
