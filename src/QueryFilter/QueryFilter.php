@@ -35,7 +35,7 @@ class QueryFilter
     protected $builder;
 
     /**
-     * @var DetectionFactory
+     * @var
      */
     protected $detect;
 
@@ -50,9 +50,24 @@ class QueryFilter
     protected $ignore_request;
 
     /**
+     * @var
+     */
+    protected $detect_injected;
+
+    /**
+     * @var
+     */
+    protected $default_detect;
+
+    /**
+     * @var DetectionFactory
+     */
+    private $detect_factory;
+
+    /**
      * QueryFilter constructor.
      *
-     * @param array      $request
+     * @param array $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
@@ -60,15 +75,86 @@ class QueryFilter
         if (!empty($request)) {
             $this->setRequest($request);
         }
-        $this->detect = $this->__getDetectorsInstanceArray($detect_injected);
+        if (!empty($detect_injected)) {
+            $this->setDetectInjected($detect_injected);
+        }
+
+        $this->setDefaultDetect($this->__getDefaultDetectorsInstance());
+        $this->detect_factory = $this->__getDetectorFactory($this->getDefaultDetect(), $this->getDetectInjected());
     }
 
     /**
-     * @param Builder    $builder
+     * @return array
+     */
+    private function __getDefaultDetectorsInstance(): array
+    {
+        return [
+            SpecialCondition::class,
+            WhereCustomCondition::class,
+            WhereBetweenCondition::class,
+            WhereByOptCondition::class,
+            WhereLikeCondition::class,
+            WhereInCondition::class,
+            WhereOrCondition::class,
+            WhereHasCondition::class,
+            WhereCondition::class,
+        ];
+    }
+
+    /**
+     * @param mixed $default_detect
+     */
+    public function setDefaultDetect($default_detect): void
+    {
+        $this->default_detect = $default_detect;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultDetect()
+    {
+        return $this->default_detect;
+    }
+
+    /**
+     * @param array $detect
+     */
+    public function setDetect(array $detect): void
+    {
+        $this->detect = $detect;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDetect()
+    {
+        return $this->detect;
+    }
+
+    /**
+     * @param mixed $detect_injected
+     */
+    public function setDetectInjected($detect_injected): void
+    {
+        $this->detect_injected = $detect_injected;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetectInjected()
+    {
+        return $this->detect_injected;
+    }
+
+    /**
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array      $detect_injected
+     * @param array $detect_injected
      *
      * @return Builder
      */
@@ -82,7 +168,9 @@ class QueryFilter
         $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
 
         if (!empty($detect_injected)) {
-            $this->detect = $this->__getDetectorsInstanceArray($detect_injected);
+            $this->setDetectInjected($detect_injected);
+            $detect_factory = $this->__getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
+            $this->detect_factory = $detect_factory;
         }
 
         $model = $this->builder->getModel();
@@ -100,28 +188,20 @@ class QueryFilter
     }
 
     /**
+     * @param array|null $default_detect
      * @param array|null $detect_injected
      *
      * @return DetectionFactory
      */
-    private function __getDetectorsInstanceArray(array $detect_injected = null)
+    private function __getDetectorFactory(array $default_detect = null, array $detect_injected = null)
     {
-        $default_detect = [
-            SpecialCondition::class,
-            WhereCustomCondition::class,
-            WhereBetweenCondition::class,
-            WhereByOptCondition::class,
-            WhereLikeCondition::class,
-            WhereInCondition::class,
-            WhereOrCondition::class,
-            WhereHasCondition::class,
-            WhereCondition::class,
-        ];
-
         $detections = $default_detect;
+
         if (!empty($detect_injected)) {
             $detections = array_merge($detect_injected, $default_detect);
         }
+
+        $this->setDetect($detections);
 
         return
             new DetectionFactory(
@@ -134,13 +214,13 @@ class QueryFilter
      * @param $values
      * @param $model
      *
+     * @return Application|mixed
      * @throws ReflectionException
      *
-     * @return Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {
-        $detect = $this->detect::detect($filterName, $values, $model);
+        $detect = $this->detect_factory::detect($filterName, $values, $model);
 
         return app($detect, ['filter' => $filterName, 'values' => $values]);
     }

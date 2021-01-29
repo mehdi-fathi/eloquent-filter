@@ -516,6 +516,34 @@ class ModelFilterMockTest extends \TestCase
         ], EloquentFilter::getIgnoredRequest());
     }
 
+    public function testGetInjectedDetections()
+    {
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->whereHas('foo', function ($q) {
+                $q->where('bam', 'like', '%mehdi%');
+            })
+            ->where('baz', '<>', 'boo')
+            ->where('email', 'like', '%mehdifathi%')
+            ->where('count_posts', '=', 10)
+            ->limit(10);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'baz' => [
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
+                'like_relation_value' => 'mehdi',
+            ],
+            'count_posts' => 10,
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+
+        $this->assertEquals([WhereRelationLikeCondition::class], EloquentFilter::getInjectedDetections());
+    }
+
     public function testFilterRequestsIndex()
     {
         $this->request->shouldReceive('query')->andReturn(

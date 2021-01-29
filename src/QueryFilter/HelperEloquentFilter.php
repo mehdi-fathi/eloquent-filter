@@ -36,4 +36,12 @@ trait HelperEloquentFilter
     {
         return $this->getIgnoreRequest();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getInjectedDetections()
+    {
+        return $this->getDetectInjected();
+    }
 }
