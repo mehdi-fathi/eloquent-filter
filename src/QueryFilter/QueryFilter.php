@@ -67,7 +67,7 @@ class QueryFilter
     /**
      * QueryFilter constructor.
      *
-     * @param array $request
+     * @param array      $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
@@ -150,11 +150,11 @@ class QueryFilter
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder    $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array $detect_injected
+     * @param array      $detect_injected
      *
      * @return Builder
      */
@@ -214,9 +214,9 @@ class QueryFilter
      * @param $values
      * @param $model
      *
-     * @return Application|mixed
      * @throws ReflectionException
      *
+     * @return Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {
