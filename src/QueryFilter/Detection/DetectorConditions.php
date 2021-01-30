@@ -24,16 +24,12 @@ class DetectorConditions
         $detector_collect = collect($detector);
 
         $detector_collect->map(function ($detector_obj) {
-
             if (!empty($detector_obj)) {
-
                 $reflect = new \ReflectionClass($detector_obj);
                 if ($reflect->implementsInterface(DetectorContract::class)) {
                     return $detector_obj;
                 }
-
             }
-
         })->toArray();
 
         $this->detector = $detector_collect;
