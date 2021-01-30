@@ -544,6 +544,8 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([WhereRelationLikeCondition::class], EloquentFilter::getInjectedDetections());
     }
 
+    //todo update readme me by override custom detection in service provider laravel
+
     public function testFilterRequestsIndex()
     {
         $this->request->shouldReceive('query')->andReturn(

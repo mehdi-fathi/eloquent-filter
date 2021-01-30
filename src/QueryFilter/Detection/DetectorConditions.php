@@ -21,14 +21,22 @@ class DetectorConditions
      */
     public function __construct(array $detector)
     {
-        foreach ($detector as $detector_obj) {
+        $detector_collect = collect($detector);
+
+        $detector_collect->map(function ($detector_obj) {
+
             if (!empty($detector_obj)) {
+
                 $reflect = new \ReflectionClass($detector_obj);
                 if ($reflect->implementsInterface(DetectorContract::class)) {
-                    $this->detector[] = $detector_obj;
+                    return $detector_obj;
                 }
+
             }
-        }
+
+        })->toArray();
+
+        $this->detector = $detector_collect;
     }
 
     /**
