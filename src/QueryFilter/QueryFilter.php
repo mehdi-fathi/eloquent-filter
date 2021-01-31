@@ -175,15 +175,13 @@ class QueryFilter
 
         $model = $this->builder->getModel();
 
-        $filters = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
+        $filter_detections = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
             return $this->resolve($filter, $values, $model);
-        })->toArray();
-
-        $filters = array_reverse($filters, -1);
+        })->reverse()->toArray();
 
         return app(Pipeline::class)
             ->send($this->builder)
-            ->through($filters)
+            ->through($filter_detections)
             ->thenReturn();
     }
 
