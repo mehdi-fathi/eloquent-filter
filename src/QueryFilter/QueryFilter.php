@@ -173,11 +173,7 @@ class QueryFilter
             $this->detect_factory = $detect_factory;
         }
 
-        $model = $this->builder->getModel();
-
-        $filter_detections = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
-            return $this->resolve($filter, $values, $model);
-        })->reverse()->toArray();
+        $filter_detections = $this->getFilterDetections();
 
         return app(Pipeline::class)
             ->send($this->builder)
@@ -218,5 +214,19 @@ class QueryFilter
         $detect = $this->detect_factory::detect($filterName, $values, $model);
 
         return app($detect, ['filter' => $filterName, 'values' => $values]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getFilterDetections(): array
+    {
+        $model = $this->builder->getModel();
+
+        $filter_detections = collect($this->getRequest())->map(function ($values, $filter) use ($model) {
+            return $this->resolve($filter, $values, $model);
+        })->reverse()->toArray();
+
+        return $filter_detections;
     }
 }

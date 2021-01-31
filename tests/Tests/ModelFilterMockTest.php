@@ -341,7 +341,6 @@ class ModelFilterMockTest extends \TestCase
         })->where('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn([
-            'foo.baz.bam' => 'qux',
             'foo'         => [
                 'baz' => [
                     'bam' => 'qux',
