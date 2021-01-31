@@ -12,16 +12,16 @@ class DetectionFactory implements DetectorContract
     /**
      * @var
      */
-    public static $detectors;
+    public static $detections;
 
     /**
      * DetectionFactory constructor.
      *
-     * @param $detector
+     * @param $detections
      */
-    public function __construct(array $detector)
+    public function __construct(array $detections)
     {
-        self::$detectors = $detector;
+        self::$detections = $detections;
     }
 
     /**
@@ -35,9 +35,7 @@ class DetectionFactory implements DetectorContract
      */
     public static function detect($field, $params, $model = null): ?string
     {
-        $detect = new DetectorConditions(
-            self::$detectors
-        );
+        $detect = app(DetectorConditions::class, ['detector' => self::$detections]);
 
         $method = $detect->detect($field, $params, $model);
 

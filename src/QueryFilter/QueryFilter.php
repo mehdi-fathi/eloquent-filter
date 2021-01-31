@@ -203,10 +203,7 @@ class QueryFilter
 
         $this->setDetect($detections);
 
-        return
-            new DetectionFactory(
-                $detections
-            );
+        return app(DetectionFactory::class, ['detections' => $detections]);
     }
 
     /**
