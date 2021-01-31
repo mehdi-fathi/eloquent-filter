@@ -1,5 +1,4 @@
 {
-
     "name": "mehdi-fathi/eloquent-filter",
     "description": "The Eloquent Filter is a package for filter data of models by the query string. Easy to use and fully dynamic.",
     "keywords": [
