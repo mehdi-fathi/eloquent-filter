@@ -33,12 +33,10 @@ class Special extends BaseClause
                 throw new \Exception("$key is not in f_params array.");
             }
             if (is_array($param)) {
-
                 $this->values['orderBy']['field'] = explode(',', $this->values['orderBy']['field']);
                 foreach ($this->values['orderBy']['field'] as $order_by) {
                     $query->orderBy($order_by, $this->values['orderBy']['type']);
                 }
-
             } else {
                 $query->limit($this->values);
             }
