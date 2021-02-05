@@ -270,6 +270,32 @@ class ModelFilterMockTest extends \TestCase
         }
     }
 
+    public function testFParamOrder()
+    {
+
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->newQuery()
+            ->orderBy('id')
+            ->orderBy('count_posts');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'f_params' => [
+                'orderBy' => [
+                    'field' => 'id,count_posts',
+                    'type' => 'ASC',
+                ],
+            ],
+        ]);
+
+        //todo ye default asc vase type order bezar
+
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+    }
+
     public function testFParamException()
     {
         try {
@@ -277,7 +303,7 @@ class ModelFilterMockTest extends \TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type'  => 'ASC',
+                        'type' => 'ASC',
                     ],
                 ],
             ]);
