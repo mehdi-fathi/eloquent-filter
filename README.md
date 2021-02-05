@@ -389,11 +389,15 @@ You can set special params `limit` and `orderBy` in query string for make query 
 
 SELECT ... WHERE ... order by `id` desc limit 1 offset 0
 ```
-
 ```
 /users/list?f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
 
-SELECT ... WHERE ... order by `id` ASC limit 10 offset 0
+SELECT ... WHERE ... order by `id` asc
+```
+```
+/users/list?f_params[orderBy][field]=id,count_posts&f_params[orderBy][type]=ASC
+
+SELECT ... WHERE ...  order by `id` asc, `count_posts` asc
 ```
 ***Where between***
 
