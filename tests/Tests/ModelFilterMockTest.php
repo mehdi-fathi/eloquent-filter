@@ -272,7 +272,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testFParamOrder()
     {
-
         $builder = new EloquentBuilderTestModelParentStub();
 
         $builder = $builder->newQuery()
@@ -283,7 +282,7 @@ class ModelFilterMockTest extends \TestCase
             'f_params' => [
                 'orderBy' => [
                     'field' => 'id,count_posts',
-                    'type' => 'ASC',
+                    'type'  => 'ASC',
                 ],
             ],
         ]);
@@ -293,7 +292,6 @@ class ModelFilterMockTest extends \TestCase
         $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
-
     }
 
     public function testFParamException()
@@ -303,7 +301,7 @@ class ModelFilterMockTest extends \TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]);
