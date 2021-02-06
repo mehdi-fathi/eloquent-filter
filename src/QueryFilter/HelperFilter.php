@@ -180,7 +180,8 @@ trait HelperFilter
      */
     private function array_slice_keys($request, $keys = null)
     {
-        $request = (array)$request;
+        $request = (array) $request;
+
         return array_intersect_key($request, array_fill_keys($keys, '1'));
     }
 }
