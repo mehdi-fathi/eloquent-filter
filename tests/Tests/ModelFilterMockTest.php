@@ -894,6 +894,27 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
     }
 
+    public function testAcceptRequestNull()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz'          => 'joo',
+            ]
+        );
+
+        $users = EloquentBuilderTestModelParentStub::AcceptRequest([])->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
+
+        $this->assertEquals(null, EloquentFilter::getAcceptedRequest());
+    }
+
     public function tearDown(): void
     {
         m::close();

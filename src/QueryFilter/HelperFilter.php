@@ -173,23 +173,14 @@ trait HelperFilter
     }
 
     /**
-     * @param $array
+     * @param $request
      * @param null $keys
      *
      * @return array
      */
-    private function array_slice_keys($array, $keys = null)
+    private function array_slice_keys($request, $keys = null)
     {
-        if (empty($keys)) {
-            $keys = array_keys($array);
-        }
-        if (!is_array($keys)) {
-            $keys = [$keys];
-        }
-        if (!is_array($array)) {
-            return [];
-        } else {
-            return array_intersect_key($array, array_fill_keys($keys, '1'));
-        }
+        $request = (array)$request;
+        return array_intersect_key($request, array_fill_keys($keys, '1'));
     }
 }
