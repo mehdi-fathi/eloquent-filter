@@ -32,37 +32,37 @@ trait Filterable
 
     /**
      * @param            $query
-     * @param array|null $reqesut
+     * @param array|null $request
      *
      * @return Builder
      */
-    public function scopeFilter($query, ?array $reqesut = null): Builder
+    public function scopeFilter($query, ?array $request = null): Builder
     {
-        return EloquentFilter::apply($query, $reqesut, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
+        return EloquentFilter::apply($query, $request, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
     }
 
     /**
      * @param            $query
-     * @param array|null $reqesut
+     * @param array|null $request
      *
      * @return $this
      */
-    public function scopeIgnoreRequest($query, ?array $reqesut = null)
+    public function scopeIgnoreRequest($query, ?array $request = null)
     {
-        $this->ignore_request = $reqesut;
+        $this->ignore_request = $request;
 
         return $this;
     }
 
     /**
      * @param            $query
-     * @param array|null $reqesut
+     * @param array|null $request
      *
      * @return $this
      */
-    public function scopeAcceptRequest($query, ?array $reqesut = null)
+    public function scopeAcceptRequest($query, ?array $request = null)
     {
-        $this->accept_request = $reqesut;
+        $this->accept_request = $request;
 
         return $this;
     }
