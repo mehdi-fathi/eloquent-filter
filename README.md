@@ -41,7 +41,7 @@ The Request URI could look like this:
                                                                                      
     http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
  
-And a simple implementation in the Controller would look like this:
+And a simple implementation in the Controller would look like this: 
  
 ```php
 <?php
