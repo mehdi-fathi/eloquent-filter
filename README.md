@@ -34,7 +34,7 @@ It's easy to use and fully dynamic.
 
 Let's say we want to make an advanced search page with multiple filter option params.
 
-![alt text](./sample-new-1.gif "sample 1 eloquent-filter")
+![alt text](https://raw.githubusercontent.com/mehdi-fathi/mehdi-fathi.github.io/master/eloquent-filter/assets/img/Esfand-05-1399%2022-23-21.gif "sample 1 eloquent-filter")
 
 ### A simple implementation without Eloquent Filter
 The Request URI could look like this:
