@@ -879,7 +879,7 @@ class ModelFilterMockTest extends \TestCase
             [
                 'baz'          => 'joo',
                 'google_index' => true,
-                'gmail_api' => 'dfsmfjkvx#$cew45',
+                'gmail_api'    => 'dfsmfjkvx#$cew45',
             ]
         );
 
@@ -901,8 +901,8 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn(
             [
                 'google_index' => 'joo',
-                'gmail_api' => 'joo',
-                'baz' => 'joo',
+                'gmail_api'    => 'joo',
+                'baz'          => 'joo',
             ]
         );
 
