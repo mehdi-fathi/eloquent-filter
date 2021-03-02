@@ -879,7 +879,7 @@ class ModelFilterMockTest extends \TestCase
             [
                 'baz'          => 'joo',
                 'google_index' => true,
-                'gmail_api'    => 'dfsmfjkvx#$cew45',
+                'gmail_api' => 'dfsmfjkvx#$cew45',
             ]
         );
 
@@ -892,6 +892,29 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $users->getBindings());
 
         $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
+    }
+
+    public function testAcceptRequest2()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'google_index' => 'joo',
+                'gmail_api' => 'joo',
+                'baz' => 'joo',
+            ]
+        );
+
+        $users = EloquentBuilderTestModelParentStub::AcceptRequest([
+            'show_new_users',
+        ])->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([], $builder->getBindings());
+        $this->assertEquals([], $users->getBindings());
+
+        $this->assertEquals(['show_new_users'], EloquentFilter::getAcceptedRequest());
     }
 
     public function testAcceptRequestNull()

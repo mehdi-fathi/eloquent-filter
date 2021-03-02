@@ -168,8 +168,18 @@ trait HelperFilter
      */
     private function updateRequestByAcceptRequest($accept_request)
     {
-        $this->setAcceptRequest($this->array_slice_keys($this->getRequest(), $accept_request));
-        $this->setRequest($this->getAcceptRequest());
+//        dd($this->array_slice_keys($this->getRequest(), $accept_request));
+        $accept_request_new = $this->array_slice_keys($this->getRequest(), $accept_request);
+//        dd($accept_request_new);
+        if (!empty($accept_request_new)) {
+
+            $this->setAcceptRequest($this->array_slice_keys($this->getRequest(), $accept_request));
+            $this->setRequest($this->getAcceptRequest());
+        } else {
+            $this->setRequest([]);
+
+        }
+
     }
 
     /**
