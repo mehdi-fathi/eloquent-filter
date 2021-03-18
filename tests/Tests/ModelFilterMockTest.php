@@ -167,7 +167,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi'], $users->getBindings());
     }
 
-
     //todo implement wrapper method for out data
 
     //todo make serilize request
@@ -180,7 +179,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi', 'ali'],
-            'family' => null,
+            'family'   => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -942,17 +941,15 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(null, EloquentFilter::getAcceptedRequest());
     }
 
-
     public function testSerializeRequestFilter()
     {
-
         $builder = new EloquentBuilderTestModelCloseRelatedStub();
 
         $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
             'new_username' => ['__mehdi__', '__ali__'],
-            'family' => null,
+            'family'       => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -1066,13 +1063,14 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
 
     public function serializeRequestFilter($request)
     {
-        if(!empty($request['new_username'])){
-            foreach ($request['new_username'] as &$item){
-                $item = trim($item,'__');
+        if (!empty($request['new_username'])) {
+            foreach ($request['new_username'] as &$item) {
+                $item = trim($item, '__');
             }
             $request['username'] = $request['new_username'];
             unset($request['new_username']);
         }
+
         return $request;
     }
 }
