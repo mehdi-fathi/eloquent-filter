@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use Exception;
+
 /**
  * Class DetectorConditions.
  */
@@ -17,7 +19,6 @@ class DetectorConditions
      *
      * @param array $detector
      *
-     * @throws \ReflectionException
      */
     public function __construct(array $detector)
     {
@@ -40,7 +41,7 @@ class DetectorConditions
      * @param $params
      * @param null $model
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return string|null
      */
@@ -64,7 +65,7 @@ class DetectorConditions
      * @param bool       $has_method
      * @param $model_class
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return bool
      */
@@ -78,7 +79,7 @@ class DetectorConditions
 
         $class_name = class_basename($model_class);
 
-        throw new \Exception("You must set $field in whiteListFilter in $class_name.php
+        throw new Exception("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.");
     }
 
