@@ -25,6 +25,7 @@ It's easy to use and fully dynamic.
     - [Simple Examples](#Simple-Examples)
     - [Custom query filter](#Custom-query-filter)
     - [Custom Detection Condition](#Custom-Detection-Condition)
+    - [Request Filter](#Request-filter)
 
 ## Requirements
 - PHP 7.2+, 8.0 (new version)
@@ -643,6 +644,29 @@ class User extends Model
 - `EloquentFilter::getInjectedDetections()` get all your custom injected detection.
 
 -**Note** Every custom detection will run before detection by default eloquent filter.
+
+### Request Filter
+
+Eloquent Filter has a method for just change request injected before handling by eloquent filter. This method is 
+SerializeRequestFilter. You just implement SerializeRequestFilter method in your Model. For example
+
+
+```php
+
+class User extends Model
+{
+    use Filterable;
+    public function serializeRequestFilter($request)
+    {
+       $request['username'] = trim($request['username']);
+       return $request;
+    }
+}
+```
+
+As above code you can modify every query params of Model in method serializeRequestFilter before run by Eloquent Filter. 
+This is good method when you want set user_id or convert date or remove space and others.
+
 
 - If you have any idea about the Eloquent Filter i will glad to hear that.
 You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
