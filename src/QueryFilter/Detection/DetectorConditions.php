@@ -18,7 +18,6 @@ class DetectorConditions
      * DetectorConditions constructor.
      *
      * @param array $detector
-     *
      */
     public function __construct(array $detector)
     {

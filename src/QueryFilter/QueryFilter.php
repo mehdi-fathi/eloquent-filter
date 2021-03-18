@@ -167,13 +167,10 @@ class QueryFilter
         }
 
         if (method_exists($this->builder->getModel(), 'serializeRequestFilter')) {
-
             if (!empty($this->getRequest())) {
-
                 $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
                 $this->setRequest($serializeRequestFilter);
             }
-
         }
 
         $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
