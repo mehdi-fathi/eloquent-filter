@@ -166,12 +166,7 @@ class QueryFilter
             $this->setRequest($request);
         }
 
-        if (method_exists($this->builder->getModel(), 'serializeRequestFilter')) {
-            if (!empty($this->getRequest())) {
-                $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
-                $this->setRequest($serializeRequestFilter);
-            }
-        }
+        $this->__handelSerializeRequestFilter();
 
         $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
 
@@ -187,6 +182,19 @@ class QueryFilter
             ->send($this->builder)
             ->through($filter_detections)
             ->thenReturn();
+    }
+
+    /**
+     *
+     */
+    private function __handelSerializeRequestFilter()
+    {
+        if (method_exists($this->builder->getModel(), 'serializeRequestFilter')) {
+            if (!empty($this->getRequest())) {
+                $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
+                $this->setRequest($serializeRequestFilter);
+            }
+        }
     }
 
     /**
