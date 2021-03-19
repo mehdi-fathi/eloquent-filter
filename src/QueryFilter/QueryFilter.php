@@ -184,9 +184,6 @@ class QueryFilter
             ->thenReturn();
     }
 
-    /**
-     *
-     */
     private function __handelSerializeRequestFilter()
     {
         if (method_exists($this->builder->getModel(), 'serializeRequestFilter')) {
