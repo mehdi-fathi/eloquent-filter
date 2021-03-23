@@ -36,7 +36,7 @@ trait Filterable
      *
      * @return Builder
      */
-    public function scopeFilter($query, ?array $request = null): Builder
+    public function scopeFilter($query, ?array $request = null)
     {
         return EloquentFilter::apply($query, $request, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
     }

@@ -150,15 +150,15 @@ class QueryFilter
     }
 
     /**
-     * @param Builder    $builder
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array      $detect_injected
+     * @param array $detect_injected
      *
-     * @return Builder
+     * @return
      */
-    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null): Builder
+    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
         $this->builder = $builder;
 
@@ -178,10 +178,22 @@ class QueryFilter
 
         $filter_detections = $this->getFilterDetections();
 
-        return app(Pipeline::class)
+        $out = app(Pipeline::class)
             ->send($this->builder)
             ->through($filter_detections)
             ->thenReturn();
+
+        $out = $this->__handelGetFilterOutput($out);
+
+        return $out;
+    }
+
+    private function __handelGetFilterOutput($out)
+    {
+        if (method_exists($this->builder->getModel(), 'getOutputFilter')) {
+            return $this->builder->getModel()->getOutputFilter($out);
+        }
+        return $out;
     }
 
     private function __handelSerializeRequestFilter()
