@@ -966,12 +966,11 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
-            'username' => ['mehdi', 'ali'],
+            'username'     => ['mehdi', 'ali'],
             'family'       => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStubTwo::filter($this->request->query());
-
 
         $this->assertSame($users['data']->toSql(), $builder->toSql());
 
@@ -1106,7 +1105,6 @@ class EloquentBuilderTestModelCloseRelatedStubTwo extends Model
         'name',
         'count_posts',
     ];
-
 
     public function getOutputFilter($out)
     {
