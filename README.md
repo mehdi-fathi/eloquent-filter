@@ -672,13 +672,13 @@ class User extends Model
 }
 ```
 
-As above code you can modify every query params of Model in method serializeRequestFilter before run by Eloquent Filter. 
+As above code you can modify every query params of Model in method `serializeRequestFilter` before run by Eloquent Filter. 
 This is good method when you want set user_id or convert date or remove space and others.
 
 ### Response Filter
 
-Response Filter is a magic method for just change response after handling by eloquent filter. This method is 
-ResponseFilter. You should implement ResponseFilter method in your Model. For example
+Response Filter is a magic method for just change response after handling by Eloquent Filter. This method is 
+`ResponseFilter`. You should implement ResponseFilter method in your Model. For example
 
 
 ```php
