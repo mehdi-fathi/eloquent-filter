@@ -25,7 +25,9 @@ It's easy to use and fully dynamic.
     - [Simple Examples](#Simple-Examples)
     - [Custom query filter](#Custom-query-filter)
     - [Custom Detection Condition](#Custom-Detection-Condition)
+- [Magic Methods](#Magic-Methods)
     - [Request Filter](#Request-filter)
+    - [Response Filter](#Response-filter)
 
 ## Requirements
 - PHP 7.2+, 8.0 (new version)
@@ -645,9 +647,15 @@ class User extends Model
 
 -**Note** Every custom detection will run before detection by default eloquent filter.
 
+## Magic Methods
+
+Magic methods are collection of methods that you can using of them as wrapper in the Eloquent Filter.
+For example serialize data before filter or change data in response and others.
+Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter`.
+
 ### Request Filter
 
-Eloquent Filter has a method for just change request injected before handling by eloquent filter. This method is 
+Eloquent Filter has a magic method for just change request injected before handling by eloquent filter. This method is 
 SerializeRequestFilter. You just implement SerializeRequestFilter method in your Model. For example
 
 
@@ -667,6 +675,25 @@ class User extends Model
 As above code you can modify every query params of Model in method serializeRequestFilter before run by Eloquent Filter. 
 This is good method when you want set user_id or convert date or remove space and others.
 
+### Response Filter
+
+Response Filter is a magic method for just change response after handling by eloquent filter. This method is 
+ResponseFilter. You should implement ResponseFilter method in your Model. For example
+
+
+```php
+
+class User extends Model
+{
+    use Filterable;
+    public function ResponseFilter($response)
+    {
+
+        $data['data'] = $response;
+        return $data;
+    }
+}
+```
 
 - If you have any idea about the Eloquent Filter i will glad to hear that.
 You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.

@@ -959,7 +959,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi', 'ali'], $users->getBindings());
     }
 
-    public function testGetFilterOutput()
+    public function testResponseFilter()
     {
         $builder = new EloquentBuilderTestModelCloseRelatedStubTwo();
 
@@ -1106,7 +1106,7 @@ class EloquentBuilderTestModelCloseRelatedStubTwo extends Model
         'count_posts',
     ];
 
-    public function getOutputFilter($out)
+    public function ResponseFilter($out)
     {
         $data['data'] = $out;
 

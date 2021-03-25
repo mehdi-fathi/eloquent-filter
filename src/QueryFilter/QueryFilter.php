@@ -150,11 +150,11 @@ class QueryFilter
     }
 
     /**
-     * @param Builder    $builder
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array      $detect_injected
+     * @param array $detect_injected
      *
      * @return
      */
@@ -183,15 +183,15 @@ class QueryFilter
             ->through($filter_detections)
             ->thenReturn();
 
-        $out = $this->__handelGetFilterOutput($out);
+        $out = $this->__handelResponseFilter($out);
 
         return $out;
     }
 
-    private function __handelGetFilterOutput($out)
+    private function __handelResponseFilter($out)
     {
-        if (method_exists($this->builder->getModel(), 'getOutputFilter')) {
-            return $this->builder->getModel()->getOutputFilter($out);
+        if (method_exists($this->builder->getModel(), 'ResponseFilter')) {
+            return $this->builder->getModel()->ResponseFilter($out);
         }
 
         return $out;
