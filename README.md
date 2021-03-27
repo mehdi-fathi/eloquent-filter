@@ -537,7 +537,7 @@ class WhereRelationLikeCondition implements DetectorContract
 }
 ```
 
-- Step 2: After that create a class to generate query. In this example we make `WhereRelationLikeCondition` class:
+- Step 2: After that create a class to generate query. In this example we make `WhereRelationLikeConditionQuery` class:
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
