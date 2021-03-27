@@ -529,7 +529,7 @@ class WhereRelationLikeCondition implements DetectorContract
     public static function detect($field, $params, $is_override_method = false): ?string
     {
         if (!empty($params['value']) && !empty($params['limit']) && !empty($params['email'])) {
-            $method = WhereRelationLikeCondition::class;
+            $method = WhereRelationLikeConditionQuery::class;
         }
 
         return $method ?? null;
@@ -544,9 +544,9 @@ use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereRelationLikeCondition.
+ * Class WhereRelationLikeConditionQuery.
  */
-class WhereRelationLikeCondition extends BaseClause
+class WhereRelationLikeConditionQuery extends BaseClause
 {
     /**
      * @param $query
