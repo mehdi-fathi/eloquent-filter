@@ -7,6 +7,6 @@ return [
      */
     'enabled' => env('EloquentFilter_ENABLED', true),
 
-    'request_filter_key' => '' // filter
+    'request_filter_key' => '', // filter
 
 ];

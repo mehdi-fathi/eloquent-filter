@@ -3,7 +3,6 @@
 namespace eloquentFilter;
 
 use eloquentFilter\QueryFilter\QueryFilter;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
  * Class ServiceProvider.
@@ -23,7 +22,6 @@ class ServiceProvider
      */
     public function boot(): void
     {
-
         $this->configurePaths();
 
         $this->mergeConfig();
@@ -36,7 +34,7 @@ class ServiceProvider
     {
 //        $dir = str_replace('/tests', '', __DIR__);
         $this->publishes([
-            __DIR__ . '/config/config.php' => config_path('eloquentFilter.php'),
+            __DIR__.'/config/config.php' => config_path('eloquentFilter.php'),
         ]);
     }
 
@@ -48,14 +46,13 @@ class ServiceProvider
 //        $dir = str_replace('/tests', '', __DIR__);
 
         $this->mergeConfigFrom(
-            __DIR__ . '/config/config.php',
+            __DIR__.'/config/config.php',
             'eloquentFilter'
         );
     }
 
     private function registerBindings()
     {
-
         $this->app->singleton(
             'eloquentFilter',
             function () {
