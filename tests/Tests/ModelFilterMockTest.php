@@ -967,7 +967,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi', 'ali'],
-            'family' => null,
+            'family'   => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStubTwo::filter($this->request->query());
@@ -989,7 +989,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'filter' => [
                 'email' => 'mehdifathi.developer@gmail.com',
-            ]
+            ],
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());

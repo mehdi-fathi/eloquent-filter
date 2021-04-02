@@ -150,11 +150,11 @@ class QueryFilter
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder    $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array $detect_injected
+     * @param array      $detect_injected
      *
      * @return
      */

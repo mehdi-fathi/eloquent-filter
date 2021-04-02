@@ -2,9 +2,7 @@
 
 namespace eloquentFilter;
 
-use eloquentFilter\QueryFilter\QueryFilter;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Mockery as m;
 
 class ServiceProviderTest extends BaseServiceProvider
 {
@@ -13,7 +11,6 @@ class ServiceProviderTest extends BaseServiceProvider
      */
     public function boot(): void
     {
-
         $this->configurePaths();
 
         $this->mergeConfig();
@@ -26,7 +23,7 @@ class ServiceProviderTest extends BaseServiceProvider
     {
         $dir = str_replace('/tests', '', __DIR__);
         $this->publishes([
-            $dir . '/src/config/config.php' => config_path('eloquentFilter.php'),
+            $dir.'/src/config/config.php' => config_path('eloquentFilter.php'),
         ]);
     }
 
@@ -38,10 +35,11 @@ class ServiceProviderTest extends BaseServiceProvider
         $dir = str_replace('/tests', '', __DIR__);
 
         $this->mergeConfigFrom(
-            $dir . '/src/config/config.php',
+            $dir.'/src/config/config.php',
             'eloquentFilter'
         );
     }
+
     protected function bootPublishes(): void
     {
     }
@@ -53,6 +51,5 @@ class ServiceProviderTest extends BaseServiceProvider
     {
     }
 }
-
 
 //php artisan vendor:publish --provider="eloquentFilter\QueryFilter\ServiceProvider"
