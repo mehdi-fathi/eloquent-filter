@@ -688,7 +688,6 @@ class User extends Model
     use Filterable;
     public function ResponseFilter($response)
     {
-
         $data['data'] = $response;
         return $data;
     }

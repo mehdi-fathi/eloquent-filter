@@ -966,8 +966,8 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
-            'username'     => ['mehdi', 'ali'],
-            'family'       => null,
+            'username' => ['mehdi', 'ali'],
+            'family' => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStubTwo::filter($this->request->query());
@@ -975,6 +975,28 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users['data']->toSql(), $builder->toSql());
 
         $this->assertEquals(['mehdi', 'ali'], $users['data']->getBindings());
+    }
+
+    public function testRequestFilterKeyFilled()
+    {
+        config(['eloquentFilter.request_filter_key' => 'filter']);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'filter' => [
+                'email' => 'mehdifathi.developer@gmail.com',
+            ]
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
     public function tearDown(): void

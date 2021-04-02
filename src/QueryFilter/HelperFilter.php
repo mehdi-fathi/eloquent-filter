@@ -61,6 +61,13 @@ trait HelperFilter
         if (!empty($request['page'])) {
             unset($request['page']);
         }
+
+        $request_key_filter = config('eloquentFilter.request_filter_key');
+
+        if (!empty($request_key_filter)) {
+            $request = $request[$request_key_filter];
+        }
+
         $request = array_filter($request, function ($value) {
             return !is_null($value) && $value !== '';
         });
