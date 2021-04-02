@@ -65,7 +65,7 @@ trait HelperFilter
         $request_key_filter = config('eloquentFilter.request_filter_key');
 
         if (!empty($request_key_filter)) {
-            $request = $request[$request_key_filter];
+            $request = (!empty($request[$request_key_filter])) ? $request[$request_key_filter] : [];
         }
 
         $request = array_filter($request, function ($value) {
