@@ -977,7 +977,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi', 'ali'], $users['data']->getBindings());
     }
 
-    public function testRequestFilterKeyFilled()
+    public function testRequestFilterKeyFilledConfig()
     {
         config(['eloquentFilter.request_filter_key' => 'filter']);
 
@@ -990,6 +990,48 @@ class ModelFilterMockTest extends \TestCase
             'filter' => [
                 'email' => 'mehdifathi.developer@gmail.com',
             ],
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
+    public function testFalseEnabledConfig()
+    {
+        config(['eloquentFilter.enabled' => false]);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'filter' => [
+                'email' => 'mehdifathi.developer@gmail.com',
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+
+        $this->assertNotSame($users->toSql(), $builder->toSql());
+
+        $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
+    public function testTrueEnabledConfig()
+    {
+        config(['eloquentFilter.enabled' => true]);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+                'email' => 'mehdifathi.developer@gmail.com',
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
@@ -1182,3 +1224,9 @@ class EloquentBuilderTestStubWithoutTimestamp extends Model
 
     protected $table = 'table';
 }
+
+
+//todo enable/disable package in config file
+// update readme file for set request_filter_key,enabled
+// enable/disable custom detection
+// update readme

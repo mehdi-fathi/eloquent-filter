@@ -160,6 +160,9 @@ class QueryFilter
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
+        if (config('eloquentFilter.enabled') == false) {
+            return;
+        }
         $this->builder = $builder;
 
         if (!empty($request)) {

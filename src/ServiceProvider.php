@@ -33,7 +33,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function configurePaths()
     {
-//        $dir = str_replace('/tests', '', __DIR__);
         $this->publishes([
             __DIR__.'/config/config.php' => config_path('eloquentFilter.php'),
         ]);
@@ -44,8 +43,6 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function mergeConfig()
     {
-//        $dir = str_replace('/tests', '', __DIR__);
-
         $this->mergeConfigFrom(
             __DIR__.'/config/config.php',
             'eloquentFilter'
