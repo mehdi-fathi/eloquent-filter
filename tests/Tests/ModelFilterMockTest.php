@@ -1031,7 +1031,7 @@ class ModelFilterMockTest extends \TestCase
             ->where('email', 'mehdifathi.developer@gmail.com');
 
         $this->request->shouldReceive('query')->andReturn([
-                'email' => 'mehdifathi.developer@gmail.com',
+            'email' => 'mehdifathi.developer@gmail.com',
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
@@ -1224,7 +1224,6 @@ class EloquentBuilderTestStubWithoutTimestamp extends Model
 
     protected $table = 'table';
 }
-
 
 //todo enable/disable package in config file
 // update readme file for set request_filter_key,enabled
