@@ -3,7 +3,6 @@
 namespace eloquentFilter;
 
 use eloquentFilter\QueryFilter\QueryFilter;
-
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
