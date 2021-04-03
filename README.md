@@ -23,8 +23,11 @@ It's easy to use and fully dynamic.
     - [Config Model](#Config-Model-and-set-whitelist)
     - [Use in Controller](#Use-in-Controller)
     - [Simple Examples](#Simple-Examples)
-    - [Custom query filter](#Custom-query-filter)
+    - [Custom Query Filter](#Custom-query-filter)
     - [Custom Detection Condition](#Custom-Detection-Condition)
+- [Configuring](#Configuring)    
+    - [Publish Config](#Publish-Config)
+    - [Config](#Config)
 - [Magic Methods](#Magic-Methods)
     - [Request Filter](#Request-filter)
     - [Response Filter](#Response-filter)
@@ -427,7 +430,7 @@ select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi'
 Just fields of query string be same rows table database in `$whiteListFilter` in your model or declare method in your model as override method.
 Override method can be considered custom query filter.
 
-### Custom query filter
+### Custom Query Filter
 The Eloquent Filter doesn't support all of the conditions by default. For this situation you can make a override method.
 If you are going to make yourself query filter you can do it easily. You just make a trait and use it on model:
 
@@ -646,6 +649,35 @@ class User extends Model
 - `EloquentFilter::getInjectedDetections()` get all your custom injected detection.
 
 -**Note** Every custom detection will run before detection by default eloquent filter.
+
+## Configuring
+
+You can generate config file to config Eloquent Filter. Has amazing features for your project.
+
+### Publish Config
+
+    php artisan vendor:publish --provider="eloquentFilter\QueryFilter\ServiceProvider"
+
+### Config
+
+- You can disable/enable Eloquent Filter in config file (eloquentFilter.php).
+
+
+    'enabled' => env('EloquentFilter_ENABLED', true),
+    
+- Eloquent Filter recognizes every params of query string to pass it. 
+Maybe you have a query string which you don't want recognizes by Eloquent Filter. You can using of `ignoreRequest` for his purpose.
+But we have clean solution to this problem. You can set param request_filter_key in config file.
+Therefore every query string will recognize by request_filter_key param.
+
+    
+     'request_filter_key' => '', // filter
+
+For example if you set `'request_filter_key' => 'filter', // filter` that Eloquent Filter recognizes `filter` query string.
+
+`
+/users/list?filter[email]=mehdifathi.developer@gmail.com`
+
 
 ## Magic Methods
 
