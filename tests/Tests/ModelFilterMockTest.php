@@ -1041,6 +1041,39 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
+    public function testFalseEnabledCustomDetectionConfig()
+    {
+        config(['eloquentFilter.enabled_custom_detection' => false]);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->whereHas('foo', function ($q) {
+                $q->where('bam', 'like', '%mehdi%');
+            })
+            ->where('baz', '<>', 'boo')
+            ->where('email', 'like', '%mehdifathi%')
+            ->where('count_posts', '=', 10)
+            ->limit(10);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'baz' => [
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
+                'like_relation_value' => 'mehdi',
+            ],
+            'count_posts' => 10,
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter();
+
+        $this->assertNotSame($users->toSql(), $builder->toSql());
+        $this->assertNotEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
+        $this->assertNull(EloquentFilter::getInjectedDetections());
+
+    }
+
     public function tearDown(): void
     {
         m::close();
