@@ -673,10 +673,17 @@ Therefore every query string will recognize by request_filter_key param.
     
      'request_filter_key' => '', // filter
 
-For example if you set `'request_filter_key' => 'filter', // filter` that Eloquent Filter recognizes `filter` query string.
+For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter recognizes `filter` query string.
 
 `
 /users/list?filter[email]=mehdifathi.developer@gmail.com`
+
+
+- You can disable/enable custom detection of Eloquent Filter in config file (eloquentFilter.php).
+
+   
+    'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
+    
 
 
 ## Magic Methods
