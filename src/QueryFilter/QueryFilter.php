@@ -138,7 +138,6 @@ class QueryFilter
      */
     public function setDetectInjected($detect_injected): void
     {
-
         if (config('eloquentFilter.enabled_custom_detection') == false) {
             return;
         }
