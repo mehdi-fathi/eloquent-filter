@@ -663,7 +663,7 @@ You can generate config file to config Eloquent Filter. Has amazing features for
 - You can disable/enable Eloquent Filter in config file (eloquentFilter.php).
 
 
-    'enabled' => env('EloquentFilter_ENABLED', true),
+        'enabled' => env('EloquentFilter_ENABLED', true),
     
 - Eloquent Filter recognizes every params of query string to pass it. 
 Maybe you have a query string which you don't want recognizes by Eloquent Filter. You can using of `ignoreRequest` for his purpose.
@@ -671,7 +671,7 @@ But we have clean solution to this problem. You can set param request_filter_key
 Therefore every query string will recognize by request_filter_key param.
 
     
-     'request_filter_key' => '', // filter
+        'request_filter_key' => '', // filter
 
 For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter recognizes `filter` query string.
 
@@ -682,7 +682,7 @@ For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter 
 - You can disable/enable custom detection of Eloquent Filter in config file (eloquentFilter.php).
 
    
-    'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
+        'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
     
 
 
