@@ -1071,7 +1071,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNotSame($users->toSql(), $builder->toSql());
         $this->assertNotEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
         $this->assertNull(EloquentFilter::getInjectedDetections());
-
     }
 
     public function tearDown(): void
