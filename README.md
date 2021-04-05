@@ -685,7 +685,6 @@ For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter 
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
     
 
-
 ## Magic Methods
 
 Magic methods are collection of methods that you can using of them as wrapper in the Eloquent Filter.
