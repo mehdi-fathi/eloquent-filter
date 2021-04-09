@@ -290,7 +290,23 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        //todo ye default asc vase type order bezar
+        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
+    public function testFParamLimit()
+    {
+        $builder = new EloquentBuilderTestModelParentStub();
+
+        $builder = $builder->newQuery()
+            ->limit(5);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'f_params' => [
+                'limit' => 5,
+            ],
+        ]);
 
         $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
 

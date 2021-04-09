@@ -28,17 +28,17 @@ class Special extends BaseClause
      */
     public function apply($query): Builder
     {
-        foreach ($this->values as $key => $param) {
+        foreach ($this->values as $key => $param_value) {
             if (!in_array($key, self::$reserve_param['f_params'])) {
                 throw new \Exception("$key is not in f_params array.");
             }
-            if (is_array($param)) {
+            if (is_array($param_value)) {
                 $this->values['orderBy']['field'] = explode(',', $this->values['orderBy']['field']);
                 foreach ($this->values['orderBy']['field'] as $order_by) {
                     $query->orderBy($order_by, $this->values['orderBy']['type']);
                 }
             } else {
-                $query->limit($this->values);
+                $query->limit($param_value);
             }
         }
 
