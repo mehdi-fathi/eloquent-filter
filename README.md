@@ -625,7 +625,7 @@ $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter()
 -**Note** You can disable `EloquentFilterCustomDetection` on the fly by this code :
 
 ```php
- USer::SetLoadDefaultDetection(false)->filter();
+ User::SetLoadDefaultDetection(false)->filter();
 ```
 
 -**Note** You can set many detection condition for example:
