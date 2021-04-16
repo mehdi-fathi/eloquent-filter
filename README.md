@@ -628,7 +628,7 @@ $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter()
  User::SetLoadDefaultDetection(false)->filter();
 ```
 
--**Note** You can set many detection condition for example:
+-**Note** You can set many detection conditions for example:
 
 ```php
 
