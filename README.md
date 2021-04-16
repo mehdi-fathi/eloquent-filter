@@ -652,7 +652,7 @@ class User extends Model
 
 ## Configuring
 
-You can generate config file to config Eloquent Filter. Has amazing features for your project.
+You can generate a config file to configure Eloquent Filter. Has amazing features for your project.
 
 ### Publish Config
 
@@ -665,21 +665,21 @@ You can generate config file to config Eloquent Filter. Has amazing features for
 
         'enabled' => env('EloquentFilter_ENABLED', true),
     
-- Eloquent Filter recognizes every params of query string to pass it. 
-Maybe you have a query string which you don't want recognizes by Eloquent Filter. You can using of `ignoreRequest` for his purpose.
-But we have clean solution to this problem. You can set param request_filter_key in config file.
+- Eloquent Filter recognizes every param of query string to pass it. 
+Maybe you have a query string that you don't want recognize by Eloquent Filter. You can using of `ignoreRequest` for his purpose.
+But we have clean solution to this problem. You can set param request_filter_key in the config file.
 Therefore every query string will recognize by request_filter_key param.
 
     
         'request_filter_key' => '', // filter
 
-For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter recognizes `filter` query string.
+For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter recognizes `filter` query string.
 
 `
 /users/list?filter[email]=mehdifathi.developer@gmail.com`
 
 
-- You can disable/enable custom detection of Eloquent Filter in config file (eloquentFilter.php).
+- You can disable/enable custom detection of Eloquent Filter in the config file (eloquentFilter.php).
 
    
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
@@ -687,13 +687,13 @@ For example if you set `'request_filter_key' => 'filter',` that Eloquent Filter 
 
 ## Magic Methods
 
-Magic methods are collection of methods that you can using of them as wrapper in the Eloquent Filter.
-For example serialize data before filter or change data in response and others.
+Magic methods are a collection of methods that you can use of them as wrapper in the Eloquent Filter.
+For example, serialize data before filter or change data in response and others.
 Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter`.
 
 ### Request Filter
 
-Eloquent Filter has a magic method for just change request injected before handling by eloquent filter. This method is 
+Eloquent Filter has a magic method for just change requests injected before handling by eloquent filter. This method is 
 SerializeRequestFilter. You just implement SerializeRequestFilter method in your Model. For example
 
 
@@ -710,8 +710,8 @@ class User extends Model
 }
 ```
 
-As above code you can modify every query params of Model in method `serializeRequestFilter` before run by Eloquent Filter. 
-This is good method when you want set user_id or convert date or remove space and others.
+As above code you can modify every query params of the Model in the method `serializeRequestFilter` before run by Eloquent Filter. 
+This is a good method when you want set user_id or convert date or remove space and others.
 
 ### Response Filter
 
