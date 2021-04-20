@@ -103,6 +103,7 @@ trait HelperFilter
     protected function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
     {
         if (!empty($this->getRequest())) {
+
             if (!empty($ignore_request)) {
                 $this->updateRequestByIgnoreRequest($ignore_request);
             }
@@ -110,8 +111,7 @@ trait HelperFilter
                 $this->setAcceptRequest($accept_request);
                 $this->updateRequestByAcceptRequest($this->getAcceptRequest());
             }
-        }
-        if (!empty($this->getRequest())) {
+
             foreach ($this->getRequest() as $name => $value) {
                 if (is_array($value) && method_exists($builder_model, $name)) {
                     if (self::isAssoc($value)) {
