@@ -103,7 +103,6 @@ trait HelperFilter
     protected function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
     {
         if (!empty($this->getRequest())) {
-
             if (!empty($ignore_request)) {
                 $this->updateRequestByIgnoreRequest($ignore_request);
             }
