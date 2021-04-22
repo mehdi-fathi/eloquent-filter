@@ -1059,6 +1059,51 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
+    public function testIgnoreRequestConfig()
+    {
+        config(['eloquentFilter.ignore_request' => ['show_query','new_trend']]);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+                'email' => 'mehdifathi.developer@gmail.com',
+                'show_query'=> true,
+                'new_trend'=> '2021',
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
+    public function testIgnoreRequestBeforeSetConfig()
+    {
+        config(['eloquentFilter.ignore_request' => ['show_query','new_trend']]);
+
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'email' => 'mehdifathi.developer@gmail.com',
+            'id' => 99,
+            'show_query'=> true,
+            'new_trend'=> '2021',
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::ignoreRequest(['id'])->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
     public function testTrueEnabledConfig()
     {
         config(['eloquentFilter.enabled' => true]);

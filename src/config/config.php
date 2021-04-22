@@ -17,4 +17,9 @@ return [
     */
     'request_filter_key' => '', // filter
 
+    /*
+    * Set index array for ignore request by default example : [ 'show_query','new_trend' ]
+    */
+    'ignore_request' => []
+
 ];
