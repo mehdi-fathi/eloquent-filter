@@ -44,7 +44,6 @@ trait Filterable
     /**
      * @param            $query
      * @param array|null $request
-     *
      */
     public function scopeIgnoreRequest($query, ?array $request = null)
     {
@@ -54,7 +53,6 @@ trait Filterable
     /**
      * @param            $query
      * @param array|null $request
-     *
      */
     public function scopeAcceptRequest($query, ?array $request = null)
     {
@@ -64,7 +62,6 @@ trait Filterable
     /**
      * @param $query
      * @param array|null $object_custom_detect
-     *
      */
     public function scopeSetCustomDetection($query, ?array $object_custom_detect = null)
     {
@@ -130,7 +127,6 @@ trait Filterable
     /**
      * @param $query
      * @param $load_default_detection
-     *
      */
     public function scopeSetLoadDefaultDetection($query, $load_default_detection)
     {

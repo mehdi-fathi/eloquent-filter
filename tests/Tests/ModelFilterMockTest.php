@@ -200,7 +200,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -221,11 +221,11 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::withTrashed()->ignoreRequest(["id"])->filter($this->request->query());
+        $users = EloquentBuilderTestModelCloseRelatedStub::withTrashed()->ignoreRequest(['id'])->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
