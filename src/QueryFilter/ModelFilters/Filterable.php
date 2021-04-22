@@ -45,39 +45,30 @@ trait Filterable
      * @param            $query
      * @param array|null $request
      *
-     * @return $this
      */
     public function scopeIgnoreRequest($query, ?array $request = null)
     {
         $this->ignore_request = $request;
-
-        return $this;
     }
 
     /**
      * @param            $query
      * @param array|null $request
      *
-     * @return $this
      */
     public function scopeAcceptRequest($query, ?array $request = null)
     {
         $this->accept_request = $request;
-
-        return $this;
     }
 
     /**
      * @param $query
      * @param array|null $object_custom_detect
      *
-     * @return $this
      */
     public function scopeSetCustomDetection($query, ?array $object_custom_detect = null)
     {
         $this->setObjectCustomDetect($object_custom_detect);
-
-        return $this;
     }
 
     /**
@@ -140,13 +131,10 @@ trait Filterable
      * @param $query
      * @param $load_default_detection
      *
-     * @return $this
      */
     public function scopeSetLoadDefaultDetection($query, $load_default_detection)
     {
         $this->load_default_detection = $load_default_detection;
-
-        return $this;
     }
 
     /**
