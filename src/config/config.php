@@ -20,6 +20,6 @@ return [
     /*
     * Set index array for ignore request by default example : [ 'show_query','new_trend' ]
     */
-    'ignore_request' => []
+    'ignore_request' => [],
 
 ];
