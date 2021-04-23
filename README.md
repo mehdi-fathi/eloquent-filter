@@ -683,6 +683,11 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
    
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
+
+- You should set index array in ignore_request to ignore by in all filters.
+
+
+        'ignore_request' => [] //[ 'show_query','new_trend' ],
     
 
 ## Magic Methods
