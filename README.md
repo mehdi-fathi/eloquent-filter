@@ -14,7 +14,7 @@
 Eloquent Filter adds custom filters to your Eloquent Models in Laravel.
 It's easy to use and fully dynamic.
 
-[![Bitcoin Donate Button](https://blockchain.com/btc/payment_request?address=15ojn5TPqRy9GkTWqEKS8itPXSP8KVui5R&amount=0.00017084)](https://raw.githubusercontent.com/mehdi-fathi/eloquent-filter/master/donate.png)
+[![Bitcoin Donate Button](http://KristinitaTest.github.io/donate/Bitcoin-Donate-button.png)](https://blockchain.com/btc/payment_request?address=15ojn5TPqRy9GkTWqEKS8itPXSP8KVui5R&amount=0.00017084)
 
 ## Table of Content
 - [Introduction](#Introduction)
