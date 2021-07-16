@@ -1066,13 +1066,15 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()->
         select('eloquent_builder_test_model_new_strategy_stubs.name')->
         join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
-            ->whereBetween('foo.created_at',
+            ->whereBetween(
+                'foo.created_at',
                 [
                     '2019-01-01 17:11:46',
                     '2019-02-06 10:11:46',
-                ]);
+                ]
+            );
 
-        $this->request->shouldReceive('query')->andReturn(['foo' => ['created_at' => ['start' => '2021/01/21', 'end' => '2021/01/23']]]);//delete it
+        $this->request->shouldReceive('query')->andReturn(['foo' => ['created_at' => ['start' => '2021/01/21', 'end' => '2021/01/23']]]); //delete it
 
         $users = EloquentBuilderTestModelNewStrategyStub::select('eloquent_builder_test_model_new_strategy_stubs.name')->
         join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
