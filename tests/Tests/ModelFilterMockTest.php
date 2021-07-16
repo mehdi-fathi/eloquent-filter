@@ -1059,6 +1059,29 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
+    public function testWhereBetweenWithRelation()
+    {
+        $builder = new EloquentBuilderTestModelNewStrategyStub();
+
+        $builder = $builder->query()->
+        select('eloquent_builder_test_model_new_strategy_stubs.name')->
+        join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'filter' => [
+                'email' => 'mehdifathi.developer@gmail.com',
+            ],
+        ]);
+
+        $users = EloquentBuilderTestModelNewStrategyStub::select('eloquent_builder_test_model_new_strategy_stubs.name')->
+        join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
+            ->filter(['foo' => ['created_at' => ['start' => '2021/01/21', 'end' => '2021/01/23']]]);
+
+        $this->assertNotSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['2021/01/21', '2021/01/23'], $users->getBindings());
+    }
+
     public function testIgnoreRequestConfig()
     {
         config(['eloquentFilter.ignore_request' => ['show_query', 'new_trend']]);
@@ -1174,6 +1197,7 @@ class EloquentBuilderTestModelNewStrategyStub extends Model
         'too',
         'count_posts',
         'foo.bam',
+        'foo.created_at',
         'foo.baz.bam',
         'created_at',
         'email',

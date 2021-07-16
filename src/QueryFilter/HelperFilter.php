@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * Trait HelperFilter.
@@ -36,18 +37,32 @@ trait HelperFilter
         if (is_array($arg_last)) {
             $out = Arr::dot($args, $field.'.');
             if (!self::isAssoc($arg_last)) {
-                $out = Arr::dot($args, $field.'.');
+                $out = Arr::dot($args, $field . '.');
                 foreach ($out as $key => $item) {
                     $index = $key;
                     for ($i = 0; $i <= 9; $i++) {
-                        $index = rtrim($index, '.'.$i);
+                        $index = rtrim($index, '.' . $i);
                     }
                     $new[$index][] = $out[$key];
                 }
                 $out = $new;
+            } else {
+
+                $key_search_start = $field.'.'.key($args).'.start';
+                $key_search_end = $field.'.'.key($args).'.end';
+
+                if (Arr::exists($out, $key_search_start) && Arr::exists($out, $key_search_end)) {
+
+                    foreach ($args as $key => $item) {
+                        $new[$field . '.' . $key] = $args[$key];
+                    }
+                    $out = $new;
+
+                }
+
             }
         } else {
-            $out = Arr::dot($args, $field.'.');
+            $out = Arr::dot($args, $field . '.');
         }
 
         return $out;
