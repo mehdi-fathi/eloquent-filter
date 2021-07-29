@@ -2,7 +2,7 @@
 
 namespace eloquentFilter;
 
-use eloquentFilter\QueryFilter\QueryFilter;
+use eloquentFilter\QueryFilter\Core\QueryFilterWrapper;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
@@ -54,7 +54,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             'eloquentFilter',
             function () {
-                return new QueryFilter($this->app->get('request')->query());
+                return new QueryFilterWrapper($this->app->get('request')->query());
             }
         );
     }
