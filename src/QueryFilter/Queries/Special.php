@@ -31,7 +31,7 @@ class Special extends BaseClause
     {
         foreach ($this->values as $key => $param_value) {
             if (!in_array($key, self::$reserve_param['f_params'])) {
-                throw new EloquentFilterException("$key is not in f_params array.",2);
+                throw new EloquentFilterException("$key is not in f_params array.", 2);
             }
             if (is_array($param_value)) {
                 $this->values['orderBy']['field'] = explode(',', $this->values['orderBy']['field']);

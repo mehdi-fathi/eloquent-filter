@@ -14,8 +14,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
- * Class QueryFilter
- * @package eloquentFilter\QueryFilter\Core
+ * Class QueryFilter.
  */
 class QueryFilter
 {
@@ -61,7 +60,7 @@ class QueryFilter
     /**
      * QueryFilter constructor.
      *
-     * @param array $request
+     * @param array      $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
@@ -180,5 +179,4 @@ class QueryFilter
 
         return app(DetectionFactory::class, ['detections' => $this->getDetections()]);
     }
-
 }

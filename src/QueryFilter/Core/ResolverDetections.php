@@ -1,8 +1,6 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Core;
-
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
@@ -22,7 +20,6 @@ class ResolverDetections
 
     public function getResolverOut()
     {
-
         $filter_detections = $this->getFilterDetections();
 
         $out = app(Pipeline::class)
@@ -38,9 +35,9 @@ class ResolverDetections
      * @param $values
      * @param $model
      *
-     * @return Application|mixed
      * @throws ReflectionException
      *
+     * @return Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {

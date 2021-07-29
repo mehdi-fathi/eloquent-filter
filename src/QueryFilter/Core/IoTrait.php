@@ -1,13 +1,12 @@
 <?php
 
-
 namespace eloquentFilter\QueryFilter\Core;
-
 
 trait IoTrait
 {
     /**
      * @param $out
+     *
      * @return mixed
      */
     private function __handelResponseFilter($out)
