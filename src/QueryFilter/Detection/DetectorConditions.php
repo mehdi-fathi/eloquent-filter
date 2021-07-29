@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Detection;
 
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use Exception;
-use http\Exception\InvalidArgumentException;
 
 /**
  * Class DetectorConditions.
@@ -81,7 +80,7 @@ class DetectorConditions
         $class_name = class_basename($model_class);
 
         throw new EloquentFilterException("You must set $field in whiteListFilter in $class_name.php
-         or create a override method with name $field or call ignoreRequest function for ignore $field.",1);
+         or create a override method with name $field or call ignoreRequest function for ignore $field.", 1);
     }
 
     /**
