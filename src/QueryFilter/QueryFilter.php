@@ -37,7 +37,7 @@ class QueryFilter
     /**
      * @var
      */
-    protected $detect;
+    protected $detections;
 
     /**
      * @var
@@ -80,7 +80,7 @@ class QueryFilter
         }
 
         $this->setDefaultDetect($this->__getDefaultDetectorsInstance());
-        $this->detect_factory = $this->__getDetectorFactory($this->getDefaultDetect(), $this->getDetectInjected());
+        $this->setDetectFactory($this->__getDetectorFactory($this->getDefaultDetect(), $this->getDetectInjected()));
     }
 
     /**
@@ -118,19 +118,35 @@ class QueryFilter
     }
 
     /**
-     * @param array $detect
+     * @param array $detections
      */
-    public function setDetect(array $detect): void
+    public function setDetections(array $detections): void
     {
-        $this->detect = $detect;
+        $this->detections = $detections;
+    }
+
+    /**
+     * @param DetectionFactory $detect_factory
+     */
+    public function setDetectFactory(DetectionFactory $detect_factory): void
+    {
+        $this->detect_factory = $detect_factory;
+    }
+
+    /**
+     * @return DetectionFactory
+     */
+    public function getDetectFactory(): DetectionFactory
+    {
+        return $this->detect_factory;
     }
 
     /**
      * @return array
      */
-    public function getDetect()
+    public function getDetections()
     {
-        return $this->detect;
+        return $this->detections;
     }
 
     /**
@@ -153,13 +169,13 @@ class QueryFilter
     }
 
     /**
-     * @param Builder    $builder
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array      $detect_injected
+     * @param array $detect_injected
      *
-     * @return
+     * @return void
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
@@ -178,8 +194,7 @@ class QueryFilter
 
         if (!empty($detect_injected)) {
             $this->setDetectInjected($detect_injected);
-            $detect_factory = $this->__getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
-            $this->detect_factory = $detect_factory;
+            $this->setDetectFactory($this->__getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
 
         $filter_detections = $this->getFilterDetections();
@@ -194,6 +209,10 @@ class QueryFilter
         return $out;
     }
 
+    /**
+     * @param $out
+     * @return mixed
+     */
     private function __handelResponseFilter($out)
     {
         if (method_exists($this->builder->getModel(), 'ResponseFilter')) {
@@ -227,9 +246,9 @@ class QueryFilter
             $detections = array_merge($detect_injected, $default_detect);
         }
 
-        $this->setDetect($detections);
+        $this->setDetections($detections);
 
-        return app(DetectionFactory::class, ['detections' => $detections]);
+        return app(DetectionFactory::class, ['detections' => $this->getDetections()]);
     }
 
     /**
@@ -243,7 +262,7 @@ class QueryFilter
      */
     private function resolve($filterName, $values, $model)
     {
-        $detect = $this->detect_factory::detect($filterName, $values, $model);
+        $detect = $this->getDetectFactory()->detect($filterName, $values, $model);
 
         return app($detect, ['filter' => $filterName, 'values' => $values]);
     }

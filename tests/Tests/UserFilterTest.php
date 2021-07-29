@@ -358,8 +358,8 @@ class UserFilterTest extends TestCase
 
         try {
             $users = UsersController::filterUser($this->request->all())->get();
-        } catch (Exception $e) {
-            $this->assertEquals(0, $e->getCode());
+        } catch (\eloquentFilter\QueryFilter\Exceptions\EloquentFilterException $e) {
+            $this->assertEquals(1, $e->getCode());
         }
     }
 
@@ -448,8 +448,8 @@ class UserFilterTest extends TestCase
 
         try {
             $users = UsersController::filterUser($this->request->all());
-        } catch (Exception $e) {
-            $this->assertEquals(0, $e->getCode());
+        } catch (\eloquentFilter\QueryFilter\Exceptions\EloquentFilterException $e) {
+            $this->assertEquals(2, $e->getCode());
         }
     }
 }

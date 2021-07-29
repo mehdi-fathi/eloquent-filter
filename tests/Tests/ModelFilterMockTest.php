@@ -4,6 +4,7 @@ namespace Tests\Tests;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -290,8 +291,8 @@ class ModelFilterMockTest extends \TestCase
             ]);
 
             EloquentBuilderTestModelParentStub::filter($this->request->query());
-        } catch (\Exception $e) {
-            $this->assertEquals(0, $e->getCode());
+        } catch (EloquentFilterException $e) {
+            $this->assertEquals(1, $e->getCode());
         }
     }
 
@@ -348,8 +349,8 @@ class ModelFilterMockTest extends \TestCase
             ]);
 
             EloquentBuilderTestModelParentStub::filter($this->request->query());
-        } catch (\Exception $e) {
-            $this->assertEquals(0, $e->getCode());
+        } catch (EloquentFilterException $e) {
+            $this->assertEquals(2, $e->getCode());
         }
     }
 
