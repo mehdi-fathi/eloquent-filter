@@ -1,0 +1,9 @@
+<?php
+
+namespace {{namespace}};
+
+use EloquentFilter\ModelFilterCustom;
+
+class {{class}} extends ModelFilterCustom
+{
+}
