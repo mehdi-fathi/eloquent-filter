@@ -22,4 +22,15 @@ return [
     */
     'ignore_request' => [],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent Filter Settings
+    |--------------------------------------------------------------------------
+    |
+    | This is the namespace custom eloquent filter
+    |
+    */
+
+    'namespace' => 'App\\ModelFilters\\',
+
 ];

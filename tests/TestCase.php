@@ -13,6 +13,11 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     public $request;
 
+    /**
+     * @var array
+     */
+    protected $config;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -21,6 +26,8 @@ class TestCase extends Orchestra\Testbench\TestCase
         $this->withFactories(__DIR__.'/database/factories');
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
+
+        $this->config = require '/Users/mehdi/Sites/eloquent-filter/src/config/config.php';
 
         $this->app->singleton(
             'eloquentFilter',
