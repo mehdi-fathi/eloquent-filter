@@ -6,6 +6,10 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
+/**
+ * Class MakeEloquentFilter
+ * @package eloquentFilter\Command
+ */
 class MakeEloquentFilter extends Command
 {
     /**
@@ -20,7 +24,15 @@ class MakeEloquentFilter extends Command
      *
      * @var string
      */
-    protected $description = 'Create A New Eloquent Custom Model Filter';
+    protected $description = '
+███████╗██╗░░░░░░█████╗░░██████╗░██╗░░░██╗███████╗███╗░░██╗████████╗  ███████╗██╗██╗░░░░░████████╗███████╗██████╗░
+██╔════╝██║░░░░░██╔══██╗██╔═══██╗██║░░░██║██╔════╝████╗░██║╚══██╔══╝  ██╔════╝██║██║░░░░░╚══██╔══╝██╔════╝██╔══██╗
+█████╗░░██║░░░░░██║░░██║██║██╗██║██║░░░██║█████╗░░██╔██╗██║░░░██║░░░  █████╗░░██║██║░░░░░░░░██║░░░█████╗░░██████╔╝
+██╔══╝░░██║░░░░░██║░░██║╚██████╔╝██║░░░██║██╔══╝░░██║╚████║░░░██║░░░  ██╔══╝░░██║██║░░░░░░░░██║░░░██╔══╝░░██╔══██╗
+███████╗███████╗╚█████╔╝░╚═██╔═╝░╚██████╔╝███████╗██║░╚███║░░░██║░░░  ██║░░░░░██║███████╗░░░██║░░░███████╗██║░░██║
+╚══════╝╚══════╝░╚════╝░░░░╚═╝░░░░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░  ╚═╝░░░░░╚═╝╚══════╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
+    
+    Create A New Eloquent Custom Model Filter';
 
     /**
      * Class to create.
@@ -59,6 +71,9 @@ class MakeEloquentFilter extends Command
         $this->info(class_basename($this->getClassName()) . ' Created Successfully!');
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function compileStub()
     {
         if ($this->files->exists($path = $this->getPath())) {
@@ -78,6 +93,10 @@ class MakeEloquentFilter extends Command
         $this->files->put($path, $tmp);
     }
 
+    /**
+     * @param $stub
+     * @return string|string[]
+     */
     public function applyValuesToStub($stub)
     {
         $className = $this->getClassBasename($this->getClassName());
@@ -87,6 +106,10 @@ class MakeEloquentFilter extends Command
         return str_replace($search, $replace, $stub);
     }
 
+    /**
+     * @param $class
+     * @return string
+     */
     private function getClassBasename($class)
     {
         $class = is_object($class) ? get_class($class) : $class;
@@ -94,16 +117,25 @@ class MakeEloquentFilter extends Command
         return basename(str_replace('\\', '/', $class));
     }
 
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->laravel->path . DIRECTORY_SEPARATOR . $this->getFileName();
     }
 
+    /**
+     * @return string|string[]
+     */
     public function getFileName()
     {
         return str_replace([$this->getAppNamespace(), '\\'], ['', DIRECTORY_SEPARATOR], $this->getClassName() . '.php');
     }
 
+    /**
+     * @return string
+     */
     public function getAppNamespace()
     {
         return $this->laravel->getNamespace();
@@ -149,6 +181,10 @@ class MakeEloquentFilter extends Command
         return $this;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setClassName($name)
     {
         $this->class = $name;
@@ -156,6 +192,9 @@ class MakeEloquentFilter extends Command
         return $this;
     }
 
+    /**
+     * @return array|string
+     */
     public function getClassName()
     {
         return $this->class;

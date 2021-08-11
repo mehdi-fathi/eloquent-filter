@@ -4,12 +4,25 @@ namespace Tests\Tests;
 
 use Mockery as m;
 
+/**
+ * Class MakeEloquentFilterCommandTest
+ * @package Tests\Tests
+ */
 class MakeEloquentFilterCommandTest extends \TestCase
 {
+    /**
+     * @var m\LegacyMockInterface|m\MockInterface|Illuminate\Filesystem\Filesystem
+     */
     protected $filesystem;
 
+    /**
+     * @var m\LegacyMockInterface|m\MockInterface|eloquentFilter\Command\MakeEloquentFilter[argument]
+     */
     protected $command;
 
+    /**
+     *
+     */
     public function setUp(): void
     {
 
@@ -18,6 +31,9 @@ class MakeEloquentFilterCommandTest extends \TestCase
         $this->command = m::mock('eloquentFilter\Command\MakeEloquentFilter[argument]', [$this->filesystem]);
     }
 
+    /**
+     *
+     */
     public function tearDown(): void
     {
         m::close();
@@ -25,6 +41,8 @@ class MakeEloquentFilterCommandTest extends \TestCase
 
     /**
      * @dataProvider modelClassProvider
+     * @param $argument
+     * @param $class
      */
     public function testMakeClassName($argument, $class)
     {
@@ -33,16 +51,13 @@ class MakeEloquentFilterCommandTest extends \TestCase
         $this->assertEquals("App\\ModelFilters\\$class", $this->command->getClassName());
     }
 
+    /**
+     * @return array
+     */
     public function modelClassProvider()
     {
         return [
             ['User', 'UserFilter'],
-//            ['Admin\\User', 'Admin\\UserFilter'],
-//            ['UserFilter', 'UserFilter'],
-//            ['user-filter', 'UserFilter'],
-//            ['adminUser', 'AdminUserFilter'],
-//            ['admin-user', 'AdminUserFilter'],
-//            ['admin-user\\user-filter', 'AdminUser\\UserFilter'],
         ];
     }
 }
