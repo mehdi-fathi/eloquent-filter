@@ -5,8 +5,7 @@ namespace Tests\Tests;
 use Mockery as m;
 
 /**
- * Class MakeEloquentFilterCommandTest
- * @package Tests\Tests
+ * Class MakeEloquentFilterCommandTest.
  */
 class MakeEloquentFilterCommandTest extends \TestCase
 {
@@ -20,20 +19,13 @@ class MakeEloquentFilterCommandTest extends \TestCase
      */
     protected $command;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
-
         parent::setUp();
         $this->filesystem = m::mock(Illuminate\Filesystem\Filesystem::class);
         $this->command = m::mock('eloquentFilter\Command\MakeEloquentFilter[argument]', [$this->filesystem]);
     }
 
-    /**
-     *
-     */
     public function tearDown(): void
     {
         m::close();
@@ -41,6 +33,7 @@ class MakeEloquentFilterCommandTest extends \TestCase
 
     /**
      * @dataProvider modelClassProvider
+     *
      * @param $argument
      * @param $class
      */
