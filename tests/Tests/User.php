@@ -1,6 +1,5 @@
 <?php
 
-
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model;
 

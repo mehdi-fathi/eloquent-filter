@@ -7,8 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
 /**
- * Class MakeEloquentFilter
- * @package eloquentFilter\Command
+ * Class MakeEloquentFilter.
  */
 class MakeEloquentFilter extends Command
 {
@@ -68,7 +67,7 @@ class MakeEloquentFilter extends Command
     public function handle()
     {
         $this->makeClassName()->compileStub();
-        $this->info(class_basename($this->getClassName()) . ' Created Successfully!');
+        $this->info(class_basename($this->getClassName()).' Created Successfully!');
     }
 
     /**
@@ -77,12 +76,12 @@ class MakeEloquentFilter extends Command
     public function compileStub()
     {
         if ($this->files->exists($path = $this->getPath())) {
-            $this->error("\n\n\t" . $path . ' Already Exists!' . "\n");
+            $this->error("\n\n\t".$path.' Already Exists!'."\n");
             exit;
         }
         $this->makeDirectory($path);
 
-        $stubPath = __DIR__ . '/modelfilter.stub';
+        $stubPath = __DIR__.'/modelfilter.stub';
 
         if (!$this->files->exists($stubPath) || !is_readable($stubPath)) {
             $this->error(sprintf('File "%s" does not exist or is unreadable.', $stubPath));
@@ -95,19 +94,21 @@ class MakeEloquentFilter extends Command
 
     /**
      * @param $stub
+     *
      * @return string|string[]
      */
     public function applyValuesToStub($stub)
     {
         $className = $this->getClassBasename($this->getClassName());
         $search = ['{{class}}', '{{namespace}}'];
-        $replace = [$className, str_replace('\\' . $className, '', $this->getClassName())];
+        $replace = [$className, str_replace('\\'.$className, '', $this->getClassName())];
 
         return str_replace($search, $replace, $stub);
     }
 
     /**
      * @param $class
+     *
      * @return string
      */
     private function getClassBasename($class)
@@ -122,7 +123,7 @@ class MakeEloquentFilter extends Command
      */
     public function getPath()
     {
-        return $this->laravel->path . DIRECTORY_SEPARATOR . $this->getFileName();
+        return $this->laravel->path.DIRECTORY_SEPARATOR.$this->getFileName();
     }
 
     /**
@@ -130,7 +131,7 @@ class MakeEloquentFilter extends Command
      */
     public function getFileName()
     {
-        return str_replace([$this->getAppNamespace(), '\\'], ['', DIRECTORY_SEPARATOR], $this->getClassName() . '.php');
+        return str_replace([$this->getAppNamespace(), '\\'], ['', DIRECTORY_SEPARATOR], $this->getClassName().'.php');
     }
 
     /**
@@ -145,6 +146,7 @@ class MakeEloquentFilter extends Command
      * Build the directory for the class if necessary.
      *
      * @param string $path
+     *
      * @return string
      */
     protected function makeDirectory($path)
@@ -163,9 +165,9 @@ class MakeEloquentFilter extends Command
     {
         $parts = array_map([Str::class, 'studly'], explode('\\', $this->argument('name')));
         $className = array_pop($parts);
-        $ns = count($parts) > 0 ? implode('\\', $parts) . '\\' : '';
+        $ns = count($parts) > 0 ? implode('\\', $parts).'\\' : '';
 
-        $fqClass = config('eloquentFilter.namespace', 'App\\ModelFilters\\') . $ns . $className;
+        $fqClass = config('eloquentFilter.namespace', 'App\\ModelFilters\\').$ns.$className;
 
         if (substr($fqClass, -6, 6) !== 'Filter') {
             $fqClass .= 'Filter';
@@ -183,6 +185,7 @@ class MakeEloquentFilter extends Command
 
     /**
      * @param $name
+     *
      * @return $this
      */
     public function setClassName($name)
