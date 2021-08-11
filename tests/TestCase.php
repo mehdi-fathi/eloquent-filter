@@ -27,7 +27,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
 
-        $this->config = require '/Users/mehdi/Sites/eloquent-filter/src/config/config.php';
+        $this->config = require __DIR__.'/../src/config/config.php';
 
         $this->app->singleton(
             'eloquentFilter',
