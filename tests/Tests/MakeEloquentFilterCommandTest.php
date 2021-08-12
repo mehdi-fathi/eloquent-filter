@@ -2,6 +2,7 @@
 
 namespace Tests\Tests;
 
+use Illuminate\Filesystem\Filesystem;
 use Mockery as m;
 
 /**
@@ -22,7 +23,7 @@ class MakeEloquentFilterCommandTest extends \TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->filesystem = m::mock(Illuminate\Filesystem\Filesystem::class);
+        $this->filesystem = m::mock(Filesystem::class);
         $this->command = m::mock('eloquentFilter\Command\MakeEloquentFilter[argument]', [$this->filesystem]);
     }
 
