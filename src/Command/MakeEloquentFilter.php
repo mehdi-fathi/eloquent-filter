@@ -62,8 +62,9 @@ class MakeEloquentFilter extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return mixed
      */
     public function handle()
     {
