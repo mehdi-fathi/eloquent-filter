@@ -59,6 +59,6 @@ class ServiceProvider extends BaseServiceProvider
             }
         );
 
-        $this->commands(MakeEloquentFilter::class);
+        $this->commands([MakeEloquentFilter::class]);
     }
 }
