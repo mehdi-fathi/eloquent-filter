@@ -2,8 +2,19 @@
 
 namespace {{namespace}};
 
-use EloquentFilter\ModelFilterCustom;
+use Illuminate\Database\Eloquent\Builder;
 
-class {{class}} extends ModelFilterCustom
+trait {{class}}
 {
+    /**
+     * This is a sample custom query
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param                                       $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sample_like(Builder $builder, $value)
+    {
+        return $builder->where('your_field', 'like', '%'.$value.'%');
+    }
 }
