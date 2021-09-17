@@ -432,23 +432,30 @@ Override method can be considered custom query filter.
 
 ### Custom Query Filter
 The Eloquent Filter doesn't support all of the conditions by default. For this situation you can make a override method.
-If you are going to make yourself query filter you can do it easily. You just make a trait and use it on model:
+If you are going to make yourself query filter you can do it easily.
+
+You should run the command to make a trait and use it on model as easily:
+
+    php artisan eloquentFilter:filter users
 
 ```php
+namespace App\ModelFilters;
+
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Trait usersFilter.
+ * Trait UsersFilter.
  */
-trait usersFilter
+trait UsersFilter
 {
     /**
+     * This is a sample custom query
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param                                       $value
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function username_like(Builder $builder, $value)
+    public function sample_like(Builder $builder, $value)
     {
         return $builder->where('username', 'like', '%'.$value.'%');
     }
@@ -458,15 +465,18 @@ trait usersFilter
 -**Note** that fields of query string be same methods of trait. Use trait in your model:
 
 ```
-/users/list?username_like=a
+/users/list?sample_like=a
 
 select * from `users` where `username` like %a% order by `id` desc limit 10 offset 0
 ```
 
 ```php
+
+use App\ModelFilters\UsersFilter;
+
 class User extends Model
 {
-    use usersFilter,Filterable;
+    use UsersFilter,Filterable;
 
     protected $table = 'users';
     protected $guarded = [];
@@ -482,28 +492,6 @@ class User extends Model
 ```
 -**Note** that fields of query string be same methods of trait. Use trait in your model:
 
-```
-/users/list?username_like=a
-select * from `users` where `username` like %a% order by `id` desc limit 10 offset 0
-```
-
-```php
-class User extends Model
-{
-    use usersFilter,Filterable;
-
-    protected $table = 'users';
-    protected $guarded = [];
-    private static $whiteListFilter =[
-        'id',
-        'username',
-        'email',
-        'created_at',
-        'updated_at',
-    ];
-    
-}
-```
 ### Custom Detection Condition
 
 Sometimes you want to make your own custom condition for make new query that eloquent filter doesn't support it by default. Good news you can make
