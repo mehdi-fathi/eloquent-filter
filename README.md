@@ -80,9 +80,9 @@ class UserController extends Controller
     }
 }
 ```
-This solution is simple and would work fine.
+This solution is simple ,but that works fine.
 But you'd have to add a condition for each filter you need. 
-Especially with more complex filtering your code can become a Monster very fast! :boom: 
+Especially with more complex filtering, your code can become a Monster very fast! :boom: 
 
 
 ### A simple implementation with Eloquent Filter
@@ -113,7 +113,7 @@ class UsersController
     }
 }
 ```
-With this Eloquent filter implementation you can use all the documented filters!
+With this Eloquent filter implementation, you can use all the documented filters!
 
 ## :electric_plug: Installation
 
@@ -150,7 +150,8 @@ That's it enjoy! :boom:
 
 ### Config Model and set whitelist
 
-Add Filterable trait to your models and set fields that you will want filter in whitelist. You can override this method in your models.
+Add The Filterable trait to your models and set fields that you will want to filter in the whitelist array. 
+as well You can override this method in your models.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -168,7 +169,7 @@ class User extends Model
     ];
 }
 ```
-You can set `*` char for filter in all fields as like below example:
+You can set `*` char for that filter in all fields aslike below example:
  
 ```php
 private static $whiteListFilter = ['*'];
@@ -177,7 +178,7 @@ You can add or set `$whiteListFilter` on the fly in your method.For example:
 
 ***Set array to WhiteListFilter***
 
-- **Note** that this method override `$whiteListFilter`
+- **Note** This method override `$whiteListFilter` array
 ```php
 User::setWhiteListFilter(['name']); 
 ```
@@ -188,7 +189,7 @@ User::addWhiteListFilter('name');
 
 ### Use in Controller
 
-Change your code on controller of laravel as like below example:
+Change your code the controller of the laravel project as like below example:
 
 ```php
 
@@ -215,12 +216,12 @@ class UsersController
     }
 }
 ```
--**Note**  that the Eloquent Filter by default using the query string to make queries in the laravel.
- Also, you can set the array to `filter` method Model for making your own custom condition without query string.
+-**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
+ Although, you can set the array to the `filter` method Model for making your own custom condition without query string.
 
--**Note**  that you must unset your own param as perpage. Just you can set page param for paginate this param ignore from filter.
+-**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
 
-- You can ignore some request params by use of code it.
+- You can ignore some of the request params by use of the bellow code.
 
 ```php
 
@@ -229,11 +230,11 @@ User::ignoreRequest(['perpage'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `ignoreRequest` will ignore some requests that you don't want to use in conditions eloquent filter. 
-For example perpage param will never be in the conditions eloquent filter. 
-it's related to the paginate method. `page` param ignore by default in the Eloquent Filter Laravel.
+Call `ignoreRequest` that will ignore some requests that you don't want to use in conditions eloquent filter. 
+For example, the perpage param will never be in the conditions eloquent filter. 
+it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
 
-- You can filter some request params for using in eloquent filter.
+- You can filter some of the request params for using in Eloquent Filter.
 
 ```php
 
@@ -242,9 +243,9 @@ User::AcceptRequest(['username','id'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `AcceptRequest` will accept requests that you want to use in conditions eloquent filter. 
+Call `AcceptRequest` will accept requests which you want to use in conditions Eloquent Filter. 
 For example `username` and `id` param will be in the conditions eloquent filter. Just notice you must set `$whiteListFilter`
-in Model. This method is useful for query string manipulation by user.
+in Model. This method is useful for query string manipulation by a user.
 
 
 - Another example use of a filter eloquent filter.
@@ -260,7 +261,7 @@ For example `EloquentFilter::filterRequests('username')` it's getting username i
 
 ### Simple Examples
 
-You just pass data blade form to query string or generate query string in controller method. For example:
+You just pass data blade form to query string or generate query string in the Controller method. For example:
 
 **Simple Where**
 ```
@@ -297,7 +298,7 @@ SELECT ... WHERE ... name = 'mehdi' AND username = 'fathi' or username = 'ali'
 
 ***Where like***
 
-If you are going to make query by like conditions. You can do it that by this example.
+If you are going to make a query by like conditions. You can do that by this example.
 
 ```
 /users/list?first_name[like]=%John%
@@ -308,7 +309,7 @@ SELECT ... WHERE ... first_name LIKE '%John%'
 
 ***Where by operator***
 
-You can set any operator mysql in query string.
+You can set any operator mysql in the queries string.
 
 ```
 /users/list?count_posts[operator]=>&count_posts[value]=35
@@ -329,8 +330,8 @@ SELECT ... WHERE ... count_posts < 25
 **Where the nested relation Model (New feature :fire:)**
 
 
-You can set all nested relation in the query string just by the array query string. For example, the user model has a relation with posts.
-and posts table has a relation with orders. You can make query conditions by set 'posts[count_post]' and 'posts[orders][name]' in the query string.
+You can set all nested relation in the query string just by the array of query string. For example, The user model has a relation with posts.
+And posts table has a relation with orders table. You can make query conditions by set 'posts[count_post]' and 'posts[orders][name]' in the query string.
 Just be careful you must set 'posts.count_post' and 'posts.orders.name' in the User model.
 
 ```php
@@ -366,7 +367,7 @@ select * from "users" where exists
          and "posts"."count_post" = 876)
          and "username" = "mehdi"
 ```
-- The above example as the same code that you use without the eloquent filter. Check it under code.
+- The above example is the same code that you use without the eloquent filter. Check it under code.
 
 ```php
 $user = new User();
@@ -392,7 +393,7 @@ select * from "users" where exists
 
 ****Special Params****
 
-You can set special params `limit` and `orderBy` in query string for make query by that.
+You can set special params `limit` and `orderBy` in the query string to make a query by that.
 ```
 /users/list?f_params[limit]=1
 
@@ -410,8 +411,8 @@ SELECT ... WHERE ...  order by `id` asc, `count_posts` asc
 ```
 ***Where between***
 
-If you are going to make query whereBetween.You must fill keys `start` and `end` in query string.
-you can set it on query string as you know. this params is good fit for filter by date.
+If you are going to make a query based on date, You must fill keys, `start`, and `end` in the query string.
+Hence You can set it as a query string. These params are used for the filter by date.
 
 ```
 /users/list?created_at[start]=2016/05/01&created_at[end]=2017/10/01
@@ -428,14 +429,15 @@ select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi'
 `family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' asc limit 10 offset 0
 ```
 
-Just fields of query string be same rows table database in `$whiteListFilter` in your model or declare method in your model as override method.
-Override method can be considered custom query filter.
+Therefore fields of query string are same rows table database in `$whiteListFilter` in your model or declare the method in your model as override method.
+The overridden method can be considered a custom query filter.
 
 ### Custom Query Filter
-The Eloquent Filter doesn't support all of the conditions by default. For this situation you can make a override method.
-If you are going to make yourself query filter you can do it easily.
 
-You should run the command to make a trait and use it on model as easily:
+Eloquent Filter doesn't support all of the conditions by default. For this situation, you can make an overridden method.
+If you are going to make yourself a query filter, you can do it easily.
+
+You should run the command to make a trait and use it on the model:
 
     php artisan eloquentFilter:filter users
 
@@ -463,7 +465,7 @@ trait UsersFilter
 }
 ```
 
--**Note** that fields of query string be same methods of trait. Use trait in your model:
+-**Note** These fields of query string are the same methods of the trait. Use trait in your model:
 
 ```
 /users/list?sample_like=a
@@ -491,16 +493,19 @@ class User extends Model
     
 }
 ```
--**Note** that fields of query string be same methods of trait. Use trait in your model:
 
 ### Custom Detection Condition
 
-Sometimes you want to make your own custom condition for make new query that eloquent filter doesn't support it by default. Good news you can make
-custom condition in the eloquent filter from now on. In fact you can make condition for the generate new query after check by that (New feature :fire: ). For example :
 
-We must make two class first class to detect conditions another class to generate query.
+Sometimes you want to make your custom condition to make a new query that Eloquent Filter doesn't support that by default.
+The good news is you can make a custom condition in the eloquent filter from now on.
+
+You can make conditions to generate a new query after checking by that.
+ (New feature :fire: ). For example :
+
+We must have two classes. The First detects conditions second class generates the query.
  
-- Step 1: Create a class to detect the condition
+- Step 1: Create a class to detect some of the conditions
 
 ```php
 
@@ -529,7 +534,7 @@ class WhereRelationLikeCondition implements DetectorContract
 }
 ```
 
-- Step 2: After that create a class to generate query. In this example we make `WhereRelationLikeConditionQuery` class:
+- Step 2: After that create a class to generate a query. In this example we make `WhereRelationLikeConditionQuery` class:
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -557,7 +562,7 @@ class WhereRelationLikeConditionQuery extends BaseClause
     }
 }
 ```
-- Step 3: You just make the method `EloquentFilterCustomDetection` for return array detections of the condition in the model.
+- Step 3: You make the method `EloquentFilterCustomDetection` for return array detections of the condition in the model.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
