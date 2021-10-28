@@ -596,7 +596,7 @@ class User extends Model
 }
 ``` 
 
-- Every query params are going to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
+- Each of the query params is used to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
 
 Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
 
@@ -610,7 +610,7 @@ and "comment" like ?) and "username" <> ? and "email" like ? and "count_posts" =
 ```
 You just run code ` User::filter();` for see result.
 
--**Note** Also you can set custom detection on the fly by use of method `SetCustomDetection`. For example :
+-**Note** Also you can set custom detection on the fly by use of the method `SetCustomDetection`. For example :
 
 ```php
 $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
@@ -622,7 +622,7 @@ $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter()
  User::SetLoadDefaultDetection(false)->filter();
 ```
 
--**Note** You can set many detection conditions for example:
+-**Note** You can set many detection conditions. for example:
 
 ```php
 
@@ -640,13 +640,13 @@ class User extends Model
 }
 ```
 
-- `EloquentFilter::getInjectedDetections()` get all your custom injected detection.
+- `EloquentFilter::getInjectedDetections()` gets all of your customs injected detection.
 
--**Note** Every custom detection will run before detection by default eloquent filter.
+-**Note** Every custom detection will run before any detections by default eloquent filter.
 
 ## Configuring
 
-You can generate a config file to configure Eloquent Filter. Has amazing features for your project.
+You can generate a config file to configure Eloquent Filter.
 
 ### Publish Config
 
@@ -654,15 +654,15 @@ You can generate a config file to configure Eloquent Filter. Has amazing feature
 
 ### Config
 
-- You can disable/enable Eloquent Filter in config file (eloquentFilter.php).
+- You can disable/enable Eloquent Filter in the config file (eloquentFilter.php).
 
 
         'enabled' => env('EloquentFilter_ENABLED', true),
     
-- Eloquent Filter recognizes every param of query string to pass it. 
-Maybe you have a query string that you don't want recognize by Eloquent Filter. You can using of `ignoreRequest` for his purpose.
-But we have clean solution to this problem. You can set param request_filter_key in the config file.
-Therefore every query string will recognize by request_filter_key param.
+- Eloquent Filter recognizes every param of the queries string. 
+  Maybe you have a query string that you don't want to recognize by Eloquent Filter. You can use `ignoreRequest` for his purpose.
+  But we have a clean solution to this problem. You can set param `request_filter_key` in the config file.
+  Therefore every query string will recognize by the `request_filter_key` param.
 
     
         'request_filter_key' => '', // filter
@@ -673,12 +673,12 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 /users/list?filter[email]=mehdifathi.developer@gmail.com`
 
 
-- You can disable/enable custom detection of Eloquent Filter in the config file (eloquentFilter.php).
+- You can disable/enable all of the custom detection of Eloquent Filter in the config file (eloquentFilter.php).
 
    
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
 
-- You should set index array in ignore_request to ignore by in all filters.
+- You should set the index array in `ignore_request` to ignore by in all filters.
 
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
@@ -686,14 +686,14 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
 ## Magic Methods
 
-Magic methods are a collection of methods that you can use of them as wrapper in the Eloquent Filter.
-For example, serialize data before filter or change data in response and others.
+Magic methods are a collection of methods that you can use as a wrapper in the Eloquent Filter.
+For example, serialize data before filtering or changing data in response and others.
 Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter`.
 
 ### Request Filter
 
 Eloquent Filter has a magic method for just change requests injected before handling by eloquent filter. This method is 
-SerializeRequestFilter. You just implement SerializeRequestFilter method in your Model. For example
+SerializeRequestFilter. You just implement `SerializeRequestFilter` method in your Model. For example
 
 
 ```php
@@ -709,14 +709,13 @@ class User extends Model
 }
 ```
 
-As above code you can modify every query params of the Model in the method `serializeRequestFilter` before run by Eloquent Filter. 
-This is a good method when you want set user_id or convert date or remove space and others.
+As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by Eloquent Filter. 
+That is a practical method when you want to set user_id or convert date or remove space and others.
 
 ### Response Filter
 
-Response Filter is a magic method for just change response after handling by Eloquent Filter. This method is 
-`ResponseFilter`. You should implement ResponseFilter method in your Model. For example
-
+Response Filter is a magic method for just changing response after handling by Eloquent Filter. The method called 
+`ResponseFilter` You should implement the method `ResponseFilter` in your Model. For example
 
 ```php
 
@@ -731,5 +730,4 @@ class User extends Model
 }
 ```
 
-- If you have any idea about the Eloquent Filter i will glad to hear that.
-You can make an issue or contact me by email. My email is mehdifathi.developer@gmail.com.
+- If you have any idea about the Eloquent Filter, I will be glad to hear that.
