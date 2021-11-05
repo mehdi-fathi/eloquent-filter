@@ -650,7 +650,7 @@ You can generate a config file to configure Eloquent Filter.
 
 ### Publish Config
 
-    php artisan vendor:publish --provider="eloquentFilter\QueryFilter\ServiceProvider"
+    php artisan vendor:publish --provider="eloquentFilter\ServiceProvider"
 
 ### Config
 
