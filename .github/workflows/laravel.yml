@@ -49,7 +49,7 @@ jobs:
           - laravel: 9.*
             php: 7.3
           - laravel: 9.*
-             php: 7.4
+            php: 7.4
           - laravel: 8.*
             dependency-version: prefer-lowest
           - laravel: 7.*
