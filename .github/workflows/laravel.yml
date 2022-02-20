@@ -18,6 +18,7 @@ jobs:
         include:
           - laravel: 9.*
             testbench: 7.*
+            database: 7.x-dev
           - laravel: 8.*
             testbench: 6.*
             database: 6.x-dev
