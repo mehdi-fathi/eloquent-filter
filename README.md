@@ -35,7 +35,7 @@ It's easy to use and fully dynamic.
 
 ## Requirements
 - PHP 7.2+, 8.0 (new version)
-- Laravel 5.8+,6.x,7.x,8(prefer-stable)
+- Laravel 5.8+,6.x,7.x,8(prefer-stable),9.x
 
 ## :microphone: Introduction
 
