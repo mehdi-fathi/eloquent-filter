@@ -11,11 +11,14 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.0,7.4, 7.3, 7.2]
-        laravel: [8.*,7.*,6.*, 5.8.*]
+        php: [8.0, 7.4 , 7.3, 7.2]
+        laravel: [9.*, 8.* , 7.* , 6.* , 5.8.*]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
         include:
+          - laravel: 9.*
+            testbench: 7.*
+            database: 7.0.x-dev
           - laravel: 8.*
             testbench: 6.*
             database: 6.x-dev
@@ -41,6 +44,12 @@ jobs:
             php: 7.2
           - laravel: 8.*
             php: 7.2
+          - laravel: 9.*
+            php: 7.2
+          - laravel: 9.*
+            php: 7.3
+          - laravel: 9.*
+            php: 7.4
           - laravel: 8.*
             dependency-version: prefer-lowest
           - laravel: 7.*
@@ -64,7 +73,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "orchestra/database:${{ matrix.database }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
