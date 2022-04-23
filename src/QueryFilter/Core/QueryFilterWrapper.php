@@ -37,6 +37,8 @@ class QueryFilterWrapper extends QueryFilter
 
         $this->__handelSerializeRequestFilter();
 
+        $this->__makeAliasRequestFilter();
+
         $this->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
 
         if (!empty($detect_injected)) {

@@ -97,6 +97,14 @@ trait Filterable
     }
 
     /**
+     * @return mixed
+     */
+    public function getAliasListFilter(): ?array
+    {
+        return $this->aliasListFilter;
+    }
+
+    /**
      * @param $value
      *
      * @return mixed
