@@ -146,8 +146,8 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => 'mehdi',
-            'family' => null,
-            'email' => null,
+            'family'   => null,
+            'email'    => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -178,11 +178,11 @@ class ModelFilterMockTest extends \TestCase
             ->where('username', 'mehdi');
 
         $this->request->shouldReceive('query')->andReturn([
-            'username' => 'mehdi',
-            'family' => null,
+            'username'   => 'mehdi',
+            'family'     => null,
             'created_at' => [
                 'start' => null,
-                'end' => null,
+                'end'   => null,
             ],
         ]);
 
@@ -205,7 +205,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi', 'ali'],
-            'family' => null,
+            'family'   => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -225,7 +225,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -246,7 +246,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -267,7 +267,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 0,
+                'value'    => 0,
             ],
         ]);
 
@@ -294,7 +294,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -332,7 +332,7 @@ class ModelFilterMockTest extends \TestCase
             'f_params' => [
                 'orderBy' => [
                     'field' => 'id,count_posts',
-                    'type' => 'ASC',
+                    'type'  => 'ASC',
                 ],
             ],
         ]);
@@ -367,7 +367,7 @@ class ModelFilterMockTest extends \TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type' => 'ASC',
+                        'type'  => 'ASC',
                     ],
                 ],
             ]);
@@ -527,9 +527,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
@@ -551,7 +551,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
             ]
         );
@@ -584,9 +584,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'is_payment' => true,
+                'is_payment'   => true,
             ]
         );
 
@@ -616,9 +616,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -651,9 +651,9 @@ class ModelFilterMockTest extends \TestCase
             ->orWhere('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn([
-            'baz' => 'boo',
+            'baz'         => 'boo',
             'count_posts' => 22,
-            'or' => [
+            'or'          => [
                 'baz' => 'joo',
             ],
         ]);
@@ -692,7 +692,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi22', 'ali22'],
-            'name' => 'mehdi',
+            'name'     => 'mehdi',
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -711,7 +711,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -787,12 +787,12 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end' => '2019-02-06 10:11:46',
+                'end'   => '2019-02-06 10:11:46',
             ],
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'       => 'mehdifathi.developer@gmail.com',
             'count_posts' => [
                 'operator' => '>',
-                'value' => 35,
+                'value'    => 35,
             ],
         ]);
 
@@ -818,7 +818,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'start' => 0,
-                'end' => 200,
+                'end'   => 200,
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ]);
@@ -862,9 +862,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -891,9 +891,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -916,10 +916,10 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 10,
-            'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
+            'baz'         => [
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
         ]);
@@ -939,9 +939,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz' => 'joo',
+                'baz'          => 'joo',
                 'google_index' => true,
-                'gmail_api' => 'dfsmfjkvx#$cew45',
+                'gmail_api'    => 'dfsmfjkvx#$cew45',
             ]
         );
 
@@ -963,8 +963,8 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn(
             [
                 'google_index' => 'joo',
-                'gmail_api' => 'joo',
-                'baz' => 'joo',
+                'gmail_api'    => 'joo',
+                'baz'          => 'joo',
             ]
         );
 
@@ -1008,7 +1008,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'new_username' => ['__mehdi__', '__ali__'],
-            'family' => null,
+            'family'       => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
@@ -1026,7 +1026,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi', 'ali'],
-            'family' => null,
+            'family'   => null,
         ]);
 
         $users = EloquentBuilderTestModelCloseRelatedStubTwo::filter($this->request->query());
@@ -1116,9 +1116,9 @@ class ModelFilterMockTest extends \TestCase
             ->where('email', 'mehdifathi.developer@gmail.com');
 
         $this->request->shouldReceive('query')->andReturn([
-            'email' => 'mehdifathi.developer@gmail.com',
+            'email'      => 'mehdifathi.developer@gmail.com',
             'show_query' => true,
-            'new_trend' => '2021',
+            'new_trend'  => '2021',
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
@@ -1138,10 +1138,10 @@ class ModelFilterMockTest extends \TestCase
             ->where('email', 'mehdifathi.developer@gmail.com');
 
         $this->request->shouldReceive('query')->andReturn([
-            'email' => 'mehdifathi.developer@gmail.com',
-            'id' => 99,
+            'email'      => 'mehdifathi.developer@gmail.com',
+            'id'         => 99,
             'show_query' => true,
-            'new_trend' => '2021',
+            'new_trend'  => '2021',
         ]);
 
         $users = EloquentBuilderTestModelNewStrategyStub::ignoreRequest(['id'])->filter($this->request->query());
@@ -1188,9 +1188,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value' => 'boo',
-                'limit' => 10,
-                'email' => 'mehdifathi',
+                'value'               => 'boo',
+                'limit'               => 10,
+                'email'               => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -1345,7 +1345,8 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
     }
 
     /**
-     * This is a sample custom query
+     * This is a sample custom query.
+     *
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param                                       $value
      *
@@ -1353,7 +1354,7 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
      */
     public function sample_like(Builder $builder, $value)
     {
-        return $builder->where('username', 'like', '%' . $value . '%');
+        return $builder->where('username', 'like', '%'.$value.'%');
     }
 }
 
