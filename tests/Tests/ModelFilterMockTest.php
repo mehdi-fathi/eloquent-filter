@@ -1203,6 +1203,22 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNull(EloquentFilter::getInjectedDetections());
     }
 
+    public function testCustomFilter()
+    {
+        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+
+        $builder = $builder->query()->where('username', 'like', '%mehdi%');
+
+        $this->request->shouldReceive('query')->andReturn([
+            'sample_like' => 'mehdi',
+        ]);
+
+        $users = EloquentBuilderTestModelCloseRelatedStub::filter();
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['%mehdi%'], $users->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();
@@ -1327,6 +1343,18 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
 
         return $request;
     }
+
+    /**
+     * This is a sample custom query
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param                                       $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sample_like(Builder $builder, $value)
+    {
+        return $builder->where('username', 'like', '%' . $value . '%');
+    }
 }
 
 class EloquentBuilderTestModelCloseRelatedStubTwo extends Model
@@ -1397,7 +1425,4 @@ class EloquentBuilderTestStubWithoutTimestamp extends Model
     protected $table = 'table';
 }
 
-//todo enable/disable package in config file
-// update readme file for set request_filter_key,enabled
-// enable/disable custom detection
-// update readme
+//todo We need improve all test. run composer test for see that

@@ -20,11 +20,9 @@ trait IoTrait
 
     private function __handelSerializeRequestFilter()
     {
-        if (method_exists($this->builder->getModel(), 'serializeRequestFilter')) {
-            if (!empty($this->getRequest())) {
-                $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
-                $this->setRequest($serializeRequestFilter);
-            }
+        if (method_exists($this->builder->getModel(), 'serializeRequestFilter') && !empty($this->getRequest())) {
+            $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
+            $this->setRequest($serializeRequestFilter);
         }
     }
 
