@@ -4,6 +4,8 @@
 //todo make blacklist array for disable some method for custom query
 //todo make comment
 
+//todo add callback
+
 namespace Tests\Tests;
 
 use eloquentFilter\Facade\EloquentFilter;
@@ -83,7 +85,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhere()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()
             ->where('name', 'mehdi');
@@ -92,7 +94,7 @@ class ModelFilterMockTest extends \TestCase
             'name' => 'mehdi',
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -101,7 +103,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereAlias()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()
             ->where('name', 'mehdi')
@@ -112,7 +114,7 @@ class ModelFilterMockTest extends \TestCase
             'code' => 1234,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -121,7 +123,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereZero()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()
             ->where('count_posts', 0);
@@ -130,7 +132,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 0,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -139,7 +141,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereSomeParamNull()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()
             ->where('username', 'mehdi');
@@ -150,7 +152,7 @@ class ModelFilterMockTest extends \TestCase
             'email' => null,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -159,20 +161,20 @@ class ModelFilterMockTest extends \TestCase
 
     public function testRequestNull()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query();
 
         $this->request->shouldReceive('query')->andReturn([]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
 
     public function testWhereSomeParamNull2()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()
             ->where('username', 'mehdi');
@@ -186,7 +188,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -198,7 +200,7 @@ class ModelFilterMockTest extends \TestCase
     //todo make serilize request
     public function testWhereIn()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->newQuery()
             ->wherein('username', ['mehdi', 'ali']);
@@ -208,7 +210,7 @@ class ModelFilterMockTest extends \TestCase
             'family' => null,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -217,7 +219,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereByOpt()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->newQuery()
             ->where('count_posts', '>', 35);
@@ -229,7 +231,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -238,7 +240,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereByOptWithTrashed()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->newQuery()->withTrashed()
             ->where('count_posts', '>', 35);
@@ -250,7 +252,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::withTrashed()->ignoreRequest(['id'])->filter($this->request->query());
+        $users = Category::withTrashed()->ignoreRequest(['id'])->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -259,7 +261,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereByOptZero()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->newQuery()
             ->where('count_posts', '>', 0);
@@ -271,7 +273,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -281,7 +283,7 @@ class ModelFilterMockTest extends \TestCase
 //
     public function testWhereBetween()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereBetween(
             'created_at',
@@ -298,7 +300,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $builder->getBindings());
@@ -314,7 +316,7 @@ class ModelFilterMockTest extends \TestCase
                 ],
             ]);
 
-            EloquentBuilderTestModelParentStub::filter($this->request->query());
+            Tag::filter($this->request->query());
         } catch (EloquentFilterException $e) {
             $this->assertEquals(1, $e->getCode());
         }
@@ -322,7 +324,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testFParamOrder()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->newQuery()
             ->orderBy('id')
@@ -337,14 +339,14 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
 
     public function testFParamLimit()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->newQuery()
             ->limit(5);
@@ -355,7 +357,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
@@ -372,7 +374,7 @@ class ModelFilterMockTest extends \TestCase
                 ],
             ]);
 
-            EloquentBuilderTestModelParentStub::filter($this->request->query());
+            Tag::filter($this->request->query());
         } catch (EloquentFilterException $e) {
             $this->assertEquals(2, $e->getCode());
         }
@@ -382,14 +384,14 @@ class ModelFilterMockTest extends \TestCase
     {
         $userModel2 = m::mock(User::class);
         $userModel2->shouldReceive('getWhiteListFilter')->andReturn([
-            'id',
-            'username',
-            'family',
-            'email',
+            'baz',
+            'too',
             'count_posts',
+            'foo.bam',
+            'foo.created_at',
+            'foo.baz.bam',
             'created_at',
-            'updated_at',
-            'orders.name',
+            'email',
             'name',
         ]);
 
@@ -401,7 +403,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasRelationOneNestedModel()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereHas('foo', function ($q) {
             $q->where('bam', 'qux');
@@ -414,7 +416,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
@@ -424,7 +426,7 @@ class ModelFilterMockTest extends \TestCase
     public function testWhereHasRelationTwoNested()
     {
         /// change request query string . to []
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
@@ -439,7 +441,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
@@ -448,7 +450,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasRelationThereNested()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->where('bam', 'qux');
@@ -466,7 +468,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'boom', 'joo'], $builder->getBindings());
@@ -475,7 +477,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereInSql()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereIn('baz', ['boom', 'joe', null]);
 
@@ -485,7 +487,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['boom', 'joe', null], $builder->getBindings());
@@ -498,9 +500,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(null);
 
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertEquals($users->toSql(), $builder->toSql());
     }
@@ -512,16 +514,16 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
         ]);
 
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertEquals($users->toSql(), $builder->toSql());
     }
 
     public function testWhereIgnoreParam()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('baz', 'joo');
 
@@ -533,7 +535,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+        $users = Tag::ignoreRequest([
             'google_index',
             'is_payment',
         ])->filter($this->request->query());
@@ -545,7 +547,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereIgnoreParamThatNotExistRequest()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('baz', 'joo');
 
@@ -556,7 +558,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+        $users = Tag::ignoreRequest([
             'google_index',
             'is_payment_paypal',
         ])->filter($this->request->query());
@@ -578,7 +580,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testIgnoreRequest()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('baz', 'joo');
 
@@ -590,7 +592,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::ignoreRequest([
+        $users = Tag::ignoreRequest([
             'google_index',
             'is_payment',
         ])->filter($this->request->query());
@@ -603,7 +605,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testGetInjectedDetections()
     {
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->whereHas('foo', function ($q) {
@@ -624,7 +626,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 10,
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
         $this->assertEquals([WhereRelationLikeCondition::class], EloquentFilter::getInjectedDetections());
     }
@@ -643,7 +645,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereOr1()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->query()
             ->where('baz', 'boo')
@@ -658,7 +660,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $users_to_sql = str_replace('(', '', $users->toSql());
         $users_to_sql = str_replace(')', '', $users_to_sql);
@@ -668,7 +670,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereByOpt1()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('count_posts', 345);
 
@@ -676,7 +678,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 345,
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals([345], $builder->getBindings());
@@ -685,7 +687,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereIn2()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()->whereIn('username', ['mehdi22', 'ali22'])
             ->where('name', 'mehdi');
@@ -695,7 +697,7 @@ class ModelFilterMockTest extends \TestCase
             'name' => 'mehdi',
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -704,7 +706,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereByOpt2()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->query()->where('count_posts', '>', 35);
 
@@ -715,7 +717,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -724,7 +726,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasWhereInRelationOneNestedModel()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereHas('foo', function ($q) {
             $q->whereIn('bam', ['qux', 'mehdi']);
@@ -737,7 +739,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'mehdi', 'joo'], $builder->getBindings());
@@ -746,7 +748,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasInRelationThereNested()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
             $q->whereIn('bam', ['qux', 'mehdi']);
@@ -764,7 +766,7 @@ class ModelFilterMockTest extends \TestCase
             'baz' => 'joo',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'mehdi', 'boom', 'noon', 'joo'], $builder->getBindings());
@@ -773,7 +775,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetweenWithEmailCountPosts()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereBetween(
             'created_at',
@@ -796,7 +798,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $builder->getBindings());
@@ -805,7 +807,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetweenWithZero()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->whereBetween(
             'count_posts',
@@ -823,7 +825,7 @@ class ModelFilterMockTest extends \TestCase
             'email' => 'mehdifathi.developer@gmail.com',
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals([0, 200, 'mehdifathi.developer@gmail.com'], $builder->getBindings());
@@ -832,7 +834,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereLike1()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->query()->where('email', 'like', '%meh%');
         $this->request->shouldReceive('query')->andReturn([
@@ -841,7 +843,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelParentStub::filter($this->request->query());
+        $users = Tag::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertSame(['%meh%'], $builder->getBindings());
@@ -849,7 +851,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testSetDetection()
     {
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->whereHas('foo', function ($q) {
@@ -870,7 +872,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 10,
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
@@ -878,7 +880,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testEloquentFilterCustomDetection()
     {
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->whereHas('foo', function ($q) {
@@ -899,7 +901,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 10,
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter();
+        $users = User::filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
@@ -908,7 +910,7 @@ class ModelFilterMockTest extends \TestCase
     //todo we can make a feature for override custom detection over default detection
     public function testSetDetection1()
     {
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('count_posts', '=', 10)
@@ -926,14 +928,14 @@ class ModelFilterMockTest extends \TestCase
 
         //todo this method disable load detection default
 
-        $users = EloquentBuilderTestModelNewStrategyStub::SetLoadDefaultDetection(false)->filter();
+        $users = User::SetLoadDefaultDetection(false)->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
 
     public function testAcceptRequest()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('baz', 'joo');
 
@@ -945,7 +947,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::AcceptRequest([
+        $users = Tag::AcceptRequest([
             'baz',
         ])->filter($this->request->query());
 
@@ -958,7 +960,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testAcceptRequest2()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $this->request->shouldReceive('query')->andReturn(
             [
@@ -968,7 +970,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::AcceptRequest([
+        $users = Tag::AcceptRequest([
             'show_new_users',
         ])->filter($this->request->query());
 
@@ -981,7 +983,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testAcceptRequestNull()
     {
-        $builder = new EloquentBuilderTestModelParentStub();
+        $builder = new Tag();
 
         $builder = $builder->where('baz', 'joo');
 
@@ -991,7 +993,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = EloquentBuilderTestModelParentStub::AcceptRequest([])->filter($this->request->query());
+        $users = Tag::AcceptRequest([])->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
@@ -1002,7 +1004,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testSerializeRequestFilter()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
 
@@ -1011,7 +1013,7 @@ class ModelFilterMockTest extends \TestCase
             'family' => null,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter($this->request->query());
+        $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -1020,7 +1022,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testResponseFilter()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStubTwo();
+        $builder = new CategoryPosts();
 
         $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
 
@@ -1029,7 +1031,7 @@ class ModelFilterMockTest extends \TestCase
             'family' => null,
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStubTwo::filter($this->request->query());
+        $users = CategoryPosts::filter($this->request->query());
 
         $this->assertSame($users['data']->toSql(), $builder->toSql());
 
@@ -1040,7 +1042,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.request_filter_key' => 'filter']);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
@@ -1051,7 +1053,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -1062,7 +1064,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.enabled' => false]);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
@@ -1073,7 +1075,7 @@ class ModelFilterMockTest extends \TestCase
             ],
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertNotSame($users->toSql(), $builder->toSql());
 
@@ -1082,7 +1084,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetweenWithRelation()
     {
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()->
         select('eloquent_builder_test_model_new_strategy_stubs.name')->
@@ -1097,7 +1099,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(['foo' => ['created_at' => ['start' => '2019-01-01 17:11:46', 'end' => '2019-02-06 10:11:46']]]); //delete it
 
-        $users = EloquentBuilderTestModelNewStrategyStub::select('eloquent_builder_test_model_new_strategy_stubs.name')->
+        $users = User::select('eloquent_builder_test_model_new_strategy_stubs.name')->
         join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
             ->filter($this->request->query());
 
@@ -1110,7 +1112,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.ignore_request' => ['show_query', 'new_trend']]);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
@@ -1121,7 +1123,7 @@ class ModelFilterMockTest extends \TestCase
             'new_trend' => '2021',
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -1132,7 +1134,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.ignore_request' => ['show_query', 'new_trend']]);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
@@ -1144,7 +1146,7 @@ class ModelFilterMockTest extends \TestCase
             'new_trend' => '2021',
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::ignoreRequest(['id'])->filter($this->request->query());
+        $users = User::ignoreRequest(['id'])->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -1155,7 +1157,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.enabled' => true]);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
@@ -1164,7 +1166,7 @@ class ModelFilterMockTest extends \TestCase
             'email' => 'mehdifathi.developer@gmail.com',
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -1175,7 +1177,7 @@ class ModelFilterMockTest extends \TestCase
     {
         config(['eloquentFilter.enabled_custom_detection' => false]);
 
-        $builder = new EloquentBuilderTestModelNewStrategyStub();
+        $builder = new User();
 
         $builder = $builder->query()
             ->whereHas('foo', function ($q) {
@@ -1196,7 +1198,7 @@ class ModelFilterMockTest extends \TestCase
             'count_posts' => 10,
         ]);
 
-        $users = EloquentBuilderTestModelNewStrategyStub::filter();
+        $users = User::filter();
 
         $this->assertNotSame($users->toSql(), $builder->toSql());
         $this->assertNotEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
@@ -1205,7 +1207,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testCustomFilter()
     {
-        $builder = new EloquentBuilderTestModelCloseRelatedStub();
+        $builder = new Category();
 
         $builder = $builder->query()->where('username', 'like', '%mehdi%');
 
@@ -1213,7 +1215,7 @@ class ModelFilterMockTest extends \TestCase
             'sample_like' => 'mehdi',
         ]);
 
-        $users = EloquentBuilderTestModelCloseRelatedStub::filter();
+        $users = Category::filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['%mehdi%'], $users->getBindings());
@@ -1225,48 +1227,8 @@ class ModelFilterMockTest extends \TestCase
     }
 }
 
-class EloquentBuilderTestModelNewStrategyStub extends Model
-{
-    use Filterable;
 
-    /**
-     * @var array
-     */
-    private static $whiteListFilter = [
-        'baz',
-        'too',
-        'count_posts',
-        'foo.bam',
-        'foo.created_at',
-        'foo.baz.bam',
-        'created_at',
-        'email',
-    ];
-
-    public function foo()
-    {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class);
-    }
-
-    public function address()
-    {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id');
-    }
-
-    public function activeFoo()
-    {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id')->where('active', true);
-    }
-
-    public function EloquentFilterCustomDetection(): array
-    {
-        return [
-            WhereRelationLikeCondition::class,
-        ];
-    }
-}
-
-class EloquentBuilderTestModelParentStub extends Model
+class Tag extends Model
 {
     use Filterable;
 
@@ -1285,21 +1247,21 @@ class EloquentBuilderTestModelParentStub extends Model
 
     public function foo()
     {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function address()
     {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id');
+        return $this->belongsTo(Category::class, 'foo_id');
     }
 
     public function activeFoo()
     {
-        return $this->belongsTo(EloquentBuilderTestModelCloseRelatedStub::class, 'foo_id')->where('active', true);
+        return $this->belongsTo(Category::class, 'foo_id')->where('active', true);
     }
 }
 
-class EloquentBuilderTestModelCloseRelatedStub extends Model
+class Category extends Model
 {
     use Filterable;
     use SoftDeletes;
@@ -1328,7 +1290,7 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
 
     public function baz()
     {
-        return $this->hasMany(EloquentBuilderTestModelFarRelatedStub::class);
+        return $this->hasMany(Stat::class);
     }
 
     public function serializeRequestFilter($request)
@@ -1357,7 +1319,7 @@ class EloquentBuilderTestModelCloseRelatedStub extends Model
     }
 }
 
-class EloquentBuilderTestModelCloseRelatedStubTwo extends Model
+class CategoryPosts extends Model
 {
     use Filterable;
 
@@ -1378,51 +1340,10 @@ class EloquentBuilderTestModelCloseRelatedStubTwo extends Model
     }
 }
 
-class EloquentBuilderTestModelFarRelatedStub extends Model
+class Stat extends Model
 {
     //
 }
 
-class EloquentBuilderTestModelSelfRelatedStub extends Model
-{
-    protected $table = 'self_related_stubs';
-
-    public function parentFoo()
-    {
-        return $this->belongsTo(self::class, 'parent_id', 'id', 'parent');
-    }
-
-    public function childFoo()
-    {
-        return $this->hasOne(self::class, 'parent_id', 'id');
-    }
-
-    public function childFoos()
-    {
-        return $this->hasMany(self::class, 'parent_id', 'id', 'children');
-    }
-
-    public function parentBars()
-    {
-        return $this->belongsToMany(self::class, 'self_pivot', 'child_id', 'parent_id', 'parent_bars');
-    }
-
-    public function childBars()
-    {
-        return $this->belongsToMany(self::class, 'self_pivot', 'parent_id', 'child_id', 'child_bars');
-    }
-
-    public function bazes()
-    {
-        return $this->hasMany(EloquentBuilderTestModelFarRelatedStub::class, 'foreign_key', 'id', 'bar');
-    }
-}
-
-class EloquentBuilderTestStubWithoutTimestamp extends Model
-{
-    const UPDATED_AT = null;
-
-    protected $table = 'table';
-}
 
 //todo We need improve all test. run composer test for see that

@@ -4,50 +4,50 @@ namespace Tests\Models;
 
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Model;
+use Tests\Models\CustomDetect\WhereRelationLikeCondition;
 use Tests\Models\Filters\usersFilter;
+use Tests\Tests\Category;
 
 /**
  * Class User.
  */
 class User extends Model
 {
-    use usersFilter;
     use Filterable;
+
     /**
      * @var array
      */
     private static $whiteListFilter = [
-        'id',
-        'username',
-        'family',
-        'email',
+        'baz',
+        'too',
         'count_posts',
+        'foo.bam',
+        'foo.created_at',
+        'foo.baz.bam',
         'created_at',
-        'updated_at',
-        'orders.name',
+        'email',
     ];
-    /**
-     * @var string
-     */
-    protected $table = 'users';
-    /**
-     * @var array
-     */
-    protected $guarded = [];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function posts()
+    public function foo()
     {
-        return $this->hasMany('Tests\Models\Post');
+        return $this->belongsTo(Category::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function orders()
+    public function address()
     {
-        return $this->hasMany('Tests\Models\Order');
+        return $this->belongsTo(Category::class, 'foo_id');
+    }
+
+    public function activeFoo()
+    {
+        return $this->belongsTo(Category::class, 'foo_id')->where('active', true);
+    }
+
+    public function EloquentFilterCustomDetection(): array
+    {
+        return [
+            WhereRelationLikeCondition::class,
+        ];
     }
 }
