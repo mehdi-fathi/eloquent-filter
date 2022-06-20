@@ -13,8 +13,6 @@ use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Mockery as m;
 use Tests\Models\Category;
 use Tests\Models\CategoryPosts;
@@ -1229,6 +1227,5 @@ class ModelFilterMockTest extends \TestCase
         m::close();
     }
 }
-
 
 //todo We need improve all test. run composer test for see that
