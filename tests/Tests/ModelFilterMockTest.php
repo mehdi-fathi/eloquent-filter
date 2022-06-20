@@ -16,7 +16,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Mockery as m;
+use Tests\Models\Category;
+use Tests\Models\CategoryPosts;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
+use Tests\Models\Tag;
 use Tests\Models\User;
 
 class ModelFilterMockTest extends \TestCase
@@ -1225,124 +1228,6 @@ class ModelFilterMockTest extends \TestCase
     {
         m::close();
     }
-}
-
-
-class Tag extends Model
-{
-    use Filterable;
-
-    /**
-     * @var array
-     */
-    private static $whiteListFilter = [
-        'baz',
-        'too',
-        'count_posts',
-        'foo.bam',
-        'foo.baz.bam',
-        'created_at',
-        'email',
-    ];
-
-    public function foo()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function address()
-    {
-        return $this->belongsTo(Category::class, 'foo_id');
-    }
-
-    public function activeFoo()
-    {
-        return $this->belongsTo(Category::class, 'foo_id')->where('active', true);
-    }
-}
-
-class Category extends Model
-{
-    use Filterable;
-    use SoftDeletes;
-
-    /**
-     * @var array
-     */
-    private static $whiteListFilter = [
-        'username',
-        'name',
-        'count_posts',
-        'national_code',
-    ];
-
-    /**
-     * @var array
-     */
-    private $aliasListFilter = [
-        'national_code' => 'code',
-    ];
-
-    public function bar()
-    {
-        return $this->hasMany(\Illuminate\Tests\Database\EloquentBuilderTestModelFarRelatedStub::class);
-    }
-
-    public function baz()
-    {
-        return $this->hasMany(Stat::class);
-    }
-
-    public function serializeRequestFilter($request)
-    {
-        if (!empty($request['new_username'])) {
-            foreach ($request['new_username'] as &$item) {
-                $item = trim($item, '__');
-            }
-            $request['username'] = $request['new_username'];
-            unset($request['new_username']);
-        }
-
-        return $request;
-    }
-
-    /**
-     * This is a sample custom query
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param                                       $value
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function sample_like(Builder $builder, $value)
-    {
-        return $builder->where('username', 'like', '%' . $value . '%');
-    }
-}
-
-class CategoryPosts extends Model
-{
-    use Filterable;
-
-    /**
-     * @var array
-     */
-    private static $whiteListFilter = [
-        'username',
-        'name',
-        'count_posts',
-    ];
-
-    public function ResponseFilter($out)
-    {
-        $data['data'] = $out;
-
-        return $data;
-    }
-}
-
-class Stat extends Model
-{
-    //
 }
 
 
