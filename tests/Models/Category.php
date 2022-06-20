@@ -53,7 +53,8 @@ class Category extends Model
     }
 
     /**
-     * This is a sample custom query
+     * This is a sample custom query.
+     *
      * @param \Illuminate\Database\Eloquent\Builder $builder
      * @param                                       $value
      *
@@ -61,7 +62,6 @@ class Category extends Model
      */
     public function sample_like(Builder $builder, $value)
     {
-        return $builder->where('username', 'like', '%' . $value . '%');
+        return $builder->where('username', 'like', '%'.$value.'%');
     }
 }
-

@@ -5,7 +5,6 @@ namespace Tests\Models;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
-use Tests\Models\Filters\usersFilter;
 
 /**
  * Class User.
