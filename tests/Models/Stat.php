@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stat extends Model
 {
-
     use Filterable;
     /**
      * @var array
@@ -17,7 +16,6 @@ class Stat extends Model
         'national_code',
     ];
 
-
     public function ResponseFilter($out)
     {
         $data['data'] = $out;
@@ -25,12 +23,10 @@ class Stat extends Model
         return $data;
     }
 
-
     /**
      * @var array
      */
     private $aliasListFilter = [
         'national_code' => 'code',
     ];
-
 }
