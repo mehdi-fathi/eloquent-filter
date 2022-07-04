@@ -17,6 +17,7 @@ class User extends Model
      * @var array
      */
     private static $whiteListFilter = [
+        'username',
         'baz',
         'too',
         'count_posts',

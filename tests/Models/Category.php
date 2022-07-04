@@ -16,17 +16,8 @@ class Category extends Model
      * @var array
      */
     private static $whiteListFilter = [
-        'username',
-        'name',
+        'title',
         'count_posts',
-        'national_code',
-    ];
-
-    /**
-     * @var array
-     */
-    private $aliasListFilter = [
-        'national_code' => 'code',
     ];
 
     public function bar()
@@ -41,12 +32,12 @@ class Category extends Model
 
     public function serializeRequestFilter($request)
     {
-        if (!empty($request['new_username'])) {
-            foreach ($request['new_username'] as &$item) {
+        if (!empty($request['new_title'])) {
+            foreach ($request['new_title'] as &$item) {
                 $item = trim($item, '__');
             }
-            $request['username'] = $request['new_username'];
-            unset($request['new_username']);
+            $request['title'] = $request['new_title'];
+            unset($request['new_title']);
         }
 
         return $request;

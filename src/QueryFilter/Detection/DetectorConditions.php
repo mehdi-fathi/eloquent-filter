@@ -81,6 +81,8 @@ class DetectorConditions
 
         throw new EloquentFilterException("You must set $field in whiteListFilter in $class_name.php
          or create a override method with name $field or call ignoreRequest function for ignore $field.", 1);
+
+        //todo make constant for these
     }
 
     /**

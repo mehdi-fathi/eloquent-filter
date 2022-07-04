@@ -17,6 +17,7 @@ use Mockery as m;
 use Tests\Models\Category;
 use Tests\Models\CategoryPosts;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
+use Tests\Models\Stat;
 use Tests\Models\Tag;
 use Tests\Models\User;
 
@@ -89,37 +90,37 @@ class ModelFilterMockTest extends \TestCase
         $builder = new Category();
 
         $builder = $builder->query()
-            ->where('name', 'mehdi');
+            ->where('title', 'sport');
 
         $this->request->shouldReceive('query')->andReturn([
-            'name' => 'mehdi',
+            'title' => 'sport',
         ]);
 
         $users = Category::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
-        $this->assertEquals(['mehdi'], $users->getBindings());
+        $this->assertEquals(['sport'], $users->getBindings());
     }
 
     public function testWhereAlias()
     {
-        $builder = new Category();
+        $builder = new Stat();
 
         $builder = $builder->query()
-            ->where('name', 'mehdi')
+            ->where('type', 'mehdi')
             ->where('national_code', 1234);
 
         $this->request->shouldReceive('query')->andReturn([
-            'name' => 'mehdi',
+            'type' => 'mehdi',
             'code' => 1234,
         ]);
 
-        $users = Category::filter($this->request->query());
+        $stats = Stat::filter($this->request->query());
 
-        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertSame($stats['data']->toSql(), $builder->toSql());
 
-        $this->assertEquals(['mehdi', 1234], $users->getBindings());
+        $this->assertEquals(['mehdi', 1234], $stats['data']->getBindings());
     }
 
     public function testWhereZero()
@@ -142,18 +143,18 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereSomeParamNull()
     {
-        $builder = new Category();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('username', 'mehdi');
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => 'mehdi',
-            'family'   => null,
-            'email'    => null,
+            'family' => null,
+            'email' => null,
         ]);
 
-        $users = Category::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -175,21 +176,21 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereSomeParamNull2()
     {
-        $builder = new Category();
+        $builder = new User();
 
         $builder = $builder->query()
             ->where('username', 'mehdi');
 
         $this->request->shouldReceive('query')->andReturn([
-            'username'   => 'mehdi',
-            'family'     => null,
+            'username' => 'mehdi',
+            'family' => null,
             'created_at' => [
                 'start' => null,
-                'end'   => null,
+                'end' => null,
             ],
         ]);
 
-        $users = Category::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -201,17 +202,17 @@ class ModelFilterMockTest extends \TestCase
     //todo make serilize request
     public function testWhereIn()
     {
-        $builder = new Category();
+        $builder = new User();
 
         $builder = $builder->newQuery()
             ->wherein('username', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi', 'ali'],
-            'family'   => null,
+            'family' => null,
         ]);
 
-        $users = Category::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -228,7 +229,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ]);
 
@@ -249,11 +250,11 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ]);
 
-        $users = Category::withTrashed()->ignoreRequest(['id'])->filter($this->request->query());
+        $users = Category::withTrashed()->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -270,7 +271,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 0,
+                'value' => 0,
             ],
         ]);
 
@@ -297,7 +298,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
+                'end' => '2019-02-06 10:11:46',
             ],
         ]);
 
@@ -335,7 +336,7 @@ class ModelFilterMockTest extends \TestCase
             'f_params' => [
                 'orderBy' => [
                     'field' => 'id,count_posts',
-                    'type'  => 'ASC',
+                    'type' => 'ASC',
                 ],
             ],
         ]);
@@ -370,7 +371,7 @@ class ModelFilterMockTest extends \TestCase
                 'f_params' => [
                     'orderBys' => [
                         'field' => 'id',
-                        'type'  => 'ASC',
+                        'type' => 'ASC',
                     ],
                 ],
             ]);
@@ -385,6 +386,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $userModel2 = m::mock(User::class);
         $userModel2->shouldReceive('getWhiteListFilter')->andReturn([
+            'username',
             'baz',
             'too',
             'count_posts',
@@ -426,7 +428,6 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereHasRelationTwoNested()
     {
-        /// change request query string . to []
         $builder = new Tag();
 
         $builder = $builder->whereHas('foo.baz', function ($q) {
@@ -530,9 +531,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'is_payment'   => true,
+                'is_payment' => true,
             ]
         );
 
@@ -554,7 +555,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
             ]
         );
@@ -581,15 +582,11 @@ class ModelFilterMockTest extends \TestCase
 
     public function testIgnoreRequest()
     {
-        $builder = new Tag();
-
-        $builder = $builder->where('baz', 'joo');
-
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'is_payment'   => true,
+                'is_payment' => true,
             ]
         );
 
@@ -619,9 +616,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -630,9 +627,9 @@ class ModelFilterMockTest extends \TestCase
         $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
         $this->assertEquals([WhereRelationLikeCondition::class], EloquentFilter::getInjectedDetections());
-    }
 
-    //todo update readme me by override custom detection in service provider laravel
+        //todo make test for like query
+    }
 
     public function testFilterRequestsIndex()
     {
@@ -654,9 +651,9 @@ class ModelFilterMockTest extends \TestCase
             ->orWhere('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn([
-            'baz'         => 'boo',
+            'baz' => 'boo',
             'count_posts' => 22,
-            'or'          => [
+            'or' => [
                 'baz' => 'joo',
             ],
         ]);
@@ -688,17 +685,17 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereIn2()
     {
-        $builder = new Category();
+        $builder = new User();
 
         $builder = $builder->query()->whereIn('username', ['mehdi22', 'ali22'])
             ->where('name', 'mehdi');
 
         $this->request->shouldReceive('query')->andReturn([
             'username' => ['mehdi22', 'ali22'],
-            'name'     => 'mehdi',
+            'name' => 'mehdi',
         ]);
 
-        $users = Category::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
@@ -714,7 +711,7 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ]);
 
@@ -776,7 +773,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetweenWithEmailCountPosts()
     {
-        $builder = new Tag();
+        $builder = new User();
 
         $builder = $builder->whereBetween(
             'created_at',
@@ -790,16 +787,16 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'created_at' => [
                 'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
+                'end' => '2019-02-06 10:11:46',
             ],
-            'email'       => 'mehdifathi.developer@gmail.com',
+            'email' => 'mehdifathi.developer@gmail.com',
             'count_posts' => [
                 'operator' => '>',
-                'value'    => 35,
+                'value' => 35,
             ],
         ]);
 
-        $users = Tag::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46', 'mehdifathi.developer@gmail.com', '35'], $builder->getBindings());
@@ -808,7 +805,7 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereBetweenWithZero()
     {
-        $builder = new Tag();
+        $builder = new User();
 
         $builder = $builder->whereBetween(
             'count_posts',
@@ -821,12 +818,12 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => [
                 'start' => 0,
-                'end'   => 200,
+                'end' => 200,
             ],
             'email' => 'mehdifathi.developer@gmail.com',
         ]);
 
-        $users = Tag::filter($this->request->query());
+        $users = User::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals([0, 200, 'mehdifathi.developer@gmail.com'], $builder->getBindings());
@@ -865,9 +862,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -894,9 +891,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,
@@ -919,10 +916,10 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'count_posts' => 10,
-            'baz'         => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
+            'baz' => [
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
         ]);
@@ -942,9 +939,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'gmail_api'    => 'dfsmfjkvx#$cew45',
+                'gmail_api' => 'dfsmfjkvx#$cew45',
             ]
         );
 
@@ -966,8 +963,8 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn(
             [
                 'google_index' => 'joo',
-                'gmail_api'    => 'joo',
-                'baz'          => 'joo',
+                'gmail_api' => 'joo',
+                'baz' => 'joo',
             ]
         );
 
@@ -1007,11 +1004,11 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Category();
 
-        $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
+        $builder = $builder->newQuery()->wherein('title', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
-            'new_username' => ['__mehdi__', '__ali__'],
-            'family'       => null,
+            'new_title' => ['__mehdi__', '__ali__'],
+            'family' => null,
         ]);
 
         $users = Category::filter($this->request->query());
@@ -1023,16 +1020,16 @@ class ModelFilterMockTest extends \TestCase
 
     public function testResponseFilter()
     {
-        $builder = new CategoryPosts();
+        $builder = new Stat();
 
-        $builder = $builder->newQuery()->wherein('username', ['mehdi', 'ali']);
+        $builder = $builder->newQuery()->wherein('type', ['mehdi', 'ali']);
 
         $this->request->shouldReceive('query')->andReturn([
-            'username' => ['mehdi', 'ali'],
-            'family'   => null,
+            'type' => ['mehdi', 'ali'],
+            'family' => null,
         ]);
 
-        $users = CategoryPosts::filter($this->request->query());
+        $users = Stat::filter($this->request->query());
 
         $this->assertSame($users['data']->toSql(), $builder->toSql());
 
@@ -1119,9 +1116,9 @@ class ModelFilterMockTest extends \TestCase
             ->where('email', 'mehdifathi.developer@gmail.com');
 
         $this->request->shouldReceive('query')->andReturn([
-            'email'      => 'mehdifathi.developer@gmail.com',
+            'email' => 'mehdifathi.developer@gmail.com',
             'show_query' => true,
-            'new_trend'  => '2021',
+            'new_trend' => '2021',
         ]);
 
         $users = User::filter($this->request->query());
@@ -1141,10 +1138,10 @@ class ModelFilterMockTest extends \TestCase
             ->where('email', 'mehdifathi.developer@gmail.com');
 
         $this->request->shouldReceive('query')->andReturn([
-            'email'      => 'mehdifathi.developer@gmail.com',
-            'id'         => 99,
+            'email' => 'mehdifathi.developer@gmail.com',
+            'id' => 99,
             'show_query' => true,
-            'new_trend'  => '2021',
+            'new_trend' => '2021',
         ]);
 
         $users = User::ignoreRequest(['id'])->filter($this->request->query());
@@ -1191,9 +1188,9 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn([
             'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
+                'value' => 'boo',
+                'limit' => 10,
+                'email' => 'mehdifathi',
                 'like_relation_value' => 'mehdi',
             ],
             'count_posts' => 10,

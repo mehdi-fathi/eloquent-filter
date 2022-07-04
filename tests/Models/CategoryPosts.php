@@ -13,15 +13,7 @@ class CategoryPosts extends Model
      * @var array
      */
     private static $whiteListFilter = [
-        'username',
-        'name',
-        'count_posts',
+        'category_id',
+        'post_id',
     ];
-
-    public function ResponseFilter($out)
-    {
-        $data['data'] = $out;
-
-        return $data;
-    }
 }
