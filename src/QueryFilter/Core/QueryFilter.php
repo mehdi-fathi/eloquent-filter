@@ -60,7 +60,7 @@ class QueryFilter
     /**
      * QueryFilter constructor.
      *
-     * @param array $request
+     * @param array      $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
