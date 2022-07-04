@@ -53,6 +53,6 @@ class Category extends Model
      */
     public function sample_like(Builder $builder, $value)
     {
-        return $builder->where('username', 'like', '%'.$value.'%');
+        return $builder->where('title', 'like', '%'.$value.'%');
     }
 }

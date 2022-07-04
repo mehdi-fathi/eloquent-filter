@@ -1206,16 +1206,16 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Category();
 
-        $builder = $builder->query()->where('username', 'like', '%mehdi%');
+        $builder = $builder->query()->where('title', 'like', '%mehdi%');
 
         $this->request->shouldReceive('query')->andReturn([
             'sample_like' => 'mehdi',
         ]);
 
-        $users = Category::filter();
+        $categories = Category::filter();
 
-        $this->assertSame($users->toSql(), $builder->toSql());
-        $this->assertEquals(['%mehdi%'], $users->getBindings());
+        $this->assertSame($categories->toSql(), $builder->toSql());
+        $this->assertEquals(['%mehdi%'], $categories->getBindings());
     }
 
     public function tearDown(): void
