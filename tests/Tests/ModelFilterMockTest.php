@@ -55,15 +55,17 @@ class ModelFilterMockTest extends \TestCase
     protected function getMockModel()
     {
         $model = m::mock(\Tests\Models\User::class);
-        $model->shouldReceive('getWhiteListFilter')->andReturn([
-            'id',
-            'username',
-            'family',
-            'email',
-            'count_posts',
-            'created_at',
-            'updated_at',
-        ]);
+        $model->shouldReceive('getWhiteListFilter')->andReturn(
+            [
+                'id',
+                'username',
+                'family',
+                'email',
+                'count_posts',
+                'created_at',
+                'updated_at',
+            ]
+        );
 
         return $model;
     }
@@ -91,9 +93,11 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('title', 'sport');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'title' => 'sport',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
 
         $users = Category::filter($this->request->query());
 
@@ -110,10 +114,12 @@ class ModelFilterMockTest extends \TestCase
             ->where('type', 'mehdi')
             ->where('national_code', 1234);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'type' => 'mehdi',
-            'code' => 1234,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'type' => 'mehdi',
+                'code' => 1234,
+            ]
+        );
 
         $stats = Stat::filter($this->request->query());
 
@@ -129,9 +135,11 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('count_posts', 0);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => 0,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => 0,
+            ]
+        );
 
         $users = Category::filter($this->request->query());
 
@@ -147,11 +155,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('username', 'mehdi');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'username' => 'mehdi',
-            'family'   => null,
-            'email'    => null,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => 'mehdi',
+                'family' => null,
+                'email' => null,
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -180,14 +190,16 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('username', 'mehdi');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'username'   => 'mehdi',
-            'family'     => null,
-            'created_at' => [
-                'start' => null,
-                'end'   => null,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => 'mehdi',
+                'family' => null,
+                'created_at' => [
+                    'start' => null,
+                    'end' => null,
+                ],
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -206,10 +218,12 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()
             ->wherein('username', ['mehdi', 'ali']);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'username' => ['mehdi', 'ali'],
-            'family'   => null,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['mehdi', 'ali'],
+                'family' => null,
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -225,12 +239,14 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()
             ->where('count_posts', '>', 35);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => [
-                'operator' => '>',
-                'value'    => 35,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 35,
+                ],
+            ]
+        );
 
         $users = Category::filter($this->request->query());
 
@@ -246,12 +262,14 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()->withTrashed()
             ->where('count_posts', '>', 35);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => [
-                'operator' => '>',
-                'value'    => 35,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 35,
+                ],
+            ]
+        );
 
         $users = Category::withTrashed()->filter($this->request->query());
 
@@ -267,8 +285,10 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()
             ->where('username', 'mehdi');
 
-        $this->request->shouldReceive('query')->andReturn([
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+            ]
+        );
 
         $data = ['username' => 'mehdi'];
 
@@ -284,12 +304,14 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()
             ->where('count_posts', '>', 0);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => [
-                'operator' => '>',
-                'value'    => 0,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 0,
+                ],
+            ]
+        );
 
         $users = Category::filter($this->request->query());
 
@@ -298,7 +320,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([0], $users->getBindings());
     }
 
-//
+    //
     public function testWhereBetween()
     {
         $builder = new Tag();
@@ -311,12 +333,14 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $this->request->shouldReceive('query')->andReturn([
-            'created_at' => [
-                'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'created_at' => [
+                    'start' => '2019-01-01 17:11:46',
+                    'end' => '2019-02-06 10:11:46',
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -328,11 +352,13 @@ class ModelFilterMockTest extends \TestCase
     public function testSetWhiteList()
     {
         try {
-            $this->request->shouldReceive('query')->andReturn([
-                'role' => [
-                    'admin', 'user',
-                ],
-            ]);
+            $this->request->shouldReceive('query')->andReturn(
+                [
+                    'role' => [
+                        'admin', 'user',
+                    ],
+                ]
+            );
 
             Tag::filter($this->request->query());
         } catch (EloquentFilterException $e) {
@@ -348,14 +374,16 @@ class ModelFilterMockTest extends \TestCase
             ->orderBy('id')
             ->orderBy('count_posts');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'f_params' => [
-                'orderBy' => [
-                    'field' => 'id,count_posts',
-                    'type'  => 'ASC',
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'orderBy' => [
+                        'field' => 'id,count_posts',
+                        'type' => 'ASC',
+                    ],
                 ],
-            ],
-        ]);
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -369,11 +397,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->newQuery()
             ->limit(5);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'f_params' => [
-                'limit' => 5,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'limit' => 5,
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -383,14 +413,16 @@ class ModelFilterMockTest extends \TestCase
     public function testFParamException()
     {
         try {
-            $this->request->shouldReceive('query')->andReturn([
-                'f_params' => [
-                    'orderBys' => [
-                        'field' => 'id',
-                        'type'  => 'ASC',
+            $this->request->shouldReceive('query')->andReturn(
+                [
+                    'f_params' => [
+                        'orderBys' => [
+                            'field' => 'id',
+                            'type' => 'ASC',
+                        ],
                     ],
-                ],
-            ]);
+                ]
+            );
 
             Tag::filter($this->request->query());
         } catch (EloquentFilterException $e) {
@@ -398,21 +430,41 @@ class ModelFilterMockTest extends \TestCase
         }
     }
 
+    public function testExclusiveException()
+    {
+        $this->expectException(EloquentFilterException::class);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'orderBys11' => [
+                        'field' => 'id',
+                        'type' => 'ASC',
+                    ],
+                ],
+            ]
+        );
+
+        Tag::filter($this->request->query());
+    }
+
     public function testAddWhiteList()
     {
         $userModel2 = m::mock(User::class);
-        $userModel2->shouldReceive('getWhiteListFilter')->andReturn([
-            'username',
-            'baz',
-            'too',
-            'count_posts',
-            'foo.bam',
-            'foo.created_at',
-            'foo.baz.bam',
-            'created_at',
-            'email',
-            'name',
-        ]);
+        $userModel2->shouldReceive('getWhiteListFilter')->andReturn(
+            [
+                'username',
+                'baz',
+                'too',
+                'count_posts',
+                'foo.bam',
+                'foo.created_at',
+                'foo.baz.bam',
+                'created_at',
+                'email',
+                'name',
+            ]
+        );
 
         $user_model = new User();
         $user_model->addWhiteListFilter('name');
@@ -424,16 +476,21 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas('foo', function ($q) {
-            $q->where('bam', 'qux');
-        })->where('baz', 'joo');
+        $builder = $builder->whereHas(
+            'foo',
+            function ($q) {
+                $q->where('bam', 'qux');
+            }
+        )->where('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'foo' => [
-                'bam' => 'qux',
-            ],
-            'baz' => 'joo',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'foo' => [
+                    'bam' => 'qux',
+                ],
+                'baz' => 'joo',
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -446,18 +503,23 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas('foo.baz', function ($q) {
-            $q->where('bam', 'qux');
-        })->where('baz', 'joo');
+        $builder = $builder->whereHas(
+            'foo.baz',
+            function ($q) {
+                $q->where('bam', 'qux');
+            }
+        )->where('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'foo' => [
-                'baz' => [
-                    'bam' => 'qux',
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'foo' => [
+                    'baz' => [
+                        'bam' => 'qux',
+                    ],
                 ],
-            ],
-            'baz' => 'joo',
-        ]);
+                'baz' => 'joo',
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -470,21 +532,29 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas('foo.baz', function ($q) {
-            $q->where('bam', 'qux');
-        })->whereHas('foo', function ($q) {
-            $q->where('bam', 'boom');
-        })->where('baz', 'joo');
+        $builder = $builder->whereHas(
+            'foo.baz',
+            function ($q) {
+                $q->where('bam', 'qux');
+            }
+        )->whereHas(
+            'foo',
+            function ($q) {
+                $q->where('bam', 'boom');
+            }
+        )->where('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'foo' => [
-                'baz' => [
-                    'bam' => 'qux',
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'foo' => [
+                    'baz' => [
+                        'bam' => 'qux',
+                    ],
+                    'bam' => 'boom',
                 ],
-                'bam' => 'boom',
-            ],
-            'baz' => 'joo',
-        ]);
+                'baz' => 'joo',
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -499,11 +569,13 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->whereIn('baz', ['boom', 'joe', null]);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz' => [
-                'boom', 'joe', null,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'boom', 'joe', null,
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -529,8 +601,10 @@ class ModelFilterMockTest extends \TestCase
     {
         $this->__initQuery();
 
-        $this->request->shouldReceive('query')->andReturn([
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+            ]
+        );
 
         $builder = new Category();
 
@@ -547,16 +621,18 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'is_payment'   => true,
+                'is_payment' => true,
             ]
         );
 
-        $users = Tag::ignoreRequest([
-            'google_index',
-            'is_payment',
-        ])->filter($this->request->query());
+        $users = Tag::ignoreRequest(
+            [
+                'google_index',
+                'is_payment',
+            ]
+        )->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
@@ -571,15 +647,17 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
             ]
         );
 
-        $users = Tag::ignoreRequest([
-            'google_index',
-            'is_payment_paypal',
-        ])->filter($this->request->query());
+        $users = Tag::ignoreRequest(
+            [
+                'google_index',
+                'is_payment_paypal',
+            ]
+        )->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
@@ -600,21 +678,26 @@ class ModelFilterMockTest extends \TestCase
     {
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'is_payment'   => true,
+                'is_payment' => true,
             ]
         );
 
-        $users = Tag::ignoreRequest([
-            'google_index',
-            'is_payment',
-        ])->filter($this->request->query());
+        $users = Tag::ignoreRequest(
+            [
+                'google_index',
+                'is_payment',
+            ]
+        )->filter($this->request->query());
 
-        $this->assertSame([
-            'google_index',
-            'is_payment',
-        ], EloquentFilter::getIgnoredRequest());
+        $this->assertSame(
+            [
+                'google_index',
+                'is_payment',
+            ],
+            EloquentFilter::getIgnoredRequest()
+        );
     }
 
     public function testGetInjectedDetections()
@@ -622,23 +705,28 @@ class ModelFilterMockTest extends \TestCase
         $builder = new User();
 
         $builder = $builder->query()
-            ->whereHas('foo', function ($q) {
-                $q->where('bam', 'like', '%mehdi%');
-            })
+            ->whereHas(
+                'foo',
+                function ($q) {
+                    $q->where('bam', 'like', '%mehdi%');
+                }
+            )
             ->where('baz', '<>', 'boo')
             ->where('email', 'like', '%mehdifathi%')
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
-                'like_relation_value' => 'mehdi',
-            ],
-            'count_posts' => 10,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+                'count_posts' => 10,
+            ]
+        );
 
         $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
@@ -666,13 +754,15 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', 22)
             ->orWhere('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz'         => 'boo',
-            'count_posts' => 22,
-            'or'          => [
-                'baz' => 'joo',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'boo',
+                'count_posts' => 22,
+                'or' => [
+                    'baz' => 'joo',
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -688,9 +778,11 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->where('count_posts', 345);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => 345,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => 345,
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -706,10 +798,12 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()->whereIn('username', ['mehdi22', 'ali22'])
             ->where('name', 'mehdi');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'username' => ['mehdi22', 'ali22'],
-            'name'     => 'mehdi',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['mehdi22', 'ali22'],
+                'name' => 'mehdi',
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -724,12 +818,14 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->query()->where('count_posts', '>', 35);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => [
-                'operator' => '>',
-                'value'    => 35,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 35,
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -742,16 +838,21 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas('foo', function ($q) {
-            $q->whereIn('bam', ['qux', 'mehdi']);
-        })->where('baz', 'joo');
+        $builder = $builder->whereHas(
+            'foo',
+            function ($q) {
+                $q->whereIn('bam', ['qux', 'mehdi']);
+            }
+        )->where('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'foo' => [
-                'bam' => ['qux', 'mehdi'],
-            ],
-            'baz' => 'joo',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'foo' => [
+                    'bam' => ['qux', 'mehdi'],
+                ],
+                'baz' => 'joo',
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -764,21 +865,29 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas('foo.baz', function ($q) {
-            $q->whereIn('bam', ['qux', 'mehdi']);
-        })->whereHas('foo', function ($q) {
-            $q->whereIn('bam', ['boom', 'noon']);
-        })->where('baz', 'joo');
+        $builder = $builder->whereHas(
+            'foo.baz',
+            function ($q) {
+                $q->whereIn('bam', ['qux', 'mehdi']);
+            }
+        )->whereHas(
+            'foo',
+            function ($q) {
+                $q->whereIn('bam', ['boom', 'noon']);
+            }
+        )->where('baz', 'joo');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'foo' => [
-                'baz' => [
-                    'bam' => ['qux', 'mehdi'],
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'foo' => [
+                    'baz' => [
+                        'bam' => ['qux', 'mehdi'],
+                    ],
+                    'bam' => ['boom', 'noon'],
                 ],
-                'bam' => ['boom', 'noon'],
-            ],
-            'baz' => 'joo',
-        ]);
+                'baz' => 'joo',
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -800,17 +909,19 @@ class ModelFilterMockTest extends \TestCase
         )->where('email', 'mehdifathi.developer@gmail.com')
             ->where('count_posts', '>', 35);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'created_at' => [
-                'start' => '2019-01-01 17:11:46',
-                'end'   => '2019-02-06 10:11:46',
-            ],
-            'email'       => 'mehdifathi.developer@gmail.com',
-            'count_posts' => [
-                'operator' => '>',
-                'value'    => 35,
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'created_at' => [
+                    'start' => '2019-01-01 17:11:46',
+                    'end' => '2019-02-06 10:11:46',
+                ],
+                'email' => 'mehdifathi.developer@gmail.com',
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 35,
+                ],
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -831,13 +942,15 @@ class ModelFilterMockTest extends \TestCase
             ]
         )->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => [
-                'start' => 0,
-                'end'   => 200,
-            ],
-            'email' => 'mehdifathi.developer@gmail.com',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'start' => 0,
+                    'end' => 200,
+                ],
+                'email' => 'mehdifathi.developer@gmail.com',
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -851,11 +964,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = new Tag();
 
         $builder = $builder->query()->where('email', 'like', '%meh%');
-        $this->request->shouldReceive('query')->andReturn([
-            'email' => [
-                'like' => '%meh%',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => [
+                    'like' => '%meh%',
+                ],
+            ]
+        );
 
         $users = Tag::filter($this->request->query());
 
@@ -868,23 +983,28 @@ class ModelFilterMockTest extends \TestCase
         $builder = new User();
 
         $builder = $builder->query()
-            ->whereHas('foo', function ($q) {
-                $q->where('bam', 'like', '%mehdi%');
-            })
+            ->whereHas(
+                'foo',
+                function ($q) {
+                    $q->where('bam', 'like', '%mehdi%');
+                }
+            )
             ->where('baz', '<>', 'boo')
             ->where('email', 'like', '%mehdifathi%')
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
-                'like_relation_value' => 'mehdi',
-            ],
-            'count_posts' => 10,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+                'count_posts' => 10,
+            ]
+        );
 
         $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
 
@@ -897,23 +1017,28 @@ class ModelFilterMockTest extends \TestCase
         $builder = new User();
 
         $builder = $builder->query()
-            ->whereHas('foo', function ($q) {
-                $q->where('bam', 'like', '%mehdi%');
-            })
+            ->whereHas(
+                'foo',
+                function ($q) {
+                    $q->where('bam', 'like', '%mehdi%');
+                }
+            )
             ->where('baz', '<>', 'boo')
             ->where('email', 'like', '%mehdifathi%')
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
-                'like_relation_value' => 'mehdi',
-            ],
-            'count_posts' => 10,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+                'count_posts' => 10,
+            ]
+        );
 
         $users = User::filter();
 
@@ -930,15 +1055,17 @@ class ModelFilterMockTest extends \TestCase
             ->where('count_posts', '=', 10)
             ->where('baz', '=', []);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'count_posts' => 10,
-            'baz'         => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
-                'like_relation_value' => 'mehdi',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => 10,
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+            ]
+        );
 
         //todo this method disable load detection default
 
@@ -955,15 +1082,17 @@ class ModelFilterMockTest extends \TestCase
 
         $this->request->shouldReceive('query')->andReturn(
             [
-                'baz'          => 'joo',
+                'baz' => 'joo',
                 'google_index' => true,
-                'gmail_api'    => 'dfsmfjkvx#$cew45',
+                'gmail_api' => 'dfsmfjkvx#$cew45',
             ]
         );
 
-        $users = Tag::AcceptRequest([
-            'baz',
-        ])->filter($this->request->query());
+        $users = Tag::AcceptRequest(
+            [
+                'baz',
+            ]
+        )->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
@@ -979,14 +1108,16 @@ class ModelFilterMockTest extends \TestCase
         $this->request->shouldReceive('query')->andReturn(
             [
                 'google_index' => 'joo',
-                'gmail_api'    => 'joo',
-                'baz'          => 'joo',
+                'gmail_api' => 'joo',
+                'baz' => 'joo',
             ]
         );
 
-        $users = Tag::AcceptRequest([
-            'show_new_users',
-        ])->filter($this->request->query());
+        $users = Tag::AcceptRequest(
+            [
+                'show_new_users',
+            ]
+        )->filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals([], $builder->getBindings());
@@ -1022,10 +1153,12 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->newQuery()->wherein('title', ['mehdi', 'ali']);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'new_title' => ['__mehdi__', '__ali__'],
-            'family'    => null,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'new_title' => ['__mehdi__', '__ali__'],
+                'family' => null,
+            ]
+        );
 
         $users = Category::filter($this->request->query());
 
@@ -1040,10 +1173,12 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->newQuery()->wherein('type', ['mehdi', 'ali']);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'type'   => ['mehdi', 'ali'],
-            'family' => null,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'type' => ['mehdi', 'ali'],
+                'family' => null,
+            ]
+        );
 
         $users = Stat::filter($this->request->query());
 
@@ -1061,11 +1196,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'filter' => [
-                'email' => 'mehdifathi.developer@gmail.com',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'filter' => [
+                    'email' => 'mehdifathi.developer@gmail.com',
+                ],
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -1083,11 +1220,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'filter' => [
-                'email' => 'mehdifathi.developer@gmail.com',
-            ],
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'filter' => [
+                    'email' => 'mehdifathi.developer@gmail.com',
+                ],
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -1100,9 +1239,9 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new User();
 
-        $builder = $builder->query()->
-        select('eloquent_builder_test_model_new_strategy_stubs.name')->
-        join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
+        $builder = $builder->query()
+            ->select('eloquent_builder_test_model_new_strategy_stubs.name')
+            ->join('foo', 'foo.user_id', '=', 'eloquent_builder_test_model_new_strategy_stubs.id')
             ->whereBetween(
                 'foo.created_at',
                 [
@@ -1131,11 +1270,13 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'email'      => 'mehdifathi.developer@gmail.com',
-            'show_query' => true,
-            'new_trend'  => '2021',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => 'mehdifathi.developer@gmail.com',
+                'show_query' => true,
+                'new_trend' => '2021',
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -1153,12 +1294,14 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'email'      => 'mehdifathi.developer@gmail.com',
-            'id'         => 99,
-            'show_query' => true,
-            'new_trend'  => '2021',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => 'mehdifathi.developer@gmail.com',
+                'id' => 99,
+                'show_query' => true,
+                'new_trend' => '2021',
+            ]
+        );
 
         $users = User::ignoreRequest(['id'])->filter($this->request->query());
 
@@ -1176,9 +1319,11 @@ class ModelFilterMockTest extends \TestCase
         $builder = $builder->query()
             ->where('email', 'mehdifathi.developer@gmail.com');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'email' => 'mehdifathi.developer@gmail.com',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => 'mehdifathi.developer@gmail.com',
+            ]
+        );
 
         $users = User::filter($this->request->query());
 
@@ -1194,23 +1339,28 @@ class ModelFilterMockTest extends \TestCase
         $builder = new User();
 
         $builder = $builder->query()
-            ->whereHas('foo', function ($q) {
-                $q->where('bam', 'like', '%mehdi%');
-            })
+            ->whereHas(
+                'foo',
+                function ($q) {
+                    $q->where('bam', 'like', '%mehdi%');
+                }
+            )
             ->where('baz', '<>', 'boo')
             ->where('email', 'like', '%mehdifathi%')
             ->where('count_posts', '=', 10)
             ->limit(10);
 
-        $this->request->shouldReceive('query')->andReturn([
-            'baz' => [
-                'value'               => 'boo',
-                'limit'               => 10,
-                'email'               => 'mehdifathi',
-                'like_relation_value' => 'mehdi',
-            ],
-            'count_posts' => 10,
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+                'count_posts' => 10,
+            ]
+        );
 
         $users = User::filter();
 
@@ -1225,9 +1375,11 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->query()->where('title', 'like', '%mehdi%');
 
-        $this->request->shouldReceive('query')->andReturn([
-            'sample_like' => 'mehdi',
-        ]);
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'sample_like' => 'mehdi',
+            ]
+        );
 
         $categories = Category::filter();
 
