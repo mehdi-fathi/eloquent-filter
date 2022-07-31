@@ -7,6 +7,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCustomCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereDateCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
@@ -106,6 +107,7 @@ class QueryFilter
             WhereInCondition::class,
             WhereOrCondition::class,
             WhereHasCondition::class,
+            WhereDateCondition::class,
             WhereCondition::class,
         ];
     }

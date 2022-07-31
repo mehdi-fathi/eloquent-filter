@@ -13,6 +13,8 @@ class User extends Model
 {
     use Filterable;
 
+    public static $dateTypeFilter = ['created_at'];
+
     /**
      * @var array
      */
