@@ -8,12 +8,11 @@
 ![Run tests](https://github.com/mehdi-fathi/eloquent-filter/workflows/Run%20tests/badge.svg?branch=master)
 [![License](https://poser.pugx.org/mehdi-fathi/eloquent-filter/license)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
-[![StyleCI](https://github.styleci.io/repos/149638067/shield?branch=master)](https://github.styleci.io/repos/149638067)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 
-Eloquent Filter adds custom filters to your Eloquent Models in Laravel.
-It's easy to use and fully dynamic.
+Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
+It's easy to use and fully dynamic, just with sending the Query Strings to it.
 
 [![Bitcoin Donate Button](http://KristinitaTest.github.io/donate/Bitcoin-Donate-button.png)](https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&amp;address=bc1qqzhw9euweyz28mtgqyjt703zzypyjxgxrxjgvm "eloquent-filter")
 
@@ -39,7 +38,7 @@ It's easy to use and fully dynamic.
 
 ## :microphone: Introduction
 
-Let's say we want to make an advanced search page with multiple filter option params.
+Let's say we want to make an advanced search page with multiple filter options.
 
 ![alt text](https://raw.githubusercontent.com/mehdi-fathi/mehdi-fathi.github.io/master/eloquent-filter/assets/img/Esfand-05-1399%2022-23-21.gif "sample 1 eloquent-filter")
 
@@ -80,17 +79,18 @@ class UserController extends Controller
     }
 }
 ```
-This solution is simple ,but that works fine.
+This solution is simple and that works well.
 But you'd have to add a condition for each filter you need. 
 Especially with more complex filtering, your code can become a Monster very fast! :boom: 
 
+So Eloquent Filter is ready for to you get rid of complexity in addition to saving time. 
 
 ### A simple implementation with Eloquent Filter
 
 Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
 It will save you time and minimize the complexity of your code.
 
-After installing Eloquent Filter the request URI could look like this:
+After installing Eloquent Filter the request URI would be like this:
              
     http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
@@ -119,7 +119,7 @@ With this Eloquent filter implementation, you can use all the documented filters
 
 1- Run this Composer command to install the latest version
 
-      $ composer require mehdi-fathi/eloquent-filter
+   $ composer require mehdi-fathi/eloquent-filter
       
 - **Note**  for Laravel versions older than 5.8 you should install version 2.2.5 
 
