@@ -12,6 +12,7 @@
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 
 Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
+
 It's easy to use and fully dynamic, just with sending the Query Strings to it.
 
 [![Bitcoin Donate Button](http://KristinitaTest.github.io/donate/Bitcoin-Donate-button.png)](https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&amp;address=bc1qqzhw9euweyz28mtgqyjt703zzypyjxgxrxjgvm "eloquent-filter")
@@ -119,7 +120,7 @@ With this Eloquent filter implementation, you can use all the documented filters
 
 1- Run this Composer command to install the latest version
 
-   $ composer require mehdi-fathi/eloquent-filter
+        $ composer require mehdi-fathi/eloquent-filter
       
 - **Note**  for Laravel versions older than 5.8 you should install version 2.2.5 
 
