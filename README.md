@@ -89,7 +89,7 @@ So Eloquent Filter is ready for to you get rid of complexity in addition to savi
 ### A simple implementation with Eloquent Filter
 
 Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
-It will save you time and minimize the complexity of your code.
+It will save your time and minimize the complexity of your code.
 
 After installing Eloquent Filter the request URI would be like this:
              
@@ -126,6 +126,8 @@ With this Eloquent filter implementation, you can use all the documented filters
 
         $ composer require mehdi-fathi/eloquent-filter:2.2.5
 
+- **Note** We support auto-discovery but you can check providers
+
 2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
    
    ```php
@@ -134,7 +136,7 @@ With this Eloquent filter implementation, you can use all the documented filters
       * Package Service Providers...
       */
        eloquentFilter\ServiceProvider::class
-   ],
+   ]
    ```
 3- Add Facade `'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class` to aliases app.php
 
@@ -651,7 +653,7 @@ You can generate a config file to configure Eloquent Filter.
 
 ### Publish Config
 
-    php artisan vendor:publish --provider="eloquentFilter\ServiceProvider"
+    php artisan vendor:publish --provider="eloquentFilter\EloquentFilterServiceProvider"
 
 ### Config
 

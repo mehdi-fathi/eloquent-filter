@@ -59,7 +59,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "eloquentFilter\\EloquentFilterServiceProvider"
+        "eloquentFilter\\ServiceProvider"
       ],
       "aliases": {
         "EloquentFilter": "eloquentFilter\\Facade\\EloquentFilter"

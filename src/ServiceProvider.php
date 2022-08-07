@@ -7,9 +7,9 @@ use eloquentFilter\QueryFilter\Core\QueryFilterWrapper;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
- * Class EloquentFilterServiceProvider
+ * Class ServiceProvider
  */
-class EloquentFilterServiceProvider extends BaseServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Register bindings in the container.
@@ -50,6 +50,9 @@ class EloquentFilterServiceProvider extends BaseServiceProvider
         );
     }
 
+    /**
+     *
+     */
     private function registerBindings()
     {
         $this->app->singleton(
