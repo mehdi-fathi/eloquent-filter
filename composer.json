@@ -1,59 +1,69 @@
 {
-    "name": "mehdi-fathi/eloquent-filter",
-    "description": "The Eloquent Filter is a package for filter data of models by the query string. Easy to use and fully dynamic.",
-    "keywords": [
-        "laravel",
-        "laravel tools",
-        "eloquent",
-        "eloquent filter",
-        "Eloquent Filter",
-        "laravel query filter",
-        "laravel filter",
-        "query-filter",
-        "dynamic-filters",
-        "search",
-        "query",
-        "filter",
-        "laravel filter multiple parameters"
-    ],
-    "homepage": "https://github.com/mehdi-fathi/eloquent-filter",
-    "license": "MIT",
-    "type": "lib",
-    "authors": [
-        {
-            "name": "Mehdi Fathi",
-            "email": "mehdifathi.developer@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.3|^8.0",
-        "illuminate/support": "5.8.*|~6.0|~7.0|~8.0|~9.0",
-        "illuminate/container": "5.8.*|~6.0|~7.0|~8.0|~9.0",
-        "illuminate/database": "5.8.*|~6.20.14|~7.0|~8.0|~9.0",
-        "illuminate/pagination": "5.8.*|~6.0|~7.0|~8.0|~9.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "6.*|7.0.*|7.5|8.3|8.5|9.3|^9.5",
-        "orchestra/testbench": "3.7.*|3.8.*|4.*|5.*|^6.0|^6.6.0|^7.0.0",
-        "mockery/mockery": "1.3.*|1.3.*|1.3.*|1.4.x-dev|1.4.x-dev|1.4.2",
-        "laravel/legacy-factories": "1.0.2|1.0.3|1.0.4|1.0.5|1.1.0|1.3.0",
-        "illuminate/macroable" : "^8.0|^9.1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "eloquentFilter\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
-        },
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit --coverage-text"
+  "name": "mehdi-fathi/eloquent-filter",
+  "description": "Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.\nIt's easy to use and fully dynamic, just with sending the Query Strings to it.",
+  "keywords": [
+    "laravel",
+    "laravel tools",
+    "eloquent",
+    "eloquent filter",
+    "Eloquent Filter",
+    "laravel query filter",
+    "laravel filter",
+    "query-filter",
+    "dynamic-filters",
+    "search",
+    "query",
+    "filter",
+    "laravel filter multiple parameters"
+  ],
+  "homepage": "https://github.com/mehdi-fathi/eloquent-filter",
+  "license": "MIT",
+  "type": "lib",
+  "authors": [
+    {
+      "name": "Mehdi Fathi",
+      "email": "mehdifathi.developer@gmail.com",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "illuminate/support": "5.8.*|~6.0|~7.0|~8.0|~9.0",
+    "illuminate/container": "5.8.*|~6.0|~7.0|~8.0|~9.0",
+    "illuminate/database": "5.8.*|~6.20.14|~7.0|~8.0|~9.0",
+    "illuminate/pagination": "5.8.*|~6.0|~7.0|~8.0|~9.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*|7.0.*|7.5|8.3|8.5|9.3|^9.5",
+    "orchestra/testbench": "3.7.*|3.8.*|4.*|5.*|^6.0|^6.6.0|^7.0.0",
+    "mockery/mockery": "1.3.*|1.3.*|1.3.*|1.4.x-dev|1.4.x-dev|1.4.2",
+    "laravel/legacy-factories": "1.0.2|1.0.3|1.0.4|1.0.5|1.1.0|1.3.0",
+    "illuminate/macroable": "^8.0|^9.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "eloquentFilter\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    },
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit --coverage-text"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "eloquentFilter\\EloquentFilterServiceProvider"
+      ],
+      "aliases": {
+        "EloquentFilter": "eloquentFilter\\Facade\\EloquentFilter"
+      }
+    }
+  }
 }

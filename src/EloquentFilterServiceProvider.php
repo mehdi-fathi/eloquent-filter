@@ -7,9 +7,9 @@ use eloquentFilter\QueryFilter\Core\QueryFilterWrapper;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
- * Class ServiceProvider.
+ * Class EloquentFilterServiceProvider
  */
-class ServiceProvider extends BaseServiceProvider
+class EloquentFilterServiceProvider extends BaseServiceProvider
 {
     /**
      * Register bindings in the container.

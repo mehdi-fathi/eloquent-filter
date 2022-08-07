@@ -51,5 +51,3 @@ class ServiceProviderTest extends BaseServiceProvider
     {
     }
 }
-
-//php artisan vendor:publish --provider="eloquentFilter\QueryFilter\ServiceProvider"
