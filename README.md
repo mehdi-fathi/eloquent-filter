@@ -279,6 +279,8 @@ SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
+-If you send date format `Y-m-d` we will work like WhereDate() method Laravel.
+
 ***Where In***
 
 This example make method `whereIn`.
