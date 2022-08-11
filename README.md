@@ -628,7 +628,7 @@ $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter()
  User::SetLoadDefaultDetection(false)->filter();
 ```
 
--**Note** You can set many detection conditions. for example:
+-**Note** You can set many detection conditions. for example :
 
 ```php
 
@@ -689,9 +689,9 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
         
-### Alias (New feature :fire:)    
+### Alias  
 
-Sometimes you may want to change some params in url while those mention to a field of the model.  
+- Sometimes you may want to change some params in url while those mention to a field of the model.  
 e.g name of inputs form are not similar to model or you want to change them for other reason 
 so the alias as a new feature can be useful.  
 
