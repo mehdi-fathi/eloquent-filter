@@ -29,6 +29,7 @@ It's easy to use and fully dynamic, just with sending the Query Strings to it.
 - [Configuring](#Configuring)    
     - [Publish Config](#Publish-Config)
     - [Config](#Config)
+    - [Alias](#Alias)
 - [Magic Methods](#Magic-Methods)
     - [Request Filter](#Request-filter)
     - [Response Filter](#Response-filter)
@@ -126,7 +127,7 @@ With this Eloquent filter implementation, you can use all the documented filters
 
         $ composer require mehdi-fathi/eloquent-filter:2.2.5
 
-- **Note** We support auto-discovery but you can check providers
+- **Note** We support auto-discovery but you can check them.
 
 2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
    
@@ -291,7 +292,7 @@ This example make method `whereIn`.
 SELECT ... WHERE ... username in ('ali','ali22') AND family = 'ahmadi'
 ```
 
-***OrWhere (New feature :fire:)***
+***OrWhere***
 
 This example make method `orWhere`.
 
@@ -687,7 +688,37 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
-    
+        
+### Alias (New feature :fire:)    
+
+Sometimes you may want to change some params in url while those mention to a field of the model.  
+e.g name of inputs form are not similar to model or you want to change them for other reason 
+so the alias as a new feature can be useful.  
+
+```php
+
+    class Stat extends Model
+    {
+        use Filterable;
+        /**
+         * @var array
+         */
+        private static $whiteListFilter = [
+            'type',
+            'national_code',
+        ];
+
+        /**
+         * @var array
+         */
+        private $aliasListFilter = [
+            'national_code' => 'code',
+        ];
+    }
+
+```
+ 
+Then you should send the `code` param in the URL for making a query with the national code field of the model readily.
 
 ## Magic Methods
 
