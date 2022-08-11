@@ -691,7 +691,7 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
         
 ### Alias  
 
-- Sometimes you may want to change some params in url while those mention to a field of the model.  
+Sometimes you may want to change some params in url while those mention to a field of the model.  
 e.g name of inputs form are not similar to model or you want to change them for other reason 
 so the alias as a new feature can be useful.  
 
