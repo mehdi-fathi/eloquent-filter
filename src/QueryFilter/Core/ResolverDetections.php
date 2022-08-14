@@ -5,12 +5,31 @@ namespace eloquentFilter\QueryFilter\Core;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
 
+/**
+ * Class ResolverDetections
+ * @package eloquentFilter\QueryFilter\Core
+ */
 class ResolverDetections
 {
+    /**
+     * @var
+     */
     private $builder;
+    /**
+     * @var
+     */
     private $request;
+    /**
+     * @var
+     */
     private $detect_factory;
 
+    /**
+     * ResolverDetections constructor.
+     * @param $builder
+     * @param $request
+     * @param $detect_factory
+     */
     public function __construct($builder, $request, $detect_factory)
     {
         $this->builder = $builder;
@@ -18,9 +37,12 @@ class ResolverDetections
         $this->detect_factory = $detect_factory;
     }
 
+    /**
+     * @return mixed
+     */
     public function getResolverOut()
     {
-        $filter_detections = $this->getFilterDetections();
+        $filter_detections = $this->getFiltersDetection();
 
         $out = app(Pipeline::class)
             ->send($this->builder)
@@ -49,7 +71,7 @@ class ResolverDetections
     /**
      * @return array
      */
-    private function getFilterDetections(): array
+    private function getFiltersDetection(): array
     {
         $model = $this->builder->getModel();
 

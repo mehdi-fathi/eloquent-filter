@@ -15,9 +15,9 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
- * Class QueryFilter.
+ * Class QueryFilterCore.
  */
-class QueryFilter
+class QueryFilterCore
 {
     /**
      * @var
