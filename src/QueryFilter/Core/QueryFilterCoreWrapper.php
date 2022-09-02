@@ -7,20 +7,20 @@ use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class QueryFilterWrapper.
+ * Class QueryFilterCoreWrapper.
  */
-class QueryFilterWrapper extends QueryFilter
+class QueryFilterCoreWrapper extends QueryFilterCore
 {
-    use IoTrait;
+    use IoTraitCore;
     use HelperFilter;
     use HelperEloquentFilter;
 
     /**
-     * @param Builder    $builder
+     * @param Builder $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array      $detect_injected
+     * @param array $detect_injected
      *
      * @return void
      */
@@ -47,8 +47,11 @@ class QueryFilterWrapper extends QueryFilter
             $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
 
-        $ResolverDetections = new ResolverDetections($this->getBuilder(), $this->getRequest(), $this->getDetectFactory());
-        $response = $ResolverDetections->getResolverOut();
+        app()->bind('ResolverDetections', function () {
+            return new ResolverDetections($this->getBuilder(), $this->getRequest(), $this->getDetectFactory());
+        });
+
+        $response = app('ResolverDetections')->getResolverOut();
 
         $response = $this->__handelResponseFilter($response);
 

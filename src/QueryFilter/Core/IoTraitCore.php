@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
-trait IoTrait
+trait IoTraitCore
 {
     /**
      * @param $out

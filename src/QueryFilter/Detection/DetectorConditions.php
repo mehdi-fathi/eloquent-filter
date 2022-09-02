@@ -69,7 +69,7 @@ class DetectorConditions
      *
      * @return bool
      */
-    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class)
+    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class): bool
     {
         if ($output = $this->checkSetWhiteListFields($field, $list_white_filter_model)) {
             return $output;
