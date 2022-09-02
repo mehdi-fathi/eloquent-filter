@@ -1,6 +1,5 @@
 <?php
 
-//todo make command to generate customFilter trait
 //todo make blacklist array for disable some method for custom query
 //todo make comment
 
