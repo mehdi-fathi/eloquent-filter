@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ *
+ */
 class Category extends Model
 {
     use Filterable;
@@ -20,16 +23,18 @@ class Category extends Model
         'count_posts',
     ];
 
-    public function bar()
-    {
-        return $this->hasMany(\Illuminate\Tests\Database\EloquentBuilderTestModelFarRelatedStub::class);
-    }
-
-    public function baz()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function baz(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Stat::class);
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function serializeRequestFilter($request)
     {
         if (!empty($request['new_title'])) {

@@ -7,12 +7,10 @@ use eloquentFilter\QueryFilter\HelperFilter;
 use eloquentFilter\QueryFilter\Queries\Special;
 
 /**
- * Class WhereInCondition.
+ * Class SpecialCondition.
  */
 class SpecialCondition implements DetectorContract
 {
-    use HelperFilter;
-
     /**
      * @param $field
      * @param $params

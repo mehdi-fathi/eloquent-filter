@@ -14,7 +14,7 @@ trait HelperFilter
      *
      * @return bool
      */
-    private static function isAssoc(array $arr)
+    public static function isAssoc(array $arr): bool
     {
         if ([] === $arr) {
             return false;

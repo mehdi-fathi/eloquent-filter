@@ -149,9 +149,8 @@ class MakeEloquentFilter extends Command
      *
      * @param string $path
      *
-     * @return string
      */
-    protected function makeDirectory($path)
+    protected function makeDirectory(string $path)
     {
         if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);

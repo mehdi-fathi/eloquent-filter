@@ -11,7 +11,6 @@ use eloquentFilter\QueryFilter\Queries\WhereIn;
  */
 class WhereInCondition implements DetectorContract
 {
-    use HelperFilter;
 
     /**
      * @param $field
@@ -22,7 +21,7 @@ class WhereInCondition implements DetectorContract
      */
     public static function detect($field, $params, $is_overide_method = false): ?string
     {
-        if (is_array($params) && !self::isAssoc($params) && !stripos($field, '.')) {
+        if (is_array($params) && !HelperFilter::isAssoc($params) && !stripos($field, '.')) {
             $method = WhereIn::class;
         }
 

@@ -20,7 +20,7 @@ class QueryFilterCoreWrapper extends QueryFilterCore
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array $detect_injected
+     * @param array|null $detect_injected
      *
      * @return void
      */

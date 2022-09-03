@@ -4,6 +4,9 @@ namespace eloquentFilter;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
+/**
+ *
+ */
 class ServiceProviderTest extends BaseServiceProvider
 {
     /**
@@ -44,10 +47,7 @@ class ServiceProviderTest extends BaseServiceProvider
     {
     }
 
-    /**
-     * @return string
-     */
-    protected function configPath(): string
+    protected function configPath()
     {
     }
 }

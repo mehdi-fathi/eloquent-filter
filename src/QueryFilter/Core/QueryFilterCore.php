@@ -13,12 +13,14 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
+use eloquentFilter\QueryFilter\HelperFilter;
 
 /**
  * Class QueryFilterCore.
  */
 class QueryFilterCore
 {
+    use HelperFilter;
     /**
      * @var
      */
@@ -61,7 +63,7 @@ class QueryFilterCore
     /**
      * QueryFilter constructor.
      *
-     * @param array      $request
+     * @param array|null $request
      * @param array|null $detect_injected
      */
     public function __construct(?array $request, array $detect_injected = null)
