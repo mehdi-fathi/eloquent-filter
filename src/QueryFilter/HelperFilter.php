@@ -66,7 +66,7 @@ trait HelperFilter
     /**
      * @param array|null $request
      */
-    protected function setRequest($request): void
+    public function setRequest($request): void
     {
         if (!empty($request['page'])) {
             unset($request['page']);
@@ -98,7 +98,7 @@ trait HelperFilter
     /**
      * @return array|null
      */
-    private function getRequest(): ?array
+    public function getRequest(): ?array
     {
         return $this->request;
     }
@@ -110,7 +110,7 @@ trait HelperFilter
      *
      * @return array|null
      */
-    protected function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
+    public function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
     {
         if (!empty($this->getRequest())) {
             if (!empty(config('eloquentFilter.ignore_request'))) {
@@ -159,7 +159,7 @@ trait HelperFilter
     /**
      * @return mixed
      */
-    private function getAcceptRequest()
+    public function getAcceptRequest()
     {
         return $this->accept_request;
     }
@@ -167,7 +167,7 @@ trait HelperFilter
     /**
      * @return mixed
      */
-    private function getIgnoreRequest()
+    public function getIgnoreRequest()
     {
         return $this->ignore_request;
     }

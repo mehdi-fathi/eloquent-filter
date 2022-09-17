@@ -2,18 +2,29 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
-use eloquentFilter\QueryFilter\HelperEloquentFilter;
-use eloquentFilter\QueryFilter\HelperFilter;
+use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class QueryFilterCoreWrapper.
  */
-class QueryFilterCoreWrapper extends QueryFilterCore
+class QueryFilterCoreWrapper
 {
-    use IoTraitCore;
-    use HelperFilter;
-    use HelperEloquentFilter;
+
+    /**
+     * @var \eloquentFilter\QueryFilter\Core\EloquentQueryFilterCore
+     */
+    public $core;
+
+    /**
+     * @param array|null $request
+     */
+    public function __construct(array $request = null)
+    {
+        $queryFilterCoreFactory = new QueryFilterCoreFactory();
+
+        $this->core = $queryFilterCoreFactory->createQueryFilterCoreBuilder($request);
+    }
 
     /**
      * @param Builder $builder
@@ -26,35 +37,75 @@ class QueryFilterCoreWrapper extends QueryFilterCore
      */
     public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
-        $this->setBuilder($builder);
+
+        $this->core->setBuilder($builder);
 
         if (!empty($request)) {
-            $this->setRequest($request);
+            $this->core->setRequest($request);
         }
 
-        if (config('eloquentFilter.enabled') == false || empty($this->getRequest())) {
+        if (config('eloquentFilter.enabled') == false || empty($this->core->getRequest())) {
             return;
         }
 
-        $this->__handelSerializeRequestFilter();
+        $this->core->handelSerializeRequestFilter();
 
-        $this->__makeAliasRequestFilter();
+        $this->core->makeAliasRequestFilter();
 
-        $this->setFilterRequests($ignore_request, $accept_request, $this->getBuilder()->getModel());
+        $this->core->setFilterRequests($ignore_request, $accept_request, $this->core->getBuilder()->getModel());
 
         if (!empty($detect_injected)) {
-            $this->setDetectInjected($detect_injected);
-            $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+            $this->core->setDetectInjected($detect_injected);
+            $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
         }
 
         app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->getBuilder(), $this->getRequest(), $this->getDetectFactory());
+            return new ResolverDetections($this->core->getBuilder(), $this->core->getRequest(), $this->core->getDetectFactory());
         });
 
         $response = app('ResolverDetections')->getResolverOut();
 
-        $response = $this->__handelResponseFilter($response);
+        $response = $this->core->handelResponseFilter($response);
 
         return $response;
     }
+
+    /**
+     * @param null $index
+     *
+     * @return array|mixed|null
+     */
+    public function filterRequests($index = null)
+    {
+        if (!empty($index)) {
+            return $this->core->getRequest()[$index];
+        }
+
+        return $this->core->getRequest();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAcceptedRequest()
+    {
+        return $this->core->getAcceptRequest();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIgnoredRequest()
+    {
+        return $this->core->getIgnoreRequest();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInjectedDetections()
+    {
+        return $this->core->getDetectInjected();
+    }
+
 }

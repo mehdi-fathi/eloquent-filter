@@ -9,7 +9,7 @@ trait IoTraitCore
      *
      * @return mixed
      */
-    private function __handelResponseFilter($out)
+    public function handelResponseFilter($out)
     {
         if (method_exists($this->builder->getModel(), 'ResponseFilter')) {
             return $this->builder->getModel()->ResponseFilter($out);
@@ -18,7 +18,7 @@ trait IoTraitCore
         return $out;
     }
 
-    private function __handelSerializeRequestFilter()
+    public function handelSerializeRequestFilter()
     {
         if (method_exists($this->builder->getModel(), 'serializeRequestFilter') && !empty($this->getRequest())) {
             $serializeRequestFilter = $this->builder->getModel()->serializeRequestFilter($this->getRequest());
@@ -26,7 +26,7 @@ trait IoTraitCore
         }
     }
 
-    private function __makeAliasRequestFilter()
+    public function makeAliasRequestFilter()
     {
         if (empty($this->getRequest())) {
             return;
