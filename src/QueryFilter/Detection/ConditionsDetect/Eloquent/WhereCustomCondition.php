@@ -1,14 +1,14 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\Queries\Where;
+use eloquentFilter\QueryFilter\Queries\WhereCustom;
 
 /**
- * Class WhereCondition.
+ * Class WhereOrCondition.
  */
-class WhereCondition implements DetectorContract
+class WhereCustomCondition implements DetectorContract
 {
     /**
      * @param $field
@@ -19,8 +19,8 @@ class WhereCondition implements DetectorContract
      */
     public static function detect($field, $params, $is_override_method = false): ?string
     {
-        if (isset($params)) {
-            $method = Where::class;
+        if ($is_override_method == true) {
+            $method = WhereCustom::class;
         }
 
         return $method ?? null;

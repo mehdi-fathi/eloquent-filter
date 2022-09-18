@@ -1,9 +1,8 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\HelperFilter;
 use eloquentFilter\QueryFilter\Queries\Special;
 
 /**

@@ -1,14 +1,14 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\Queries\WhereHas;
+use eloquentFilter\QueryFilter\Queries\WhereLike;
 
 /**
- * Class WhereHasCondition.
+ * Class WhereLikeCondition.
  */
-class WhereHasCondition implements DetectorContract
+class WhereLikeCondition implements DetectorContract
 {
     /**
      * @param $field
@@ -19,8 +19,8 @@ class WhereHasCondition implements DetectorContract
      */
     public static function detect($field, $params, $is_overide_method = false): ?string
     {
-        if (stripos($field, '.')) {
-            $method = WhereHas::class;
+        if (!empty($params['like'])) {
+            $method = WhereLike::class;
         }
 
         return $method ?? null;

@@ -1,26 +1,26 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\Queries\WhereLike;
+use eloquentFilter\QueryFilter\Queries\WhereOr;
 
 /**
- * Class WhereLikeCondition.
+ * Class WhereOrCondition.
  */
-class WhereLikeCondition implements DetectorContract
+class WhereOrCondition implements DetectorContract
 {
     /**
      * @param $field
      * @param $params
-     * @param bool $is_overide_method
+     * @param $is_overide_method
      *
      * @return string|null
      */
     public static function detect($field, $params, $is_overide_method = false): ?string
     {
-        if (!empty($params['like'])) {
-            $method = WhereLike::class;
+        if ($field == 'or') {
+            $method = WhereOr::class;
         }
 
         return $method ?? null;

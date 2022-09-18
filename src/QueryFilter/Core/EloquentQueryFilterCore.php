@@ -2,22 +2,22 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\SpecialCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCustomCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereDateCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\SpecialCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereBetweenCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereByOptCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCustomCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereDateCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereHasCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereInCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 use eloquentFilter\QueryFilter\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\HelperFilter;
 
 /**
- * Class QueryFilterCore.
+ * Class EloquentQueryFilterCore.
  */
 class EloquentQueryFilterCore implements QueryFilterCore
 {

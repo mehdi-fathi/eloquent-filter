@@ -1,6 +1,7 @@
 <?php
 
-use eloquentFilter\QueryFilter\Core\QueryFilterCoreWrapper;
+use eloquentFilter\QueryFilter\Core\QueryFilterCoreBuilder;
+use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Mockery as m;
 
 /**
@@ -32,7 +33,12 @@ class TestCase extends Orchestra\Testbench\TestCase
         $this->app->singleton(
             'eloquentFilter',
             function () {
-                return new QueryFilterCoreWrapper($this->request->query());
+
+                $queryFilterCoreFactory = new QueryFilterCoreFactory();
+
+                $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder($this->request->query());
+
+                return new QueryFilterCoreBuilder($core);
             }
         );
     }

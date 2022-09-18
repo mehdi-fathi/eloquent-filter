@@ -2,13 +2,12 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
-use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class QueryFilterCoreWrapper.
  */
-class QueryFilterCoreWrapper
+class QueryFilterCoreBuilder
 {
 
     /**
@@ -19,11 +18,9 @@ class QueryFilterCoreWrapper
     /**
      * @param array|null $request
      */
-    public function __construct(array $request = null)
+    public function __construct(QueryFilterCore $core)
     {
-        $queryFilterCoreFactory = new QueryFilterCoreFactory();
-
-        $this->core = $queryFilterCoreFactory->createQueryFilterCoreBuilder($request);
+        $this->core = $core;
     }
 
     /**
