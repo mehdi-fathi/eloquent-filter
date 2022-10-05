@@ -7,7 +7,7 @@ use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 interface QueryFilterCore
 {
 
-    public function __construct(?array $request, array $detect_injected = null);
+    public function __construct(array $default_injected, array $detect_injected = null);
 
     public function getDetectorFactory(array $default_detect = null, array $detect_injected = null);
 
