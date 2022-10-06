@@ -22,13 +22,14 @@ class QueryFilterCoreFactory
 {
     public function createQueryFilterCoreBuilder(): QueryFilterCore
     {
-        return new QueryFilterCoreBuilder($this->getDefaultDetectorsInstance());
+        return new QueryFilterCoreBuilder($this->getDefaultDetectorsEloquent());
     }
 
     /**
      * @return array
+     * @note DON'T CHANGE ORDER THESE BASED ON FLIMSY REASON.
      */
-    private function getDefaultDetectorsInstance(): array
+    private function getDefaultDetectorsEloquent(): array
     {
         return [
             SpecialCondition::class,

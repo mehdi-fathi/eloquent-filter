@@ -48,7 +48,6 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * QueryFilter constructor.
      *
-     * @param array|null $request
      * @param array $default_injected
      * @param array|null $detect_injected
      */

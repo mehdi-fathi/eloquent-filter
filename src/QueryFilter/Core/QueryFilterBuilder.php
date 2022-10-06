@@ -17,7 +17,8 @@ class QueryFilterBuilder
     public $request;
 
     /**
-     * @param array|null $request
+     * @param \eloquentFilter\QueryFilter\Core\QueryFilterCore $core
+     * @param \eloquentFilter\QueryFilter\Core\RequestFilter $requestFilter
      */
     public function __construct(QueryFilterCore $core, RequestFilter $requestFilter)
     {
@@ -25,6 +26,7 @@ class QueryFilterBuilder
         $this->request = $requestFilter;
     }
 
+    //todo we had better make some methods on apply base on operation( 1-request(....)  2-filter 3- response
     /**
      * @param Builder $builder
      * @param array|null $request
@@ -47,7 +49,6 @@ class QueryFilterBuilder
             return;
         }
 
-
         if (method_exists($this->core->getBuilder()->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
 
             $serializeRequestFilter = $this->core->getBuilder()->getModel()->serializeRequestFilter($this->request->getRequest());
@@ -68,10 +69,12 @@ class QueryFilterBuilder
             $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
         }
 
+        /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
             return new ResolverDetections($this->core->getBuilder(), $this->request->getRequest(), $this->core->getDetectFactory());
         });
 
+        /** @see ResolverDetections::getResolverOut() */
         $response = app('ResolverDetections')->getResolverOut();
 
         $response = $this->core->handelResponseFilter($response);

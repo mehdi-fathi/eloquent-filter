@@ -39,6 +39,7 @@ class ResolverDetections
 
     /**
      * @return mixed
+     * @see QueryFilterBuilder
      */
     public function getResolverOut()
     {
