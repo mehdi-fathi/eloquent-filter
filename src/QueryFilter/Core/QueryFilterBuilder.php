@@ -49,35 +49,10 @@ class QueryFilterBuilder
             return;
         }
 
-        if (method_exists($this->core->getBuilder()->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
+        $this->requestHandel($ignore_request, $accept_request, $detect_injected);
+        $response = $this->resolveDetections();
 
-            $serializeRequestFilter = $this->core->getBuilder()->getModel()->serializeRequestFilter($this->request->getRequest());
-            $this->request->handelSerializeRequestFilter($serializeRequestFilter);
-
-        }
-
-        if ($alias_list_filter = $this->core->getBuilder()->getModel()->getAliasListFilter()) {
-
-            $this->request->makeAliasRequestFilter($alias_list_filter);
-        }
-
-
-        $this->request->setFilterRequests($ignore_request, $accept_request, $this->core->getBuilder()->getModel());
-
-        if (!empty($detect_injected)) {
-            $this->core->setDetectInjected($detect_injected);
-            $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
-        }
-
-        /** @see ResolverDetections */
-        app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->core->getBuilder(), $this->request->getRequest(), $this->core->getDetectFactory());
-        });
-
-        /** @see ResolverDetections::getResolverOut() */
-        $response = app('ResolverDetections')->getResolverOut();
-
-        $response = $this->core->handelResponseFilter($response);
+        $response = $this->responseFilterHandle($response);
 
         return $response;
     }
@@ -120,4 +95,61 @@ class QueryFilterBuilder
         return $this->core->getDetectInjected();
     }
 
+    /**
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @param array|null $detect_injected
+     * @return void
+     */
+    private function requestHandel(?array $ignore_request, ?array $accept_request, ?array $detect_injected): void
+    {
+        if (method_exists($this->core->getBuilder()->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
+
+            $serializeRequestFilter = $this->core->getBuilder()->getModel()->serializeRequestFilter($this->request->getRequest());
+            $this->request->handelSerializeRequestFilter($serializeRequestFilter);
+
+        }
+
+        if ($alias_list_filter = $this->core->getBuilder()->getModel()->getAliasListFilter()) {
+
+            $this->request->makeAliasRequestFilter($alias_list_filter);
+        }
+
+
+        $this->request->setFilterRequests($ignore_request, $accept_request, $this->core->getBuilder()->getModel());
+
+        if (!empty($detect_injected)) {
+            $this->core->setDetectInjected($detect_injected);
+            $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    private function resolveDetections()
+    {
+        /** @see ResolverDetections */
+        app()->bind('ResolverDetections', function () {
+            return new ResolverDetections($this->core->getBuilder(), $this->request->getRequest(), $this->core->getDetectFactory());
+        });
+
+        /** @see ResolverDetections::getResolverOut() */
+        $response = app('ResolverDetections')->getResolverOut();
+        return $response;
+    }
+
+    /**
+     * @param $out
+     *
+     * @return mixed
+     */
+    public function responseFilterHandle($out)
+    {
+        if (method_exists($this->core->getBuilder()->getModel(), 'ResponseFilter')) {
+            return $this->core->getBuilder()->getModel()->ResponseFilter($out);
+        }
+
+        return $out;
+    }
 }
