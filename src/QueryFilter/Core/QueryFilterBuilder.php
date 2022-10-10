@@ -2,19 +2,32 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
+use eloquentFilter\QueryFilter\HelperEloquentFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class QueryFilterCoreWrapper.
+ * Class QueryFilterBuilder.
  */
 class QueryFilterBuilder
 {
 
+    use HelperEloquentFilter;
     /**
      * @var \eloquentFilter\QueryFilter\Core\QueryFilterCoreBuilder
      */
-    public $core;
-    public $request;
+
+    public QueryFilterCore $core;
+
+    /**
+     * @var \eloquentFilter\QueryFilter\Core\RequestFilter
+     */
+
+    public RequestFilter $request;
+
+    /**
+     * @var \eloquentFilter\QueryFilter\Core\QueryBuilderWrapper
+     */
+    public QueryBuilderWrapper $builder;
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\QueryFilterCore $core
@@ -27,6 +40,7 @@ class QueryFilterBuilder
     }
 
     //todo we had better make some methods on apply base on operation( 1-request(....)  2-filter 3- response
+
     /**
      * @param Builder $builder
      * @param array|null $request
@@ -39,7 +53,7 @@ class QueryFilterBuilder
     public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
 
-        $this->core->setBuilder($builder);
+        $this->builder = QueryBuilderWrapperFactory::createQueryBuilder($builder);
 
         if (!empty($request)) {
             $this->request->setRequest($request);
@@ -103,20 +117,20 @@ class QueryFilterBuilder
      */
     private function requestHandel(?array $ignore_request, ?array $accept_request, ?array $detect_injected): void
     {
-        if (method_exists($this->core->getBuilder()->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
+        if (method_exists($this->builder->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
 
-            $serializeRequestFilter = $this->core->getBuilder()->getModel()->serializeRequestFilter($this->request->getRequest());
+            $serializeRequestFilter = $this->builder->serializeRequestFilter($this->request->getRequest());
             $this->request->handelSerializeRequestFilter($serializeRequestFilter);
 
         }
 
-        if ($alias_list_filter = $this->core->getBuilder()->getModel()->getAliasListFilter()) {
+        if ($alias_list_filter = $this->builder->getAliasListFilter()) {
 
             $this->request->makeAliasRequestFilter($alias_list_filter);
         }
 
 
-        $this->request->setFilterRequests($ignore_request, $accept_request, $this->core->getBuilder()->getModel());
+        $this->request->setFilterRequests($ignore_request, $accept_request, $this->builder->getBuilder()->getModel());
 
         if (!empty($detect_injected)) {
             $this->core->setDetectInjected($detect_injected);
@@ -131,7 +145,7 @@ class QueryFilterBuilder
     {
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->core->getBuilder(), $this->request->getRequest(), $this->core->getDetectFactory());
+            return new ResolverDetections($this->builder->getBuilder(), $this->request->getRequest(), $this->core->getDetectFactory());
         });
 
         /** @see ResolverDetections::getResolverOut() */
@@ -146,8 +160,8 @@ class QueryFilterBuilder
      */
     public function responseFilterHandle($out)
     {
-        if (method_exists($this->core->getBuilder()->getModel(), 'ResponseFilter')) {
-            return $this->core->getBuilder()->getModel()->ResponseFilter($out);
+        if (method_exists($this->builder->getBuilder()->getModel(), 'ResponseFilter')) {
+            return $this->builder->getBuilder()->getModel()->ResponseFilter($out);
         }
 
         return $out;

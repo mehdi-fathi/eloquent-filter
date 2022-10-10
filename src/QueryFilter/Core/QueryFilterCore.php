@@ -11,10 +11,6 @@ interface QueryFilterCore
 
     public function getDetectorFactory(array $default_detect = null, array $detect_injected = null);
 
-    public function setBuilder($builder): void;
-
-    public function getBuilder();
-
     public function setDefaultDetect($default_detect): void;
 
     public function getDefaultDetect();

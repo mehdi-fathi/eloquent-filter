@@ -36,7 +36,7 @@ class ServiceProvider extends BaseServiceProvider
     private function configurePaths()
     {
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('eloquentFilter.php'),
+            __DIR__ . '/config/config.php' => config_path('eloquentFilter.php'),
         ]);
     }
 
@@ -46,7 +46,7 @@ class ServiceProvider extends BaseServiceProvider
     private function mergeConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/config.php',
+            __DIR__ . '/config/config.php',
             'eloquentFilter'
         );
     }
@@ -56,17 +56,22 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function registerBindings()
     {
-        $this->app->singleton(
-            'eloquentFilter',
-            function () {
+        if (config('eloquentFilter.enabled') != false) {
 
-                $queryFilterCoreFactory = new QueryFilterCoreFactory();
+            $this->app->singleton(
+                'eloquentFilter',
+                function () {
 
-                $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder($this->app->get('request')->query());
+                    $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
-                return new QueryFilterBuilder($core);
-            }
-        );
+                    $request = new \eloquentFilter\QueryFilter\Core\RequestFilter($this->request->query());
+
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
+
+                    return new QueryFilterBuilder($core, $request);
+                }
+            );
+        }
 
         $this->commands([MakeEloquentFilter::class]);
     }

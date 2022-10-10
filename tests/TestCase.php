@@ -23,26 +23,29 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->withFactories(__DIR__.'/database/factories');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->withFactories(__DIR__ . '/database/factories');
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
 
-        $this->config = require __DIR__.'/../src/config/config.php';
+        $this->config = require __DIR__ . '/../src/config/config.php';
 
-        $this->app->singleton(
-            'eloquentFilter',
-            function () {
+        if (config('eloquentFilter.enabled') != false) {
 
-                $queryFilterCoreFactory = new QueryFilterCoreFactory();
+            $this->app->singleton(
+                'eloquentFilter',
+                function () {
 
-                $request = new \eloquentFilter\QueryFilter\Core\RequestFilter($this->request->query());
+                    $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
-                $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
+                    $request = new \eloquentFilter\QueryFilter\Core\RequestFilter($this->request->query());
 
-                return new QueryFilterBuilder($core,$request);
-            }
-        );
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
+
+                    return new QueryFilterBuilder($core, $request);
+                }
+            );
+        }
     }
 
     /**

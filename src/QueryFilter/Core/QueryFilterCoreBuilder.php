@@ -11,15 +11,6 @@ use eloquentFilter\QueryFilter\HelperFilter;
  */
 class QueryFilterCoreBuilder implements QueryFilterCore
 {
-    use HelperFilter;
-    use HelperEloquentFilter;
-
-    use IoTraitCore;
-
-    /**
-     * @var
-     */
-    public $request;
     /**
      * @var
      */
@@ -59,22 +50,6 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
         $this->setDefaultDetect($default_injected);
         $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getDetectInjected()));
-    }
-
-    /**
-     * @param mixed $builder
-     */
-    public function setBuilder($builder): void
-    {
-        $this->builder = $builder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBuilder()
-    {
-        return $this->builder;
     }
 
     /**
