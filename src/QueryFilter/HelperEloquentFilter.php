@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter;
 
 /**
- * Trait HelperFilter.
+ * Trait HelperEloquentFilter.
  */
 trait HelperEloquentFilter
 {
@@ -15,10 +15,10 @@ trait HelperEloquentFilter
     public function filterRequests($index = null)
     {
         if (!empty($index)) {
-            return $this->getRequest()[$index];
+            return $this->request->getRequest()[$index];
         }
 
-        return $this->getRequest();
+        return $this->request->getRequest();
     }
 
     /**
@@ -26,7 +26,7 @@ trait HelperEloquentFilter
      */
     public function getAcceptedRequest()
     {
-        return $this->getAcceptRequest();
+        return $this->request->getAcceptRequest();
     }
 
     /**
@@ -34,7 +34,7 @@ trait HelperEloquentFilter
      */
     public function getIgnoredRequest()
     {
-        return $this->getIgnoreRequest();
+        return $this->request->getIgnoreRequest();
     }
 
     /**
@@ -42,6 +42,6 @@ trait HelperEloquentFilter
      */
     public function getInjectedDetections()
     {
-        return $this->getDetectInjected();
+        return $this->core->getDetectInjected();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
+use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
 
@@ -16,21 +18,21 @@ class ResolverDetections
      */
     private $builder;
     /**
-     * @var
+     * @var array
      */
-    private $request;
+    private array $request;
     /**
-     * @var
+     * @var \eloquentFilter\QueryFilter\Detection\DetectorContract
      */
-    private $detect_factory;
+    private DetectorContract $detect_factory;
 
     /**
      * ResolverDetections constructor.
      * @param $builder
-     * @param $request
-     * @param $detect_factory
+     * @param array|null $request
+     * @param \eloquentFilter\QueryFilter\Detection\DetectorContract $detect_factory
      */
-    public function __construct($builder, $request, $detect_factory)
+    public function __construct($builder, array $request, DetectorContract $detect_factory)
     {
         $this->builder = $builder;
         $this->request = $request;
@@ -41,7 +43,7 @@ class ResolverDetections
      * @return mixed
      * @see QueryFilterBuilder
      */
-    public function getResolverOut()
+    public function getResolverOut(): Builder
     {
         $filter_detections = $this->getFiltersDetection();
 
@@ -58,9 +60,9 @@ class ResolverDetections
      * @param $values
      * @param $model
      *
+     * @return Application|mixed
      * @throws ReflectionException
      *
-     * @return Application|mixed
      */
     private function resolve($filterName, $values, $model)
     {
