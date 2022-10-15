@@ -1,12 +1,14 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core;
+namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
 
 /**
  *
  */
 class QueryBuilderWrapper implements QueryBuilderWrapperInterface
 {
+
+    private $builder;
 
     /**
      * @param $builder
@@ -32,16 +34,26 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
         return $this->builder;
     }
 
+    /**
+     * @return mixed
+     */
     public function getModel()
     {
         return $this->getBuilder()->getModel();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAliasListFilter()
     {
         return $this->getModel()->getAliasListFilter();
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function serializeRequestFilter($request)
     {
        return $this->getBuilder()->getModel()->serializeRequestFilter($request);

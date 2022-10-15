@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\HelperFilter;
 use Illuminate\Support\Arr;
@@ -34,7 +34,6 @@ class RequestFilter
     {
         $this->setRequest($request);
     }
-
 
     /**
      * @param array|null $request
@@ -75,7 +74,6 @@ class RequestFilter
     {
         return $this->request;
     }
-
 
     /**
      * @param array|null $ignore_request

@@ -2,8 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Factory;
 
-use eloquentFilter\QueryFilter\Core\QueryFilterCoreBuilder;
-use eloquentFilter\QueryFilter\Core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCoreBuilder;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\SpecialCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereByOptCondition;

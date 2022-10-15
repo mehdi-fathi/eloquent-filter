@@ -1,10 +1,8 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
-use eloquentFilter\QueryFilter\HelperEloquentFilter;
-use eloquentFilter\QueryFilter\HelperFilter;
 
 /**
  * Class EloquentQueryFilterCore.
@@ -27,14 +25,14 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     protected $detect_injected;
 
     /**
-     * @var
+     * @var array
      */
-    protected $default_detect;
+    protected array $default_detect;
 
     /**
      * @var DetectionFactory
      */
-    private $detect_factory;
+    private DetectionFactory $detect_factory;
 
     /**
      * QueryFilter constructor.

@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core;
+namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
 
 /**
  *
@@ -23,8 +23,14 @@ interface QueryBuilderWrapperInterface
      */
     public function getBuilder();
 
+    /**
+     * @return mixed
+     */
     public function getAliasListFilter();
 
+    /**
+     * @return mixed
+     */
     public function getModel();
 
 }

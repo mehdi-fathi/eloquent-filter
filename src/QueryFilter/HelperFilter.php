@@ -2,7 +2,6 @@
 
 namespace eloquentFilter\QueryFilter;
 
-use eloquentFilter\QueryFilter\Core\RequestFilter;
 use Illuminate\Support\Arr;
 
 /**

@@ -3,7 +3,7 @@
 namespace eloquentFilter;
 
 use eloquentFilter\Command\MakeEloquentFilter;
-use eloquentFilter\QueryFilter\Core\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -64,7 +64,7 @@ class ServiceProvider extends BaseServiceProvider
 
                     $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
-                    $request = new \eloquentFilter\QueryFilter\Core\RequestFilter($this->request->query());
+                    $request = new QueryFilter\Core\FilterBuilder\RequestFilter($this->request->query());
 
                     $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
