@@ -3,9 +3,9 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
+use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
-use eloquentFilter\QueryFilter\HelperEloquentFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

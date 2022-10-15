@@ -2,8 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
+use eloquentFilter\QueryFilter\Core\HelperFilter;
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use eloquentFilter\QueryFilter\HelperFilter;
 use eloquentFilter\QueryFilter\Queries\WhereIn;
 
 /**

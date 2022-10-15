@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
-use eloquentFilter\QueryFilter\HelperFilter;
+use eloquentFilter\QueryFilter\Core\HelperFilter;
 use Illuminate\Support\Arr;
 
 /**
