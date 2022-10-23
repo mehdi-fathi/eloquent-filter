@@ -89,7 +89,7 @@ class QueryFilterBuilder
 
         }
 
-        if ($alias_list_filter = $this->builder->getAliasListFilter()) {
+        if ($alias_list_filter = $this->builder->getAliasListFilter() ?? null) {
 
             $this->request->makeAliasRequestFilter($alias_list_filter);
         }

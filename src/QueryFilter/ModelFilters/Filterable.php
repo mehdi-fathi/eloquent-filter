@@ -93,7 +93,7 @@ trait Filterable
      */
     public static function getWhiteListFilter(): array
     {
-        return self::$whiteListFilter;
+        return (self::$whiteListFilter ?? []);
     }
 
     /**
@@ -101,7 +101,7 @@ trait Filterable
      */
     public function getAliasListFilter(): ?array
     {
-        return $this->aliasListFilter;
+        return ($this->aliasListFilter ?? null);
     }
 
     /**
@@ -111,7 +111,9 @@ trait Filterable
      */
     public static function addWhiteListFilter($value)
     {
-        self::$whiteListFilter[] = $value;
+        if (isset(self::$whiteListFilter)) {
+            self::$whiteListFilter[] = $value;
+        }
     }
 
     /**
@@ -119,7 +121,9 @@ trait Filterable
      */
     public static function setWhiteListFilter(array $array)
     {
-        self::$whiteListFilter = $array;
+        if (isset(self::$whiteListFilter)) {
+            self::$whiteListFilter = $array;
+        }
     }
 
     /**
@@ -129,7 +133,7 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
-        return (bool) method_exists($this, $method);
+        return (bool)method_exists($this, $method);
     }
 
     /**

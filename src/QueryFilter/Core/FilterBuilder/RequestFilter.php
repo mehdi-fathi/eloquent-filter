@@ -15,9 +15,20 @@ class RequestFilter
      */
     protected $builder;
 
+    /**
+     * @var
+     */
     protected $request;
 
+    /**
+     * @var
+     */
     protected $accept_request;
+
+    /**
+     * @var
+     */
+    protected $ignore_request;
 
     /**
      * @param $builder
@@ -111,6 +122,10 @@ class RequestFilter
         return $this->getRequest();
     }
 
+    /**
+     * @param $alias_list_filter
+     * @return void
+     */
     public function makeAliasRequestFilter($alias_list_filter)
     {
         if (empty($this->getRequest())) {
