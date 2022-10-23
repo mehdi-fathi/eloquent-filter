@@ -33,7 +33,7 @@ It's easy to use and fully dynamic, just with sending the Query Strings to it.
     - [Response Filter](#Response-filter)
 
 ## Requirements
-- PHP 7.2+, 8.0 (new version)
+- PHP 7.4+, 8.0 (new version)
 - Laravel 5.8+, 6.x, 7.x, 8.x, 9.x (New)
 
 ## :microphone: Introduction
@@ -43,11 +43,11 @@ Let's say we want to make an advanced search page with multiple filter options.
 ![alt text](https://raw.githubusercontent.com/mehdi-fathi/mehdi-fathi.github.io/master/eloquent-filter/assets/img/Esfand-05-1399%2022-23-21.gif "sample 1 eloquent-filter")
 
 ### A simple implementation without Eloquent Filter
-The Request URI could look like this:
+The Resource URI would be look like:
                                                                                      
-    http://localhost:8000/users/index?age_more_than=25&gender=male&created_at=25-09-2019
+    /users/index?age_more_than=25&gender=male&created_at=25-09-2019
  
-And a simple implementation in the Controller would look like this: 
+And a simple implementation in the Controller would look like : 
  
 ```php
 <?php
@@ -75,24 +75,24 @@ class UserController extends Controller
             $users->where('created_at','>=', $request->created_at);
         }
 
-        return $users->get();
+        return json_encode($users->get());
     }
 }
 ```
-This solution is simple and that works well.
+This solution is simple and that works well but not for an enterprise project.
 But you'd have to add a condition for each filter you need. 
-Especially with more complex filtering, your code can become a Monster very fast! :boom: 
+Especially if you would make more complex filtering, your code can become a monster quickly! :boom: 
 
-So Eloquent Filter is ready for to you get rid of complexity in addition to saving time. 
+Hence, Eloquent Filter is ready for to you get rid of complexity in addition to saving time. 
 
 ### A simple implementation with Eloquent Filter
 
 Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
-It will save your time and minimize the complexity of your code.
+It would make your own query automatically and systematically while you can control them.
 
-After installing Eloquent Filter the request URI would be like this:
+After installing Eloquent Filter, the request URI would be like this:
              
-    http://localhost:8000/users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
+    /users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
 
 And in the controller you'd just need that one line: 
@@ -113,7 +113,7 @@ class UsersController
     }
 }
 ```
-With this Eloquent filter implementation, you can use all the documented filters!
+By Eloquent filter implementation, you can use all the documented filters!
 
 ## :electric_plug: Installation
 
@@ -171,12 +171,12 @@ class User extends Model
     ];
 }
 ```
-You can set `*` char for that filter in all fields aslike below example:
+- You can set `*` char for that filter in all fields aslike below example:
  
 ```php
 private static $whiteListFilter = ['*'];
 ```
-You can add or set `$whiteListFilter` on the fly in your method.For example:
+You can add or set `$whiteListFilter` on the fly in your method. For example:
 
 ***Set array to WhiteListFilter***
 
