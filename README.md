@@ -15,8 +15,6 @@ Eloquent Filter adds custom filters automatically to your Eloquent Models in Lar
 
 It's easy to use and fully dynamic, just with sending the Query Strings to it.
 
-[![Bitcoin Donate Button](http://KristinitaTest.github.io/donate/Bitcoin-Donate-button.png)](https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&amp;address=bc1qqzhw9euweyz28mtgqyjt703zzypyjxgxrxjgvm "eloquent-filter")
-
 ## Table of Content
 - [Introduction](#Introduction)
 - [Installation](#Installation)
