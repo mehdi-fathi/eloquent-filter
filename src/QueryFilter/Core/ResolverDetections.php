@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Detection\DetectorContract;
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
 
@@ -44,7 +43,7 @@ class ResolverDetections
      * @return mixed
      * @see QueryFilterBuilder
      */
-    public function getResolverOut(): Builder
+    public function getResolverOut()
     {
         $filter_detections = $this->getFiltersDetection();
 

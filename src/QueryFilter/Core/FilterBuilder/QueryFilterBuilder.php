@@ -54,7 +54,7 @@ class QueryFilterBuilder
      *
      * @return void
      */
-    public function apply(BuilderContract $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
+    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
 
         $this->builder = QueryBuilderWrapperFactory::createQueryBuilder($builder);
