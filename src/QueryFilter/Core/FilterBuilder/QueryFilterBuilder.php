@@ -6,6 +6,7 @@ use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
+use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -53,7 +54,7 @@ class QueryFilterBuilder
      *
      * @return void
      */
-    public function apply(Builder $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
+    public function apply(BuilderContract $builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
 
         $this->builder = QueryBuilderWrapperFactory::createQueryBuilder($builder);
