@@ -28,9 +28,6 @@ jobs:
           - laravel: 6.*
             testbench: 4.*
             database: 4.*
-          - laravel: 5.8.*
-            testbench: 3.8.*
-            database: 3.8.*
         exclude:
           - laravel: 6.*
             php: 8.0
