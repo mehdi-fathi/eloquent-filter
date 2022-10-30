@@ -12,9 +12,8 @@
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 
 Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
-``
 It's easy to use and fully dynamic, just with sending the Query Strings to it.
-
+``
 ## Table of Content
 - [Introduction](#Introduction)
 - [Installation](#Installation)
