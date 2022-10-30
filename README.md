@@ -12,7 +12,7 @@
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 
 Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
-
+``
 It's easy to use and fully dynamic, just with sending the Query Strings to it.
 
 ## Table of Content
@@ -34,7 +34,7 @@ It's easy to use and fully dynamic, just with sending the Query Strings to it.
 
 ## Requirements
 - PHP 7.4+, 8.0 (new version)
-- Laravel 5.8+, 6.x, 7.x, 8.x, 9.x (New)
+- Laravel 6.x, 7.x, 8.x, 9.x (New)
 
 ## :microphone: Introduction
 
@@ -263,7 +263,7 @@ For example `EloquentFilter::filterRequests('username')` it's getting username i
 
 ### Simple Examples
 
-You just pass data blade form to query string or generate query string in the Controller method. For example:
+You just pass data form as query string. For example:
 
 **Simple Where**
 ```
@@ -278,7 +278,7 @@ SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
--If you send date format `Y-m-d` we will work like WhereDate() method Laravel.
+- If you send date format `Y-m-d` we will work like `WhereDate()` method Laravel.
 
 ***Where In***
 
@@ -292,7 +292,7 @@ SELECT ... WHERE ... username in ('ali','ali22') AND family = 'ahmadi'
 
 ***OrWhere***
 
-This example make method `orWhere`.
+This example make method `orWhere()`.
 
 ```
 /users/list?name=mehdi&username=fathi&or[username]=ali
