@@ -6,7 +6,6 @@ use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
-use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -42,8 +41,6 @@ class QueryFilterBuilder
         $this->core = $core;
         $this->request = $requestFilter;
     }
-
-    //todo we had better make some methods on apply base on operation( 1-request(....)  2-filter 3- response
 
     /**
      * @param Builder $builder

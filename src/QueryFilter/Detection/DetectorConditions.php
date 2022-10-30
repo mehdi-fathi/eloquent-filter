@@ -10,6 +10,9 @@ use Exception;
  */
 class DetectorConditions
 {
+
+    protected $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
+         or create a override method with name %s or call ignoreRequest function for ignore %s.";
     /**
      * @var
      */
@@ -41,9 +44,9 @@ class DetectorConditions
      * @param $params
      * @param null $model
      *
+     * @return string|null
      * @throws Exception
      *
-     * @return string|null
      */
     public function detect(string $field, $params, $model = null): ?string
     {
@@ -60,14 +63,14 @@ class DetectorConditions
     }
 
     /**
-     * @param string     $field
+     * @param string $field
      * @param array|null $list_white_filter_model
-     * @param bool       $has_method
+     * @param bool $has_method
      * @param $model_class
      *
+     * @return bool
      * @throws Exception
      *
-     * @return bool
      */
     private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class): bool
     {
@@ -79,14 +82,11 @@ class DetectorConditions
 
         $class_name = class_basename($model_class);
 
-        throw new EloquentFilterException("You must set $field in whiteListFilter in $class_name.php
-         or create a override method with name $field or call ignoreRequest function for ignore $field.", 1);
-
-        //todo make constant for these
+        throw new EloquentFilterException(sprintf($this->errorExceptionWhileList, $field, $class_name, $field, $field), 1);
     }
 
     /**
-     * @param string     $field
+     * @param string $field
      * @param array|null $query
      *
      * @return bool

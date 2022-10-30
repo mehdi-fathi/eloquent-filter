@@ -22,6 +22,7 @@ use Tests\Models\User;
 class ModelFilterMockTest extends \TestCase
 {
     use Filterable;
+
     /**
      * @var ModelFilter
      */
@@ -350,13 +351,12 @@ class ModelFilterMockTest extends \TestCase
 
     public function testWhereDate()
     {
-        //todo update readme
         $builder = new Tag();
 
         $builder = $builder->query()->whereDate(
             'created_at',
             '2022-07-14',
-            );
+        );
 
         $this->request->shouldReceive('query')->andReturn(
             [
@@ -375,7 +375,7 @@ class ModelFilterMockTest extends \TestCase
     }
 
 
-    public function testSetWhiteList()
+    public function testExceptionOneValueSetWhiteList()
     {
         try {
             $this->request->shouldReceive('query')->andReturn(
