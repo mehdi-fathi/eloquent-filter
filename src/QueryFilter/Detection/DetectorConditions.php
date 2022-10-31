@@ -30,7 +30,7 @@ class DetectorConditions
         $detector_collect->map(function ($detector_obj) {
             if (!empty($detector_obj)) {
                 $reflect = new \ReflectionClass($detector_obj);
-                if ($reflect->implementsInterface(DetectorContract::class)) {
+                if ($reflect->implementsInterface(DetectorConditionsContract::class)) {
                     return $detector_obj;
                 }
             }

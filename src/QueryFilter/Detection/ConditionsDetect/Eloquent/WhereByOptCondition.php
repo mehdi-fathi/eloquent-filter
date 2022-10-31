@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereByOpt;
 
 /**
  * Class WhereByOptCondition.
  */
-class WhereByOptCondition implements DetectorContract
+class WhereByOptCondition implements DetectorConditionsContract
 {
     /**
      * @param $field

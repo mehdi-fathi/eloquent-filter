@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class DetectionFactory.
  */
-class DetectionFactory implements DetectorContract
+class DetectionFactory implements DetectorFactoryContract
 {
     /**
      * @var
@@ -17,7 +17,7 @@ class DetectionFactory implements DetectorContract
     /**
      * DetectionFactory constructor.
      *
-     * @param $detections
+     * @param array $detections
      */
     public function __construct(array $detections)
     {
@@ -29,14 +29,16 @@ class DetectionFactory implements DetectorContract
      * @param $params
      * @param Model|null $model
      *
+     * @return mixed|string|null
      * @throws \ReflectionException
      *
-     * @return mixed|string|null
      */
+    //todo should change name later
     public static function detect($field, $params, $model = null): ?string
     {
         $detect = app(DetectorConditions::class, ['detector' => self::$detections]);
 
+        /** @see DetectorConditions::detect() */
         $method = $detect->detect($field, $params, $model);
 
         return $method;

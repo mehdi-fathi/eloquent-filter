@@ -2,12 +2,12 @@
 
 namespace Tests\Models\CustomDetect;
 
-use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
 
 /**
  * Class WhereCondition.
  */
-class WhereRelationLikeCondition implements DetectorContract
+class WhereRelationLikeCondition implements DetectorConditionsContract
 {
     /**
      * @param $field

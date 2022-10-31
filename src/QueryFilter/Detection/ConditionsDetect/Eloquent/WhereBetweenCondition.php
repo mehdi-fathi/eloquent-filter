@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereBetween;
 
 /**
  * Class WhereBetweenCondition.
  */
-class WhereBetweenCondition implements DetectorContract
+class WhereBetweenCondition implements DetectorConditionsContract
 {
     /**
      * @param $field

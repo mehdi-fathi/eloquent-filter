@@ -5,7 +5,7 @@ namespace eloquentFilter\QueryFilter\Detection;
 /**
  * Interface Detector.
  */
-interface DetectorContract
+interface DetectorConditionsContract
 {
     /**
      * @param $field

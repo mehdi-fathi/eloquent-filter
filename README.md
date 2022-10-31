@@ -513,12 +513,12 @@ We must have two classes. The First detects conditions second class generates th
 
 ```php
 
-use eloquentFilter\QueryFilter\Detection\DetectorContract;
+use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
 
 /**
  * Class WhereRelationLikeCondition.
  */
-class WhereRelationLikeCondition implements DetectorContract
+class WhereRelationLikeCondition implements DetectorConditionsContract
 {
     /**
      * @param $field
