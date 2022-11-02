@@ -13,11 +13,11 @@ class WhereCondition implements DetectorConditionsContract
     /**
      * @param $field
      * @param $params
-     * @param $is_override_method
+     * @param bool $is_override_method
      *
      * @return string|null
      */
-    public static function detect($field, $params, $is_override_method = false): ?string
+    public static function detect($field, $params, bool $is_override_method = false): ?string
     {
         if (isset($params)) {
             $method = Where::class;

@@ -8,7 +8,7 @@ use Exception;
 /**
  * Class DetectorConditions.
  */
-class DetectorConditions
+class DetectorCondition
 {
 
     protected $errorExceptionWhileList = "You must set %s in whiteListFilter in %s

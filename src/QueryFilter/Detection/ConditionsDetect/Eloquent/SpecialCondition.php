@@ -17,7 +17,7 @@ class SpecialCondition implements DetectorConditionsContract
      *
      * @return string|null
      */
-    public static function detect($field, $params, $is_override_method = false): ?string
+    public static function detect($field, $params, bool $is_override_method = false): ?string
     {
         if ($field == 'f_params') {
             return Special::class;

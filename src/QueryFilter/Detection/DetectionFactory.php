@@ -33,12 +33,11 @@ class DetectionFactory implements DetectorFactoryContract
      * @throws \ReflectionException
      *
      */
-    //todo should change name later
-    public static function detect($field, $params, $model = null): ?string
+    public static function buildDetections($field, $params, $model = null): ?string
     {
-        $detect = app(DetectorConditions::class, ['detector' => self::$detections]);
+        $detect = app(DetectorCondition::class, ['detector' => self::$detections]);
 
-        /** @see DetectorConditions::detect() */
+        /** @see DetectorCondition::detect() */
         $method = $detect->detect($field, $params, $model);
 
         return $method;

@@ -23,7 +23,7 @@ class ResolverDetections
      */
     private array $request;
     /**
-     * @var \eloquentFilter\QueryFilter\Detection\DetectorConditionsContract
+     * @var \eloquentFilter\QueryFilter\Detection\DetectorFactoryContract
      */
     private DetectorFactoryContract $detect_factory;
 
@@ -67,9 +67,9 @@ class ResolverDetections
      */
     private function resolve($filterName, $values, $model)
     {
-        $detect = $this->detect_factory->detect($filterName, $values, $model);
+        $detectedConditions = $this->detect_factory->buildDetections($filterName, $values, $model);
 
-        return app($detect, ['filter' => $filterName, 'values' => $values]);
+        return app($detectedConditions, ['filter' => $filterName, 'values' => $values]);
     }
 
     /**

@@ -13,11 +13,11 @@ class WhereDateCondition implements DetectorConditionsContract
     /**
      * @param $field
      * @param $params
-     * @param $is_override_method
+     * @param bool $is_override_method
      *
      * @return string|null
      */
-    public static function detect($field, $params, $is_override_method = false): ?string
+    public static function detect($field, $params, bool $is_override_method = false): ?string
     {
         if (is_string($params) && \DateTime::createFromFormat('Y-m-d', $params) !== false) {
             $method = WhereDate::class;

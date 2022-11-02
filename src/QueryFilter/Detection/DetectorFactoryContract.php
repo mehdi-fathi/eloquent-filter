@@ -13,5 +13,5 @@ interface DetectorFactoryContract
      * @param $model
      * @return mixed
      */
-    public static function detect($field, $params, $model ): ?string;
+    public static function buildDetections($field, $params, $model): ?string;
 }
