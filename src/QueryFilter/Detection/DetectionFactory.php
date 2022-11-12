@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class DetectionFactory implements DetectorFactoryContract
 {
     /**
-     * @var
+     * @var array
      */
-    public static $detections;
+    public array $detections;
 
     /**
      * DetectionFactory constructor.
@@ -21,7 +21,7 @@ class DetectionFactory implements DetectorFactoryContract
      */
     public function __construct(array $detections)
     {
-        self::$detections = $detections;
+        $this->detections = $detections;
     }
 
     /**
@@ -33,9 +33,9 @@ class DetectionFactory implements DetectorFactoryContract
      * @throws \ReflectionException
      *
      */
-    public static function buildDetections($field, $params, $model = null): ?string
+    public function buildDetections($field, $params, $model = null): ?string
     {
-        $detect = app(DetectorCondition::class, ['detector' => self::$detections]);
+        $detect = app(DetectorCondition::class, ['detector' => $this->detections]);
 
         /** @see DetectorCondition::detect() */
         $method = $detect->detect($field, $params, $model);

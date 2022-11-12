@@ -8,10 +8,10 @@ namespace eloquentFilter\QueryFilter\Detection;
 interface DetectorFactoryContract
 {
     /**
-     * @param $field
+     * @param string $field
      * @param $params
-     * @param $model
+     * @param null $model
      * @return mixed
      */
-    public static function buildDetections($field, $params, $model): ?string;
+    public function buildDetections(string $field, $params, $model = null): ?string;
 }
