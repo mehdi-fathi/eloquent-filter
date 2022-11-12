@@ -2,7 +2,7 @@
 
 namespace Tests\Models\CustomDetect;
 
-use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
 
 /**
  * Class WhereCondition.

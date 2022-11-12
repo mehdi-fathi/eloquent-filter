@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\Contract;
 
 /**
  * Interface Detector.

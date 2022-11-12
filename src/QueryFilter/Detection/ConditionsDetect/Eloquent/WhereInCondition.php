@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Core\HelperFilter;
-use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereIn;
 
 /**

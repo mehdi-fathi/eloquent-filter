@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use Exception;
 

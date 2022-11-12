@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use Illuminate\Database\Eloquent\Model;
 
 /**

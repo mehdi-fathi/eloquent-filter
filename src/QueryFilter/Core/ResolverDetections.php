@@ -3,8 +3,7 @@
 namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
-use eloquentFilter\QueryFilter\Detection\DetectorConditionsContract;
-use eloquentFilter\QueryFilter\Detection\DetectorFactoryContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
 
@@ -23,7 +22,7 @@ class ResolverDetections
      */
     private array $request;
     /**
-     * @var \eloquentFilter\QueryFilter\Detection\DetectorFactoryContract
+     * @var \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract
      */
     private DetectorFactoryContract $detect_factory;
 
@@ -31,7 +30,7 @@ class ResolverDetections
      * ResolverDetections constructor.
      * @param $builder
      * @param array|null $request
-     * @param \eloquentFilter\QueryFilter\Detection\DetectorFactoryContract $detect_factory
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract $detect_factory
      */
     public function __construct($builder, array $request, DetectorFactoryContract $detect_factory)
     {
