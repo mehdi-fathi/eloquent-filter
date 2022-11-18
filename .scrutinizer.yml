@@ -2,7 +2,6 @@
 
 filter:
     excluded_paths:
-        - 'src/WidgetGenerator.php'
         - 'tests/*'
 
 build:
