@@ -1,18 +1,24 @@
+checks:
+  php: true
+
+tools:
+  external_code_coverage:
+    runs: 8    # Scrutinizer will wait for this many code coverage submissions
+    timeout: 600    # Timeout in seconds.
+
+filter:
+  excluded_paths:
+    - 'features/'
+    - 'tests/'
+
 build:
   environment:
     # Languages
     php:
       version: "8.0"
-  dependencies:
-        before:
-            - pecl install xdebug
-            - echo zend_extension=$(php-config --extension-dir)/xdebug.so >> $(php --ini | grep -F '/php.ini' | cut -d ':' -f 2)
-  nodes:
-    coverage:
-      tests:
-        override:
-          - command: composer test
-            coverage:
-              file: tests/coverage.xml   # <- Set this to where we find the coverage data.
-                                          #    The path is relative to the current directory.
-              format: clover
+      ini:
+        memory_limit: "-1"
+
+  tests:
+    override:
+      - php-scrutinizer-run
