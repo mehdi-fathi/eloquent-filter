@@ -3,7 +3,7 @@ build:
     coverage:
       tests:
         override:
-          - command: vendor/bin/phpunit --coverage-clover=tests/coverage.xml
+          - command: composer test
             coverage:
               file: tests/coverage.xml   # <- Set this to where we find the coverage data.
                                           #    The path is relative to the current directory.
