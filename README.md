@@ -10,6 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
 [![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 
 Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
 

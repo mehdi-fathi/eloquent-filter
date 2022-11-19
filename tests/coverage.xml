@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1668886877">
+  <project timestamp="1668886877">
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/Command/MakeEloquentFilter.php">
+      <class name="eloquentFilter\Command\MakeEloquentFilter" namespace="global">
+        <metrics complexity="20" methods="12" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="14" elements="51" coveredelements="17"/>
+      </class>
+      <line num="55" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="57" type="stmt" count="1"/>
+      <line num="59" type="stmt" count="1"/>
+      <line num="69" type="method" name="handle" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="71" type="stmt" count="0"/>
+      <line num="72" type="stmt" count="0"/>
+      <line num="78" type="method" name="compileStub" visibility="public" complexity="4" crap="20" count="0"/>
+      <line num="80" type="stmt" count="0"/>
+      <line num="81" type="stmt" count="0"/>
+      <line num="82" type="stmt" count="0"/>
+      <line num="84" type="stmt" count="0"/>
+      <line num="86" type="stmt" count="0"/>
+      <line num="88" type="stmt" count="0"/>
+      <line num="89" type="stmt" count="0"/>
+      <line num="90" type="stmt" count="0"/>
+      <line num="93" type="stmt" count="0"/>
+      <line num="94" type="stmt" count="0"/>
+      <line num="102" type="method" name="applyValuesToStub" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="104" type="stmt" count="0"/>
+      <line num="105" type="stmt" count="0"/>
+      <line num="106" type="stmt" count="0"/>
+      <line num="108" type="stmt" count="0"/>
+      <line num="116" type="method" name="getClassBasename" visibility="private" complexity="2" crap="6" count="0"/>
+      <line num="118" type="stmt" count="0"/>
+      <line num="120" type="stmt" count="0"/>
+      <line num="126" type="method" name="getPath" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="128" type="stmt" count="0"/>
+      <line num="134" type="method" name="getFileName" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="136" type="stmt" count="0"/>
+      <line num="142" type="method" name="getAppNamespace" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="144" type="stmt" count="0"/>
+      <line num="153" type="method" name="makeDirectory" visibility="protected" complexity="2" crap="6" count="0"/>
+      <line num="155" type="stmt" count="0"/>
+      <line num="156" type="stmt" count="0"/>
+      <line num="165" type="method" name="makeClassName" visibility="public" complexity="4" crap="4.10" count="1"/>
+      <line num="167" type="stmt" count="1"/>
+      <line num="168" type="stmt" count="1"/>
+      <line num="169" type="stmt" count="1"/>
+      <line num="171" type="stmt" count="1"/>
+      <line num="173" type="stmt" count="1"/>
+      <line num="174" type="stmt" count="1"/>
+      <line num="177" type="stmt" count="1"/>
+      <line num="178" type="stmt" count="0"/>
+      <line num="179" type="stmt" count="0"/>
+      <line num="182" type="stmt" count="1"/>
+      <line num="184" type="stmt" count="1"/>
+      <line num="192" type="method" name="setClassName" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="194" type="stmt" count="1"/>
+      <line num="196" type="stmt" count="1"/>
+      <line num="202" type="method" name="getClassName" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="204" type="stmt" count="1"/>
+      <metrics loc="207" ncloc="131" classes="1" methods="12" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="14" elements="51" coveredelements="17"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/Facade/EloquentFilter.php">
+      <class name="eloquentFilter\Facade\EloquentFilter" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="21" type="method" name="getFacadeAccessor" visibility="protected" complexity="1" crap="1" count="55"/>
+      <line num="23" type="stmt" count="55"/>
+      <metrics loc="26" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/EloquentBuilder/QueryBuilderWrapper.php">
+      <class name="eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper" namespace="global">
+        <metrics complexity="6" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="12" coveredelements="12"/>
+      </class>
+      <line num="16" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="53"/>
+      <line num="18" type="stmt" count="53"/>
+      <line num="24" type="method" name="setBuilder" visibility="public" complexity="1" crap="1" count="53"/>
+      <line num="26" type="stmt" count="53"/>
+      <line num="32" type="method" name="getBuilder" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="34" type="stmt" count="49"/>
+      <line num="40" type="method" name="getModel" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="42" type="stmt" count="49"/>
+      <line num="48" type="method" name="getAliasListFilter" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="50" type="stmt" count="49"/>
+      <line num="57" type="method" name="serializeRequestFilter" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="59" type="stmt" count="7"/>
+      <metrics loc="63" ncloc="41" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="12" coveredelements="12"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/EloquentBuilder/QueryBuilderWrapperInterface.php">
+      <metrics loc="37" ncloc="19" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/FilterBuilder/QueryFilterBuilder.php">
+      <class name="eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder" namespace="global">
+        <metrics complexity="13" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="27" elements="32" coveredelements="32"/>
+      </class>
+      <line num="39" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="41" type="stmt" count="55"/>
+      <line num="42" type="stmt" count="55"/>
+      <line num="54" type="method" name="apply" visibility="public" complexity="4" crap="4" count="53"/>
+      <line num="57" type="stmt" count="53"/>
+      <line num="59" type="stmt" count="53"/>
+      <line num="60" type="stmt" count="44"/>
+      <line num="63" type="stmt" count="53"/>
+      <line num="64" type="stmt" count="4"/>
+      <line num="67" type="stmt" count="49"/>
+      <line num="68" type="stmt" count="49"/>
+      <line num="70" type="stmt" count="46"/>
+      <line num="72" type="stmt" count="46"/>
+      <line num="81" type="method" name="requestHandel" visibility="private" complexity="5" crap="5" count="49"/>
+      <line num="83" type="stmt" count="49"/>
+      <line num="85" type="stmt" count="7"/>
+      <line num="86" type="stmt" count="7"/>
+      <line num="90" type="stmt" count="49"/>
+      <line num="92" type="stmt" count="2"/>
+      <line num="96" type="stmt" count="49"/>
+      <line num="98" type="stmt" count="49"/>
+      <line num="99" type="stmt" count="16"/>
+      <line num="100" type="stmt" count="16"/>
+      <line num="107" type="method" name="resolveDetections" visibility="private" complexity="1" crap="1" count="49"/>
+      <line num="110" type="stmt" count="49"/>
+      <line num="111" type="stmt" count="49"/>
+      <line num="115" type="stmt" count="49"/>
+      <line num="116" type="stmt" count="46"/>
+      <line num="124" type="method" name="responseFilterHandle" visibility="public" complexity="2" crap="2" count="46"/>
+      <line num="126" type="stmt" count="46"/>
+      <line num="127" type="stmt" count="2"/>
+      <line num="130" type="stmt" count="44"/>
+      <metrics loc="133" ncloc="92" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="27" elements="32" coveredelements="32"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/FilterBuilder/QueryFilterCore.php">
+      <metrics loc="31" ncloc="31" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/FilterBuilder/QueryFilterCoreBuilder.php">
+      <class name="eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCoreBuilder" namespace="global">
+        <metrics complexity="13" methods="10" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="29" coveredelements="27"/>
+      </class>
+      <line num="43" type="method" name="__construct" visibility="public" complexity="2" crap="2.06" count="55"/>
+      <line num="45" type="stmt" count="55"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="55"/>
+      <line num="50" type="stmt" count="55"/>
+      <line num="56" type="method" name="setDefaultDetect" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="58" type="stmt" count="55"/>
+      <line num="64" type="method" name="getDefaultDetect" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="66" type="stmt" count="55"/>
+      <line num="72" type="method" name="setDetections" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="74" type="stmt" count="55"/>
+      <line num="80" type="method" name="setDetectFactory" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="82" type="stmt" count="55"/>
+      <line num="88" type="method" name="getDetectFactory" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="90" type="stmt" count="49"/>
+      <line num="96" type="method" name="getDetections" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="98" type="stmt" count="55"/>
+      <line num="104" type="method" name="setDetectInjected" visibility="public" complexity="2" crap="2" count="16"/>
+      <line num="106" type="stmt" count="16"/>
+      <line num="107" type="stmt" count="1"/>
+      <line num="109" type="stmt" count="15"/>
+      <line num="115" type="method" name="getDetectInjected" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="117" type="stmt" count="55"/>
+      <line num="126" type="method" name="getDetectorFactory" visibility="public" complexity="2" crap="2" count="55"/>
+      <line num="128" type="stmt" count="55"/>
+      <line num="130" type="stmt" count="55"/>
+      <line num="131" type="stmt" count="15"/>
+      <line num="134" type="stmt" count="55"/>
+      <line num="136" type="stmt" count="55"/>
+      <metrics loc="139" ncloc="85" classes="1" methods="10" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="29" coveredelements="27"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/FilterBuilder/RequestFilter.php">
+      <class name="eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter" namespace="global">
+        <metrics complexity="35" methods="12" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="54" elements="68" coveredelements="64"/>
+      </class>
+      <line num="36" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="38" type="stmt" count="55"/>
+      <line num="44" type="method" name="handelSerializeRequestFilter" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="46" type="stmt" count="7"/>
+      <line num="52" type="method" name="setRequest" visibility="public" complexity="11" crap="11.06" count="45"/>
+      <line num="54" type="stmt" count="45"/>
+      <line num="55" type="stmt" count="0"/>
+      <line num="58" type="stmt" count="45"/>
+      <line num="60" type="stmt" count="45"/>
+      <line num="61" type="stmt" count="1"/>
+      <line num="64" type="stmt" count="45"/>
+      <line num="65" type="stmt" count="45"/>
+      <line num="68" type="stmt" count="45"/>
+      <line num="69" type="stmt" count="45"/>
+      <line num="70" type="stmt" count="27"/>
+      <line num="71" type="stmt" count="5"/>
+      <line num="72" type="stmt" count="1"/>
+      <line num="78" type="stmt" count="45"/>
+      <line num="84" type="method" name="getRequest" visibility="public" complexity="1" crap="1" count="54"/>
+      <line num="86" type="stmt" count="54"/>
+      <line num="96" type="method" name="setFilterRequests" visibility="public" complexity="9" crap="9" count="49"/>
+      <line num="98" type="stmt" count="49"/>
+      <line num="99" type="stmt" count="49"/>
+      <line num="100" type="stmt" count="2"/>
+      <line num="102" type="stmt" count="49"/>
+      <line num="103" type="stmt" count="5"/>
+      <line num="105" type="stmt" count="49"/>
+      <line num="107" type="stmt" count="2"/>
+      <line num="108" type="stmt" count="2"/>
+      <line num="111" type="stmt" count="49"/>
+      <line num="112" type="stmt" count="48"/>
+      <line num="113" type="stmt" count="6"/>
+      <line num="114" type="stmt" count="6"/>
+      <line num="115" type="stmt" count="6"/>
+      <line num="116" type="stmt" count="6"/>
+      <line num="122" type="stmt" count="49"/>
+      <line num="129" type="method" name="makeAliasRequestFilter" visibility="public" complexity="4" crap="4.01" count="2"/>
+      <line num="131" type="stmt" count="2"/>
+      <line num="132" type="stmt" count="0"/>
+      <line num="134" type="stmt" count="2"/>
+      <line num="136" type="stmt" count="2"/>
+      <line num="137" type="stmt" count="2"/>
+      <line num="139" type="stmt" count="2"/>
+      <line num="140" type="stmt" count="1"/>
+      <line num="142" type="stmt" count="2"/>
+      <line num="145" type="stmt" count="2"/>
+      <line num="146" type="stmt" count="2"/>
+      <line num="148" type="stmt" count="2"/>
+      <line num="149" type="stmt" count="2"/>
+      <line num="156" type="method" name="updateRequestByIgnoreRequest" visibility="private" complexity="1" crap="1" count="5"/>
+      <line num="158" type="stmt" count="5"/>
+      <line num="159" type="stmt" count="5"/>
+      <line num="160" type="stmt" count="5"/>
+      <line num="166" type="method" name="updateRequestByAcceptRequest" visibility="private" complexity="2" crap="2" count="2"/>
+      <line num="168" type="stmt" count="2"/>
+      <line num="169" type="stmt" count="2"/>
+      <line num="170" type="stmt" count="1"/>
+      <line num="171" type="stmt" count="1"/>
+      <line num="173" type="stmt" count="1"/>
+      <line num="181" type="method" name="setIgnoreRequest" visibility="private" complexity="1" crap="1" count="5"/>
+      <line num="183" type="stmt" count="5"/>
+      <line num="189" type="method" name="setAcceptRequest" visibility="private" complexity="2" crap="2" count="2"/>
+      <line num="191" type="stmt" count="2"/>
+      <line num="192" type="stmt" count="2"/>
+      <line num="199" type="method" name="getAcceptRequest" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="201" type="stmt" count="3"/>
+      <line num="208" type="method" name="getIgnoreRequest" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="210" type="stmt" count="1"/>
+      <metrics loc="215" ncloc="159" classes="1" methods="12" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="54" elements="68" coveredelements="64"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/HelperEloquentFilter.php">
+      <class name="eloquentFilter\QueryFilter\Core\HelperEloquentFilter" namespace="global">
+        <metrics complexity="5" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+      </class>
+      <line num="15" type="method" name="filterRequests" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="17" type="stmt" count="2"/>
+      <line num="18" type="stmt" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="27" type="method" name="getAcceptedRequest" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="29" type="stmt" count="3"/>
+      <line num="35" type="method" name="getIgnoredRequest" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="43" type="method" name="getInjectedDetections" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <metrics loc="48" ncloc="31" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/HelperFilter.php">
+      <class name="eloquentFilter\QueryFilter\Core\HelperFilter" namespace="global">
+        <metrics complexity="11" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="24" coveredstatements="23" elements="27" coveredelements="25"/>
+      </class>
+      <line num="18" type="method" name="convertRelationArrayRequestToStr" visibility="public" complexity="8" crap="8" count="6"/>
+      <line num="20" type="stmt" count="6"/>
+      <line num="22" type="stmt" count="6"/>
+      <line num="23" type="stmt" count="4"/>
+      <line num="24" type="stmt" count="4"/>
+      <line num="25" type="stmt" count="2"/>
+      <line num="26" type="stmt" count="2"/>
+      <line num="27" type="stmt" count="2"/>
+      <line num="28" type="stmt" count="2"/>
+      <line num="29" type="stmt" count="2"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="33" type="stmt" count="2"/>
+      <line num="35" type="stmt" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <line num="38" type="stmt" count="2"/>
+      <line num="39" type="stmt" count="1"/>
+      <line num="40" type="stmt" count="1"/>
+      <line num="42" type="stmt" count="4"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="49" type="stmt" count="6"/>
+      <line num="57" type="method" name="isAssoc" visibility="public" complexity="2" crap="2.15" count="14"/>
+      <line num="59" type="stmt" count="14"/>
+      <line num="60" type="stmt" count="0"/>
+      <line num="63" type="stmt" count="14"/>
+      <line num="72" type="method" name="array_slice_keys" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="74" type="stmt" count="2"/>
+      <line num="76" type="stmt" count="2"/>
+      <metrics loc="79" ncloc="59" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="24" coveredstatements="23" elements="27" coveredelements="25"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Core/ResolverDetections.php">
+      <class name="eloquentFilter\QueryFilter\Core\ResolverDetections" namespace="global">
+        <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="20" coveredelements="20"/>
+      </class>
+      <line num="35" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="37" type="stmt" count="49"/>
+      <line num="38" type="stmt" count="49"/>
+      <line num="39" type="stmt" count="49"/>
+      <line num="46" type="method" name="getResolverOut" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="48" type="stmt" count="49"/>
+      <line num="50" type="stmt" count="48"/>
+      <line num="51" type="stmt" count="48"/>
+      <line num="52" type="stmt" count="48"/>
+      <line num="53" type="stmt" count="48"/>
+      <line num="55" type="stmt" count="46"/>
+      <line num="67" type="method" name="resolve" visibility="private" complexity="1" crap="1" count="48"/>
+      <line num="69" type="stmt" count="48"/>
+      <line num="71" type="stmt" count="47"/>
+      <line num="77" type="method" name="getFiltersDetection" visibility="private" complexity="1" crap="1" count="49"/>
+      <line num="79" type="stmt" count="49"/>
+      <line num="81" type="stmt" count="49"/>
+      <line num="82" type="stmt" count="48"/>
+      <line num="83" type="stmt" count="49"/>
+      <line num="85" type="stmt" count="48"/>
+      <metrics loc="88" ncloc="53" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="16" elements="20" coveredelements="20"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/SpecialCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\SpecialCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="47"/>
+      <line num="22" type="stmt" count="47"/>
+      <line num="23" type="stmt" count="4"/>
+      <line num="26" type="stmt" count="43"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereBetweenCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereBetweenCondition" namespace="global">
+        <metrics complexity="3" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="3" crap="3" count="42"/>
+      <line num="22" type="stmt" count="42"/>
+      <line num="23" type="stmt" count="4"/>
+      <line num="26" type="stmt" count="42"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereByOptCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereByOptCondition" namespace="global">
+        <metrics complexity="3" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="3" crap="3" count="40"/>
+      <line num="22" type="stmt" count="40"/>
+      <line num="23" type="stmt" count="5"/>
+      <line num="26" type="stmt" count="40"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="30"/>
+      <line num="22" type="stmt" count="30"/>
+      <line num="23" type="stmt" count="30"/>
+      <line num="26" type="stmt" count="30"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereCustomCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCustomCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="43"/>
+      <line num="22" type="stmt" count="43"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="43"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereDateCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereDateCondition" namespace="global">
+        <metrics complexity="3" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="3" crap="3" count="31"/>
+      <line num="22" type="stmt" count="31"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="31"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereHasCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereHasCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="31"/>
+      <line num="22" type="stmt" count="31"/>
+      <line num="23" type="stmt" count="5"/>
+      <line num="26" type="stmt" count="31"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereInCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereInCondition" namespace="global">
+        <metrics complexity="4" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="22" type="method" name="detect" visibility="public" complexity="4" crap="4" count="35"/>
+      <line num="24" type="stmt" count="35"/>
+      <line num="25" type="stmt" count="5"/>
+      <line num="28" type="stmt" count="35"/>
+      <metrics loc="31" ncloc="21" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereLikeCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereLikeCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="36"/>
+      <line num="22" type="stmt" count="36"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="36"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/ConditionsDetect/Eloquent/WhereOrCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereOrCondition" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="20" type="method" name="detect" visibility="public" complexity="2" crap="2" count="31"/>
+      <line num="22" type="stmt" count="31"/>
+      <line num="23" type="stmt" count="1"/>
+      <line num="26" type="stmt" count="31"/>
+      <metrics loc="29" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/Contract/DetectorConditionsContract.php">
+      <metrics loc="19" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/Contract/DetectorFactoryContract.php">
+      <metrics loc="18" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/DetectionFactory.php">
+      <class name="eloquentFilter\QueryFilter\Detection\DetectionFactory" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+      </class>
+      <line num="23" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="25" type="stmt" count="55"/>
+      <line num="37" type="method" name="buildDetections" visibility="public" complexity="1" crap="1" count="48"/>
+      <line num="39" type="stmt" count="48"/>
+      <line num="42" type="stmt" count="48"/>
+      <line num="44" type="stmt" count="47"/>
+      <metrics loc="47" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Detection/DetectorCondition.php">
+      <class name="eloquentFilter\QueryFilter\Detection\DetectorCondition" namespace="global">
+        <metrics complexity="15" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="21" elements="26" coveredelements="24"/>
+      </class>
+      <line num="27" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="48"/>
+      <line num="29" type="stmt" count="48"/>
+      <line num="31" type="stmt" count="48"/>
+      <line num="32" type="stmt" count="48"/>
+      <line num="33" type="stmt" count="48"/>
+      <line num="34" type="stmt" count="48"/>
+      <line num="35" type="stmt" count="48"/>
+      <line num="38" type="stmt" count="48"/>
+      <line num="40" type="stmt" count="48"/>
+      <line num="52" type="method" name="detect" visibility="public" complexity="4" crap="4.07" count="48"/>
+      <line num="54" type="stmt" count="48"/>
+      <line num="55" type="stmt" count="48"/>
+      <line num="56" type="stmt" count="47"/>
+      <line num="57" type="stmt" count="47"/>
+      <line num="58" type="stmt" count="47"/>
+      <line num="63" type="stmt" count="0"/>
+      <line num="76" type="method" name="handelListFields" visibility="private" complexity="5" crap="5" count="48"/>
+      <line num="78" type="stmt" count="48"/>
+      <line num="79" type="stmt" count="47"/>
+      <line num="82" type="stmt" count="1"/>
+      <line num="84" type="stmt" count="1"/>
+      <line num="93" type="method" name="checkSetWhiteListFields" visibility="private" complexity="3" crap="3" count="48"/>
+      <line num="95" type="stmt" count="48"/>
+      <line num="96" type="stmt" count="48"/>
+      <line num="97" type="stmt" count="42"/>
+      <line num="100" type="stmt" count="7"/>
+      <metrics loc="103" ncloc="67" classes="1" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="21" elements="26" coveredelements="24"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Exceptions/EloquentFilterException.php">
+      <class name="eloquentFilter\QueryFilter\Exceptions\EloquentFilterException" namespace="global">
+        <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </class>
+      <metrics loc="8" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Factory/QueryBuilderWrapperFactory.php">
+      <class name="eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="17" type="method" name="createQueryBuilder" visibility="public" complexity="1" crap="1" count="53"/>
+      <line num="19" type="stmt" count="53"/>
+      <metrics loc="23" ncloc="16" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Factory/QueryFilterCoreFactory.php">
+      <class name="eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </class>
+      <line num="23" type="method" name="createQueryFilterCoreBuilder" visibility="public" complexity="1" crap="1" count="55"/>
+      <line num="25" type="stmt" count="55"/>
+      <line num="32" type="method" name="getDefaultDetectorsEloquent" visibility="private" complexity="1" crap="1" count="55"/>
+      <line num="35" type="stmt" count="55"/>
+      <metrics loc="49" ncloc="41" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/ModelFilters/Filterable.php">
+      <class name="eloquentFilter\QueryFilter\ModelFilters\Filterable" namespace="global">
+        <metrics complexity="18" methods="13" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="15" elements="30" coveredelements="27"/>
+      </class>
+      <line num="39" type="method" name="scopeFilter" visibility="public" complexity="1" crap="1" count="53"/>
+      <line num="41" type="stmt" count="53"/>
+      <line num="48" type="method" name="scopeIgnoreRequest" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="50" type="stmt" count="4"/>
+      <line num="57" type="method" name="scopeAcceptRequest" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="59" type="stmt" count="3"/>
+      <line num="66" type="method" name="scopeSetCustomDetection" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="68" type="stmt" count="2"/>
+      <line num="74" type="method" name="getObjectCustomDetect" visibility="private" complexity="4" crap="4" count="53"/>
+      <line num="76" type="stmt" count="53"/>
+      <line num="77" type="stmt" count="15"/>
+      <line num="80" type="stmt" count="53"/>
+      <line num="86" type="method" name="setObjectCustomDetect" visibility="private" complexity="1" crap="1" count="17"/>
+      <line num="88" type="stmt" count="17"/>
+      <line num="94" type="method" name="getWhiteListFilter" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="96" type="stmt" count="49"/>
+      <line num="102" type="method" name="getAliasListFilter" visibility="public" complexity="1" crap="1" count="49"/>
+      <line num="104" type="stmt" count="49"/>
+      <line num="112" type="method" name="addWhiteListFilter" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="114" type="stmt" count="1"/>
+      <line num="115" type="stmt" count="1"/>
+      <line num="122" type="method" name="setWhiteListFilter" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="124" type="stmt" count="0"/>
+      <line num="125" type="stmt" count="0"/>
+      <line num="134" type="method" name="checkModelHasOverrideMethod" visibility="public" complexity="1" crap="1" count="48"/>
+      <line num="136" type="stmt" count="48"/>
+      <line num="143" type="method" name="scopeSetLoadDefaultDetection" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="145" type="stmt" count="1"/>
+      <line num="151" type="method" name="getLoadDefaultDetection" visibility="public" complexity="1" crap="1" count="16"/>
+      <line num="153" type="stmt" count="16"/>
+      <metrics loc="156" ncloc="91" classes="1" methods="13" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="15" elements="30" coveredelements="27"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/BaseClause.php">
+      <class name="eloquentFilter\QueryFilter\Queries\BaseClause" namespace="global">
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+      </class>
+      <line num="27" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="47"/>
+      <line num="29" type="stmt" count="47"/>
+      <line num="30" type="stmt" count="47"/>
+      <line num="39" type="method" name="handle" visibility="public" complexity="1" crap="1" count="47"/>
+      <line num="41" type="stmt" count="47"/>
+      <line num="43" type="stmt" count="47"/>
+      <metrics loc="53" ncloc="27" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/Special.php">
+      <class name="eloquentFilter\QueryFilter\Queries\Special" namespace="global">
+        <metrics complexity="5" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="10" coveredelements="10"/>
+      </class>
+      <line num="30" type="method" name="apply" visibility="public" complexity="5" crap="5" count="4"/>
+      <line num="32" type="stmt" count="4"/>
+      <line num="33" type="stmt" count="4"/>
+      <line num="34" type="stmt" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <line num="37" type="stmt" count="1"/>
+      <line num="38" type="stmt" count="1"/>
+      <line num="39" type="stmt" count="1"/>
+      <line num="42" type="stmt" count="1"/>
+      <line num="46" type="stmt" count="2"/>
+      <metrics loc="49" ncloc="36" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="10" coveredelements="10"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/Where.php">
+      <class name="eloquentFilter\QueryFilter\Queries\Where" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="9" type="method" name="apply" visibility="public" complexity="1" crap="1" count="30"/>
+      <line num="11" type="stmt" count="30"/>
+      <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereBetween.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereBetween" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="19" type="stmt" count="4"/>
+      <line num="20" type="stmt" count="4"/>
+      <line num="22" type="stmt" count="4"/>
+      <metrics loc="25" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereByOpt.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereByOpt" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <line num="20" type="stmt" count="5"/>
+      <line num="22" type="stmt" count="5"/>
+      <metrics loc="25" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereCustom.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereCustom" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <metrics loc="22" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereDate.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereDate" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="9" type="method" name="apply" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="11" type="stmt" count="1"/>
+      <metrics loc="14" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereHas.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereHas" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="11" coveredelements="11"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="2" crap="2" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <line num="20" type="stmt" count="5"/>
+      <line num="22" type="stmt" count="5"/>
+      <line num="24" type="stmt" count="5"/>
+      <line num="26" type="stmt" count="5"/>
+      <line num="28" type="stmt" count="5"/>
+      <line num="29" type="stmt" count="5"/>
+      <line num="30" type="stmt" count="5"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="33" type="stmt" count="5"/>
+      <metrics loc="38" ncloc="30" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="11" coveredelements="11"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereIn.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereIn" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <metrics loc="22" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereLike.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereLike" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <metrics loc="22" ncloc="14" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/QueryFilter/Queries/WhereOr.php">
+      <class name="eloquentFilter\QueryFilter\Queries\WhereOr" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </class>
+      <line num="17" type="method" name="apply" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <metrics loc="25" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/ServiceProvider.php">
+      <class name="eloquentFilter\ServiceProvider" namespace="global">
+        <metrics complexity="6" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="20" coveredelements="0"/>
+      </class>
+      <line num="19" type="method" name="register" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="21" type="stmt" count="0"/>
+      <line num="27" type="method" name="boot" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="37" type="method" name="configurePaths" visibility="private" complexity="1" crap="2" count="0"/>
+      <line num="39" type="stmt" count="0"/>
+      <line num="40" type="stmt" count="0"/>
+      <line num="47" type="method" name="mergeConfig" visibility="private" complexity="1" crap="2" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <line num="50" type="stmt" count="0"/>
+      <line num="58" type="method" name="registerBindings" visibility="private" complexity="2" crap="6" count="0"/>
+      <line num="60" type="stmt" count="0"/>
+      <line num="62" type="stmt" count="0"/>
+      <line num="64" type="stmt" count="0"/>
+      <line num="66" type="stmt" count="0"/>
+      <line num="68" type="stmt" count="0"/>
+      <line num="70" type="stmt" count="0"/>
+      <line num="72" type="stmt" count="0"/>
+      <line num="77" type="stmt" count="0"/>
+      <metrics loc="80" ncloc="62" classes="1" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="0" elements="20" coveredelements="0"/>
+    </file>
+    <file name="/Users/mehdi/Sites/eloquent-filter/src/config/config.php">
+      <line num="8" type="stmt" count="57"/>
+      <line num="13" type="stmt" count="57"/>
+      <metrics loc="37" ncloc="16" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="2" coveredelements="2"/>
+    </file>
+    <metrics files="42" loc="2207" ncloc="1466" classes="36" methods="106" coveredmethods="86" conditionals="0" coveredconditionals="0" statements="324" coveredstatements="277" elements="430" coveredelements="363"/>
+  </project>
+</coverage>
