@@ -1,9 +1,17 @@
 build:
+  environment:
+    # Languages
+    php:
+      version: "8.0"
+  dependencies:
+        before:
+            - pecl install xdebug
+            - echo zend_extension=$(php-config --extension-dir)/xdebug.so >> $(php --ini | grep -F '/php.ini' | cut -d ':' -f 2)
   nodes:
     coverage:
       tests:
         override:
-          - command: ./run-my-tests
+          - command: composer test
             coverage:
               file: tests/coverage.xml   # <- Set this to where we find the coverage data.
                                           #    The path is relative to the current directory.
