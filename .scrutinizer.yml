@@ -1,7 +1,3 @@
-filter:
-    excluded_paths:
-        - 'tests/*'
-
 build:
     tests:
         override:
