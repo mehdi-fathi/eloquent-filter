@@ -3,7 +3,7 @@ build:
     coverage:
       tests:
         override:
-          - command: composer test
+          - command: vendor/bin/phpunit
             coverage:
               file: tests/coverage.xml   # <- Set this to where we find the coverage data.
                                           #    The path is relative to the current directory.
