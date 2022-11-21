@@ -103,7 +103,6 @@ class RequestFilter
                 $this->updateRequestByIgnoreRequest($ignore_request);
             }
             if (!empty($accept_request)) {
-
                 $this->setAcceptRequest($accept_request);
                 $this->updateRequestByAcceptRequest($this->getAcceptRequest());
             }
@@ -209,6 +208,4 @@ class RequestFilter
     {
         return $this->ignore_request;
     }
-
-
 }

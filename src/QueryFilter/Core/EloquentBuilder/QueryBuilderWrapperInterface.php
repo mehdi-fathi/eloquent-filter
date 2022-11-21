@@ -7,7 +7,6 @@ namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
  */
 interface QueryBuilderWrapperInterface
 {
-
     /**
      * @param $builder
      */
@@ -32,5 +31,4 @@ interface QueryBuilderWrapperInterface
      * @return mixed
      */
     public function getModel();
-
 }

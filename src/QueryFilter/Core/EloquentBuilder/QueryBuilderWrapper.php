@@ -7,7 +7,6 @@ namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
  */
 class QueryBuilderWrapper implements QueryBuilderWrapperInterface
 {
-
     private $builder;
 
     /**
@@ -56,7 +55,6 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
      */
     public function serializeRequestFilter($request)
     {
-       return $this->getBuilder()->getModel()->serializeRequestFilter($request);
+        return $this->getBuilder()->getModel()->serializeRequestFilter($request);
     }
-
 }

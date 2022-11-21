@@ -9,7 +9,6 @@ use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
  */
 class QueryBuilderWrapperFactory
 {
-
     /**
      * @param $builder
      * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper
@@ -18,5 +17,4 @@ class QueryBuilderWrapperFactory
     {
         return new QueryBuilderWrapper($builder);
     }
-
 }

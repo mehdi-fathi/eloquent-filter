@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class QueryFilterBuilder
 {
-
     use HelperEloquentFilter;
     /**
      * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCoreBuilder
@@ -53,7 +52,6 @@ class QueryFilterBuilder
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
     {
-
         $this->builder = QueryBuilderWrapperFactory::createQueryBuilder($builder);
 
         if (!empty($request)) {
@@ -81,14 +79,11 @@ class QueryFilterBuilder
     private function requestHandel(?array $ignore_request, ?array $accept_request, ?array $detect_injected): void
     {
         if (method_exists($this->builder->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
-
             $serializeRequestFilter = $this->builder->serializeRequestFilter($this->request->getRequest());
             $this->request->handelSerializeRequestFilter($serializeRequestFilter);
-
         }
 
         if ($alias_list_filter = $this->builder->getAliasListFilter() ?? null) {
-
             $this->request->makeAliasRequestFilter($alias_list_filter);
         }
 

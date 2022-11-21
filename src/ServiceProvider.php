@@ -58,11 +58,9 @@ class ServiceProvider extends BaseServiceProvider
     private function registerBindings()
     {
         if (config('eloquentFilter.enabled') != false) {
-
             $this->app->singleton(
                 'eloquentFilter',
                 function () {
-
                     $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
                     $request = new RequestFilter($this->app->get('request')->query());

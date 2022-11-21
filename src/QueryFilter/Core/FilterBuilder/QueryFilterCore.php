@@ -6,7 +6,6 @@ use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 interface QueryFilterCore
 {
-
     public function __construct(array $default_injected, array $detect_injected = null);
 
     public function getDetectorFactory(array $default_detect = null, array $detect_injected = null);
@@ -26,5 +25,4 @@ interface QueryFilterCore
     public function setDetectInjected($detect_injected): void;
 
     public function getDetectInjected();
-
 }

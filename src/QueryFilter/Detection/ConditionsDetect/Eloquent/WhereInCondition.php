@@ -11,7 +11,6 @@ use eloquentFilter\QueryFilter\Queries\WhereIn;
  */
 class WhereInCondition implements DetectorConditionsContract
 {
-
     /**
      * @param $field
      * @param $params

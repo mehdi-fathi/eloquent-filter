@@ -11,7 +11,6 @@ use Exception;
  */
 class DetectorCondition
 {
-
     protected $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
          or create a override method with name %s or call ignoreRequest function for ignore %s.";
     /**
