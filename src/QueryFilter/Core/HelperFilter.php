@@ -15,7 +15,7 @@ trait HelperFilter
      *
      * @return array|null
      */
-    public static function convertRelationArrayRequestToStr($field, array $args)
+    protected static function convertRelationArrayRequestToStr($field, array $args): ?array
     {
         $arg_last = Arr::last($args);
 
@@ -69,7 +69,7 @@ trait HelperFilter
      *
      * @return array
      */
-    public static function array_slice_keys($request, $keys = null)
+    public static function array_slice_keys($request, $keys = null): array
     {
         $request = (array) $request;
 
