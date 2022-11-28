@@ -15,7 +15,7 @@ trait HelperFilter
      *
      * @return array|null
      */
-    protected static function convertRelationArrayRequestToStr($field, array $args): ?array
+    public static function convertRelationArrayRequestToStr($field, array $args): ?array
     {
         $arg_last = Arr::last($args);
 
