@@ -1,11 +1,11 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
- * Class EloquentQueryFilterCore.
+ * Class QueryFilterCoreBuilder.
  */
 class QueryFilterCoreBuilder implements QueryFilterCore
 {
@@ -17,7 +17,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @var
      */
-    protected $detections;
+    protected array $detections;
 
     /**
      * @var

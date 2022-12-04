@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
@@ -15,7 +16,7 @@ class QueryFilterBuilder
 {
     use HelperEloquentFilter;
     /**
-     * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCoreBuilder
+     * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder
      */
 
     public QueryFilterCore $core;
@@ -32,7 +33,7 @@ class QueryFilterBuilder
     public QueryBuilderWrapper $builder;
 
     /**
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterCore $core
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $core
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter $requestFilter
      */
     public function __construct(QueryFilterCore $core, RequestFilter $requestFilter)
