@@ -66,7 +66,7 @@ class QueryFilterBuilder
 
         $this->requestHandel($ignore_request, $accept_request);
 
-        $this->setDetected($detect_injected);
+        $this->setInjectedDetections($detect_injected);
 
         $response = $this->resolveDetections();
 
@@ -91,18 +91,18 @@ class QueryFilterBuilder
             $this->request->makeAliasRequestFilter($alias_list_filter);
         }
 
-        $this->request->setFilterRequests($ignore_request, $accept_request, $this->builder->getBuilder()->getModel());
+        $this->request->setFilterRequests($ignore_request, $accept_request, $this->builder->getModel());
     }
 
     /**
-     * @param array|null $detect_injected
+     * @param array|null $injected_detections
      * @return void
      */
-    private function setDetected(?array $detect_injected): void
+    private function setInjectedDetections(?array $injected_detections): void
     {
-        if (!empty($detect_injected)) {
-            $this->core->setDetectInjected($detect_injected);
-            $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
+        if (!empty($injected_detections)) {
+            $this->core->setInjectedDetections($injected_detections);
+            $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getInjectedDetections()));
         }
     }
 

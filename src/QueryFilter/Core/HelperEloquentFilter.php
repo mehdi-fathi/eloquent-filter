@@ -42,6 +42,6 @@ trait HelperEloquentFilter
      */
     public function getInjectedDetections()
     {
-        return $this->core->getDetectInjected();
+        return $this->core->getInjectedDetections();
     }
 }
