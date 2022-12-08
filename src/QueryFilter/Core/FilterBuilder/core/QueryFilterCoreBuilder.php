@@ -15,7 +15,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     protected $builder;
 
     /**
-     * @var
+     * @var array
      */
     protected array $detections;
 
@@ -59,9 +59,9 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getDefaultDetect()
+    public function getDefaultDetect(): array
     {
         return $this->default_detect;
     }
@@ -93,7 +93,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @return array
      */
-    public function getDetections()
+    public function getDetections(): array
     {
         return $this->detections;
     }
@@ -103,7 +103,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      */
     public function setDetectInjected($detect_injected): void
     {
-        if (config('eloquentFilter.enabled_custom_detection') == false) {
+        if (!config('eloquentFilter.enabled_custom_detection')) {
             return;
         }
         $this->detect_injected = $detect_injected;
@@ -123,7 +123,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      *
      * @return DetectionFactory
      */
-    public function getDetectorFactory(array $default_detect = null, array $detect_injected = null)
+    public function getDetectorFactory(array $default_detect = null, array $detect_injected = null): DetectionFactory
     {
         $detections = $default_detect;
 

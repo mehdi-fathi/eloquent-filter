@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 class QueryFilterBuilder
 {
     use HelperEloquentFilter;
+
     /**
      * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder
      */
@@ -59,11 +60,14 @@ class QueryFilterBuilder
             $this->request->setRequest($request);
         }
 
-        if (config('eloquentFilter.enabled') == false || empty($this->request->getRequest())) {
+        if (!config('eloquentFilter.enabled') || empty($this->request->getRequest())) {
             return;
         }
 
-        $this->requestHandel($ignore_request, $accept_request, $detect_injected);
+        $this->requestHandel($ignore_request, $accept_request);
+
+        $this->setDetected($detect_injected);
+
         $response = $this->resolveDetections();
 
         $response = $this->responseFilterHandle($response);
@@ -74,10 +78,9 @@ class QueryFilterBuilder
     /**
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array|null $detect_injected
      * @return void
      */
-    private function requestHandel(?array $ignore_request, ?array $accept_request, ?array $detect_injected): void
+    private function requestHandel(?array $ignore_request, ?array $accept_request): void
     {
         if (method_exists($this->builder->getModel(), 'serializeRequestFilter') && !empty($this->request->getRequest())) {
             $serializeRequestFilter = $this->builder->serializeRequestFilter($this->request->getRequest());
@@ -88,9 +91,15 @@ class QueryFilterBuilder
             $this->request->makeAliasRequestFilter($alias_list_filter);
         }
 
-
         $this->request->setFilterRequests($ignore_request, $accept_request, $this->builder->getBuilder()->getModel());
+    }
 
+    /**
+     * @param array|null $detect_injected
+     * @return void
+     */
+    private function setDetected(?array $detect_injected): void
+    {
         if (!empty($detect_injected)) {
             $this->core->setDetectInjected($detect_injected);
             $this->core->setDetectFactory($this->core->getDetectorFactory($this->core->getDefaultDetect(), $this->core->getDetectInjected()));
