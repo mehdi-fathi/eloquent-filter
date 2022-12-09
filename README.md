@@ -91,12 +91,12 @@ Hence, Eloquent Filter is ready for to you get rid of complexity in addition to 
 Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
 It would make your own query automatically and systematically while you can control them.
 
-After installing Eloquent Filter, the request URI would be like this:
+Right After installing Eloquent Filter, the request URI would be like this:
              
     /users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
 
-And in the controller you'd just need that one line: 
+And in the Controller, You just need that one line: 
 ```php
 /**
  * Class UsersController.
@@ -125,7 +125,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 - **Note**  for Laravel versions older than 5.8 you should install version 2.2.5 
 
         $ composer require mehdi-fathi/eloquent-filter:2.2.5
-
+``
 - **Note** We support auto-discovery but you can check them.
 
 2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
@@ -153,8 +153,8 @@ That's it enjoy! :boom:
 
 ### Config Model and set whitelist
 
-Add The Filterable trait to your models and set fields that you will want to filter in the whitelist array. 
-as well You can override this method in your models.
+Add the `Filterable` trait to yourself models and set fields in the whitelist array in which you will want to use of filter . 
+You can override this method in your models as well.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -177,7 +177,7 @@ class User extends Model
 ```php
 private static $whiteListFilter = ['*'];
 ```
-You can add or set `$whiteListFilter` on the fly in your method. For example:
+You able add or set `$whiteListFilter` on the fly in your method. For example:
 
 ***Set array to WhiteListFilter***
 
@@ -208,23 +208,28 @@ class UsersController
     {
           if (!empty(request()->get('username'))) {
           
-              $users = User::ignoreRequest('perpage')->filter()->with('posts')
-                        ->orderByDesc('id')->paginate(request()->get('perpage'),['*'],'page');
+              $users = User::ignoreRequest('perpage')
+                        ->filter()
+                        ->with('posts')
+                        ->orderByDesc('id')
+                        ->paginate(request()->get('perpage'),['*'],'page');
 
           } else {
               $users = User::filter(
                 ['username' => ['mehdi','ali']]           
-                )->with('posts')->orderByDesc('id')->paginate(10,['*'],'page');
+                )->with('posts')
+                ->orderByDesc('id')
+                ->paginate(10,['*'],'page');
           }
     }
 }
 ```
 -**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
- Although, you can set the array to the `filter` method Model for making your own custom condition without query string.
+ Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
 
 -**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
 
-- You can ignore some of the request params by use of the bellow code.
+- You can ignore some request params via use of the bellow code.
 
 ```php
 
@@ -233,11 +238,11 @@ User::ignoreRequest(['perpage'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `ignoreRequest` that will ignore some requests that you don't want to use in conditions eloquent filter. 
-For example, the perpage param will never be in the conditions eloquent filter. 
+Call `ignoreRequest` that will ignore some requests that you don't want to use in conditions of eloquent filter. 
+e.g: the perpage param will never be in the conditions eloquent filter. 
 it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
 
-- You can filter some of the request params for using in Eloquent Filter.
+- You can filter some request params as acceptable filter.
 
 ```php
 
@@ -246,21 +251,10 @@ User::AcceptRequest(['username','id'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `AcceptRequest` will accept requests which you want to use in conditions Eloquent Filter. 
-For example `username` and `id` param will be in the conditions eloquent filter. Just notice you must set `$whiteListFilter`
-in Model. This method is useful for query string manipulation by a user.
+Call `AcceptRequest` will accept requests in which you want to use in conditions Eloquent Filter. 
+e.g: `username` and `id` key will be in the conditions eloquent filter.
 
-
-- Another example use of a filter eloquent filter.
-```php
-User::filter()->paginate();
-```
-- `EloquentFilter::filterRequests()` get all params that used by the Eloquent Filter. You can set key to get specific index.
-For example `EloquentFilter::filterRequests('username')` it's getting username index.
-
-- `EloquentFilter::getAcceptedRequest()` get all params that set by the AcceptRequest method.
-
-- `EloquentFilter::getIgnoredRequest()` get all ignored params that set by the getIgnoreRequest method.
+-**Note** Just in case, you must set `$whiteListFilter` in Models. Aim of the method avert to manipulation query string by a bad user.
 
 ### Simple Examples
 
@@ -499,6 +493,19 @@ class User extends Model
 }
 ```
 
+### Some Filter methods
+```php
+User::filter()->paginate();
+```
+- `EloquentFilter::filterRequests()` : get all params that used by the Eloquent Filter.
+  You can set key to get specific index.
+  For example `EloquentFilter::filterRequests('username')` it's getting username index.
+
+- `EloquentFilter::getAcceptedRequest()` : get all params that set by the AcceptRequest method.
+
+- `EloquentFilter::getIgnoredRequest()` : get all ignored params that set by the getIgnoreRequest method.
+
+
 ### Custom Detection Condition
 
 
@@ -510,7 +517,7 @@ You can make conditions to generate a new query after checking by that.
 
 We must have two classes. The First detects conditions second class generates the query.
  
-- Step 1: Create a class to detect some of the conditions
+- Step 1: Create a class to detect some conditions
 
 ```php
 
@@ -539,7 +546,7 @@ class WhereRelationLikeCondition implements DetectorConditionsContract
 }
 ```
 
-- Step 2: After that create a class to generate a query. In this example we make `WhereRelationLikeConditionQuery` class:
+- Step 2:Right after, create a class to generate a query. In this example we make `WhereRelationLikeConditionQuery` class:
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -627,7 +634,7 @@ $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter()
  User::SetLoadDefaultDetection(false)->filter();
 ```
 
--**Note** You can set many detection conditions. for example :
+-**Note** You can set many detection conditions. e.g:
 
 ```php
 
@@ -765,4 +772,4 @@ class User extends Model
 }
 ```
 
-- If you have any idea about the Eloquent Filter, I will be glad to hear that.
+- If you have any new idea about the Eloquent Filter, I will be glad to hear that.
