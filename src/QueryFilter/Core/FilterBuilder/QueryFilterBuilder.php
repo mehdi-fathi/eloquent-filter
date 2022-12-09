@@ -70,7 +70,7 @@ class QueryFilterBuilder
 
         $response = $this->resolveDetections();
 
-        $response = $this->responseFilterHandle($response);
+        $response = $this->responseFilterHandler($response);
 
         return $response;
     }
@@ -126,10 +126,10 @@ class QueryFilterBuilder
      *
      * @return mixed
      */
-    public function responseFilterHandle($out)
+    public function responseFilterHandler($out)
     {
-        if (method_exists($this->builder->getBuilder()->getModel(), 'ResponseFilter')) {
-            return $this->builder->getBuilder()->getModel()->ResponseFilter($out);
+        if (method_exists($this->builder->getModel(), 'ResponseFilter')) {
+            return $this->builder->responseFilter($out);
         }
 
         return $out;
