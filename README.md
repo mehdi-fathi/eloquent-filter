@@ -326,12 +326,14 @@ SELECT ... WHERE ... username != 'ali'
 SELECT ... WHERE ... count_posts < 25
 ```
 
-**Where the nested relation Model (New feature :fire:)**
+**Where the nested relations Model**
 
+You can set all nested relations in the query string just via the array of query string. imagine, the user model has a relation with posts.
+And posts table has a relation with orders table.
 
-You can set all nested relation in the query string just by the array of query string. For example, The user model has a relation with posts.
-And posts table has a relation with orders table. You can make query conditions by set 'posts[count_post]' and 'posts[orders][name]' in the query string.
-Just be careful you must set 'posts.count_post' and 'posts.orders.name' in the User model.
+You can make query conditions by set `posts[count_post]` and `posts[orders][name]` in the query string.
+
+- Just be careful you must set `posts.count_post` and `posts.orders.name` in the User model.
 
 ```php
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
@@ -366,11 +368,10 @@ select * from "users" where exists
          and "posts"."count_post" = 876)
          and "username" = "mehdi"
 ```
-- The above example is the same code that you use without the eloquent filter. Check it under code.
-
+- The above example is the same code that you used without the eloquent filter. Check it under code. It's not amazing?
+``
 ```php
-$user = new User();
-$builder = $user->with('posts');
+$builder = (new User())->with('posts');
         $builder->whereHas('posts', function ($q) {
             $q->where('count_post', 876);
         })->where('username','mehdi');
