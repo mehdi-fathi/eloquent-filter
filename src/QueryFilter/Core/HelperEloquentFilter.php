@@ -15,10 +15,10 @@ trait HelperEloquentFilter
     public function filterRequests($index = null)
     {
         if (!empty($index)) {
-            return $this->request->getRequest()[$index];
+            return $this->requestFilter->getRequest()[$index];
         }
 
-        return $this->request->getRequest();
+        return $this->requestFilter->getRequest();
     }
 
     /**
@@ -26,7 +26,7 @@ trait HelperEloquentFilter
      */
     public function getAcceptedRequest()
     {
-        return $this->request->getAcceptRequest();
+        return $this->requestFilter->getAcceptRequest();
     }
 
     /**
@@ -34,7 +34,7 @@ trait HelperEloquentFilter
      */
     public function getIgnoredRequest()
     {
-        return $this->request->getIgnoreRequest();
+        return $this->requestFilter->getIgnoreRequest();
     }
 
     /**
@@ -42,6 +42,6 @@ trait HelperEloquentFilter
      */
     public function getInjectedDetections()
     {
-        return $this->core->getInjectedDetections();
+        return $this->queryFilterCore->getInjectedDetections();
     }
 }
