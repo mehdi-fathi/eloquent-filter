@@ -3,6 +3,7 @@
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Mockery as m;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter;
 
 /**
  * Class TestCase.
@@ -30,7 +31,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->config = require __DIR__ . '/../src/config/config.php';
 
-        if (config('eloquentFilter.enabled') != false) {
+        if (config('eloquentFilter.enabled')) {
 
             $this->app->singleton(
                 'eloquentFilter',
@@ -38,7 +39,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
                     $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
-                    $request = new \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter($this->request->query());
+                    $request = new RequestFilter($this->request->query());
 
                     $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 

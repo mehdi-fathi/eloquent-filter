@@ -31,7 +31,7 @@ class RequestFilter
     protected $ignore_request;
 
     /**
-     * @param $builder
+     * @param $request
      */
     public function __construct($request)
     {

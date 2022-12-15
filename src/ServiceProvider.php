@@ -57,7 +57,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function registerBindings()
     {
-        if (config('eloquentFilter.enabled') != false) {
+        if (config('eloquentFilter.enabled')) {
             $this->app->singleton(
                 'eloquentFilter',
                 function () {

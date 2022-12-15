@@ -61,7 +61,7 @@ class QueryFilterBuilder
         }
 
         if (!config('eloquentFilter.enabled') || empty($this->requestFilter->getRequest())) {
-            return;
+            return $builder;
         }
 
         $this->requestHandel($ignore_request, $accept_request);

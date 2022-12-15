@@ -1261,6 +1261,31 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
+    public function testFalseEnabledConfigNotBreakQuery()
+    {
+        config(['eloquentFilter.enabled' => false]);
+
+        $builder = new User();
+
+        $builder = $builder->query()
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'filter' => [
+                    'email' => 'new_memeber@gmail.com',
+                ],
+            ]
+        );
+
+        $users = User::filter($this->request->query())
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
     public function testWhereBetweenWithRelation()
     {
         $builder = new User();
