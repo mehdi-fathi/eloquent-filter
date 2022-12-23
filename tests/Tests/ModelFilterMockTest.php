@@ -1,10 +1,5 @@
 <?php
 
-//todo make blacklist array for disable some method for custom query
-//todo make comment
-
-//todo add callback
-
 namespace Tests\Tests;
 
 use eloquentFilter\Facade\EloquentFilter;
@@ -208,9 +203,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi'], $users->getBindings());
     }
 
-    //todo implement wrapper method for out data
-
-    //todo make serilize request
     public function testWhereIn()
     {
         $builder = new User();
@@ -758,7 +750,6 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals([WhereRelationLikeCondition::class], EloquentFilter::getInjectedDetections());
 
-        //todo make test for like query
     }
 
     public function testFilterRequestsIndex()
@@ -1072,7 +1063,6 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['%mehdi%', 'boo', '%mehdifathi%', 10], $users->getBindings());
     }
 
-    //todo we can make a feature for override custom detection over default detection
     public function testSetDetection1()
     {
         $builder = new User();
@@ -1093,9 +1083,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        //todo this method disable load detection default
-
-        $users = User::SetLoadDefaultDetection(false)->filter();
+        $users = User::setLoadInjectedDetection(false)->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
@@ -1443,5 +1431,3 @@ class ModelFilterMockTest extends \TestCase
         m::close();
     }
 }
-
-//todo We need improve all test. run composer test for see that

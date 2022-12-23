@@ -507,7 +507,7 @@ User::filter()->paginate();
 - `EloquentFilter::getIgnoredRequest()` : get all ignored params that set by the getIgnoreRequest method.
 
 
-### Custom Detection Condition
+### Custom Detection Conditions
 
 
 Sometimes you want to make your custom condition to make a new query that Eloquent Filter doesn't support that by default.
@@ -623,7 +623,9 @@ and "comment" like ?) and "username" <> ? and "email" like ? and "count_posts" =
 ```
 You just run code ` User::filter();` for see result.
 
--**Note** Also you can set custom detection on the fly by use of the method `SetCustomDetection`. For example :
+- `Model::setLoadInjectedDetection(false)` : You can deactivate custom detection conditions on the fly.
+
+-**Note** as well, you can set custom detection on the fly by use of the method `SetCustomDetection`. For example :
 
 ```php
 $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();

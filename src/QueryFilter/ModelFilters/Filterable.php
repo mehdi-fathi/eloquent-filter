@@ -23,7 +23,7 @@ trait Filterable
     /**
      * @var bool
      */
-    protected $load_default_detection = true;
+    protected bool $load_injected_detections = true;
 
     /**
      * @var null
@@ -73,7 +73,7 @@ trait Filterable
      */
     private function getObjectCustomDetect()
     {
-        if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect) && $this->getLoadDefaultDetection()) {
+        if (method_exists($this, 'EloquentFilterCustomDetection') && empty($this->object_custom_detect) && $this->getLoadInjectedDetections()) {
             $this->setObjectCustomDetect($this->EloquentFilterCustomDetection());
         }
 
@@ -133,23 +133,23 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
-        return (bool)method_exists($this, $method);
+        return method_exists($this, $method);
     }
 
     /**
      * @param $query
      * @param $load_default_detection
      */
-    public function scopeSetLoadDefaultDetection($query, $load_default_detection)
+    public function scopeSetLoadInjectedDetection($query, $load_default_detection)
     {
-        $this->load_default_detection = $load_default_detection;
+        $this->load_injected_detections = $load_default_detection;
     }
 
     /**
      * @return bool
      */
-    public function getLoadDefaultDetection(): bool
+    public function getLoadInjectedDetections(): bool
     {
-        return $this->load_default_detection;
+        return $this->load_injected_detections;
     }
 }

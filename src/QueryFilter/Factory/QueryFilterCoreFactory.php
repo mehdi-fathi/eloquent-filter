@@ -45,4 +45,3 @@ class QueryFilterCoreFactory
         ];
     }
 }
-//todo desing pattern adaptor baraye corebuilder and composite baraye add ..conditions
