@@ -18,17 +18,11 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        $this->registerBindings();
-    }
-
-    /**
-     * Perform post-registration booting of services.
-     */
-    public function boot(): void
-    {
         $this->configurePaths();
 
         $this->mergeConfig();
+
+        $this->registerBindings();
     }
 
     /**
