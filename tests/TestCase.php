@@ -31,22 +31,19 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->config = require __DIR__ . '/../src/config/config.php';
 
-        if (config('eloquentFilter.enabled')) {
+        $this->app->singleton(
+            'eloquentFilter',
+            function () {
 
-            $this->app->singleton(
-                'eloquentFilter',
-                function () {
+                $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
-                    $queryFilterCoreFactory = new QueryFilterCoreFactory();
+                $request = new RequestFilter($this->request->query());
 
-                    $request = new RequestFilter($this->request->query());
+                $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
-                    $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
-
-                    return new QueryFilterBuilder($core, $request);
-                }
-            );
-        }
+                return new QueryFilterBuilder($core, $request);
+            }
+        );
     }
 
     /**
