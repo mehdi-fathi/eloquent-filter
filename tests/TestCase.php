@@ -1,6 +1,7 @@
 <?php
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Mockery as m;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter;
@@ -41,7 +42,9 @@ class TestCase extends Orchestra\Testbench\TestCase
 
                 $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
-                return new QueryFilterBuilder($core, $request);
+                $response = new ResponseFilter();
+
+                return new QueryFilterBuilder($core, $request, $response);
             }
         );
     }

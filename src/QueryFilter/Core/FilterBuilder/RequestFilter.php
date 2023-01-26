@@ -49,7 +49,7 @@ class RequestFilter
     /**
      * @param array|null $request
      */
-    public function setRequest($request): void
+    public function setRequest(?array $request): void
     {
         if (!empty($request['page'])) {
             unset($request['page']);
@@ -173,6 +173,25 @@ class RequestFilter
         }
     }
 
+    /**
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @param $serializeRequestFilter
+     * @param $alias_list_filter
+     * @return void
+     */
+    public function requestAlter(?array $ignore_request, ?array $accept_request, $serializeRequestFilter, $alias_list_filter,$model): void
+    {
+        if (!empty($serializeRequestFilter)) {
+            $this->handelSerializeRequestFilter($serializeRequestFilter);
+        }
+
+        if ($alias_list_filter) {
+            $this->makeAliasRequestFilter($alias_list_filter);
+        }
+
+        $this->setFilterRequests($ignore_request, $accept_request,$model);
+    }
 
     /**
      * @param array $ignore_request

@@ -5,6 +5,7 @@ namespace eloquentFilter;
 use eloquentFilter\Command\MakeEloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -57,10 +58,11 @@ class ServiceProvider extends BaseServiceProvider
                 $queryFilterCoreFactory = new QueryFilterCoreFactory();
 
                 $request = new RequestFilter($this->app->get('request')->query());
+                $response = new ResponseFilter();
 
                 $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
-                return new QueryFilterBuilder($core, $request);
+                return new QueryFilterBuilder($core, $request, $response);
             }
         );
 
