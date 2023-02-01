@@ -759,15 +759,15 @@ That is a practical method when you want to set user_id or convert date or remov
 
 ### Response Filter
 
-Response Filter is a magic method for just changing response after handling by Eloquent Filter. The method called 
-`ResponseFilter` You should implement the method `ResponseFilter` in your Model. For example
+Response Filter is an overriding method for changing response right after handle by Eloquent Filter. The method called 
+`getResponseFilter` and You could implement the method `getResponseFilter` in your Model. e.g:
 
 ```php
 
 class User extends Model
 {
     use Filterable;
-    public function ResponseFilter($response)
+    public function getResponseFilter($response)
     {
         $data['data'] = $response;
         return $data;
@@ -775,4 +775,4 @@ class User extends Model
 }
 ```
 
-- If you have any new idea about the Eloquent Filter, I will be glad to hear that.
+- If you have any interesting idea about the Eloquent Filter, I will be glad to hear that.

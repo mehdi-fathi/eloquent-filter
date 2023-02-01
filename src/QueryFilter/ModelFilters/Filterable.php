@@ -152,4 +152,12 @@ trait Filterable
     {
         return $this->load_injected_detections;
     }
+
+    /**
+     * @return null
+     */
+    public function getResponseFilter($response)
+    {
+        return $response;
+    }
 }

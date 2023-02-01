@@ -77,9 +77,7 @@ class QueryFilterBuilder
 
         $this->resolveDetections();
 
-        $this->responseFilter->responseFilterHandler($this->queryBuilderWrapper, $this->responseFilter->getResponse());
-
-        return $this->responseFilter->getResponse();
+        return $this->queryBuilderWrapper->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
 
     /**
@@ -105,9 +103,9 @@ class QueryFilterBuilder
         });
 
         /** @see ResolverDetections::getResolverOut() */
-        $response = app('ResolverDetections')->getResolverOut();
+        $responseResolver = app('ResolverDetections')->getResolverOut();
 
-        $this->responseFilter->setResponse($response);
+        $this->responseFilter->setResponse($responseResolver);
     }
 
     /**

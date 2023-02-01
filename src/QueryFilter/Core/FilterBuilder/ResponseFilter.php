@@ -27,19 +27,4 @@ class ResponseFilter
     {
         $this->response = $response;
     }
-
-    /**
-     * @param $queryBuilderWrapper
-     * @param $out
-     *
-     * @return mixed
-     */
-    public function responseFilterHandler($queryBuilderWrapper, $out)
-    {
-        if (method_exists($queryBuilderWrapper->getModel(), 'ResponseFilter')) {
-            $out = $queryBuilderWrapper->responseFilter($out);
-        }
-        $this->setResponse($out);
-
-    }
 }
