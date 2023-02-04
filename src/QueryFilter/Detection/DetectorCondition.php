@@ -11,8 +11,8 @@ use Exception;
  */
 class DetectorCondition
 {
-    protected $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
-         or create a override method with name %s or call ignoreRequest function for ignore %s.";
+    protected string $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
+         or create an override method with name %s or call ignoreRequest method for ignore %s.";
     /**
      * @var
      */
@@ -91,8 +91,7 @@ class DetectorCondition
      */
     private function checkSetWhiteListFields(string $field, ?array $query): bool
     {
-        if (in_array($field, $query) ||
-            $query[0] == '*') {
+        if (in_array($field, $query) || (!empty($query[0]) && $query[0] == '*')) {
             return true;
         }
 

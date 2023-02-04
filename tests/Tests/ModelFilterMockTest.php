@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 use Tests\Models\Category;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
+use Tests\Models\Order;
 use Tests\Models\Stat;
 use Tests\Models\Tag;
 use Tests\Models\User;
@@ -379,6 +380,23 @@ class ModelFilterMockTest extends \TestCase
             );
 
             Tag::filter($this->request->query());
+        } catch (EloquentFilterException $e) {
+            $this->assertEquals(1, $e->getCode());
+        }
+    }
+
+    public function testExceptionIsThereAnyWhiteList()
+    {
+        try {
+            $this->request->shouldReceive('query')->andReturn(
+                [
+                    'role' => [
+                        'admin', 'user',
+                    ],
+                ]
+            );
+
+            Order::filter($this->request->query());
         } catch (EloquentFilterException $e) {
             $this->assertEquals(1, $e->getCode());
         }
