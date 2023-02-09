@@ -64,7 +64,7 @@ class QueryFilterBuilder
         $this->queryBuilderWrapper = QueryBuilderWrapperFactory::createQueryBuilder($builder);
 
         if (!empty($request)) {
-            $this->requestFilter->setRequest($request);
+            $this->requestFilter->setPureRequest($request);
         }
 
         if (!config('eloquentFilter.enabled') || empty($this->requestFilter->getRequest())) {
@@ -93,7 +93,7 @@ class QueryFilterBuilder
     }
 
     /**
-     * @return mixed
+     * @return void
      */
     private function resolveDetections()
     {
@@ -115,14 +115,11 @@ class QueryFilterBuilder
      */
     private function handleRequest(?array $ignore_request, ?array $accept_request): void
     {
-        $serializeRequestFilter = null;
-        if (method_exists($this->queryBuilderWrapper->getModel(), 'serializeRequestFilter') && !empty($this->requestFilter->getRequest())) {
-            $serializeRequestFilter = $this->queryBuilderWrapper->serializeRequestFilter($this->requestFilter->getRequest());
-        }
+        $serialize_request_filter = $this->queryBuilderWrapper->getModel()->serializeRequestFilter($this->requestFilter->getRequest());
 
         $alias_list_filter = $this->queryBuilderWrapper->getAliasListFilter();
 
-        $this->requestFilter->requestAlter($ignore_request, $accept_request, $serializeRequestFilter, $alias_list_filter, $this->queryBuilderWrapper->getModel());
+        $this->requestFilter->requestAlter($ignore_request, $accept_request, $serialize_request_filter, $alias_list_filter, $this->queryBuilderWrapper->getModel());
     }
 
 

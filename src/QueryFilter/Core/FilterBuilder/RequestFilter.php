@@ -39,6 +39,15 @@ class RequestFilter
     }
 
     /**
+     * @param $request
+     * @return void
+     */
+    public function setPureRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
      * @return void
      */
     public function handelSerializeRequestFilter($request)
@@ -176,21 +185,20 @@ class RequestFilter
     /**
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param $serializeRequestFilter
+     * @param $serialize_request_filter
      * @param $alias_list_filter
+     * @param $model
      * @return void
      */
-    public function requestAlter(?array $ignore_request, ?array $accept_request, $serializeRequestFilter, $alias_list_filter,$model): void
+    public function requestAlter(?array $ignore_request, ?array $accept_request, $serialize_request_filter, $alias_list_filter, $model): void
     {
-        if (!empty($serializeRequestFilter)) {
-            $this->handelSerializeRequestFilter($serializeRequestFilter);
-        }
+        $this->handelSerializeRequestFilter($serialize_request_filter);
 
         if ($alias_list_filter) {
             $this->makeAliasRequestFilter($alias_list_filter);
         }
 
-        $this->setFilterRequests($ignore_request, $accept_request,$model);
+        $this->setFilterRequests($ignore_request, $accept_request, $model);
     }
 
     /**
@@ -218,7 +226,6 @@ class RequestFilter
     {
         return $this->accept_request;
     }
-
 
     /**
      * @return mixed

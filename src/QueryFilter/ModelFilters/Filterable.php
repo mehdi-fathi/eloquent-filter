@@ -160,4 +160,12 @@ trait Filterable
     {
         return $response;
     }
+
+    /**
+     * @return null
+     */
+    public function serializeRequestFilter($request)
+    {
+        return $request;
+    }
 }
