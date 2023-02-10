@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection\Contract;
 
 /**
- * Interface Detector.
+ * Interface DetectorConditionsContract.
  */
 interface DetectorConditionsContract
 {

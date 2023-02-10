@@ -14,9 +14,9 @@ class DetectorCondition
     protected string $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
          or create an override method with name %s or call ignoreRequest method for ignore %s.";
     /**
-     * @var
+     * @var \Illuminate\Support\Collection
      */
-    private $detector;
+    private \Illuminate\Support\Collection $detector;
 
     /**
      * DetectorConditions constructor.
@@ -36,7 +36,23 @@ class DetectorCondition
             }
         })->toArray();
 
-        $this->detector = $detector_collect;
+        $this->setDetector($detector_collect);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $detector
+     */
+    public function setDetector(\Illuminate\Support\Collection $detector): void
+    {
+        $this->detector = $detector;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getDetector(): \Illuminate\Support\Collection
+    {
+        return $this->detector;
     }
 
     /**
@@ -50,16 +66,18 @@ class DetectorCondition
      */
     public function detect(string $field, $params, $model = null): ?string
     {
-        foreach ($this->detector as $detector_obj) {
+        $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
+
             if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
-                $out = $detector_obj::detect($field, $params, $model->checkModelHasOverrideMethod($field));
-                if (!empty($out)) {
-                    return $out;
+                $query = $item::detect($field, $params, $model->checkModelHasOverrideMethod($field));
+                if (!empty($query)) {
+                    return $query;
                 }
             }
-        }
 
-        return null;
+        })->filter();
+
+        return $out->first();
     }
 
     /**
