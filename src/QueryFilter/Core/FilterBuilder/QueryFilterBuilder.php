@@ -55,11 +55,11 @@ class QueryFilterBuilder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param array|null $detect_injected
+     * @param array|null $detections_injected
      *
      * @return void
      */
-    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detect_injected = null)
+    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null)
     {
         $this->queryBuilderWrapper = QueryBuilderWrapperFactory::createQueryBuilder($builder);
 
@@ -73,30 +73,18 @@ class QueryFilterBuilder
 
         $this->handleRequest($ignore_request, $accept_request);
 
-        $this->setInjectedDetections($detect_injected);
-
-        $this->resolveDetections();
+        $this->resolveDetections($detections_injected);
 
         return $this->queryBuilderWrapper->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
 
     /**
-     * @param array|null $injected_detections
      * @return void
      */
-    private function setInjectedDetections(?array $injected_detections): void
+    private function resolveDetections($detections_injected)
     {
-        if (!empty($injected_detections)) {
-            $this->queryFilterCore->setInjectedDetections($injected_detections);
-            $this->queryFilterCore->setDetectFactory($this->queryFilterCore->getDetectorFactory($this->queryFilterCore->getDefaultDetect(), $this->queryFilterCore->getInjectedDetections()));
-        }
-    }
+        $this->queryFilterCore->setDetectionsInjected($detections_injected);
 
-    /**
-     * @return void
-     */
-    private function resolveDetections()
-    {
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
             return new ResolverDetections($this->queryBuilderWrapper->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory());

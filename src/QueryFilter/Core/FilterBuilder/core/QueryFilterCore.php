@@ -56,10 +56,10 @@ interface QueryFilterCore
     public function getDetections();
 
     /**
-     * @param $detect_injected
+     * @param $injected_detections
      * @return void
      */
-    public function setInjectedDetections($detect_injected): void;
+    public function setInjectedDetections($injected_detections): void;
 
     /**
      * @return mixed

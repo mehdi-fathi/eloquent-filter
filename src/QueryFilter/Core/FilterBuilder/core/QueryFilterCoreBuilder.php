@@ -131,4 +131,17 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
         return app(DetectionFactory::class, ['detections' => $this->getDetections()]);
     }
+
+    /**
+     * @param array|null $injected_detections
+     * @return void
+     */
+    public function setDetectionsInjected(?array $injected_detections): void
+    {
+        if (!empty($injected_detections)) {
+            $this->setInjectedDetections($injected_detections);
+            $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+        }
+
+    }
 }
