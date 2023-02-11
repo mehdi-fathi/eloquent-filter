@@ -9,10 +9,6 @@ use eloquentFilter\QueryFilter\Detection\DetectionFactory;
  */
 class QueryFilterCoreBuilder implements QueryFilterCore
 {
-    /**
-     * @var
-     */
-    protected $builder;
 
     /**
      * @var array
@@ -35,7 +31,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     private DetectionFactory $detect_factory;
 
     /**
-     * QueryFilter constructor.
+     * QueryFilterCoreBuilder constructor.
      *
      * @param array $default_injected
      * @param array|null $detect_injected

@@ -36,15 +36,19 @@ class TestCase extends Orchestra\Testbench\TestCase
             'eloquentFilter',
             function () {
 
-                $queryFilterCoreFactory = new QueryFilterCoreFactory();
+                $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
-                $request = new RequestFilter($this->request->query());
+                $request = app(RequestFilter::class, ['request' => $this->request->query()]);
 
                 $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
-                $response = new ResponseFilter();
+                $response = app(ResponseFilter::class);
 
-                return new QueryFilterBuilder($core, $request, $response);
+                return app(QueryFilterBuilder::class, [
+                    'core' => $core,
+                    'requestFilter' => $request,
+                    'responseFilter' => $response
+                ]);
             }
         );
     }

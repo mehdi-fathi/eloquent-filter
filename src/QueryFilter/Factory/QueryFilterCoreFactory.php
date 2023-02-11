@@ -22,7 +22,7 @@ class QueryFilterCoreFactory
 {
     public function createQueryFilterCoreBuilder(): QueryFilterCore
     {
-        return new QueryFilterCoreBuilder($this->getDefaultDetectorsEloquent());
+        return app(QueryFilterCoreBuilder::class, ['default_injected' => $this->getDefaultDetectorsEloquent()]);
     }
 
     /**
