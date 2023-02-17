@@ -13,22 +13,17 @@ class RequestFilter
     /**
      * @var
      */
-    protected $builder;
-
-    /**
-     * @var
-     */
-    protected $request;
-
-    /**
-     * @var
-     */
     protected $accept_request;
 
     /**
      * @var
      */
     protected $ignore_request;
+
+    /**
+     * @var array|null
+     */
+    protected ?array $request;
 
     /**
      * @param $request
