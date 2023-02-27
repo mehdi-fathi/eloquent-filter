@@ -34,8 +34,8 @@ It's easy use and fully dynamic, just with sending the Query Strings to it.
     - [Response Filter](#Response-filter)
 
 ## Requirements
-- PHP 7.4+, 8.0 (new version)
-- Laravel 6.x, 7.x, 8.x, 9.x (New)
+- PHP 7.4+,8.0,8.1,8.2``
+- Laravel 6.x,7.x,8.x,9.x,10.x(New)
 
 ## :microphone: Introduction
 
@@ -88,7 +88,7 @@ Hence, Eloquent Filter is ready for to you get rid of complexity in addition to 
 
 ### A simple implementation with Eloquent Filter
 
-Eloquent Filter can help you to fix that problem. Just you will set query string to work with that.
+Eloquent Filter can help you to fix that ``problem. Just you will set query string to work with that.
 It would make your own query automatically and systematically while you can control them.
 
 Right After installing Eloquent Filter, the request URI would be like this:
