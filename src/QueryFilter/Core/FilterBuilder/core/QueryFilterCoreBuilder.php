@@ -9,7 +9,6 @@ use eloquentFilter\QueryFilter\Detection\DetectionFactory;
  */
 class QueryFilterCoreBuilder implements QueryFilterCore
 {
-
     /**
      * @var array
      */
@@ -142,6 +141,5 @@ class QueryFilterCoreBuilder implements QueryFilterCore
             $this->setInjectedDetections($injected_detections);
             $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
-
     }
 }

@@ -67,14 +67,12 @@ class DetectorCondition
     public function detect(string $field, $params, $model = null): ?string
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
-
             if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
                 $query = $item::detect($field, $params, $model->checkModelHasOverrideMethod($field));
                 if (!empty($query)) {
                     return $query;
                 }
             }
-
         })->filter();
 
         return $out->first();

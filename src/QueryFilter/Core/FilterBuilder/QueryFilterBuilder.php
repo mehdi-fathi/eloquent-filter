@@ -109,6 +109,4 @@ class QueryFilterBuilder
 
         $this->requestFilter->requestAlter($ignore_request, $accept_request, $serialize_request_filter, $alias_list_filter, $this->queryBuilderWrapper->getModel());
     }
-
-
 }
