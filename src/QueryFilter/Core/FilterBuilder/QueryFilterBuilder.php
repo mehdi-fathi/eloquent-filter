@@ -51,7 +51,23 @@ class QueryFilterBuilder
     }
 
     /**
-     * @param Builder $builder
+     * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper $queryBuilderWrapper
+     */
+    public function setQueryBuilderWrapper(QueryBuilderWrapper $queryBuilderWrapper): void
+    {
+        $this->queryBuilderWrapper = $queryBuilderWrapper;
+    }
+
+    /**
+     * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper
+     */
+    public function getQueryBuilderWrapper(): QueryBuilderWrapper
+    {
+        return $this->queryBuilderWrapper;
+    }
+    
+    /**
+     * @param $builder
      * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
@@ -61,7 +77,7 @@ class QueryFilterBuilder
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null)
     {
-        $this->queryBuilderWrapper = QueryBuilderWrapperFactory::createQueryBuilder($builder);
+        $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);
@@ -75,7 +91,7 @@ class QueryFilterBuilder
 
         $this->resolveDetections($detections_injected);
 
-        return $this->queryBuilderWrapper->getModel()->getResponseFilter($this->responseFilter->getResponse());
+        return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
 
     /**
@@ -87,7 +103,7 @@ class QueryFilterBuilder
 
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->queryBuilderWrapper->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory());
+            return new ResolverDetections($this->getQueryBuilderWrapper()->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory());
         });
 
         /** @see ResolverDetections::getResolverOut() */
@@ -103,10 +119,10 @@ class QueryFilterBuilder
      */
     private function handleRequest(?array $ignore_request, ?array $accept_request): void
     {
-        $serialize_request_filter = $this->queryBuilderWrapper->getModel()->serializeRequestFilter($this->requestFilter->getRequest());
+        $serialize_request_filter = $this->getQueryBuilderWrapper()->getModel()->serializeRequestFilter($this->requestFilter->getRequest());
 
-        $alias_list_filter = $this->queryBuilderWrapper->getAliasListFilter();
+        $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();
 
-        $this->requestFilter->requestAlter($ignore_request, $accept_request, $serialize_request_filter, $alias_list_filter, $this->queryBuilderWrapper->getModel());
+        $this->requestFilter->requestAlter($ignore_request, $accept_request, $serialize_request_filter, $alias_list_filter, $this->getQueryBuilderWrapper()->getModel());
     }
 }

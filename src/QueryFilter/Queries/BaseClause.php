@@ -31,16 +31,16 @@ abstract class BaseClause
     }
 
     /**
-     * @param $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $nextFilter
      *
      * @return Builder
      */
-    public function handle(Builder $query, $nextFilter)
+    public function handle(Builder $query, $nextFilter): Builder
     {
         $query = $nextFilter($query);
 
-        return static::apply($query);
+        return $this->apply($query);
     }
 
     /**

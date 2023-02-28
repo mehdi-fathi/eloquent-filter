@@ -31,14 +31,15 @@ trait Filterable
     protected $object_custom_detect = null;
 
     /**
-     * @param            $query
+     * @param            $builder
      * @param array|null $request
      *
      * @return Builder
      */
-    public function scopeFilter($query, ?array $request = null)
+    public function scopeFilter($builder, ?array $request = null)
     {
-        return EloquentFilter::apply($query, $request, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
+        /** @see QueryFilterBuilder::apply() */
+        return EloquentFilter::apply($builder, $request, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
     }
 
     /**
