@@ -43,28 +43,28 @@ trait Filterable
     }
 
     /**
-     * @param            $query
+     * @param            $builder
      * @param array|null $request
      */
-    public function scopeIgnoreRequest($query, ?array $request = null)
+    public function scopeIgnoreRequest($builder, ?array $request = null)
     {
         $this->ignore_request = $request;
     }
 
     /**
-     * @param            $query
+     * @param            $builder
      * @param array|null $request
      */
-    public function scopeAcceptRequest($query, ?array $request = null)
+    public function scopeAcceptRequest($builder, ?array $request = null)
     {
         $this->accept_request = $request;
     }
 
     /**
-     * @param $query
+     * @param $builder
      * @param array|null $object_custom_detect
      */
-    public function scopeSetCustomDetection($query, ?array $object_custom_detect = null)
+    public function scopeSetCustomDetection($builder, ?array $object_custom_detect = null)
     {
         $this->setObjectCustomDetect($object_custom_detect);
     }
@@ -138,10 +138,10 @@ trait Filterable
     }
 
     /**
-     * @param $query
+     * @param $builder
      * @param $load_default_detection
      */
-    public function scopeSetLoadInjectedDetection($query, $load_default_detection)
+    public function scopeSetLoadInjectedDetection($builder, $load_default_detection)
     {
         $this->load_injected_detections = $load_default_detection;
     }
