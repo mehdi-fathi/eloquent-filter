@@ -7,7 +7,6 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class QueryFilterBuilder.
