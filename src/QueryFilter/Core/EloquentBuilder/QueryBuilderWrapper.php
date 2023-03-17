@@ -10,7 +10,7 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
     /**
      * @var
      */
-    private $builder;
+    private mixed $builder;
 
     /**
      * @param $builder
@@ -31,7 +31,7 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
     /**
      * @return mixed
      */
-    public function getBuilder()
+    public function getBuilder(): mixed
     {
         return $this->builder;
     }
@@ -47,7 +47,7 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
     /**
      * @return mixed
      */
-    public function getAliasListFilter()
+    public function getAliasListFilter(): mixed
     {
         return $this->getModel()->getAliasListFilter();
     }

@@ -16,37 +16,12 @@ class QueryFilterBuilder
     use HelperEloquentFilter;
 
     /**
-     * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder
-     */
-
-    public QueryFilterCore $queryFilterCore;
-
-    /**
-     * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter
-     */
-
-    public RequestFilter $requestFilter;
-
-    /**
-     * @var \eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter
-     */
-    public ResponseFilter $responseFilter;
-
-    /**
-     * @var \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper
-     */
-    public QueryBuilderWrapper $queryBuilderWrapper;
-
-    /**
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $core
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter $requestFilter
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter $responseFilter
      */
-    public function __construct(QueryFilterCore $core, RequestFilter $requestFilter, ResponseFilter $responseFilter)
+    public function __construct(public QueryFilterCore $queryFilterCore, public RequestFilter $requestFilter, public ResponseFilter $responseFilter)
     {
-        $this->queryFilterCore = $core;
-        $this->requestFilter = $requestFilter;
-        $this->responseFilter = $responseFilter;
     }
 
     /**
@@ -64,7 +39,7 @@ class QueryFilterBuilder
     {
         return $this->queryBuilderWrapper;
     }
-    
+
     /**
      * @param $builder
      * @param array|null $request
@@ -86,7 +61,10 @@ class QueryFilterBuilder
             return $builder;
         }
 
-        $this->handleRequest($ignore_request, $accept_request);
+        $this->handleRequest(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request
+        );
 
         $this->resolveDetections($detections_injected);
 

@@ -39,7 +39,13 @@ trait Filterable
     public function scopeFilter($builder, ?array $request = null)
     {
         /** @see QueryFilterBuilder::apply() */
-        return EloquentFilter::apply($builder, $request, $this->ignore_request, $this->accept_request, $this->getObjectCustomDetect());
+        return EloquentFilter::apply(
+            builder: $builder,
+            request: $request,
+            ignore_request: $this->ignore_request,
+            accept_request: $this->accept_request,
+            detections_injected: $this->getObjectCustomDetect()
+        );
     }
 
     /**

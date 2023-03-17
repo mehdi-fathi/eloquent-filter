@@ -3,36 +3,28 @@
 namespace eloquentFilter\QueryFilter\Detection;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class DetectionFactory.
  */
 class DetectionFactory implements DetectorFactoryContract
 {
-    /**
-     * @var array
-     */
-    public array $detections;
 
     /**
      * DetectionFactory constructor.
      *
      * @param array $detections
      */
-    public function __construct(array $detections)
+    public function __construct(public array $detections)
     {
-        $this->detections = $detections;
     }
 
     /**
      * @param $field
      * @param $params
-     * @param Model|null $model
+     * @param null $model
      *
-     * @return mixed|string|null
-     * @throws \ReflectionException
-     *
+     * @return string|null
      */
     public function buildDetections($field, $params, $model = null): ?string
     {

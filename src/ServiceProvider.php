@@ -62,7 +62,10 @@ class ServiceProvider extends BaseServiceProvider
 
                 $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
 
-                return new QueryFilterBuilder($core, $request, $response);
+                return new QueryFilterBuilder(
+                    queryFilterCore: $core,
+                    requestFilter: $request,
+                    responseFilter: $response);
             }
         );
 
