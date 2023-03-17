@@ -1,5 +1,6 @@
 <?php
 
+use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
@@ -42,7 +43,7 @@ class TestCase extends Orchestra\Testbench\TestCase
                 $response = app(ResponseFilter::class);
 
                 return app(QueryFilterBuilder::class, [
-                    'core' => $core,
+                    'queryFilterCore' => $core,
                     'requestFilter' => $request,
                     'responseFilter' => $response
                 ]);
