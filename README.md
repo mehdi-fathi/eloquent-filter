@@ -34,8 +34,8 @@ It's easy use and fully dynamic, just with sending the Query Strings to it.
     - [Response Filter](#Response-filter)
 
 ## Requirements
-- PHP 7.4+,8.0,8.1,8.2``
-- Laravel 6.x,7.x,8.x,9.x,10.x(New)
+- PHP 8.0,8.1,8.2
+- Laravel 8.x,9.x,10.x(New)
 
 ## :microphone: Introduction
 
