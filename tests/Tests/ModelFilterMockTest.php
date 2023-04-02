@@ -1450,7 +1450,7 @@ class ModelFilterMockTest extends \TestCase
 
         $builder = $builder->query()
             ->where('title', 'sport')
-            ->where('count_posts','>', 10);
+            ->where('count_posts', '>', 10);
 
         $this->request->shouldReceive('query')->andReturn(
             [
@@ -1458,11 +1458,11 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = Category::filter($this->request->query())->where('count_posts','>', 10);
+        $users = Category::filter($this->request->query())->where('count_posts', '>', 10);
 
         $this->assertSame($users->toSql(), $builder->toSql());
 
-        $this->assertEquals(['sport'], $users->getBindings());
+        $this->assertEquals(['sport', 10], $users->getBindings());
     }
 
     public function tearDown(): void
