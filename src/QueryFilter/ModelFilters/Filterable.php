@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Trait Filterable.
+ *
+ * @method static Type filter(?array $request = null)
+ * @method static Type ignoreRequest(?array $request = null)
+ * @method static Type acceptRequest($builder, ?array $request = null)
+ * @method static Type setCustomDetection($builder, ?array $object_custom_detect = null)
  */
 trait Filterable
 {
@@ -49,7 +54,7 @@ trait Filterable
     }
 
     /**
-     * @param            $builder
+     * @param $builder
      * @param array|null $request
      */
     public function scopeIgnoreRequest($builder, ?array $request = null)
@@ -58,7 +63,7 @@ trait Filterable
     }
 
     /**
-     * @param            $builder
+     * @param $builder
      * @param array|null $request
      */
     public function scopeAcceptRequest($builder, ?array $request = null)
@@ -104,7 +109,7 @@ trait Filterable
     }
 
     /**
-     * @return mixed
+     * @return array|null
      */
     public function getAliasListFilter(): ?array
     {

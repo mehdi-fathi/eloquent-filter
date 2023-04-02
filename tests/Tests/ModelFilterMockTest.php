@@ -1120,7 +1120,7 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = Tag::AcceptRequest(
+        $users = Tag::acceptRequest(
             [
                 'baz',
             ]
