@@ -1444,6 +1444,27 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['%mehdi%'], $categories->getBindings());
     }
 
+    public function testAddWhereToFilter()
+    {
+        $builder = new Category();
+
+        $builder = $builder->query()
+            ->where('title', 'sport')
+            ->where('count_posts','>', 10);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $users = Category::filter($this->request->query())->where('count_posts','>', 10);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $users->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();
