@@ -16,8 +16,11 @@ class WhereCustomCondition implements DetectorConditionsContract
      *
      * @return string|null
      */
-    public static function detect($field, $params): ?string
+    public static function detect($field, $params, bool $is_override_method = false): ?string
     {
+        if ($is_override_method == true) {
+            $method = WhereCustom::class;
+        }
 
         return $method ?? null;
     }
