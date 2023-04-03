@@ -13,11 +13,10 @@ class WhereOrCondition implements DetectorConditionsContract
     /**
      * @param $field
      * @param $params
-     * @param bool $is_override_method
      *
      * @return string|null
      */
-    public static function detect($field, $params, bool $is_override_method = false): ?string
+    public static function detect($field, $params): ?string
     {
         if ($field == 'or') {
             $method = WhereOr::class;

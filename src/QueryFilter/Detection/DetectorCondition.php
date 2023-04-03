@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter\Detection;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use eloquentFilter\QueryFilter\Queries\WhereCustom;
 use Exception;
 
 /**
@@ -68,7 +69,13 @@ class DetectorCondition
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
             if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
-                $query = $item::detect($field, $params, $model->checkModelHasOverrideMethod($field));
+
+                if ($model->checkModelHasOverrideMethod($field)) {
+                    $query = WhereCustom::class;
+                } else {
+                    $query = $item::detect($field, $params);
+                }
+
                 if (!empty($query)) {
                     return $query;
                 }
