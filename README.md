@@ -17,9 +17,10 @@ Eloquent Filter adds custom filters automatically to your Eloquent Models in Lar
 It's easy use and fully dynamic, just with sending the Query Strings to it.
 
 ## Table of Content
-- [Introduction](#Introduction)
-- [Installation](#Installation)
-- [Basic Usage](#Basic-Usage)
+
+- [Introduction](#microphone-introduction)
+- [Installation](#electric_plug-installation)
+- [Basic Usage](#book-basic-usage)
     - [Config Model](#Config-Model-and-set-whitelist)
     - [Use in Controller](#Use-in-Controller)
     - [Simple Examples](#Simple-Examples)
