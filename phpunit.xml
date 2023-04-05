@@ -24,5 +24,7 @@
         <ini name="xdebug.mode" value="coverage"/>
         <env name="XDEBUG_MODE" value="coverage"/>
     </php>
-    <logging/>
+    <logging>
+        <log type="coverage-clover" target="/tmp/coverage.xml"/>
+    </logging>
 </phpunit>
