@@ -55,6 +55,6 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit --coverage-text
+        run: vendor/bin/phpunit --coverage-clover clover.xml;
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
