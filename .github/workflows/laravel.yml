@@ -59,4 +59,4 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: /home/runner/work/eloquent-filter/eloquent-filter/tests/build/logs/clover.xml
+          file: ./build/logs/clover.xml
