@@ -55,6 +55,8 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit --coverage-clover clover.xml
+        run: vendor/bin/phpunit
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          file:  /home/runner/work/eloquent-filter/eloquent-filter/tests/build/logs/coverage.xml
