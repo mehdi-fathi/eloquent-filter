@@ -24,4 +24,7 @@
         <ini name="xdebug.mode" value="coverage"/>
         <env name="XDEBUG_MODE" value="coverage"/>
     </php>
+    <logging>
+        <junit outputFile="build/report.junit.xml"/>
+    </logging>
 </phpunit>
