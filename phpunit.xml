@@ -9,8 +9,8 @@
         </include>
         <report>
             <clover outputFile="tests/logs/clover.xml"/>
-            <html outputDirectory="tests/coverage"/>
-            <text outputFile="tests/coverage.txt"/>
+<!--            <html outputDirectory="tests/coverage"/>-->
+<!--            <text outputFile="tests/coverage.txt"/>-->
         </report>
     </coverage>
     <testsuites>
