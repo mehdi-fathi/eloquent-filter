@@ -1265,6 +1265,7 @@ class ModelFilterMockTest extends \TestCase
         $this->assertNotSame($users->toSql(), $builder->toSql());
 
         $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+        $this->assertFalse($users->isUsedEloquentFilter());
     }
 
     public function testFalseEnabledConfigNotBreakQuery()
@@ -1463,6 +1464,41 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
 
         $this->assertEquals(['sport', 10], $users->getBindings());
+    }
+
+    public function testMacros()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()
+            ->whereHas(
+                'foo',
+                function ($q) {
+                    $q->where('bam', 'like', '%mehdi%');
+                }
+            )
+            ->where('baz', '<>', 'boo')
+            ->where('email', 'like', '%mehdifathi%')
+            ->where('count_posts', '=', 10)
+            ->limit(10);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => [
+                    'value' => 'boo',
+                    'limit' => 10,
+                    'email' => 'mehdifathi',
+                    'like_relation_value' => 'mehdi',
+                ],
+                'count_posts' => 10,
+            ]
+        );
+
+        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+
+        $this->assertEquals([WhereRelationLikeCondition::class], $users->getDetectionsInjected());
+        $this->assertTrue($users->isUsedEloquentFilter());
+
     }
 
     public function tearDown(): void

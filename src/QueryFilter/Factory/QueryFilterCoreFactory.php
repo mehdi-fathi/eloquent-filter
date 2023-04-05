@@ -33,7 +33,6 @@ class QueryFilterCoreFactory
     {
         return [
             SpecialCondition::class,
-            WhereCustomCondition::class,
             WhereBetweenCondition::class,
             WhereByOptCondition::class,
             WhereLikeCondition::class,

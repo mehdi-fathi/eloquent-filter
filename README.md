@@ -33,6 +33,7 @@ It's easy use and fully dynamic, just with sending the Query Strings to it.
 - [Magic Methods](#Magic-Methods)
     - [Request Filter](#Request-filter)
     - [Response Filter](#Response-filter)
+    - [Macro Methods](#Macro-Methods)
 
 ## Requirements
 - PHP 8.0,8.1,8.2
@@ -774,6 +775,21 @@ class User extends Model
         return $data;
     }
 }
+```
+
+### Macro Methods
+
+-`isUsedEloquentFilter` is a macro method for builder to check either query used eloquent-filter.
+
+-`getDetectionsInjected` is a macro method to get list array of injected objects.
+
+e.g:
+
+
+```php
+        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+        echo $users->isUsedEloquentFilter(); // will true
+        echo $users->getDetectionsInjected(); // will showing a list array of injected objects
 ```
 
 - If you have any interesting idea about the Eloquent Filter, I will be glad to hear that.

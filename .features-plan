@@ -1,3 +1,5 @@
 1- make blacklist array for disable some method for custom query
 2- adding support callback
 3- support algolia search and 3rd party api tools
+4- add macro for get some information
+5- add limit number for some column to prevent bad performance queries by users
