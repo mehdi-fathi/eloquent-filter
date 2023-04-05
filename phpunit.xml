@@ -7,11 +7,11 @@
         <include>
             <directory suffix=".php">./src</directory>
         </include>
-<!--        <report>-->
-<!--            <clover outputFile="tests/build/logs/clover.xml"/>-->
-<!--            <html outputDirectory="tests/build/coverage"/>-->
-<!--            <text outputFile="tests/build/coverage.txt"/>-->
-<!--        </report>-->
+        <report>
+            <clover outputFile="tests/build/logs/clover.xml"/>
+            <html outputDirectory="tests/build/coverage"/>
+            <text outputFile="tests/build/coverage.txt"/>
+        </report>
     </coverage>
     <testsuites>
         <testsuite name="Application Test Suite">
@@ -24,7 +24,4 @@
         <ini name="xdebug.mode" value="coverage"/>
         <env name="XDEBUG_MODE" value="coverage"/>
     </php>
-    <logging>
-        <log type="coverage-clover" target="/tmp/coverage.xml"/>
-    </logging>
 </phpunit>
