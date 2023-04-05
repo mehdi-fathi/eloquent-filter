@@ -58,3 +58,5 @@ jobs:
         run: vendor/bin/phpunit
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          file: ./tests/build/logs/clover.xml
