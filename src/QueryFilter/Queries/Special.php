@@ -23,9 +23,9 @@ class Special extends BaseClause
     /**
      * @param $query
      *
+     * @return Builder
      * @throws \Exception
      *
-     * @return Builder
      */
     public function apply($query): Builder
     {
@@ -39,6 +39,9 @@ class Special extends BaseClause
                     $query->orderBy($order_by, $this->values['orderBy']['type']);
                 }
             } else {
+                if (config('eloquentFilter.max_limit') > 0) {
+                    $param_value = min(config('eloquentFilter.max_limit'), $param_value);
+                }
                 $query->limit($param_value);
             }
         }
