@@ -9,7 +9,6 @@ use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
  */
 class DetectionFactory implements DetectorFactoryContract
 {
-
     /**
      * DetectionFactory constructor.
      *

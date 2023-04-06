@@ -65,7 +65,8 @@ class ServiceProvider extends BaseServiceProvider
                 return new QueryFilterBuilder(
                     queryFilterCore: $core,
                     requestFilter: $request,
-                    responseFilter: $response);
+                    responseFilter: $response
+                );
             }
         );
 

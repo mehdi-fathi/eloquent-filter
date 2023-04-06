@@ -69,7 +69,6 @@ class DetectorCondition
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
             if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
-
                 if ($model->checkModelHasOverrideMethod($field)) {
                     $query = WhereCustom::class;
                 } else {
