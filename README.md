@@ -8,7 +8,6 @@
 ![Run tests](https://github.com/mehdi-fathi/eloquent-filter/workflows/Run%20tests/badge.svg?branch=master)
 [![License](https://poser.pugx.org/mehdi-fathi/eloquent-filter/license)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 [![GitHub stars](https://img.shields.io/github/stars/mehdi-fathi/eloquent-filter)](https://github.com/mehdi-fathi/eloquent-filter/stargazers)
-[![Build Status](https://travis-ci.org/mehdi-fathi/eloquent-filter.svg?branch=master)](https://travis-ci.org/mehdi-fathi/eloquent-filter)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/mehdi-fathi/eloquent-filter?color=blue)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 [![codecov](https://codecov.io/gh/mehdi-fathi/eloquent-filter/branch/develop/graph/badge.svg?token=QY9HA6NXFH)](https://codecov.io/gh/mehdi-fathi/eloquent-filter)
@@ -39,6 +38,14 @@ It's easy use and fully dynamic, just with sending the Query Strings to it.
 ## Requirements
 - PHP 8.0,8.1,8.2
 - Laravel 8.x,9.x,10.x(New)
+
+### Version information
+
+| Version | Illuminate    | Status         | PHP Version |
+|---------|---------------|----------------|-------------|
+| ^3.0    | 3.2.x - 3.x.x | Active support | >= 8.0      |
+| ^3.0    | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    |
+| ^2.0    | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    |
 
 ## :microphone: Introduction
 
