@@ -800,4 +800,19 @@ e.g:
         echo $users->getDetectionsInjected(); // will showing a list array of injected objects
 ```
 
-- If you have any interesting idea about the Eloquent Filter, I will be glad to hear that.
+## Contributing
+
+If you'd like to contribute to Eloquent Filter, please fork the repository and create a pull request. We welcome contributions of all kinds, including bug fixes, new features, and documentation improvements.
+
+## License
+
+Eloquent Filter is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Contact
+
+If you have any questions or feedback about Eloquent Filter, please feel free to contact us at mehdifathi.developer@gmail.com. We'd love to hear from you!
+
+## Acknowledgements
+
+We'd like to thank the Laravel community for their support and contributions to this project.
+
