@@ -12,9 +12,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 [![codecov](https://codecov.io/gh/mehdi-fathi/eloquent-filter/branch/develop/graph/badge.svg?token=QY9HA6NXFH)](https://codecov.io/gh/mehdi-fathi/eloquent-filter)
 
-Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.
-
-It's easy use and fully dynamic, just with sending the Query Strings to it.
+Eloquent Filter is a package for filtering data of models by query strings in Laravel. It's easy to use and fully dynamic, allowing you to add custom filters automatically to your Eloquent Models.
 
 ## Table of Content
 
