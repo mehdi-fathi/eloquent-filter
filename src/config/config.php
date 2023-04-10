@@ -22,7 +22,7 @@ return [
     */
     'ignore_request' => [],
 
-    'max_limit' => 20, /* It's a limitation for prevent make awful query mistakenly by developer either intentionally by bad user. you can disable it just with comment it. */
+    'max_limit' => 20, /* It's a limitation for preventing making awful queries mistakenly by the developer or intentionally by a villain user. you can disable it just with comment it. */
 
     /*
     |--------------------------------------------------------------------------

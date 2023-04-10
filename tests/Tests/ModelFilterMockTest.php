@@ -446,6 +446,26 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
     }
 
+    public function testMaxLimit()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->newQuery()
+            ->limit(20);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'limit' => 25,
+                ],
+            ]
+        );
+
+        $users = Tag::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
     public function testFParamException()
     {
         try {

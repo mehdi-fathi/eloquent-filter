@@ -685,7 +685,7 @@ You can generate a config file to configure Eloquent Filter.
 - Eloquent Filter recognizes every param of the queries string. 
   Maybe you have a query string that you don't want to recognize by Eloquent Filter. You can use `ignoreRequest` for his purpose.
   But we have a clean solution to this problem. You can set param `request_filter_key` in the config file.
-  Therefore every query string will recognize by the `request_filter_key` param.
+  Therefore, every query string will recognize by the `request_filter_key` param.
 
     
         'request_filter_key' => '', // filter
@@ -696,15 +696,19 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 /users/list?filter[email]=mehdifathi.developer@gmail.com`
 
 
-- You can disable/enable all of the custom detection of Eloquent Filter in the config file (eloquentFilter.php).
+- You can disable/enable all the custom detection of Eloquent Filter in the config file (eloquentFilter.php).
 
    
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
 
-- You should set the index array in `ignore_request` to ignore by in all filters.
+- You should set an index array in `ignore_request` to ignore by in all filters.
 
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
+
+- You had better keep `max_limit`. It's a limitation for preventing making awful queries mistakenly by the developer or intentionally by a villain user.
+
+        'max_limit' => 20 
         
 ### Alias  
 
