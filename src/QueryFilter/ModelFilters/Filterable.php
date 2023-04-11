@@ -26,6 +26,11 @@ trait Filterable
     protected $accept_request = null;
 
     /**
+     * @var null
+     */
+    protected $black_list_detections = null;
+
+    /**
      * @var bool
      */
     protected bool $load_injected_detections = true;
@@ -49,7 +54,8 @@ trait Filterable
             request: $request,
             ignore_request: $this->ignore_request,
             accept_request: $this->accept_request,
-            detections_injected: $this->getObjectCustomDetect()
+            detections_injected: $this->getObjectCustomDetect(),
+            black_list_detections: $this->black_list_detections
         );
     }
 
@@ -69,6 +75,15 @@ trait Filterable
     public function scopeAcceptRequest($builder, ?array $request = null)
     {
         $this->accept_request = $request;
+    }
+
+    /**
+     * @param $builder
+     * @param array|null $black_list_detections
+     */
+    public function scopeSetBlackListDetection($builder, ?array $black_list_detections = null)
+    {
+        $this->black_list_detections = $black_list_detections;
     }
 
     /**

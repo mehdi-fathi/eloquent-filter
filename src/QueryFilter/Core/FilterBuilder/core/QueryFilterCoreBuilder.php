@@ -69,6 +69,20 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         $this->detections = $detections;
     }
 
+
+    /**
+     * @param array $detections
+     */
+    public function unsetDetection(?array $detections): void
+    {
+        if(is_array($detections)){
+
+            $array = array_diff($this->getDefaultDetect(),$detections);
+
+            $this->setDefaultDetect($array);
+        }
+    }
+
     /**
      * @param DetectionFactory $detect_factory
      */
@@ -141,5 +155,12 @@ class QueryFilterCoreBuilder implements QueryFilterCore
             $this->setInjectedDetections($injected_detections);
             $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
+    }
+
+    public function reload()
+    {
+
+        $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+        // dd($this->getDetectFactory());
     }
 }

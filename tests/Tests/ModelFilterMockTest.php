@@ -1153,6 +1153,28 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
     }
 
+    public function testSetBlackListDetection()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->newQuery()->wherein('email', ['mehdi', 'ali']);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => ['mehdi', 'ali'],
+                'baz' => 'joo', //should be omited on whereCondition
+            ]
+        );
+
+        $users = Tag::setBlackListDetection(
+            [
+                'eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition',
+            ]
+        )->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
     public function testAcceptRequest2()
     {
         $builder = new Tag();

@@ -4,8 +4,10 @@ namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
+use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Arr;
 
 /**
  * Class ResolverDetections
@@ -29,7 +31,7 @@ class ResolverDetections
     /**
      * ResolverDetections constructor.
      * @param $builder
-     * @param array|null $request
+     * @param array $request
      * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract $detect_factory
      */
     public function __construct($builder, array $request, DetectorFactoryContract $detect_factory)
@@ -79,9 +81,14 @@ class ResolverDetections
         $model = $this->builder->getModel();
 
         $filter_detections = collect($this->request)->map(function ($values, $filter) use ($model) {
+            // dd($filter, $values, $model);
             return $this->resolve($filter, $values, $model);
-        })->reverse()->toArray();
+        })->reverse()->filter(function ($item) {
+            return $item instanceof BaseClause;
+        })->toArray();
 
-        return $filter_detections;
+        $out = Arr::isAssoc($filter_detections) ? $filter_detections : [];
+
+        return $out;
     }
 }

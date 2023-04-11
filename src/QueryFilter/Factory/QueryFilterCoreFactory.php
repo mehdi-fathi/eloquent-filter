@@ -8,7 +8,6 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\SpecialCondit
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereByOptCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCustomCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereDateCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereInCondition;

@@ -46,10 +46,11 @@ class QueryFilterBuilder
      * @param array|null $ignore_request
      * @param array|null $accept_request
      * @param array|null $detections_injected
+     * @param array|null $black_list_detections
      *
      * @return void
      */
-    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null)
+    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
         $this->buildExclusiveMacros($detections_injected);
 
@@ -68,7 +69,7 @@ class QueryFilterBuilder
             accept_request: $accept_request
         );
 
-        $this->resolveDetections($detections_injected);
+        $this->resolveDetections($detections_injected,$black_list_detections);
 
         return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
@@ -76,8 +77,11 @@ class QueryFilterBuilder
     /**
      * @return void
      */
-    private function resolveDetections($detections_injected)
+    private function resolveDetections($detections_injected,$black_list_detections)
     {
+        $this->queryFilterCore->unsetDetection($black_list_detections);
+        $this->queryFilterCore->reload();
+
         $this->queryFilterCore->setDetectionsInjected($detections_injected);
 
         /** @see ResolverDetections */
@@ -87,6 +91,7 @@ class QueryFilterBuilder
 
         /** @see ResolverDetections::getResolverOut() */
         $responseResolver = app('ResolverDetections')->getResolverOut();
+
 
         $this->responseFilter->setResponse($responseResolver);
     }
