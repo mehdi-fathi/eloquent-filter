@@ -32,6 +32,7 @@ Eloquent Filter is a package for filtering data of models by query strings in La
     - [Request Filter](#Request-filter)
     - [Response Filter](#Response-filter)
     - [Macro Methods](#Macro-Methods)
+    - [Black List Detections](#Black-List-Detections)
 
 ## Requirements
 - PHP 8.0,8.1,8.2
@@ -787,7 +788,7 @@ class User extends Model
 }
 ```
 
-### Black List Detections (New feature)
+### Black List Detections
 
 Obviously, you never want all users who are able to get data by manipulating requests. As a result, we'd better have
 an eloquent control feature.
