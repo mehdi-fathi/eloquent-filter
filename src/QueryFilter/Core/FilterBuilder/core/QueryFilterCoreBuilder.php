@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
@@ -69,15 +70,19 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         $this->detections = $detections;
     }
 
-
     /**
-     * @param array $detections
+     * @param array|null $detections
      */
     public function unsetDetection(?array $detections): void
     {
-        if(is_array($detections)){
+        if (is_array($detections)) {
 
-            $array = array_diff($this->getDefaultDetect(),$detections);
+            $detections = array_map(function ($item) {
+                $class = new \ReflectionClass(WhereCondition::class);
+                return $class->getNamespaceName() . '\\' . $item;
+            }, $detections);
+
+            $array = array_diff($this->getDefaultDetect(), $detections);
 
             $this->setDefaultDetect($array);
         }

@@ -1168,7 +1168,7 @@ class ModelFilterMockTest extends \TestCase
 
         $users = Tag::setBlackListDetection(
             [
-                'eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition',
+                'WhereCondition',
             ]
         )->filter($this->request->query());
 

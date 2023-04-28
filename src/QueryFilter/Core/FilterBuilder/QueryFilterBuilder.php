@@ -69,7 +69,7 @@ class QueryFilterBuilder
             accept_request: $accept_request
         );
 
-        $this->resolveDetections($detections_injected,$black_list_detections);
+        $this->resolveDetections($detections_injected, $black_list_detections);
 
         return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
@@ -77,7 +77,7 @@ class QueryFilterBuilder
     /**
      * @return void
      */
-    private function resolveDetections($detections_injected,$black_list_detections)
+    private function resolveDetections($detections_injected, $black_list_detections)
     {
         $this->queryFilterCore->unsetDetection($black_list_detections);
         $this->queryFilterCore->reload();
