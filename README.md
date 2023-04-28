@@ -787,6 +787,37 @@ class User extends Model
 }
 ```
 
+### Black List Detections (New feature)
+
+Obviously, you never want all users who are able to get data by manipulating requests. As a result, we'd better have
+an eloquent control feature.
+Although we have this ability on request side, we need this feature on Eloquent side as well.
+
+We would set a blacklist detection to prevent making conditions by using it. Therefore, that list has been disabled in making conditions. for example:
+
+```php
+
+namespace App\Http\Controllers;
+
+/**
+ * Class UsersController.
+ */
+class UsersController
+{
+
+    public function list()
+    {
+              $users = User::setBlackListDetection(
+                  [
+                      'WhereCondition',
+                  ]
+                )->filter()
+                ->orderByDesc('id')
+                ->paginate();
+    }
+}
+```
+
 ### Macro Methods
 
 -`isUsedEloquentFilter` is a macro method for builder to check either query used eloquent-filter.

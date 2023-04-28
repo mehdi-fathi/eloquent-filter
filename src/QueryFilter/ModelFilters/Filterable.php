@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
  *
  * @method static Type filter(?array $request = null)
  * @method static Type ignoreRequest(?array $request = null)
- * @method static Type acceptRequest($builder, ?array $request = null)
- * @method static Type setCustomDetection($builder, ?array $object_custom_detect = null)
+ * @method static Type acceptRequest(?array $request = null)
+ * @method static Type setCustomDetection(?array $object_custom_detect = null)
+ * @method static Type setBlackListDetection(?array $black_list_detections = null)
  */
 trait Filterable
 {
