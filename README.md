@@ -827,7 +827,7 @@ class UsersController
 | SpecialCondition      |                 | support f_params, e.g: limit and order |
 | WhereBetweenCondition | whereBetween    |                                        |
 | WhereByOptCondition   | where           | where("column", ">", $value)           |
-| WhereLikeCondition    | whereIn         | where($field, 'like', $value)          |
+| WhereLikeCondition    | where           | where($field, 'like', $value)          |
 | WhereInCondition      | whereIn         | whereIn('user_id, $value)              |
 | WhereOrCondition      | orWhere         | orWhere($field, $value)                |
 | WhereHas              | WhereHas        |                                        |
