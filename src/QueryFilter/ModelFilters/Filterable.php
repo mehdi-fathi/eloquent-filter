@@ -27,11 +27,6 @@ trait Filterable
     protected $accept_request = null;
 
     /**
-     * @var null
-     */
-    protected $black_list_detections = null;
-
-    /**
      * @var bool
      */
     protected bool $load_injected_detections = true;

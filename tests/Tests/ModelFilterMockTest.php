@@ -8,6 +8,7 @@ use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
+use Tests\Models\Car;
 use Tests\Models\Category;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
 use Tests\Models\Order;
@@ -1171,6 +1172,24 @@ class ModelFilterMockTest extends \TestCase
                 'WhereCondition',
             ]
         )->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
+    public function testSetBlackListDetectionDefault()
+    {
+        $builder = new Car();
+
+        $builder = $builder->newQuery()->wherein('name', ['mehdi', 'ali']);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'name' => ['mehdi', 'ali'],
+                'model' => 'joo', //should be omited on whereCondition
+            ]
+        );
+
+        $users = Car::filter($this->request->query());
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
