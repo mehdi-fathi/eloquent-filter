@@ -76,7 +76,6 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     public function unsetDetection(?array $detections): void
     {
         if (is_array($detections)) {
-
             $detections = array_map(function ($item) {
                 $class = new \ReflectionClass(WhereCondition::class);
                 return $class->getNamespaceName() . '\\' . $item;
@@ -162,10 +161,11 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         }
     }
 
-    public function reload()
+    /**
+     * @return void
+     */
+    public function reload(): void
     {
-
         $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
-        // dd($this->getDetectFactory());
     }
 }
