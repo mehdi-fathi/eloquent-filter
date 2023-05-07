@@ -834,6 +834,27 @@ class UsersController
 | WhereDateCondition    | whereDate       | whereDate('date', $value)              |
 | where                 | where           | where("column", $value)                |
 
+- You are able to set on Model layer as well. `black_list_detections` array is used for this purpose.
+
+```php
+<?php
+
+namespace Tests\Models;
+
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+use Illuminate\Database\Eloquent\Model;
+
+class Car extends Model
+{
+    use Filterable;
+    
+    private static $whiteListFilter = '*';
+
+    protected $black_list_detections = [
+        'WhereCondition',
+    ];
+}
+```
 
 ### Macro Methods
 
