@@ -48,6 +48,8 @@ Eloquent Filter is a package for filtering data of models by query strings in La
 
 ## :microphone: Introduction
 
+Conceivably, you will face trouble if you've done a task as an end-point in which there are some queries with many advanced options.
+
 Let's say we want to make an advanced search page with multiple filter options.
 
 ![alt text](https://raw.githubusercontent.com/mehdi-fathi/mehdi-fathi.github.io/master/eloquent-filter/assets/img/Esfand-05-1399%2022-23-21.gif "sample 1 eloquent-filter")
