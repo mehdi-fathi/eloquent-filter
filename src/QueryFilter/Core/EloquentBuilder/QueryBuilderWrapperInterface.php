@@ -13,11 +13,6 @@ interface QueryBuilderWrapperInterface
     public function __construct($builder);
 
     /**
-     * @param mixed $builder
-     */
-    public function setBuilder($builder): void;
-
-    /**
      * @return mixed
      */
     public function getBuilder();

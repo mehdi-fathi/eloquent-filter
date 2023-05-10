@@ -6,7 +6,7 @@ use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class WhereLike.
+ * Class WhereLikeRelation.
  */
 class WhereLikeRelation extends BaseClause
 {

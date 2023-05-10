@@ -9,14 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
  */
 abstract class BaseClause
 {
-    /**
-     * @var
-     */
-    protected $filter;
-    /**
-     * @var
-     */
-    protected $values;
 
     /**
      * BaseClause constructor.
@@ -24,10 +16,8 @@ abstract class BaseClause
      * @param $values
      * @param $filter
      */
-    public function __construct($values, $filter)
+    public function __construct(protected $values, protected $filter)
     {
-        $this->values = $values;
-        $this->filter = $filter;
     }
 
     /**

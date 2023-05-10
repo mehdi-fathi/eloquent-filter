@@ -7,25 +7,12 @@ namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
  */
 class QueryBuilderWrapper implements QueryBuilderWrapperInterface
 {
-    /**
-     * @var
-     */
-    private mixed $builder;
-
-    /**
-     * @param $builder
-     */
-    public function __construct($builder)
-    {
-        $this->setBuilder($builder);
-    }
 
     /**
      * @param mixed $builder
      */
-    public function setBuilder($builder): void
+    public function __construct(private mixed $builder)
     {
-        $this->builder = $builder;
     }
 
     /**
