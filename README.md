@@ -521,11 +521,10 @@ User::filter()->paginate();
 ### Custom Detection Conditions
 
 
-Sometimes you want to make your custom condition to make a new query that Eloquent Filter doesn't support that by default.
-The good news is you can make a custom condition in the eloquent filter from now on.
+Sometimes you want to make your custom condition to make a new query that Eloquent Filter doesn't support by default.
+The good news is you would make a custom condition in the eloquent filter from now on.
 
-You can make conditions to generate a new query after checking by that.
- (New feature :fire: ). For example :
+You can make conditions to generate a new query after checking by that. For example:
 
 We must have two classes. The First detects conditions second class generates the query.
  
@@ -704,7 +703,7 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
    
         'enabled_custom_detection' => env('EloquentFilter_Custom_Detection_ENABLED', true),
 
-- You should set an index array in `ignore_request` to ignore by in all filters.
+- You should set an index array `ignore_request` to ignore all filters.
 
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
@@ -715,9 +714,8 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
         
 ### Alias  
 
-Sometimes you may want to change some params in url while those mention to a field of the model.  
-e.g name of inputs form are not similar to model or you want to change them for other reason 
-so the alias as a new feature can be useful.  
+Sometimes you may want to change some parameters in the URL while those mention a field of the model.
+e.g. name of the input form is not similar to the model ,or you want to change them for other reasons so the alias as a new feature can be useful.
 
 ```php
 
