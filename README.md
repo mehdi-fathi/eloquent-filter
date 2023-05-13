@@ -136,7 +136,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 - **Note**  for Laravel versions older than 5.8 you should install version 2.2.5 
 
         $ composer require mehdi-fathi/eloquent-filter:2.2.5
-``
+
 - **Note** We support auto-discovery but you can check them.
 
 2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
