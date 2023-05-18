@@ -10,12 +10,12 @@ class ResponseFilter
     /**
      * @var
      */
-    public $response;
+    public mixed $response;
 
     /**
      * @return mixed
      */
-    public function getResponse()
+    public function getResponse(): mixed
     {
         return $this->response;
     }
@@ -23,7 +23,7 @@ class ResponseFilter
     /**
      * @param mixed $response
      */
-    public function setResponse($response): void
+    public function setResponse(mixed $response): void
     {
         $this->response = $response;
     }

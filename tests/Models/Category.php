@@ -32,10 +32,10 @@ class Category extends Model
     }
 
     /**
-     * @param $request
+     * @param array|null $request
      * @return mixed
      */
-    public function serializeRequestFilter($request)
+    public function serializeRequestFilter(?array $request)
     {
         if (!empty($request['new_title'])) {
             foreach ($request['new_title'] as &$item) {

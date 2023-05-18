@@ -180,12 +180,12 @@ class RequestFilter
     /**
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param $serialize_request_filter
+     * @param array|null $serialize_request_filter
      * @param $alias_list_filter
      * @param $model
      * @return void
      */
-    public function requestAlter(?array $ignore_request, ?array $accept_request, $serialize_request_filter, $alias_list_filter, $model): void
+    public function requestAlter(?array $ignore_request, ?array $accept_request, ?array $serialize_request_filter, $alias_list_filter, $model): void
     {
         $this->handelSerializeRequestFilter($serialize_request_filter);
 
