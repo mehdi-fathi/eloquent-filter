@@ -821,18 +821,18 @@ class UsersController
 
 - Below is an order checking conditions list if you use name of them for set a black list. 
 
-| Name                  | Method eloquent | Example                                |
-|-----------------------|-----------------|----------------------------------------|
-| WhereCustomCondition  |                 | Your declared custom method of Model   |
-| SpecialCondition      |                 | support f_params, e.g: limit and order |
-| WhereBetweenCondition | whereBetween    |                                        |
-| WhereByOptCondition   | where           | where("column", ">", $value)           |
-| WhereLikeCondition    | where           | where($field, 'like', $value)          |
-| WhereInCondition      | whereIn         | whereIn('user_id, $value)              |
-| WhereOrCondition      | orWhere         | orWhere($field, $value)                |
-| WhereHas              | WhereHas        |                                        |
-| WhereDateCondition    | whereDate       | whereDate('date', $value)              |
-| where                 | where           | where("column", $value)                |
+| Name                  | Method eloquent | Example                                  |
+|-----------------------|-----------------|------------------------------------------|
+| WhereCustomCondition  |                 | Your declared custom method of Model     |
+| SpecialCondition      |                 | support f_params, e.g: limit and order   |
+| WhereBetweenCondition | whereBetween    |                                          |
+| WhereByOptCondition   | where           | where('column', ">", $value)             |
+| WhereLikeCondition    | where           | where('column', 'like', $value)          |
+| WhereInCondition      | whereIn         | whereIn('column', $value)                |
+| WhereOrCondition      | orWhere         | orWhere('column', $value)                |
+| WhereHas              | WhereHas        |                                          |
+| WhereDateCondition    | whereDate       | whereDate('column', $value)              |
+| where                 | where           | where('column', $value)                  |
 
 - You are able to set on Model layer as well. `black_list_detections` array is used for this purpose.
 
