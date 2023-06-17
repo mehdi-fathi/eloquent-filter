@@ -2,6 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
+use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
@@ -10,17 +12,17 @@ use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 interface QueryFilterCore
 {
     /**
-     * @param array $default_injected
-     * @param array|null $detect_injected
+     * @param array $defaultSeriesInjected
+     * @param array|null $detectInjected
      */
-    public function __construct(array $default_injected, array $detect_injected = null);
+    public function __construct(array $defaultSeriesInjected, array $detectInjected = null,MainBuilderConditionsContract $mainBuilderConditions);
 
     /**
      * @param array|null $default_detect
-     * @param array|null $detect_injected
+     * @param array|null $detectInjected
      * @return mixed
      */
-    public function getDetectorFactory(array $default_detect = null, array $detect_injected = null);
+    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectionFactory;
 
     /**
      * @param $default_detect
@@ -31,7 +33,7 @@ interface QueryFilterCore
     /**
      * @return mixed
      */
-    public function getDefaultDetect();
+    public function getDefaultDetect(): array;
 
     /**
      * @param array $detections
@@ -53,7 +55,7 @@ interface QueryFilterCore
     /**
      * @return mixed
      */
-    public function getDetections();
+    public function getDetections(): array;
 
     /**
      * @param $injected_detections
@@ -64,5 +66,5 @@ interface QueryFilterCore
     /**
      * @return mixed
      */
-    public function getInjectedDetections();
+    public function getInjectedDetections(): mixed;
 }

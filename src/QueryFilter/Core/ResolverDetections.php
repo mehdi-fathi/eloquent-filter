@@ -3,7 +3,9 @@
 namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
+use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
@@ -28,17 +30,22 @@ class ResolverDetections
      */
     private DetectorFactoryContract $detect_factory;
 
+
+    private MainBuilderConditionsContract $MainBuilderConditionsContract;
+
     /**
      * ResolverDetections constructor.
      * @param $builder
      * @param array $request
      * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract $detect_factory
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $MainBuilderConditionsContract
      */
-    public function __construct($builder, array $request, DetectorFactoryContract $detect_factory)
+    public function __construct($builder, array $request, DetectorFactoryContract $detect_factory, MainBuilderConditionsContract $MainBuilderConditionsContract)
     {
         $this->builder = $builder;
         $this->request = $request;
         $this->detect_factory = $detect_factory;
+        $this->MainBuilderConditionsContract = $MainBuilderConditionsContract;
     }
 
     /**
@@ -70,7 +77,9 @@ class ResolverDetections
     {
         $detectedConditions = $this->detect_factory->buildDetections($filterName, $values, $model);
 
-        return app($detectedConditions, ['filter' => $filterName, 'values' => $values]);
+        $builderDriver = $this->MainBuilderConditionsContract->build($detectedConditions);
+
+        return app($builderDriver, ['filter' => $filterName, 'values' => $values]);
     }
 
     /**

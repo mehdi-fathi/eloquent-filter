@@ -3,13 +3,13 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Core\HelperFilter;
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereIn;
 
 /**
  * Class WhereInCondition.
  */
-class WhereInCondition implements DetectorConditionsContract
+class WhereInCondition implements DefaultConditionsContract
 {
     use HelperFilter;
     /**
@@ -21,7 +21,7 @@ class WhereInCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (is_array($params) && !HelperFilter::isAssoc($params) && !stripos($field, '.')) {
-            $method = WhereIn::class;
+            $method = 'WhereIn';
         }
 
         return $method ?? null;

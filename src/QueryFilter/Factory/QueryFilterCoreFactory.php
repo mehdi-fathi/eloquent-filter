@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter\Factory;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\SpecialCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereByOptCondition;
@@ -21,7 +22,8 @@ class QueryFilterCoreFactory
 {
     public function createQueryFilterCoreBuilder(): QueryFilterCore
     {
-        return app(QueryFilterCoreBuilder::class, ['default_injected' => $this->getDefaultDetectorsEloquent()]);
+        $mainBuilderConditions = new MainBuilderQueryByCondition();
+        return app(QueryFilterCoreBuilder::class, ['defaultSeriesInjected' => $this->getDefaultDetectorsEloquent(), 'detectInjected' => null, 'mainBuilderConditions' => $mainBuilderConditions]);
     }
 
     /**

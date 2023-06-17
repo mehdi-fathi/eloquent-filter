@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereBetween;
 
 /**
  * Class WhereBetweenCondition.
  */
-class WhereBetweenCondition implements DetectorConditionsContract
+class WhereBetweenCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereBetweenCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (isset($params['start']) && isset($params['end'])) {
-            $method = WhereBetween::class;
+            $method = 'WhereBetween';
         }
 
         return $method ?? null;

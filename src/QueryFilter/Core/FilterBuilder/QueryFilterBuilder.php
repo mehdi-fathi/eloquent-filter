@@ -6,6 +6,7 @@ use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
@@ -86,7 +87,7 @@ class QueryFilterBuilder
 
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->getQueryBuilderWrapper()->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory());
+            return new ResolverDetections($this->getQueryBuilderWrapper()->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory(), $this->queryFilterCore->getMainBuilderConditions());
         });
 
         /** @see ResolverDetections::getResolverOut() */

@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereLike;
 
 /**
  * Class WhereLikeCondition.
  */
-class WhereLikeCondition implements DetectorConditionsContract
+class WhereLikeCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereLikeCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (!empty($params['like'])) {
-            $method = WhereLike::class;
+            $method = 'WhereLike';
         }
 
         return $method ?? null;

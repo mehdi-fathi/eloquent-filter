@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\Special;
 
 /**
  * Class SpecialCondition.
  */
-class SpecialCondition implements DetectorConditionsContract
+class SpecialCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class SpecialCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if ($field == 'f_params') {
-            return Special::class;
+            return 'Special';
         }
 
         return null;

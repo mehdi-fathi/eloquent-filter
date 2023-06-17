@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereDate;
 
 /**
  * Class WhereCondition.
  */
-class WhereDateCondition implements DetectorConditionsContract
+class WhereDateCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereDateCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (is_string($params) && \DateTime::createFromFormat('Y-m-d', $params) !== false) {
-            $method = WhereDate::class;
+            $method = 'WhereDate';
         }
 
         return $method ?? null;

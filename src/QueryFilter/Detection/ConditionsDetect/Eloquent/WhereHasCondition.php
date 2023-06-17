@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereHas;
 
 /**
  * Class WhereHasCondition.
  */
-class WhereHasCondition implements DetectorConditionsContract
+class WhereHasCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereHasCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (stripos($field, '.')) {
-            $method = WhereHas::class;
+            $method = 'WhereHas';
         }
 
         return $method ?? null;

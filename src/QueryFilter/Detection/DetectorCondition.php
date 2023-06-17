@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Detection;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\Queries\WhereCustom;
 use Exception;
@@ -31,7 +31,7 @@ class DetectorCondition
         $detector_collect->map(function ($detector_obj) {
             if (!empty($detector_obj)) {
                 $reflect = new \ReflectionClass($detector_obj);
-                if ($reflect->implementsInterface(DetectorConditionsContract::class)) {
+                if ($reflect->implementsInterface(DefaultConditionsContract::class)) {
                     return $detector_obj;
                 }
             }
@@ -70,7 +70,7 @@ class DetectorCondition
         $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
             if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
                 if ($model->checkModelHasOverrideMethod($field)) {
-                    $query = WhereCustom::class;
+                    $query = 'WhereCustom';
                 } else {
                     $query = $item::detect($field, $params);
                 }

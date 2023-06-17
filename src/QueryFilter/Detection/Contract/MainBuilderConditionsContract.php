@@ -5,13 +5,11 @@ namespace eloquentFilter\QueryFilter\Detection\Contract;
 /**
  * Interface DetectorConditionsContract.
  */
-interface DetectorConditionsContract
+interface MainBuilderConditionsContract
 {
     /**
-     * @param $field
-     * @param $params
-     *
+     * @param $condition
      * @return string|null
      */
-    public static function detect($field, $params): ?string;
+    public function build($condition): ?string;
 }

@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereOr;
 
 /**
  * Class WhereOrCondition.
  */
-class WhereOrCondition implements DetectorConditionsContract
+class WhereOrCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereOrCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if ($field == 'or') {
-            $method = WhereOr::class;
+            $method = 'WhereOr';
         }
 
         return $method ?? null;

@@ -2,7 +2,9 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
@@ -30,20 +32,32 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      */
     private DetectionFactory $detect_factory;
 
+    protected MainBuilderConditionsContract $mainBuilderConditions;
+
     /**
      * QueryFilterCoreBuilder constructor.
      *
-     * @param array $default_injected
-     * @param array|null $detect_injected
+     * @param array $defaultSeriesInjected
+     * @param array|null $detectInjected
      */
-    public function __construct(array $default_injected, array $detect_injected = null)
+    public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions)
     {
-        if (!empty($detect_injected)) {
-            $this->setInjectedDetections($detect_injected);
+        if (!empty($detectInjected)) {
+            $this->setInjectedDetections($detectInjected);
         }
 
-        $this->setDefaultDetect($default_injected);
+        $this->setDefaultDetect($defaultSeriesInjected);
         $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+
+        $this->mainBuilderConditions = $mainBuilderConditions;
+    }
+
+    /**
+     * @return \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract
+     */
+    public function getMainBuilderConditions(): MainBuilderConditionsContract
+    {
+        return $this->mainBuilderConditions;
     }
 
     /**
@@ -112,36 +126,36 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     }
 
     /**
-     * @param mixed $detect_injected
+     * @param mixed $detectInjected
      */
-    public function setInjectedDetections($detect_injected): void
+    public function setInjectedDetections($detectInjected): void
     {
         if (!config('eloquentFilter.enabled_custom_detection')) {
             return;
         }
-        $this->injected_detections = $detect_injected;
+        $this->injected_detections = $detectInjected;
     }
 
     /**
      * @return mixed
      */
-    public function getInjectedDetections()
+    public function getInjectedDetections(): mixed
     {
         return $this->injected_detections;
     }
 
     /**
      * @param array|null $default_detect
-     * @param array|null $detect_injected
+     * @param array|null $detectInjected
      *
      * @return DetectionFactory
      */
-    public function getDetectorFactory(array $default_detect = null, array $detect_injected = null): DetectionFactory
+    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectionFactory
     {
         $detections = $default_detect;
 
-        if (!empty($detect_injected)) {
-            $detections = array_merge($detect_injected, $default_detect);
+        if (!empty($detectInjected)) {
+            $detections = array_merge($detectInjected, $default_detect);
         }
 
         $this->setDetections($detections);

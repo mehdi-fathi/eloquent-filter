@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Queries\WhereByOpt;
 
 /**
  * Class WhereByOptCondition.
  */
-class WhereByOptCondition implements DetectorConditionsContract
+class WhereByOptCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -19,7 +19,7 @@ class WhereByOptCondition implements DetectorConditionsContract
     public static function detect($field, $params): ?string
     {
         if (!empty($params['operator']) && isset($params['value'])) {
-            $method = WhereByOpt::class;
+            $method = 'WhereByOpt';
         }
 
         return $method ?? null;
