@@ -38,7 +38,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
                 $request = app(RequestFilter::class, ['request' => $this->request->query()]);
 
-                $core = $queryFilterCoreFactory->createQueryFilterCoreBuilder();
+                $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
 
                 $response = app(ResponseFilter::class);
 

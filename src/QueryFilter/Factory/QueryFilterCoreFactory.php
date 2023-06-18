@@ -20,7 +20,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereOrCondit
  */
 class QueryFilterCoreFactory
 {
-    public function createQueryFilterCoreBuilder(): QueryFilterCore
+    public function createQueryFilterCoreEloquentBuilder(): QueryFilterCore
     {
         $mainBuilderConditions = new MainBuilderQueryByCondition();
         return app(QueryFilterCoreBuilder::class, ['defaultSeriesInjected' => $this->getDefaultDetectorsEloquent(), 'detectInjected' => null, 'mainBuilderConditions' => $mainBuilderConditions]);

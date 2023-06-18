@@ -3,16 +3,16 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
-use eloquentFilter\QueryFilter\Queries\Special;
-use eloquentFilter\QueryFilter\Queries\Where;
-use eloquentFilter\QueryFilter\Queries\WhereBetween;
-use eloquentFilter\QueryFilter\Queries\WhereByOpt;
-use eloquentFilter\QueryFilter\Queries\WhereCustom;
-use eloquentFilter\QueryFilter\Queries\WhereDate;
-use eloquentFilter\QueryFilter\Queries\WhereHas;
-use eloquentFilter\QueryFilter\Queries\WhereIn;
-use eloquentFilter\QueryFilter\Queries\WhereLike;
-use eloquentFilter\QueryFilter\Queries\WhereOr;
+use eloquentFilter\QueryFilter\Queries\Eloquent\Special;
+use eloquentFilter\QueryFilter\Queries\Eloquent\Where;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereBetween;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereByOpt;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDate;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereHas;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereIn;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereLike;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereOr;
 
 /**
  * Class MainBuilderQueryByCondition.

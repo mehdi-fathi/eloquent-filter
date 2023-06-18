@@ -2,7 +2,6 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
@@ -14,6 +13,7 @@ interface QueryFilterCore
     /**
      * @param array $defaultSeriesInjected
      * @param array|null $detectInjected
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $mainBuilderConditions
      */
     public function __construct(array $defaultSeriesInjected, array $detectInjected = null,MainBuilderConditionsContract $mainBuilderConditions);
 

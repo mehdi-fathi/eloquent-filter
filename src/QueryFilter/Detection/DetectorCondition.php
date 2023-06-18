@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Detection;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
-use eloquentFilter\QueryFilter\Queries\WhereCustom;
 use Exception;
 
 /**

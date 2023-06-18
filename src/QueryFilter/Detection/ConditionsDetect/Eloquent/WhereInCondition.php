@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Core\HelperFilter;
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Queries\WhereIn;
 
 /**
  * Class WhereInCondition.

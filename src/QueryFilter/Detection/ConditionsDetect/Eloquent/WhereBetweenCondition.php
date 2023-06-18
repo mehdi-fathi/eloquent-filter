@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Queries\WhereBetween;
 
 /**
  * Class WhereBetweenCondition.
