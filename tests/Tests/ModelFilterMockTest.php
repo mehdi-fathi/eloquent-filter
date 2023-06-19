@@ -7,6 +7,7 @@ use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\Models\Car;
 use Tests\Models\Category;
@@ -83,12 +84,12 @@ class ModelFilterMockTest extends \TestCase
         $this->makeBuilderWithModel($obj);
     }
 
-    public function testWhere()
+    public function testWherexxxx()
     {
+
         $builder = new Category();
 
-        $builder = $builder->query()
-            ->where('title', 'sport');
+        $builder = $builder->query()->where('title', 'sport');
 
         $this->request->shouldReceive('query')->andReturn(
             [
@@ -96,11 +97,15 @@ class ModelFilterMockTest extends \TestCase
             ]
         );
 
-        $users = Category::filter($this->request->query());
+        $categories = Category::filter($this->request->query());
 
-        $this->assertSame($users->toSql(), $builder->toSql());
+        if (DB::EloquentFilterBuilderName() == 'DbBuilder') {
+            $builder = DB::table('categories')->where('title', 'sport');
+        }
 
-        $this->assertEquals(['sport'], $users->getBindings());
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
     }
 
     public function testWhereAlias()

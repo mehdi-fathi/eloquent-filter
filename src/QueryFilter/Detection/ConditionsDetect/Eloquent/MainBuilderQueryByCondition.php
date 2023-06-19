@@ -19,6 +19,17 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereOr;
  */
 class MainBuilderQueryByCondition implements MainBuilderConditionsContract
 {
+
+    private string $name = 'EloquentBuilder';
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     /**
      * @param $condition
      * @return string|null

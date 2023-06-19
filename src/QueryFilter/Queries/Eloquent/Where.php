@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Where extends BaseClause
 {
-    public function apply($query): Builder
+    public function apply($query)
     {
         return $query->where($this->filter, $this->values);
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 
 /**
- * Class WhereByOptCondition.
+ * Class WhereBetweenCondition.
  */
-class WhereByOptCondition implements DefaultConditionsContract
+class WhereBetweenCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -17,8 +17,8 @@ class WhereByOptCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if (!empty($params['operator']) && isset($params['value'])) {
-            $method = 'WhereByOpt';
+        if (isset($params['start']) && isset($params['end'])) {
+            $method = 'WhereBetween';
         }
 
         return $method ?? null;

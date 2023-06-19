@@ -23,10 +23,9 @@ abstract class BaseClause
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $nextFilter
-     *
-     * @return Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function handle(Builder $query, $nextFilter): Builder
+    public function handle(Builder $query, $nextFilter)
     {
         $query = $nextFilter($query);
 
@@ -38,5 +37,5 @@ abstract class BaseClause
      *
      * @return Builder
      */
-    abstract protected function apply($query): Builder;
+    abstract protected function apply($query);
 }

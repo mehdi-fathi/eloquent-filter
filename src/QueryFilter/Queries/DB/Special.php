@@ -1,10 +1,10 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Queries\Eloquent;
+namespace eloquentFilter\QueryFilter\Queries\DB;
 
-use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use eloquentFilter\QueryFilter\Exceptions\DBFilterException;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\DB\Builder;
 
 /**
  * Class Special.

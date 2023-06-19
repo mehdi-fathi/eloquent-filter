@@ -1,13 +1,13 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 
 /**
- * Class WhereLikeCondition.
+ * Class WhereOrCondition.
  */
-class WhereLikeCondition implements DefaultConditionsContract
+class WhereOrCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -17,8 +17,8 @@ class WhereLikeCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if (!empty($params['like'])) {
-            $method = 'WhereLike';
+        if ($field == 'or') {
+            $method = 'WhereOr';
         }
 
         return $method ?? null;

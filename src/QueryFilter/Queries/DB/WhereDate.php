@@ -1,15 +1,15 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Queries\Eloquent;
+namespace eloquentFilter\QueryFilter\Queries\DB;
 
 use eloquentFilter\QueryFilter\Queries\BaseClause;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\DB\Builder;
 
 class WhereDate extends BaseClause
 {
     /**
      * @param $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\DB\Builder
      */
     public function apply($query)
     {

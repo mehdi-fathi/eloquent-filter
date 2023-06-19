@@ -2,8 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
