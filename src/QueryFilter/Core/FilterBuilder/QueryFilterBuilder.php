@@ -8,6 +8,7 @@ use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -134,8 +135,9 @@ class QueryFilterBuilder
 
         $MainBuilderConditions = $this->queryFilterCore->getMainBuilderConditions();
 
-        DB::macro('EloquentFilterBuilderName', function () use ($MainBuilderConditions) {
+        DatabaseManager::macro('EloquentFilterBuilderName', function () use ($MainBuilderConditions) {
             return $MainBuilderConditions->getName();
         });
+
     }
 }
