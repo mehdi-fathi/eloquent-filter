@@ -134,11 +134,15 @@ class QueryFilterBuilder
             return $detections_injected;
         });
 
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameDriver()
+    {
         $MainBuilderConditions = $this->queryFilterCore->getMainBuilderConditions();
 
-        Connection::macro('getEloquentFilterBuilderName', function () use ($MainBuilderConditions) {
-            return $MainBuilderConditions->getName();
-        });
-
+        return $MainBuilderConditions->getName();
     }
 }
