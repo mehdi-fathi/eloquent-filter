@@ -6,6 +6,7 @@ use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
@@ -99,7 +100,7 @@ class ModelFilterMockTest extends \TestCase
 
         $categories = Category::filter($this->request->query());
 
-        if (DB::getEloquentFilterBuilderName() == 'DbBuilder') {
+        if (Connection::getEloquentFilterBuilderName() == 'DbBuilder') {
             $builder = DB::table('categories')->where('title', 'sport');
         }
 
