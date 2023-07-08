@@ -99,7 +99,7 @@ class ModelFilterMockTest extends \TestCase
 
         $categories = Category::filter($this->request->query());
 
-        if (DB::EloquentFilterBuilderName() == 'DbBuilder') {
+        if (DB::getEloquentFilterBuilderName() == 'DbBuilder') {
             $builder = DB::table('categories')->where('title', 'sport');
         }
 
