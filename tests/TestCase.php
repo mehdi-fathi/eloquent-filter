@@ -17,6 +17,7 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     public $request;
 
+
     /**
      * @var array
      */
@@ -26,20 +27,28 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
+        global $argv, $argc;
+
+
         $this->request = m::mock(\Illuminate\Http\Request::class);
 
         $this->config = require __DIR__ . '/../src/config/config.php';
 
         $this->app->singleton(
             'eloquentFilter',
-            function () {
+            function () use($argv) {
 
                 $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
                 $request = app(RequestFilter::class, ['request' => $this->request->query()]);
 
-                $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
-                // $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
+                //vendor/bin/phpunit tests/. db -- command for runnign test on db
+                if($argv[2] == 'db'){
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
+
+                }else{
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
+                }
 
                 $response = app(ResponseFilter::class);
 

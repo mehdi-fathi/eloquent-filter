@@ -3,6 +3,8 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB;
 
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
+use eloquentFilter\QueryFilter\Queries\DB\Where;
+use eloquentFilter\QueryFilter\Queries\DB\WhereBetween;
 
 /**
  * Class MainBuilderQueryByCondition.
@@ -26,8 +28,8 @@ class DBBuilderQueryByCondition implements MainBuilderConditionsContract
     public function build($condition): ?string
     {
         $builder = match ($condition) {
-            'Where' => \eloquentFilter\QueryFilter\Queries\DB\Where::class,
-            // 'WhereBetween' => WhereBetween::class,
+            'Where' => Where::class,
+            'WhereBetween' => WhereBetween::class,
             // 'WhereByOpt' => WhereByOpt::class,
             // 'WhereDate' => WhereDate::class,
             // 'WhereHas' => WhereHas::class,
