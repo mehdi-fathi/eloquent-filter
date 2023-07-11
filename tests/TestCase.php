@@ -27,8 +27,9 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        global $argv, $argc;
+        global $argv;
 
+        $driver = !empty($argv[2]) ? $argv[2] : 'eloquent';
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
 
@@ -36,14 +37,14 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->app->singleton(
             'eloquentFilter',
-            function () use($argv) {
+            function () use($driver) {
 
                 $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
                 $request = app(RequestFilter::class, ['request' => $this->request->query()]);
 
                 //vendor/bin/phpunit tests/. db -- command for runnign test on db
-                if($argv[2] == 'db'){
+                if($driver == 'db'){
                     $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
 
                 }else{
