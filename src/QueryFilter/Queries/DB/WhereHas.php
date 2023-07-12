@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter\Queries\DB;
 
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\DB\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class WhereHas.
@@ -24,7 +25,7 @@ class WhereHas extends BaseClause
 
         $value = $this->values;
 
-        return $query->whereHas(
+        return DB::table($query->getModel()->getTable())->whereHas(
             $conditions,
             function ($q) use ($value, $field_row) {
                 $condition = 'where';

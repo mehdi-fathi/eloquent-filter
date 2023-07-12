@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter\Queries\DB;
 
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\DB\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class WhereLike.
@@ -17,6 +18,6 @@ class WhereLike extends BaseClause
      */
     public function apply($query)
     {
-        return $query->where("$this->filter", 'like', $this->values['like']);
+        return DB::table($query->getModel()->getTable())->where("$this->filter", 'like', $this->values['like']);
     }
 }

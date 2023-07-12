@@ -5,6 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries\DB;
 use eloquentFilter\QueryFilter\Exceptions\DBFilterException;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\DB\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Special.
@@ -37,13 +38,13 @@ class Special extends BaseClause
             if (is_array($param_value)) {
                 $this->values['orderBy']['field'] = explode(',', $this->values['orderBy']['field']);
                 foreach ($this->values['orderBy']['field'] as $order_by) {
-                    $query->orderBy($order_by, $this->values['orderBy']['type']);
+                    DB::table($query->getModel()->getTable())->orderBy($order_by, $this->values['orderBy']['type']);
                 }
             } else {
                 if (config('eloquentFilter.max_limit') > 0) {
                     $param_value = min(config('eloquentFilter.max_limit'), $param_value);
                 }
-                $query->limit($param_value);
+                DB::table($query->getModel()->getTable())->limit($param_value);
             }
         }
 
