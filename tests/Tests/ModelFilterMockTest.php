@@ -85,7 +85,7 @@ class ModelFilterMockTest extends \TestCase
         $this->makeBuilderWithModel($obj);
     }
 
-    public function testWherexxxx()
+    public function testWhere()
     {
 
         $builder = new Category();
