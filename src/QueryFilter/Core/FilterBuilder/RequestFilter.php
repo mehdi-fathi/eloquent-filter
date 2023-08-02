@@ -112,7 +112,7 @@ class RequestFilter
             }
 
             foreach ($this->getRequest() as $name => $value) {
-                if (is_array($value) && method_exists($builder_model, $name)) {
+                if (is_array($value) && !empty($builder_model) && method_exists($builder_model, $name)) {
                     if (HelperFilter::isAssoc($value)) {
                         unset($this->request[$name]);
                         $out = HelperFilter::convertRelationArrayRequestToStr($name, $value);

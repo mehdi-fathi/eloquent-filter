@@ -3,7 +3,9 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
+use eloquentFilter\QueryFilter\Detection\DetectionDbFactory;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
@@ -29,7 +31,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @var DetectionFactory
      */
-    private DetectionFactory $detect_factory;
+    private DetectorFactoryContract $detect_factory;
 
     protected MainBuilderConditionsContract $mainBuilderConditions;
 
@@ -38,6 +40,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      *
      * @param array $defaultSeriesInjected
      * @param array|null $detectInjected
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $mainBuilderConditions
      */
     public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions)
     {
@@ -46,7 +49,13 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         }
 
         $this->setDefaultDetect($defaultSeriesInjected);
-        $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+
+        if ($mainBuilderConditions->getName() == 'DbBuilder') {
+
+            $this->setDetectFactory($this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+        }else{
+            $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+        }
 
         $this->mainBuilderConditions = $mainBuilderConditions;
     }
@@ -103,7 +112,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @param DetectionFactory $detect_factory
      */
-    public function setDetectFactory(DetectionFactory $detect_factory): void
+    public function setDetectFactory(DetectorFactoryContract $detect_factory): void
     {
         $this->detect_factory = $detect_factory;
     }
@@ -111,7 +120,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @return DetectionFactory
      */
-    public function getDetectFactory(): DetectionFactory
+    public function getDetectFactory(): DetectorFactoryContract
     {
         return $this->detect_factory;
     }
@@ -149,7 +158,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      *
      * @return DetectionFactory
      */
-    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectionFactory
+    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
     {
         $detections = $default_detect;
 
@@ -160,6 +169,24 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         $this->setDetections($detections);
 
         return app(DetectionFactory::class, ['detections' => $this->getDetections()]);
+    }
+
+    /**
+     * @param array|null $default_detect
+     * @param array|null $detectInjected
+     *
+     * @return \eloquentFilter\QueryFilter\Detection\DetectionDbFactory
+     */
+    public function getDbDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
+    {
+        $detections = $default_detect;
+
+        if (!empty($detectInjected)) {
+            $detections = array_merge($detectInjected, $default_detect);
+        }
+        $this->setDetections($detections);
+
+        return app(DetectionDbFactory::class, ['detections' => $this->getDetections()]);
     }
 
     /**
@@ -181,4 +208,17 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     {
         $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
     }
+
+    /**
+     * @param array|null $injected_detections
+     * @return void
+     */
+    public function setDetectionsDbInjected(?array $injected_detections): void
+    {
+        if (!empty($injected_detections)) {
+            $this->setInjectedDetections($injected_detections);
+            $this->setDetectFactory($this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+        }
+    }
+
 }

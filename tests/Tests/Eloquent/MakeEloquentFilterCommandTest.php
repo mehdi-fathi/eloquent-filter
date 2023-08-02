@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Tests;
+namespace Tests\Tests\Eloquent;
 
 use Illuminate\Filesystem\Filesystem;
 use Mockery as m;

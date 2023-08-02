@@ -28,7 +28,12 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
      */
     public function getModel()
     {
-        return $this->getBuilder()->getModel();
+        if (method_exists($this->getBuilder(), 'getModel')) {
+            return $this->getBuilder()->getModel();
+        }
+
+        return null;
+
     }
 
     /**
@@ -45,7 +50,11 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
      */
     public function serializeRequestFilter($request)
     {
-        return $this->getBuilder()->getModel()->serializeRequestFilter($request);
+
+        if (method_exists($this->getBuilder()->getModel(), 'serializeRequestFilter')) {
+            return $this->getBuilder()->getModel()->serializeRequestFilter($request);
+        }
+        return null;
     }
 
     /**

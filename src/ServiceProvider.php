@@ -8,6 +8,7 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use eloquentFilter\Facade\EloquentFilter;
 
 /**
  * Class ServiceProvider
@@ -52,6 +53,35 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function registerBindings()
     {
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request) {
+
+            app()->singleton(
+                'eloquentFilter',
+                function () {
+
+                    $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
+
+                    $request = app(RequestFilter::class, ['request' => request()->query()]);
+
+                    //vendor/bin/phpunit tests/. db -- command for runnign test on db
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
+
+                    $response = app(ResponseFilter::class);
+
+                    return app(QueryFilterBuilder::class, [
+                        'queryFilterCore' => $core,
+                        'requestFilter' => $request,
+                        'responseFilter' => $response
+                    ]);
+                }
+            );
+
+            return EloquentFilter::apply(
+                builder: $this,
+                request: $request,
+            );
+        });
+
         $this->app->singleton(
             'eloquentFilter',
             function () {

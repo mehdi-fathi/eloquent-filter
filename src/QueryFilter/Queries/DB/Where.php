@@ -10,6 +10,6 @@ class Where extends BaseClause
 {
     public function apply($query)
     {
-        return DB::table($query->getModel()->getTable())->where($this->filter, $this->values);
+        return $query->where($this->filter, $this->values);
     }
 }

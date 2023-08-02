@@ -53,7 +53,9 @@
     ]
   },
   "scripts": {
-    "test": "vendor/bin/phpunit --coverage-text"
+    "test": "vendor/bin/phpunit --coverage-text",
+    "test-eloquent": "vendor/bin/phpunit tests/Tests/Eloquent/.",
+    "test-db": "vendor/bin/phpunit tests/Tests/Db/. db"
   },
   "extra": {
     "laravel": {

@@ -6,16 +6,12 @@ use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
-use Illuminate\Database\Connection;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class QueryFilterBuilder.
  */
-class QueryFilterBuilder
+class EloquentQueryFilterBuilder
 {
     use HelperEloquentFilter;
 
@@ -68,25 +64,62 @@ class QueryFilterBuilder
             return $builder;
         }
 
-        if ($this->getNameDriver() == 'DbBuilder') {
+        $this->handleRequest(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request
+        );
 
-            $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
+        $this->resolveDetections($detections_injected, $black_list_detections);
 
-            return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
+        return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
+    }
+
+    /**
+     * @return void
+     */
+    private function resolveDetections($detections_injected, $black_list_detections)
+    {
+        $this->queryFilterCore->unsetDetection($black_list_detections);
+        $this->queryFilterCore->reload();
+
+        $this->queryFilterCore->setDetectionsInjected($detections_injected);
+
+        /** @see ResolverDetections */
+        app()->bind('ResolverDetections', function () {
+            return new ResolverDetections($this->getQueryBuilderWrapper()->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory(), $this->queryFilterCore->getMainBuilderConditions());
+        });
+
+        /** @see ResolverDetections::getResolverOut() */
+        $responseResolver = app('ResolverDetections')->getResolverOut();
+
+
+        $this->responseFilter->setResponse($responseResolver);
+    }
+
+    /**
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @return void
+     */
+    private function handleRequest(?array $ignore_request, ?array $accept_request): void
+    {
+
+        $serialize_request_filter = $this->requestFilter->getRequest();
+
+        if (app('eloquentFilter')->getNameDriver() == 'EloquentBuilder') {
+
+            $serialize_request_filter = $this->getQueryBuilderWrapper()->getModel()->serializeRequestFilter($this->requestFilter->getRequest()); //todo fix it
+
+            $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();  //todo fix it
         }
 
-        $db = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
-
-        return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
-
-        // $this->handleRequest(
-        //     ignore_request: $ignore_request,
-        //     accept_request: $accept_request
-        // );
-        //
-        // $this->resolveDetections($detections_injected, $black_list_detections);
-        //
-        // return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
+        $this->requestFilter->requestAlter(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request,
+            serialize_request_filter: $serialize_request_filter,
+            alias_list_filter: $alias_list_filter ?? [],
+            model: $this->getQueryBuilderWrapper()->getModel(),
+        );
     }
 
     /**
@@ -105,7 +138,6 @@ class QueryFilterBuilder
 
     }
 
-
     /**
      * @return string
      */
@@ -115,5 +147,4 @@ class QueryFilterBuilder
 
         return $MainBuilderConditions->getName();
     }
-
 }

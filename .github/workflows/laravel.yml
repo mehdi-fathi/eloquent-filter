@@ -55,7 +55,7 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
-        run: vendor/bin/phpunit tests/Tests/Eloquent/. --verbose
+        run: vendor/bin/phpunit tests/Tests/Eloquent/. --verbose && vendor/bin/phpunit tests/Tests/Db/. --verbose
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:

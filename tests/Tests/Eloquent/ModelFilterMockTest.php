@@ -1,14 +1,12 @@
 <?php
 
-namespace Tests\Tests;
+namespace Tests\Tests\Eloquent;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
-use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\Models\Car;
 use Tests\Models\Category;
@@ -99,10 +97,6 @@ class ModelFilterMockTest extends \TestCase
         );
 
         $categories = Category::filter($this->request->query());
-
-        if (app('eloquentFilter')->getNameDriver() == 'DbBuilder') {
-            $builder = DB::table('categories')->where('title', 'sport');
-        }
 
         $this->assertSame($categories->toSql(), $builder->toSql());
 

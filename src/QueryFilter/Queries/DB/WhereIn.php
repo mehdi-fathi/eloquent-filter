@@ -18,6 +18,6 @@ class WhereIn extends BaseClause
      */
     public function apply($query)
     {
-        return DB::table($query->getModel()->getTable())->whereIn($this->filter, $this->values);
+        return $query->whereIn($this->filter, $this->values);
     }
 }

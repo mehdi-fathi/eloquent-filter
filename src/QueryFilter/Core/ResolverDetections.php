@@ -87,7 +87,11 @@ class ResolverDetections
      */
     private function getFiltersDetection(): array
     {
-        $model = $this->builder->getModel();
+        if (app('eloquentFilter')->getNameDriver() != 'DbBuilder') {
+            $model = $this->builder->getModel();
+        }else{
+            $model = $this->builder->from;
+        }
 
         $filter_detections = collect($this->request)->map(function ($values, $filter) use ($model) {
             // dd($filter, $values, $model);

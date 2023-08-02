@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
@@ -22,7 +23,7 @@ interface QueryFilterCore
      * @param array|null $detectInjected
      * @return mixed
      */
-    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectionFactory;
+    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract;
 
     /**
      * @param $default_detect
@@ -45,12 +46,12 @@ interface QueryFilterCore
      * @param \eloquentFilter\QueryFilter\Detection\DetectionFactory $detect_factory
      * @return void
      */
-    public function setDetectFactory(DetectionFactory $detect_factory): void;
+    public function setDetectFactory(DetectorFactoryContract $detect_factory): void;
 
     /**
      * @return \eloquentFilter\QueryFilter\Detection\DetectionFactory
      */
-    public function getDetectFactory(): DetectionFactory;
+    public function getDetectFactory(): DetectorFactoryContract;
 
     /**
      * @return mixed

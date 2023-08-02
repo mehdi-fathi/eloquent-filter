@@ -5,3 +5,5 @@
 5- add limit number for some column to prevent bad performance queries by users
 6- set max_limit on the method
 7- Limit some default operators on the method or Model for prevent manipulation
+8- Support change driver ORM and query builder
+9- Consider a meaningfully method name for custom methods

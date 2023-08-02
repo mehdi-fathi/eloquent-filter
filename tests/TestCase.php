@@ -1,5 +1,6 @@
 <?php
 
+use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
@@ -27,29 +28,48 @@ class TestCase extends Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        global $argv;
-
-        $driver = !empty($argv[2]) ? $argv[2] : 'eloquent';
-
         $this->request = m::mock(\Illuminate\Http\Request::class);
 
         $this->config = require __DIR__ . '/../src/config/config.php';
 
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request) {
+
+            app()->singleton(
+                'eloquentFilter',
+                function () {
+
+                    $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
+
+                    $request = app(RequestFilter::class, ['request' => request()->query()]);
+
+                    //vendor/bin/phpunit tests/. db -- command for runnign test on db
+                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
+
+                    $response = app(ResponseFilter::class);
+
+                    return app(QueryFilterBuilder::class, [
+                        'queryFilterCore' => $core,
+                        'requestFilter' => $request,
+                        'responseFilter' => $response
+                    ]);
+                }
+            );
+
+            return EloquentFilter::apply(
+                builder: $this,
+                request: $request,
+            );
+        });
+
         $this->app->singleton(
             'eloquentFilter',
-            function () use($driver) {
+            function (){
 
                 $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
                 $request = app(RequestFilter::class, ['request' => $this->request->query()]);
 
-                //vendor/bin/phpunit tests/. db -- command for runnign test on db
-                if($driver == 'db'){
-                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
-
-                }else{
-                    $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
-                }
+                $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
 
                 $response = app(ResponseFilter::class);
 

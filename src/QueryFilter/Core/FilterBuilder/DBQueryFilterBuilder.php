@@ -13,11 +13,13 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class QueryFilterBuilder.
+ * Class DBQueryFilterBuilder.
  */
-class QueryFilterBuilder
+class DBQueryFilterBuilder
 {
     use HelperEloquentFilter;
+
+    protected $queryBuilderWrapper;
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
@@ -56,37 +58,60 @@ class QueryFilterBuilder
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
-        $this->buildExclusiveMacros($detections_injected);
-
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
 
-        if (!empty($request)) {
-            $this->requestFilter->setPureRequest($request);
-        }
+        $this->handleRequest(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request
+        );
 
-        if (!config('eloquentFilter.enabled') || empty($this->requestFilter->getRequest())) {
-            return $builder;
-        }
+        $this->resolveDetections($detections_injected, $black_list_detections);
 
-        if ($this->getNameDriver() == 'DbBuilder') {
+        return $this->responseFilter->getResponse();
+    }
 
-            $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
+    /**
+     * @return void
+     */
+    private function resolveDetections($detections_injected, $black_list_detections)
+    {
+        $this->queryFilterCore->unsetDetection($black_list_detections);
+        // $this->queryFilterCore->reload();
+        $this->queryFilterCore->setDetectionsDbInjected($detections_injected);
 
-            return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
-        }
+        /** @see ResolverDetections */
+        app()->bind('ResolverDetections', function () {
+            return new ResolverDetections(
+                $this->getQueryBuilderWrapper()->getBuilder(),
+                $this->requestFilter->getRequest(),
+                $this->queryFilterCore->getDetectFactory(),
+                $this->queryFilterCore->getMainBuilderConditions());
+        });
 
-        $db = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
+        /** @see ResolverDetections::getResolverOut() */
+        $responseResolver = app('ResolverDetections')->getResolverOut();
 
-        return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
 
-        // $this->handleRequest(
-        //     ignore_request: $ignore_request,
-        //     accept_request: $accept_request
-        // );
-        //
-        // $this->resolveDetections($detections_injected, $black_list_detections);
-        //
-        // return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
+        $this->responseFilter->setResponse($responseResolver);
+    }
+
+    /**
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @return void
+     */
+    private function handleRequest(?array $ignore_request, ?array $accept_request): void
+    {
+
+        $serialize_request_filter = $this->requestFilter->getRequest();
+
+        $this->requestFilter->requestAlter(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request,
+            serialize_request_filter: $serialize_request_filter,
+            alias_list_filter: $alias_list_filter ?? [],
+            model: $this->getQueryBuilderWrapper()->getModel(),
+        );
     }
 
     /**
@@ -105,7 +130,6 @@ class QueryFilterBuilder
 
     }
 
-
     /**
      * @return string
      */
@@ -115,5 +139,4 @@ class QueryFilterBuilder
 
         return $MainBuilderConditions->getName();
     }
-
 }

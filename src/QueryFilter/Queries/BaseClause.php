@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
+use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -25,7 +26,7 @@ abstract class BaseClause
      * @param $nextFilter
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function handle(Builder $query, $nextFilter)
+    public function handle($query, $nextFilter)
     {
         $query = $nextFilter($query);
 
