@@ -20,6 +20,6 @@ class WhereByOpt extends BaseClause
         $opt = $this->values['operator'];
         $value = $this->values['value'];
 
-        return DB::table($query->getModel()->getTable())->where("$this->filter", "$opt", $value);
+        return $query->where("$this->filter", "$opt", $value);
     }
 }

@@ -14,6 +14,6 @@ class WhereDate extends BaseClause
      */
     public function apply($query)
     {
-        return DB::table($query->getModel()->getTable())->whereDate($this->filter, $this->values);
+        return $query->whereDate($this->filter, $this->values);
     }
 }

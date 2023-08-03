@@ -44,7 +44,7 @@ class DBBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereLike' => WhereLike::class,
             'WhereOr' => WhereOr::class,
             'Special' => Special::class,
-            'WhereCustom' => WhereCustom::class,
+            // 'WhereCustom' => WhereCustom::class,
             default => null,
         };
 

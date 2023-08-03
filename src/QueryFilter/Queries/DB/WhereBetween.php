@@ -21,6 +21,6 @@ class WhereBetween extends BaseClause
         $start = $this->values['start'];
         $end = $this->values['end'];
 
-        return DB::table($query->getModel()->getTable())->whereBetween($this->filter, [$start, $end]);
+        return $query->whereBetween($this->filter, [$start, $end]);
     }
 }

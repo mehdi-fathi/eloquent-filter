@@ -21,6 +21,6 @@ class WhereOr extends BaseClause
         $field = key($this->values);
         $value = reset($this->values);
 
-        return DB::table($query->getModel()->getTable())->orWhere($field, $value);
+        return $query->orWhere($field, $value);
     }
 }

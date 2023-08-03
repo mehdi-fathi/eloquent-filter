@@ -18,6 +18,6 @@ class WhereLike extends BaseClause
      */
     public function apply($query)
     {
-        return DB::table($query->getModel()->getTable())->where("$this->filter", 'like', $this->values['like']);
+        return $query->where("$this->filter", 'like', $this->values['like']);
     }
 }

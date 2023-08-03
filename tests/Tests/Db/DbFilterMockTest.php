@@ -103,47 +103,44 @@ class DbFilterMockTest extends \TestCase
     }
 
 
-    // public function testWhereIn()
-    // {
-    //     $this->request->shouldReceive('query')->andReturn(
-    //         [
-    //             'username' => ['mehdi', 'ali'],
-    //             'family' => null,
-    //         ]
-    //     );
-    //
-    //     $users = DB::table('users')->filter($this->request->query());
-    //
-    //     $builder = DB::table('users')
-    //         ->wherein('username', ['mehdi', 'ali']);
-    //
-    //     $this->assertSame($users->toSql(), $builder->toSql());
-    //
-    //     $this->assertEquals(['mehdi', 'ali'], $users->getBindings());
-    // }
-    //
-    // public function testWhereByOpt()
-    // {
-    //     $builder = new Category();
-    //
-    //     $builder = $builder->newQuery()
-    //         ->where('count_posts', '>', 35);
-    //
-    //     $this->request->shouldReceive('query')->andReturn(
-    //         [
-    //             'count_posts' => [
-    //                 'operator' => '>',
-    //                 'value' => 35,
-    //             ],
-    //         ]
-    //     );
-    //
-    //     $users = Category::filter($this->request->query());
-    //
-    //     $this->assertSame($users->toSql(), $builder->toSql());
-    //
-    //     $this->assertEquals([35], $users->getBindings());
-    // }
+    public function testWhereIn()
+    {
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['mehdi', 'ali'],
+                'family' => null,
+            ]
+        );
+
+        $users = DB::table('users')->filter($this->request->query());
+
+        $builder = DB::table('users')
+            ->wherein('username', ['mehdi', 'ali']);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdi', 'ali'], $users->getBindings());
+    }
+
+    public function testWhereByOpt()
+    {
+        $builder = DB::table('categories')->where('count_posts', '>', 35);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 35,
+                ],
+            ]
+        );
+
+        $categories = DB::table('categories')->filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals([35], $categories->getBindings());
+    }
     //
     // public function testWhereByOptWithTrashed()
     // {
@@ -186,83 +183,81 @@ class DbFilterMockTest extends \TestCase
     //
     //     $this->assertSame($users->toSql(), $builder->toSql());
     // }
-    //
-    // public function testWhereByOptZero()
-    // {
-    //     $builder = new Category();
-    //
-    //     $builder = $builder->newQuery()
-    //         ->where('count_posts', '>', 0);
-    //
-    //     $this->request->shouldReceive('query')->andReturn(
-    //         [
-    //             'count_posts' => [
-    //                 'operator' => '>',
-    //                 'value' => 0,
-    //             ],
-    //         ]
-    //     );
-    //
-    //     $users = Category::filter($this->request->query());
-    //
-    //     $this->assertSame($users->toSql(), $builder->toSql());
-    //
-    //     $this->assertEquals([0], $users->getBindings());
-    // }
+
+    public function testWhereByOptZero()
+    {
+        $builder = new Category();
+
+        $builder = DB::table('categories')
+            ->where('count_posts', '>', 0);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'count_posts' => [
+                    'operator' => '>',
+                    'value' => 0,
+                ],
+            ]
+        );
+
+        $categories = DB::table('categories')->filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals([0], $categories->getBindings());
+    }
     //
     // //
-    // public function testWhereBetween()
-    // {
-    //     $builder = new Tag();
+    public function testWhereBetween()
+    {
+
+        $builder = DB::table('tags')->whereBetween(
+            'created_at',
+            [
+                '2019-01-01 17:11:46',
+                '2019-02-06 10:11:46',
+            ]
+        );
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'created_at' => [
+                    'start' => '2019-01-01 17:11:46',
+                    'end' => '2019-02-06 10:11:46',
+                ],
+            ]
+        );
+
+        $users = DB::table('tags')->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $builder->getBindings());
+        $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $users->getBindings());
+    }
     //
-    //     $builder = $builder->whereBetween(
-    //         'created_at',
-    //         [
-    //             '2019-01-01 17:11:46',
-    //             '2019-02-06 10:11:46',
-    //         ]
-    //     );
-    //
-    //     $this->request->shouldReceive('query')->andReturn(
-    //         [
-    //             'created_at' => [
-    //                 'start' => '2019-01-01 17:11:46',
-    //                 'end' => '2019-02-06 10:11:46',
-    //             ],
-    //         ]
-    //     );
-    //
-    //     $users = Tag::filter($this->request->query());
-    //
-    //     $this->assertSame($users->toSql(), $builder->toSql());
-    //     $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $builder->getBindings());
-    //     $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $users->getBindings());
-    // }
-    //
-    // public function testWhereDate()
-    // {
-    //     $builder = new Tag();
-    //
-    //     $builder = $builder->query()->whereDate(
-    //         'created_at',
-    //         '2022-07-14',
-    //     );
-    //
-    //     $this->request->shouldReceive('query')->andReturn(
-    //         [
-    //             'created_at' =>
-    //                 '2022-07-14'
-    //
-    //         ]
-    //     );
-    //
-    //     $users = Tag::filter($this->request->query());
-    //
-    //
-    //     $this->assertSame($users->toSql(), $builder->toSql());
-    //     $this->assertEquals(['2022-07-14'], $builder->getBindings());
-    //     $this->assertEquals(['2022-07-14'], $users->getBindings());
-    // }
+    public function testWhereDate()
+    {
+        $builder = new Tag();
+
+        $builder = DB::table('tags')->whereDate(
+            'created_at',
+            '2022-07-14',
+        );
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'created_at' =>
+                    '2022-07-14'
+
+            ]
+        );
+
+        $users = DB::table('tags')->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['2022-07-14'], $builder->getBindings());
+        $this->assertEquals(['2022-07-14'], $users->getBindings());
+    }
     //
     //
     // public function testExceptionOneValueSetWhiteList()
