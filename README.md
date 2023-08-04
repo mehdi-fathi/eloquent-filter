@@ -28,6 +28,8 @@ Eloquent Filter is a package for filtering data of models by query strings in La
     - [Publish Config](#Publish-Config)
     - [Config](#Config)
     - [Alias](#Alias)
+- [Query Builder](#Query-Builder)
+  - [Introduction](#Db-Introduction)
 - [Magic Methods](#Magic-Methods)
     - [Request Filter](#Request-filter)
     - [Response Filter](#Response-filter)
@@ -741,6 +743,33 @@ e.g. name of the input form is not similar to the model ,or you want to change t
 ```
  
 Then you should send the `code` param in the URL for making a query with the national code field of the model readily.
+
+# Query Builder Introduction
+
+Great news!
+
+Some people asked me a lot to add new feature to support Laravel query builder. 
+It needed a lot of energy and devote time , so I decided to implement it. 
+It's quite tough however finally it's almost done now.    
+
+We are supporting query builder along with eloquent from now on. Not only you would use query builder ,but also you can use eloquent at the same time.
+It's a new feature ,and I'm snowed under the code to fix issues. Anyway this feature is up right now with just some limitation.
+We don't support `WhereCustomCondition` and `WhereHas` for query builder at the moment but other conditions were ready to use.
+
+- Below is an order checking conditions list if you use name of them for set a black list.
+
+| Name                  | Method eloquent | Example                                  |
+|-----------------------|-----------------|------------------------------------------|
+| SpecialCondition      |                 | support f_params, e.g: limit and order   |
+| WhereBetweenCondition | whereBetween    |                                          |
+| WhereByOptCondition   | where           | where('column', ">", $value)             |
+| WhereLikeCondition    | where           | where('column', 'like', $value)          |
+| WhereInCondition      | whereIn         | whereIn('column', $value)                |
+| WhereOrCondition      | orWhere         | orWhere('column', $value)                |
+| WhereDateCondition    | whereDate       | whereDate('column', $value)              |
+| where                 | where           | where('column', $value)                  |
+
+
 
 ## Magic Methods
 
