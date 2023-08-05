@@ -755,6 +755,8 @@ It's quite tough however finally it's almost done now.
 We are supporting query builder along with eloquent from now on. Not only you would use query builder ,but also you can use eloquent at the same time.
 It's a new feature ,and I'm snowed under the code to fix issues. Anyway this feature is up right now with just some limitation.
 We don't support `WhereCustomCondition` and `WhereHas` for query builder at the moment but other conditions were ready to use.
+in addition, we don't have any kind of `whitelist` , `blacklist` , `custom detectioon` or `alias`.
+currently , It's just a simple feature.
 
 - Below is an order checking conditions list if you use name of them for set a black list.
 
@@ -769,7 +771,11 @@ We don't support `WhereCustomCondition` and `WhereHas` for query builder at the 
 | WhereDateCondition    | whereDate       | whereDate('column', $value)              |
 | where                 | where           | where('column', $value)                  |
 
+- Usage of them is just really like model just you should use filter as a method.
 
+```php
+ DB::table('users')->filter();
+```
 
 ## Magic Methods
 
