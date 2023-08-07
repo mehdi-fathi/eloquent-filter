@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Queries\DB;
 
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\DB\Builder;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class WhereLike.
