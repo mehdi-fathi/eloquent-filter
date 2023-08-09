@@ -4,6 +4,8 @@ namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
@@ -17,8 +19,8 @@ class EloquentQueryFilterBuilder
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter $requestFilter
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter $responseFilter
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter $responseFilter
      */
     public function __construct(public QueryFilterCore $queryFilterCore, public RequestFilter $requestFilter, public ResponseFilter $responseFilter)
     {
@@ -71,7 +73,7 @@ class EloquentQueryFilterBuilder
 
         $this->resolveDetections($detections_injected, $black_list_detections);
 
-        return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
+        return $this->getQueryBuilderWrapper()->getResponseFilter($this->responseFilter->getResponse());
     }
 
     /**
@@ -106,12 +108,9 @@ class EloquentQueryFilterBuilder
 
         $serialize_request_filter = $this->requestFilter->getRequest();
 
-        if (app('eloquentFilter')->getNameDriver() == 'EloquentBuilder') {
+        $serialize_request_filter = $this->getQueryBuilderWrapper()->serializeRequestFilter($this->requestFilter->getRequest()); //todo fix it
 
-            $serialize_request_filter = $this->getQueryBuilderWrapper()->getModel()->serializeRequestFilter($this->requestFilter->getRequest()); //todo fix it
-
-            $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();  //todo fix it
-        }
+        $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();  //todo fix it
 
         $this->requestFilter->requestAlter(
             ignore_request: $ignore_request,

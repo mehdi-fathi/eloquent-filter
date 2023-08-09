@@ -1,12 +1,11 @@
 <?php
 
 use eloquentFilter\Facade\EloquentFilter;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Mockery as m;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter;
 
 /**
  * Class TestCase.

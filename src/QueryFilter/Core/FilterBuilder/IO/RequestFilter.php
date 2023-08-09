@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder\IO;
 
 use eloquentFilter\QueryFilter\Core\HelperFilter;
 use Illuminate\Support\Arr;

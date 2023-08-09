@@ -61,8 +61,10 @@ class QueryBuilderWrapper implements QueryBuilderWrapperInterface
      * @param $out
      * @return mixed
      */
-    public function responseFilter($out)
+    public function getResponseFilter($out)
     {
-        return $this->getBuilder()->getModel()->ResponseFilter($out);
+        if (method_exists($this->getBuilder()->getModel(), 'getResponseFilter')) {
+            return $this->getBuilder()->getModel()->getResponseFilter($out);
+        }
     }
 }

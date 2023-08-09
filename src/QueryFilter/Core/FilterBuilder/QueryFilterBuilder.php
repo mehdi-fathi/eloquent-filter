@@ -4,13 +4,10 @@ namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
-use eloquentFilter\QueryFilter\Core\ResolverDetections;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
-use Illuminate\Database\Connection;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class QueryFilterBuilder.
@@ -21,8 +18,8 @@ class QueryFilterBuilder
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\RequestFilter $requestFilter
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\ResponseFilter $responseFilter
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter $responseFilter
      */
     public function __construct(public QueryFilterCore $queryFilterCore, public RequestFilter $requestFilter, public ResponseFilter $responseFilter)
     {
@@ -79,14 +76,6 @@ class QueryFilterBuilder
 
         return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
 
-        // $this->handleRequest(
-        //     ignore_request: $ignore_request,
-        //     accept_request: $accept_request
-        // );
-        //
-        // $this->resolveDetections($detections_injected, $black_list_detections);
-        //
-        // return $this->getQueryBuilderWrapper()->getModel()->getResponseFilter($this->responseFilter->getResponse());
     }
 
     /**
