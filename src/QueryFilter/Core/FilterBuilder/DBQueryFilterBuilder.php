@@ -112,29 +112,4 @@ class DBQueryFilterBuilder
         );
     }
 
-    /**
-     * @param array|null $detections_injected
-     * @return void
-     */
-    private function buildExclusiveMacros(?array $detections_injected): void
-    {
-        \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
-            return config('eloquentFilter.enabled');
-        });
-
-        \Illuminate\Database\Eloquent\Builder::macro('getDetectionsInjected', function () use ($detections_injected) {
-            return $detections_injected;
-        });
-
-    }
-
-    /**
-     * @return string
-     */
-    public function getNameDriver()
-    {
-        $MainBuilderConditions = $this->queryFilterCore->getMainBuilderConditions();
-
-        return $MainBuilderConditions->getName();
-    }
 }

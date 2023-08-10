@@ -54,16 +54,10 @@ class EloquentQueryFilterBuilder
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
-        $this->buildExclusiveMacros($detections_injected);
-
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);
-        }
-
-        if (!config('eloquentFilter.enabled') || empty($this->requestFilter->getRequest())) {
-            return $builder;
         }
 
         $this->handleRequest(
@@ -106,9 +100,7 @@ class EloquentQueryFilterBuilder
     private function handleRequest(?array $ignore_request, ?array $accept_request): void
     {
 
-        $serialize_request_filter = $this->requestFilter->getRequest();
-
-        $serialize_request_filter = $this->getQueryBuilderWrapper()->serializeRequestFilter($this->requestFilter->getRequest()); //todo fix it
+        $serialize_request_filter = $this->getQueryBuilderWrapper()->serializeRequestFilter($this->requestFilter->getRequest());
 
         $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();  //todo fix it
 
@@ -119,22 +111,6 @@ class EloquentQueryFilterBuilder
             alias_list_filter: $alias_list_filter ?? [],
             model: $this->getQueryBuilderWrapper()->getModel(),
         );
-    }
-
-    /**
-     * @param array|null $detections_injected
-     * @return void
-     */
-    private function buildExclusiveMacros(?array $detections_injected): void
-    {
-        \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
-            return config('eloquentFilter.enabled');
-        });
-
-        \Illuminate\Database\Eloquent\Builder::macro('getDetectionsInjected', function () use ($detections_injected) {
-            return $detections_injected;
-        });
-
     }
 
     /**
