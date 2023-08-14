@@ -442,12 +442,12 @@ select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi'
 `family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' asc limit 10 offset 0
 ```
 
-Therefore fields of query string are same rows table database in `$whiteListFilter` in your model or declare the method in your model as override method.
+Therefore, fields of query string are same rows table database in `$whiteListFilter` in your model or declare the method in your model as override method.
 The overridden method can be considered a custom query filter.
 
 ### Custom Query Filter
 
-Eloquent Filter doesn't support all of the conditions by default. For this situation, you can make an overridden method.
+Eloquent Filter doesn't support all the conditions by default. For this situation, you can make an overridden method.
 If you are going to make yourself a query filter, you can do it easily.
 
 You should run the command to make a trait and use it on the model:
@@ -771,7 +771,7 @@ currently , It's just a simple feature.
 | WhereDateCondition    | whereDate       | whereDate('column', $value)              |
 | where                 | where           | where('column', $value)                  |
 
-- Usage of them is just really like model just you should use filter as a method.
+- Usage of them is just extremely like model just you need use filter as a method. Obviously, there's no need any change like use trait or etc.
 
 ```php
  DB::table('users')->filter();
