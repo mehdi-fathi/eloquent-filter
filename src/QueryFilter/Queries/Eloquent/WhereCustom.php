@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter\Queries\Eloquent;
 
 use eloquentFilter\QueryFilter\Queries\BaseClause;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\DB\Builder;
 
 /**
  * Class WhereCustom.
@@ -11,12 +11,29 @@ use Illuminate\Database\Eloquent\Builder;
 class WhereCustom extends BaseClause
 {
     /**
+     *
+     */
+    const METHOD_SIGN = "filterCustom";
+
+    /**
      * @param $query
      *
      * @return Builder
      */
     public function apply($query)
     {
-        return $query->getModel()->{$this->filter}($query, $this->values);
+        $method = $this->getMethod($this->filter);
+        return $query->getModel()->$method($query, $this->values);
+    }
+
+    /**
+     * @param $filter
+     * @return string
+     */
+    static public function getMethod($filter)
+    {
+        $filter = ucfirst($filter);
+        $method = self::METHOD_SIGN . $filter;
+        return $method;
     }
 }

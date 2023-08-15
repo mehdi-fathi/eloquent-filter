@@ -56,7 +56,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sample_like(Builder $builder, $value)
+    public function filterCustomSample_like(Builder $builder, $value)
     {
         return $builder->where('title', 'like', '%'.$value.'%');
     }

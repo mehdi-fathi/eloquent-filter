@@ -449,6 +449,7 @@ The overridden method can be considered a custom query filter.
 
 Eloquent Filter doesn't support all the conditions by default. For this situation, you can make an overridden method.
 If you are going to make yourself a query filter, you can do it easily.
+You should take care of using `filterCustom` before method name in new version.
 
 You should run the command to make a trait and use it on the model:
 
@@ -471,7 +472,7 @@ trait UsersFilter
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sample_like(Builder $builder, $value)
+    public function filterCustomSample_like(Builder $builder, $value)
     {
         return $builder->where('username', 'like', '%'.$value.'%');
     }

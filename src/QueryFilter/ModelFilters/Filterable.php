@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\ModelFilters;
 
 use eloquentFilter\Facade\EloquentFilter;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -156,6 +157,8 @@ trait Filterable
      */
     public function checkModelHasOverrideMethod(string $method): bool
     {
+        $method = WhereCustom::getMethod($method);
+
         return method_exists($this, $method);
     }
 
