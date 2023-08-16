@@ -12,7 +12,15 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 [![codecov](https://codecov.io/gh/mehdi-fathi/eloquent-filter/branch/develop/graph/badge.svg?token=QY9HA6NXFH)](https://codecov.io/gh/mehdi-fathi/eloquent-filter)
 
-Eloquent Filter is a package for filtering data of models by query strings in Laravel. It's easy to use and fully dynamic, allowing you to add custom filters automatically to your Eloquent Models.
+We are excited to introduce Eloquent Filter, a power-full composer package for filtering data of models by inputs like query strings in Laravel.
+It's easy to use and fully dynamic.
+
+- Support complex queries
+- Straightforward ways to override conditions based on your desire
+- Having awesome harmonic with Laravel, Eloquent even with query builder as a new feature
+- Take control of every step of running
+
+**Note** We considered what predictable features you wanted to implement no matter simple or complex, although we have a lot of features to make able you to implement your specific something's else.
 
 ## Table of Content
 
@@ -42,15 +50,23 @@ Eloquent Filter is a package for filtering data of models by query strings in La
 
 ### Version information
 
+The Eloquent Filter has reached to more than 100,000 installations recently, so I made a decision to release version 4.0 with 2 new features.
+
+The current version supports:
+
+- Support query builder along with eloquent
+- Set a specific name fo custom methods
+
 | Version | Illuminate    | Status         | PHP Version |
 |---------|---------------|----------------|-------------|
-| ^3.0    | 3.2.x - 3.x.x | Active support | >= 8.0      |
+| ^4.0    | 4.x.x - 4.x.x | Active support | >= 8.0      |
+| ^3.0    | 3.2.x - 3.x.x | End of life    | >= 8.0      |
 | ^3.0    | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    |
 | ^2.0    | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    |
 
 ## :microphone: Introduction
 
-Conceivably, you will face trouble if you've done a task as an end-point in which there are some queries with many advanced options.
+Conceivably, you would face challenges if you've done a task as an end-point in which there are some queries with many advanced options.
 
 Let's say we want to make an advanced search page with multiple filter options.
 
