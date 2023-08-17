@@ -18,6 +18,7 @@ class WhereHas extends BaseClause
      */
     public function apply($query)
     {
+        //todo implement later
         return ;
 
         // $field_row = explode('.', $this->filter);

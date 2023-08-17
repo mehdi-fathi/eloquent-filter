@@ -143,6 +143,89 @@ class DbFilterMockTest extends \TestCase
 
         $this->assertEquals([35], $categories->getBindings());
     }
+
+    public function testMaxLimit()
+    {
+
+        $builder = DB::table('users')->limit(20);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'limit' => 25,
+                ],
+            ]
+        );
+
+        $users = DB::table('users')->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
+
+    public function testFParamException()
+    {
+        try {
+            $this->request->shouldReceive('query')->andReturn(
+                [
+                    'f_params' => [
+                        'orderBys' => [
+                            'field' => 'id',
+                            'type' => 'ASC',
+                        ],
+                    ],
+                ]
+            );
+
+            DB::table('users')->filter($this->request->query());
+        } catch (EloquentFilterException $e) {
+            $this->assertEquals(2, $e->getCode());
+        }
+    }
+
+    public function testExclusiveException()
+    {
+        $this->expectException(EloquentFilterException::class);
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'orderBys11' => [
+                        'field' => 'id',
+                        'type' => 'ASC',
+                    ],
+                ],
+            ]
+        );
+
+        DB::table('users')->filter($this->request->query());
+    }
+
+
+
+    public function testFParamOrder()
+    {
+        $builder = DB::table('users')
+            ->orderBy('id')
+            ->orderBy('count_posts');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'f_params' => [
+                    'orderBy' => [
+                        'field' => 'id,count_posts',
+                        'type' => 'ASC',
+                    ],
+                ],
+            ]
+        );
+
+        $users = DB::table('users')->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+    }
+
+
     //
     // public function testWhereByOptWithTrashed()
     // {
