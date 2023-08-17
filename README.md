@@ -60,7 +60,7 @@ The current version supports:
 | Version | Illuminate    | Status         | PHP Version |
 |---------|---------------|----------------|-------------|
 | ^4.0    | 4.x.x - 4.x.x | Active support | >= 8.0      |
-| ^3.0    | 3.2.x - 3.x.x | End of life    | >= 8.0      |
+| ^3.0    | 3.2.x - 3.4.x | End of life    | >= 8.0      |
 | ^3.0    | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    |
 | ^2.0    | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    |
 
