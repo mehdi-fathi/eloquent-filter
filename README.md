@@ -766,10 +766,11 @@ Then you should send the `code` param in the URL for making a query with the nat
 Great news!
 
 Some people asked me a lot to add new feature to support Laravel query builder. 
-It needed a lot of energy and devote time , so I decided to implement it. 
+It needed a lot of energy and devoting time , so I decided to implement it. 
 It's quite tough however finally it's almost done now.    
 
 We are supporting query builder along with eloquent from now on. Not only you would use query builder ,but also you can use eloquent at the same time.
+
 It's a new feature ,and I'm snowed under the code to fix issues. Anyway this feature is up right now with just some limitation.
 We don't support `WhereCustomCondition` and `WhereHas` for query builder at the moment but other conditions were ready to use.
 in addition, we don't have any kind of `whitelist` , `blacklist` , `custom detectioon` or `alias`.
