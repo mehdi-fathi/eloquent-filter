@@ -27,7 +27,7 @@ It's easy to use and fully dynamic.
 - [Introduction](#microphone-introduction)
 - [Installation](#electric_plug-installation)
 - [Basic Usage](#book-basic-usage)
-    - [Config Model](#Config-Model-and-set-whitelist)
+    - [Config Model](#config-model-and-set-whitelist)
     - [Use in Controller](#Use-in-Controller)
     - [Simple Examples](#Simple-Examples)
     - [Custom Query Filter](#Custom-query-filter)
@@ -180,7 +180,6 @@ By Eloquent filter implementation, you can use all the documented filters!
 That's it enjoy! :boom:
 ## :book: Basic Usage
 
-<a name="Config-Model-and-set-whitelist"></a>
 ### Config Model and set whitelist
 
 Add the `Filterable` trait to yourself models and set fields in the whitelist array in which you will want to use of filter . 
