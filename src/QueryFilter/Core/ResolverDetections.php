@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -94,7 +93,6 @@ class ResolverDetections
         }
 
         $filter_detections = collect($this->request)->map(function ($values, $filter) use ($model) {
-            // dd($filter, $values, $model);
             return $this->resolve($filter, $values, $model);
         })->reverse()->filter(function ($item) {
             return $item instanceof BaseClause;

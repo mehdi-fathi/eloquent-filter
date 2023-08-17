@@ -82,6 +82,48 @@ class DbFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi', 'ali'], $users->getBindings());
     }
 
+    public function testWhereLike()
+    {
+        $builder = DB::table('users')->where('email', 'like', '%meh%');
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'email' => [
+                    'like' => '%meh%',
+                ],
+            ]
+        );
+
+        $users = DB::table('users')->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertSame(['%meh%'], $builder->getBindings());
+    }
+
+    public function testWhereOr1()
+    {
+        $builder = DB::table('users')
+            ->where('baz', 'boo')
+            ->where('count_posts', 22)
+            ->orWhere('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'boo',
+                'count_posts' => 22,
+                'or' => [
+                    'baz' => 'joo',
+                ],
+            ]
+        );
+
+        $users = DB::table('users')->filter($this->request->query());
+
+        $users_to_sql = str_replace('(', '', $users->toSql());
+        $users_to_sql = str_replace(')', '', $users_to_sql);
+        $this->assertSame($users_to_sql, $builder->toSql());
+        $this->assertEquals(['boo', 22, 'joo'], $users->getBindings());
+    }
+
     public function testWhereByOpt()
     {
         $builder = DB::table('categories')->where('count_posts', '>', 35);
