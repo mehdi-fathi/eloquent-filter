@@ -50,7 +50,7 @@ It's easy to use and fully dynamic.
 
 ### Version information
 
-The Eloquent Filter has reached to more than 100,000 installations recently, so I made a decision to release version 4.0 with 2 new features.
+The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0 with 2 new features.
 
 The current version supports:
 
@@ -180,6 +180,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 That's it enjoy! :boom:
 ## :book: Basic Usage
 
+<a name="Config-Model-and-set-whitelist"></a>
 ### Config Model and set whitelist
 
 Add the `Filterable` trait to yourself models and set fields in the whitelist array in which you will want to use of filter . 
