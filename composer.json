@@ -3,6 +3,7 @@
   "description": "Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.\nIt's easy to use and fully dynamic, just with sending the Query Strings to it.",
   "keywords": [
     "laravel",
+    "Laravel",
     "laravel tools",
     "eloquent",
     "eloquent filter",
@@ -53,9 +54,7 @@
     ]
   },
   "scripts": {
-    "test": "vendor/bin/phpunit tests/Tests/Eloquent/. --coverage-text && vendor/bin/phpunit tests/Tests/Db/. db  --coverage-text ",
-    "test-eloquent": "vendor/bin/phpunit tests/Tests/Eloquent/.",
-    "test-db": "vendor/bin/phpunit tests/Tests/Db/. db"
+    "test": "vendor/bin/phpunit --coverage-text"
   },
   "extra": {
     "laravel": {
