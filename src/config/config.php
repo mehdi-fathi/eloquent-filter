@@ -35,4 +35,8 @@ return [
 
     'namespace' => 'App\\ModelFilters\\',
 
+    'log' => [
+        'has_keeping_query' => false
+    ]
+
 ];

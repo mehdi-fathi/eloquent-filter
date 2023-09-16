@@ -2,8 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Queries;
 
-use Illuminate\Contracts\Database\Eloquent\Builder as BuilderContract;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class BaseClause.
@@ -30,7 +30,13 @@ abstract class BaseClause
     {
         $query = $nextFilter($query);
 
-        return $this->apply($query);
+        $startTime = microtime(true);
+
+        $out = $this->apply($query);
+
+        $this->recordLog($out, $startTime);
+
+        return $out;
     }
 
     /**
@@ -39,4 +45,27 @@ abstract class BaseClause
      * @return Builder
      */
     abstract protected function apply($query);
+
+    /**
+     * @param $query
+     * @param $startTime
+     * @return void
+     */
+    public function recordLog($query, $startTime): void
+    {
+        if (config('eloquentFilter.log.has_keeping_query')) {
+
+            $endTime = microtime(true);
+            $executionTime = $endTime - $startTime;
+
+            Log::info('eloquentFilter query', [
+                'query' => $query->toSql(),
+                'binding' => $query->getBindings(),
+                'time' => $executionTime,
+                'type' => 'query',
+
+            ]);
+        }
+
+    }
 }
