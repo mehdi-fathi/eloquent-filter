@@ -36,7 +36,8 @@ return [
     'namespace' => 'App\\ModelFilters\\',
 
     'log' => [
-        'has_keeping_query' => false
+        'has_keeping_query' => false,
+        'max_time_query' => null
     ]
 
 ];

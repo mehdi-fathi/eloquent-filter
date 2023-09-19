@@ -58,13 +58,30 @@ abstract class BaseClause
             $endTime = microtime(true);
             $executionTime = $endTime - $startTime;
 
-            Log::info('eloquentFilter query', [
-                'query' => $query->toSql(),
-                'binding' => $query->getBindings(),
-                'time' => $executionTime,
-                'type' => 'query',
+            if (!empty(config('eloquentFilter.log.max_time_query'))) {
 
-            ]);
+                if ($executionTime >= config('eloquentFilter.log.max_time_query')) {
+
+                    Log::info('eloquentFilter query', [
+                        'query' => $query->toSql(),
+                        'binding' => $query->getBindings(),
+                        'time' => $executionTime,
+                        'type' => 'query',
+
+                    ]);
+                }
+
+            } else {
+
+                Log::info('eloquentFilter query', [
+                    'query' => $query->toSql(),
+                    'binding' => $query->getBindings(),
+                    'time' => $executionTime,
+                    'type' => 'query',
+
+                ]);
+            }
+
         }
 
     }
