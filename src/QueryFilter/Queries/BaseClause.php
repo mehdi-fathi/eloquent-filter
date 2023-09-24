@@ -62,27 +62,31 @@ abstract class BaseClause
 
                 if ($executionTime >= config('eloquentFilter.log.max_time_query')) {
 
-                    Log::info('eloquentFilter query', [
-                        'query' => $query->toSql(),
-                        'binding' => $query->getBindings(),
-                        'time' => $executionTime,
-                        'type' => 'query',
-
-                    ]);
+                    $this->createLog($query, $executionTime);
                 }
 
             } else {
 
-                Log::info('eloquentFilter query', [
-                    'query' => $query->toSql(),
-                    'binding' => $query->getBindings(),
-                    'time' => $executionTime,
-                    'type' => 'query',
-
-                ]);
+                $this->createLog($query, $executionTime);
             }
 
         }
 
+    }
+
+    /**
+     * @param $query
+     * @param $executionTime
+     * @return void
+     */
+    private function createLog($query, $executionTime)
+    {
+        Log::info('eloquentFilter query', [
+            'query' => $query->toSql(),
+            'binding' => $query->getBindings(),
+            'time' => $executionTime,
+            'type' => 'query',
+
+        ]);
     }
 }
