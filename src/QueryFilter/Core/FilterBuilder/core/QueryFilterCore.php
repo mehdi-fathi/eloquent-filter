@@ -4,7 +4,6 @@ namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
-use eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 /**
  *
