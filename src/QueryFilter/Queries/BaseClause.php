@@ -79,14 +79,13 @@ abstract class BaseClause
      * @param $executionTime
      * @return void
      */
-    private function createLog($query, $executionTime)
+    private function createLog($query, $executionTime): void
     {
         Log::info('eloquentFilter query', [
             'query' => $query->toSql(),
             'binding' => $query->getBindings(),
             'time' => $executionTime,
-            'type' => 'query',
-
+            'type' => config('eloquentFilter.log.type'),
         ]);
     }
 }

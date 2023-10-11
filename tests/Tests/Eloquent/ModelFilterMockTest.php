@@ -7,6 +7,7 @@ use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Mockery as m;
 use Tests\Models\Car;
 use Tests\Models\Category;
@@ -1327,6 +1328,27 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertNotEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
         $this->assertFalse($users->isUsedEloquentFilter());
+    }
+
+    public function testLogConfig()
+    {
+        config(['eloquentFilter.log.has_keeping_query' => true]);
+
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = Category::filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
     }
 
     public function testFalseEnabledConfigNotBreakQuery()

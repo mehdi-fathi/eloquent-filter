@@ -37,7 +37,8 @@ return [
 
     'log' => [
         'has_keeping_query' => false,
-        'max_time_query' => null
+        'max_time_query' => null,
+        'type' => 'eloquentFilter.query'
     ]
 
 ];
