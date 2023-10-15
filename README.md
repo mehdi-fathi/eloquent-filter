@@ -730,7 +730,18 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 - You had better keep `max_limit`. It's a limitation for preventing making awful queries mistakenly by the developer or intentionally by a villain user.
 
         'max_limit' => 20 
-        
+
+- From now on , we have the ability to record logs by logger instance. Since queries is made dynamically somehow , the need of feature keeping queries with their time is required.
+So we added it in this version with some other options to better management.
+
+        'log' => [
+        'has_keeping_query' => false,
+        'max_time_query' => null,
+        'type' => 'eloquentFilter.query']
+
+
+  It's disable by default you enable by `has_keeping_query`, `type` is type log ,and `max_time_query` is a value for keeping queries with high time-executed. 
+
 ### Alias  
 
 Sometimes you may want to change some parameters in the URL while those mention a field of the model.
