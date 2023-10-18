@@ -30,7 +30,7 @@ class WhereCustom extends BaseClause
      * @param $filter
      * @return string
      */
-    static public function getMethod($filter)
+    static public function getMethod($filter): string
     {
         $filter = ucfirst($filter);
         $method = self::METHOD_SIGN . $filter;
