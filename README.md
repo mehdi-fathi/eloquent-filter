@@ -2,7 +2,7 @@
 
 
 
-![alt text](./eloquent-filter.jpg "eloquent-filter")
+![alt text](./eloquent-filter.png "eloquent-filter")
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/mehdi-fathi/eloquent-filter)](https://packagist.org/packages/mehdi-fathi/eloquent-filter)
 ![Run tests](https://github.com/mehdi-fathi/eloquent-filter/workflows/Run%20tests/badge.svg?branch=master)
@@ -12,15 +12,22 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 [![codecov](https://codecov.io/gh/mehdi-fathi/eloquent-filter/branch/develop/graph/badge.svg?token=QY9HA6NXFH)](https://codecov.io/gh/mehdi-fathi/eloquent-filter)
 
-We are excited to introduce Eloquent Filter, a power-full composer package for filtering data of models by inputs like query strings in Laravel.
-It's easy to use and fully dynamic.
+Eloquent Filter is a robust Laravel package providing an intuitive way to filter your Eloquent models using query strings.
+Perfect for crafting responsive APIs and complex data sets, this package seamlessly integrates with Laravel's existing Eloquent models,
+adding powerful and dynamic filtering capabilities with minimal setup.
 
-- Support complex queries
-- Straightforward ways to override conditions based on your desire
-- Having awesome harmonic with Laravel, Eloquent even with query builder as a new feature
-- Take control of every step of running
+Features:
 
-**Note** We considered what predictable features you wanted to implement no matter simple or complex, although we have a lot of features to make able you to implement your specific something's else.
+- Support for complex query structures
+- Easy to override conditions for custom behavior
+- Harmonious integration with Laravel and Eloquent, including query builders
+- Full control over filter execution and customization
+
+We've tailored Eloquent Filter to be as flexible as you need—whether your queries are straightforward or complex.
+With an extensive feature set, you can implement specific functionalities unique to your application with ease.
+
+**Note** We considered what predictable features you wanted to implement no matter simple or complex,
+although we have a lot of features to make able you to implement your specific something's else.
 
 ## Table of Content
 
@@ -147,7 +154,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 
 ## :electric_plug: Installation
 
-1- Run this Composer command to install the latest version
+1- Run the following command in your project directory to add the Eloquent Filter as a dependency
 
         $ composer require mehdi-fathi/eloquent-filter
       
@@ -690,7 +697,7 @@ class User extends Model
 
 ## Configuring
 
-You can generate a config file to configure Eloquent Filter.
+You can publish the configuration file to customize the package further:
 
 ### Publish Config
 
