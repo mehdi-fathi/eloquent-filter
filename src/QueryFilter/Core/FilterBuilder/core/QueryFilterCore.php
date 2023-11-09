@@ -15,7 +15,7 @@ interface QueryFilterCore
      * @param array|null $detectInjected
      * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $mainBuilderConditions
      */
-    public function __construct(array $defaultSeriesInjected, array $detectInjected = null,MainBuilderConditionsContract $mainBuilderConditions);
+    public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions);
 
     /**
      * @param array|null $default_detect

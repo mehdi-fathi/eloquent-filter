@@ -13,7 +13,7 @@ class WhereCustom extends BaseClause
     /**
      *
      */
-    const METHOD_SIGN = "filterCustom";
+    public const METHOD_SIGN = "filterCustom";
 
     /**
      * @param $query
@@ -30,7 +30,7 @@ class WhereCustom extends BaseClause
      * @param $filter
      * @return string
      */
-    static public function getMethod($filter): string
+    public static function getMethod($filter): string
     {
         $filter = ucfirst($filter);
         $method = self::METHOD_SIGN . $filter;

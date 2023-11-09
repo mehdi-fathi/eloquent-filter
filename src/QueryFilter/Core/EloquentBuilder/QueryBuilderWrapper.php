@@ -7,7 +7,6 @@ namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
  */
 class QueryBuilderWrapper implements QueryBuilderWrapperInterface
 {
-
     /**
      * @param mixed $builder
      */

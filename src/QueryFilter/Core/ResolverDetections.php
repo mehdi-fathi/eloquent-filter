@@ -88,7 +88,7 @@ class ResolverDetections
     {
         if (app('eloquentFilter')->getNameDriver() != 'DbBuilder') {
             $model = $this->builder->getModel();
-        }else{
+        } else {
             $model = $this->builder->from;
         }
 

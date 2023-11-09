@@ -62,7 +62,7 @@ The Eloquent Filter has reached more than 100,000 installations recently, so I m
 The current version supports:
 
 - Support query builder along with eloquent
-- Set a specific name fo custom methods
+- Set a specific name for custom methods
 
 | Version | Illuminate    | Status         | PHP Version |
 |---------|---------------|----------------|-------------|

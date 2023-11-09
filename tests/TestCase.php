@@ -62,7 +62,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->app->singleton(
             'eloquentFilter',
-            function (){
+            function () {
 
                 $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 

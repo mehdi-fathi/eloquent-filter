@@ -19,7 +19,6 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereOr;
  */
 class MainBuilderQueryByCondition implements MainBuilderConditionsContract
 {
-
     private string $name = 'EloquentBuilder';
 
     /**

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Log;
  */
 abstract class BaseClause
 {
-
     /**
      * BaseClause constructor.
      *

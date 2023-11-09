@@ -53,7 +53,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
         if ($mainBuilderConditions->getName() == 'DbBuilder') {
 
             $this->setDetectFactory($this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
-        }else{
+        } else {
             $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
 

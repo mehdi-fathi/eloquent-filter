@@ -83,7 +83,8 @@ class DBQueryFilterBuilder
                 $this->getQueryBuilderWrapper()->getBuilder(),
                 $this->requestFilter->getRequest(),
                 $this->queryFilterCore->getDetectFactory(),
-                $this->queryFilterCore->getMainBuilderConditions());
+                $this->queryFilterCore->getMainBuilderConditions()
+            );
         });
 
         /** @see ResolverDetections::getResolverOut() */
