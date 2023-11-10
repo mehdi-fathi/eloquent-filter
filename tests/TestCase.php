@@ -17,69 +17,40 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     public $request;
 
-
-    /**
-     * @var array
-     */
-    protected $config;
-
     public function setUp(): void
     {
         parent::setUp();
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
-
         $this->config = require __DIR__ . '/../src/config/config.php';
 
-        \Illuminate\Database\Query\Builder::macro('filter', function ($request) {
+        $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
-            app()->singleton(
-                'eloquentFilter',
-                function () {
+        $createEloquentFilter = function ($requestData, $queryFilterCore) {
+            $requestFilter = app(RequestFilter::class, ['request' => $requestData]);
+            $responseFilter = app(ResponseFilter::class);
 
-                    $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
+            return app(QueryFilterBuilder::class, [
+                'queryFilterCore' => $queryFilterCore,
+                'requestFilter' => $requestFilter,
+                'responseFilter' => $responseFilter
+            ]);
+        };
 
-                    $request = app(RequestFilter::class, ['request' => request()->query()]);
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request) use ($createEloquentFilter, $queryFilterCoreFactory) {
+            app()->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory) {
+                return $createEloquentFilter(request()->query(), $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
+            });
 
-                    //vendor/bin/phpunit tests/. db -- command for runnign test on db
-                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
-
-                    $response = app(ResponseFilter::class);
-
-                    return app(QueryFilterBuilder::class, [
-                        'queryFilterCore' => $core,
-                        'requestFilter' => $request,
-                        'responseFilter' => $response
-                    ]);
-                }
-            );
-
-            return EloquentFilter::apply(
-                builder: $this,
-                request: $request,
-            );
+            return EloquentFilter::apply(builder: $this, request: $request);
         });
 
-        $this->app->singleton(
-            'eloquentFilter',
-            function () {
+        $this->app->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory) {
 
-                $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
-
-                $request = app(RequestFilter::class, ['request' => $this->request->query()]);
-
-                $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
-
-                $response = app(ResponseFilter::class);
-
-                return app(QueryFilterBuilder::class, [
-                    'queryFilterCore' => $core,
-                    'requestFilter' => $request,
-                    'responseFilter' => $response
-                ]);
-            }
-        );
+            return $createEloquentFilter($this->request->query(), $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder());
+        });
     }
+
 
     /**
      * @param Application $app
