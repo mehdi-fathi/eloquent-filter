@@ -26,9 +26,9 @@ class RequestFilter
     protected ?array $request;
 
     /**
-     * @param $request
+     * @param array|null $request
      */
-    public function __construct($request)
+    public function __construct(?array $request)
     {
         $this->request = $request;
     }

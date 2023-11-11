@@ -1,6 +1,7 @@
 <?php
 
 use eloquentFilter\Facade\EloquentFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
@@ -22,11 +23,10 @@ class TestCase extends Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->request = m::mock(\Illuminate\Http\Request::class);
-        $this->config = require __DIR__ . '/../src/config/config.php';
 
         $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
-        $createEloquentFilter = function ($requestData, $queryFilterCore) {
+        $createEloquentFilter = function ($requestData, QueryFilterCore $queryFilterCore) {
             $requestFilter = app(RequestFilter::class, ['request' => $requestData]);
             $responseFilter = app(ResponseFilter::class);
 

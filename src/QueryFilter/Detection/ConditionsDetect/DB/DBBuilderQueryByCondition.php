@@ -14,7 +14,7 @@ use eloquentFilter\QueryFilter\Queries\DB\WhereLike;
 use eloquentFilter\QueryFilter\Queries\DB\WhereOr;
 
 /**
- * Class MainBuilderQueryByCondition.
+ * Class DBBuilderQueryByCondition.
  */
 class DBBuilderQueryByCondition implements MainBuilderConditionsContract
 {

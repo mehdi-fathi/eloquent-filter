@@ -4,6 +4,7 @@ namespace eloquentFilter;
 
 use eloquentFilter\Command\MakeEloquentFilter;
 use eloquentFilter\Facade\EloquentFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
@@ -53,25 +54,26 @@ class ServiceProvider extends BaseServiceProvider
      */
     private function registerBindings()
     {
-        \Illuminate\Database\Query\Builder::macro('filter', function ($request) {
+
+        $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
+
+        $createEloquentFilter = function ($requestData, QueryFilterCore $queryFilterCore) {
+            $requestFilter = app(RequestFilter::class, ['request' => $requestData]);
+            $responseFilter = app(ResponseFilter::class);
+
+            return app(QueryFilterBuilder::class, [
+                'queryFilterCore' => $queryFilterCore,
+                'requestFilter' => $requestFilter,
+                'responseFilter' => $responseFilter
+            ]);
+        };
+
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request) use ($createEloquentFilter, $queryFilterCoreFactory) {
 
             app()->singleton(
                 'eloquentFilter',
-                function () {
-
-                    $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
-
-                    $request = app(RequestFilter::class, ['request' => request()->query()]);
-
-                    $core = $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder();
-
-                    $response = app(ResponseFilter::class);
-
-                    return app(QueryFilterBuilder::class, [
-                        'queryFilterCore' => $core,
-                        'requestFilter' => $request,
-                        'responseFilter' => $response
-                    ]);
+                function () use ($createEloquentFilter, $queryFilterCoreFactory) {
+                    return $createEloquentFilter(request()->query(), $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
                 }
             );
 
@@ -83,19 +85,8 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(
             'eloquentFilter',
-            function () {
-                $queryFilterCoreFactory = new QueryFilterCoreFactory();
-
-                $request = new RequestFilter($this->app->get('request')->query());
-                $response = new ResponseFilter();
-
-                $core = $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder();
-
-                return new QueryFilterBuilder(
-                    queryFilterCore: $core,
-                    requestFilter: $request,
-                    responseFilter: $response
-                );
+            function () use ($createEloquentFilter, $queryFilterCoreFactory) {
+                return $createEloquentFilter($this->app->get('request')->query(), $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder());
             }
         );
 
