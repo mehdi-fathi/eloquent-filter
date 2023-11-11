@@ -77,10 +77,7 @@ class ServiceProvider extends BaseServiceProvider
                 }
             );
 
-            return EloquentFilter::apply(
-                builder: $this,
-                request: $request,
-            );
+            return app('eloquentFilter')->apply(builder: $this, request: $request);
         });
 
         $this->app->singleton(
