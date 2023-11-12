@@ -78,7 +78,7 @@ Conceivably, you would face challenges if you've done a task as an end-point in 
 Let's say we want to make an advanced search page with multiple filter options.
 
 ![alt text](./Aban-21-1402 14-27-04.gif "sample 1 eloquent-filter")
-``
+
 ### A simple implementation without Eloquent Filter
 The Resource URI would be look like:
                                                                                      
