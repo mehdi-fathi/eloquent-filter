@@ -1,6 +1,5 @@
 <?php
 
-use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
@@ -42,7 +41,7 @@ class TestCase extends Orchestra\Testbench\TestCase
                 return $createEloquentFilter(request()->query(), $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
             });
 
-            return EloquentFilter::apply(builder: $this, request: $request);
+            return app('eloquentFilter')->apply(builder: $this, request: $request);
         });
 
         $this->app->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory) {

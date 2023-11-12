@@ -3,7 +3,6 @@
 namespace eloquentFilter;
 
 use eloquentFilter\Command\MakeEloquentFilter;
-use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
