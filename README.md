@@ -41,7 +41,7 @@ although we have a lot of features to make able you to implement your specific s
     - [Custom Detection Condition](#custom-detection-condition)
 - [Configuring](#configuring)    
     - [Publish Config](#publish-config)
-    - [Config](#config)``
+    - [Config](#config)
     - [Alias](#alias)
 - [Query Builder](#query-builder-introduction)
 - [Magic Methods](#magic-methods)
