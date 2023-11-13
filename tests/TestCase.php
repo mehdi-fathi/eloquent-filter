@@ -36,9 +36,16 @@ class TestCase extends Orchestra\Testbench\TestCase
             ]);
         };
 
-        \Illuminate\Database\Query\Builder::macro('filter', function ($request) use ($createEloquentFilter, $queryFilterCoreFactory) {
-            app()->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory) {
-                return $createEloquentFilter(request()->query(), $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
+        $reqQueryStr = $this->request;
+
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request = null) use ($createEloquentFilter, $queryFilterCoreFactory, $reqQueryStr) {
+
+            if (empty($request)) {
+                $request = $reqQueryStr->query();
+            }
+
+            app()->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory, $request) {
+                return $createEloquentFilter($request, $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
             });
 
             return app('eloquentFilter')->apply(builder: $this, request: $request);

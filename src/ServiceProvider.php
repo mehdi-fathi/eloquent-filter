@@ -67,12 +67,16 @@ class ServiceProvider extends BaseServiceProvider
             ]);
         };
 
-        \Illuminate\Database\Query\Builder::macro('filter', function ($request) use ($createEloquentFilter, $queryFilterCoreFactory) {
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request = null) use ($createEloquentFilter, $queryFilterCoreFactory) {
+
+            if (empty($request)) {
+                $request = request()->query();
+            }
 
             app()->singleton(
                 'eloquentFilter',
-                function () use ($createEloquentFilter, $queryFilterCoreFactory) {
-                    return $createEloquentFilter(request()->query(), $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
+                function () use ($createEloquentFilter, $queryFilterCoreFactory, $request) {
+                    return $createEloquentFilter($request, $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
                 }
             );
 

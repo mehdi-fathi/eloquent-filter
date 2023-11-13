@@ -37,8 +37,6 @@ class DbFilterMockTest extends \TestCase
      */
     protected $config;
 
-    public $request;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -53,7 +51,41 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $categories = DB::table('categories')->filter($this->request->query());
+        $categories = DB::table('categories')->filter();
+
+        $builder = DB::table('categories')->where('title', 'sport');
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+    }
+
+    public function testWhereEloquentWithDB()
+    {
+
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = Category::filter();
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = DB::table('categories')->filter();
 
         $builder = DB::table('categories')->where('title', 'sport');
 
@@ -72,7 +104,27 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('users')->filter($this->request->query());
+        $users = DB::table('users')->filter();
+
+        $builder = DB::table('users')
+            ->wherein('username', ['mehdi', 'ali']);
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+
+        $this->assertEquals(['mehdi', 'ali'], $users->getBindings());
+    }
+
+    public function testWhereInWithArray()
+    {
+        $this->request->shouldReceive('query')->andReturn(
+            [
+            ]
+        );
+
+        $users = DB::table('users')->filter([
+            'username' => ['mehdi', 'ali'],
+            'family' => null,
+        ]);
 
         $builder = DB::table('users')
             ->wherein('username', ['mehdi', 'ali']);
@@ -93,7 +145,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('users')->filter($this->request->query());
+        $users = DB::table('users')->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertSame(['%meh%'], $builder->getBindings());
@@ -116,7 +168,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('users')->filter($this->request->query());
+        $users = DB::table('users')->filter();
 
         $users_to_sql = str_replace('(', '', $users->toSql());
         $users_to_sql = str_replace(')', '', $users_to_sql);
@@ -137,7 +189,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $categories = DB::table('categories')->filter($this->request->query());
+        $categories = DB::table('categories')->filter();
 
         $this->assertSame($categories->toSql(), $builder->toSql());
 
@@ -157,7 +209,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('users')->filter($this->request->query());
+        $users = DB::table('users')->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
@@ -177,7 +229,7 @@ class DbFilterMockTest extends \TestCase
                 ]
             );
 
-            DB::table('users')->filter($this->request->query());
+            DB::table('users')->filter();
         } catch (EloquentFilterException $e) {
             $this->assertEquals(2, $e->getCode());
         }
@@ -198,7 +250,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        DB::table('users')->filter($this->request->query());
+        DB::table('users')->filter();
     }
 
 
@@ -220,7 +272,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('users')->filter($this->request->query());
+        $users = DB::table('users')->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
     }
@@ -243,7 +295,7 @@ class DbFilterMockTest extends \TestCase
     //         ]
     //     );
     //
-    //     $users = Category::withTrashed()->filter($this->request->query());
+    //     $users = Category::withTrashed()->filter();
     //
     //     $this->assertSame($users->toSql(), $builder->toSql());
     //
@@ -285,7 +337,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $categories = DB::table('categories')->filter($this->request->query());
+        $categories = DB::table('categories')->filter();
 
         $this->assertSame($categories->toSql(), $builder->toSql());
 
@@ -312,7 +364,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('tags')->filter($this->request->query());
+        $users = DB::table('tags')->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2019-01-01 17:11:46', '2019-02-06 10:11:46'], $builder->getBindings());
@@ -337,7 +389,7 @@ class DbFilterMockTest extends \TestCase
             ]
         );
 
-        $users = DB::table('tags')->filter($this->request->query());
+        $users = DB::table('tags')->filter();
 
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2022-07-14'], $builder->getBindings());
