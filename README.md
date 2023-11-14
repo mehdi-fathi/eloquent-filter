@@ -76,7 +76,7 @@ Conceivably, you would face challenges if you've done a task as an end-point in 
 
 Let's say we want to make an advanced search page with multiple filter options.
 
-![](https://raw.githubusercontent.com/mehdi-fathi/eloquent-filter/develop/Aban-21-1402%2014-27-04.gif)
+![](https://raw.githubusercontent.com/mehdi-fathi/eloquent-filter/master/Aban-21-1402%2014-27-04.gif)
 
 ### A simple implementation without Eloquent Filter
 The Resource URI would be look like:
