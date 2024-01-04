@@ -1,13 +1,13 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 
 /**
- * Class WhereCondition.
+ * Class WhereHasCondition.
  */
-class WhereCondition implements DefaultConditionsContract
+class WhereHasCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -17,8 +17,8 @@ class WhereCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if (isset($params)) {
-            $method = 'Where';
+        if (stripos($field, '.')) {
+            $method = 'WhereHas';
         }
 
         return $method ?? null;

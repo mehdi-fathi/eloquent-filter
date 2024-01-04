@@ -1,13 +1,13 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 
 /**
- * Class WhereHasCondition.
+ * Class WhereOrCondition.
  */
-class WhereHasCondition implements DefaultConditionsContract
+class WhereOrCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -17,8 +17,8 @@ class WhereHasCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if (stripos($field, '.')) {
-            $method = 'WhereHas';
+        if ($field == 'or') {
+            $method = 'WhereOr';
         }
 
         return $method ?? null;

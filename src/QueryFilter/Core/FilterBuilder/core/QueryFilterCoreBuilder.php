@@ -2,11 +2,12 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
 
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
-use eloquentFilter\QueryFilter\Detection\DetectionDbFactory;
-use eloquentFilter\QueryFilter\Detection\DetectionFactory;
+use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory;
+use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionFactory;
 
 /**
  * Class QueryFilterCoreBuilder.
@@ -50,12 +51,16 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
         $this->setDefaultDetect($defaultSeriesInjected);
 
-        if ($mainBuilderConditions->getName() == 'DbBuilder') {
+        if ($mainBuilderConditions->getName() == DBBuilderQueryByCondition::NAME) {
 
-            $this->setDetectFactory($this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+            $factories = $this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
+
         } else {
-            $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
+            $factories = $this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
+
         }
+
+        $this->setDetectFactory($factories);
 
         $this->mainBuilderConditions = $mainBuilderConditions;
     }
@@ -175,7 +180,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      * @param array|null $default_detect
      * @param array|null $detectInjected
      *
-     * @return \eloquentFilter\QueryFilter\Detection\DetectionDbFactory
+     * @return \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory
      */
     public function getDbDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
     {

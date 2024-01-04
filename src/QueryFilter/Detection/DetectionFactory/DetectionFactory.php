@@ -1,8 +1,9 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
+use eloquentFilter\QueryFilter\Detection\DetectorCondition;
 
 /**
  * Class DetectionFactory.

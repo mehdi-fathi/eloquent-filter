@@ -19,14 +19,14 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereOr;
  */
 class MainBuilderQueryByCondition implements MainBuilderConditionsContract
 {
-    private string $name = 'EloquentBuilder';
+    const NAME = 'EloquentBuilder';
 
     /**
      * @return string
      */
     public function getName(): string
     {
-        return $this->name;
+        return self::NAME;
     }
 
     /**

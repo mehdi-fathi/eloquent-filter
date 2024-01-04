@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\Core;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -86,7 +87,7 @@ class ResolverDetections
      */
     private function getFiltersDetection(): array
     {
-        if (app('eloquentFilter')->getNameDriver() != 'DbBuilder') {
+        if (app('eloquentFilter')->getNameDriver() != DBBuilderQueryByCondition::NAME) {
             $model = $this->builder->getModel();
         } else {
             $model = $this->builder->from;

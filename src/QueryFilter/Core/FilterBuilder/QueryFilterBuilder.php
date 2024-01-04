@@ -7,6 +7,7 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
@@ -65,7 +66,7 @@ class QueryFilterBuilder
             return $builder;
         }
 
-        if ($this->getNameDriver() == 'DbBuilder') {
+        if ($this->getNameDriver() == DBBuilderQueryByCondition::NAME) {
 
             $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 

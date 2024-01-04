@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect;
+namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 

@@ -6,15 +6,15 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\SpecialCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereBetweenCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereByOptCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereDateCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereHasCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereInCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereLikeCondition;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\WhereOrCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereBetweenCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereByOptCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDateCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereHasCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereInCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
 
 /**
  * Class QueryFilterCoreFactory.

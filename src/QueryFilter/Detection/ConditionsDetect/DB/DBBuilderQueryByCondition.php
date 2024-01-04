@@ -18,14 +18,14 @@ use eloquentFilter\QueryFilter\Queries\DB\WhereOr;
  */
 class DBBuilderQueryByCondition implements MainBuilderConditionsContract
 {
-    private string $name = 'DbBuilder';
+    const NAME = 'DbBuilder';
 
     /**
      * @return string
      */
     public function getName(): string
     {
-        return $this->name;
+        return self::NAME;
     }
 
     /**
