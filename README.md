@@ -945,6 +945,15 @@ e.g:
 
 If you'd like to contribute to Eloquent Filter, please fork the repository and create a pull request. We welcome contributions of all kinds, including bug fixes, new features, and documentation improvements.
 
+## Proposed Features (Under Consideration)
+
+We are constantly working to improve our package and have planned the following features for upcoming releases:
+
+- Configurable Filter Presets: Implement the ability to define and save filter presets.
+  This feature would allow users to quickly apply common sets of filters without having to specify them each time.
+
+Your contributions are always welcome! If you would like to help with the development of these features.
+
 ## License
 
 Eloquent Filter is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
