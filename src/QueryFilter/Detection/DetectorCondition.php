@@ -72,6 +72,7 @@ class DetectorCondition
                 if ($model->checkModelHasOverrideMethod($field)) {
                     $query = WhereCustom::class;
                 } else {
+                    /** @see DefaultConditionsContract::detect() */
                     $query = $item::detect($field, $params);
                 }
 

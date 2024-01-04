@@ -3,25 +3,23 @@
 namespace eloquentFilter\QueryFilter\Detection;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use Exception;
 
 /**
- * Class DetectorConditions.
+ * Class DetectorDbCondition.
  */
 class DetectorDbCondition
 {
-    protected string $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
-         or create an override method with name %s or call ignoreRequest method for ignore %s.";
+
     /**
      * @var \Illuminate\Support\Collection
      */
     private \Illuminate\Support\Collection $detector;
 
     /**
-     * DetectorConditions constructor.
-     *
      * @param array $detector
+     * @see DetectorCondition constructor.
+     *
      */
     public function __construct(array $detector)
     {
@@ -67,6 +65,7 @@ class DetectorDbCondition
     public function detect(string $field, $params, $model = null): ?string
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params) {
+            /** @see DefaultConditionsContract::detect() */
             $query = $item::detect($field, $params);
 
             if (!empty($query)) {
