@@ -1,14 +1,14 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\Detector;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use Exception;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionContract;
 
 /**
  * Class DetectorDbCondition.
  */
-class DetectorDbCondition
+class DetectorConditionDbCondition implements DetectorConditionContract
 {
 
     /**
@@ -18,7 +18,7 @@ class DetectorDbCondition
 
     /**
      * @param array $detector
-     * @see DetectorCondition constructor.
+     * @see DetectorConditionCondition constructor.
      *
      */
     public function __construct(array $detector)
@@ -56,13 +56,12 @@ class DetectorDbCondition
     /**
      * @param string $field
      * @param $params
-     * @param null $model
-     *
+     * @param null $getWhiteListFilter
+     * @param bool $HasOverrideMethod
+     * @param $model_class
      * @return string|null
-     * @throws Exception
-     *
      */
-    public function detect(string $field, $params, $model = null): ?string
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $model_class = null): ?string
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params) {
             /** @see DefaultConditionsContract::detect() */

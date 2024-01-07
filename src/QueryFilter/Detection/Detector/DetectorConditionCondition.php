@@ -1,8 +1,9 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Detection;
+namespace eloquentFilter\QueryFilter\Detection\Detector;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
 use Exception;
@@ -10,7 +11,7 @@ use Exception;
 /**
  * Class DetectorConditions.
  */
-class DetectorCondition
+class DetectorConditionCondition implements DetectorConditionContract
 {
     protected string $errorExceptionWhileList = "You must set %s in whiteListFilter in %s
          or create an override method with name %s or call ignoreRequest method for ignore %s.";
@@ -59,17 +60,16 @@ class DetectorCondition
     /**
      * @param string $field
      * @param $params
-     * @param null $model
-     *
+     * @param null $getWhiteListFilter
+     * @param bool $HasOverrideMethod
+     * @param $model_class
      * @return string|null
-     * @throws Exception
-     *
      */
-    public function detect(string $field, $params, $model = null): ?string
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $model_class = null): ?string
     {
-        $out = $this->getDetector()->map(function ($item) use ($field, $params, $model) {
-            if ($this->handelListFields($field, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $model)) {
-                if ($model->checkModelHasOverrideMethod($field)) {
+        $out = $this->getDetector()->map(function ($item) use ($field, $params, $getWhiteListFilter, $HasOverrideMethod, $model_class) {
+            if ($this->handelListFields($field, $getWhiteListFilter, $HasOverrideMethod, $model_class)) {
+                if ($HasOverrideMethod) {
                     $query = WhereCustom::class;
                 } else {
                     /** @see DefaultConditionsContract::detect() */
@@ -101,9 +101,7 @@ class DetectorCondition
             return true;
         }
 
-        $class_name = class_basename($model_class);
-
-        throw new EloquentFilterException(sprintf($this->errorExceptionWhileList, $field, $class_name, $field, $field), 1);
+        throw new EloquentFilterException(sprintf($this->errorExceptionWhileList, $field, $model_class, $field, $field), 1);
     }
 
     /**
