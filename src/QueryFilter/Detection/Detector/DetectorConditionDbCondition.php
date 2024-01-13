@@ -58,10 +58,10 @@ class DetectorConditionDbCondition implements DetectorConditionContract
      * @param $params
      * @param null $getWhiteListFilter
      * @param bool $HasOverrideMethod
-     * @param $model_class
+     * @param $className
      * @return string|null
      */
-    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $model_class = null): ?string
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $className = null): ?string
     {
         $out = $this->getDetector()->map(function ($item) use ($field, $params) {
             /** @see DefaultConditionsContract::detect() */

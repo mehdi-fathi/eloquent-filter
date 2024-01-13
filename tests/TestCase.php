@@ -45,6 +45,7 @@ class TestCase extends Orchestra\Testbench\TestCase
             }
 
             app()->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory, $request) {
+                /* @see QueryFilterCoreFactory::createQueryFilterCoreDBQueryBuilder */
                 return $createEloquentFilter($request, $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
             });
 
@@ -53,6 +54,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
         $this->app->singleton('eloquentFilter', function () use ($createEloquentFilter, $queryFilterCoreFactory) {
 
+            /* @see QueryFilterCoreFactory::createQueryFilterCoreEloquentBuilder */
             return $createEloquentFilter($this->request->query(), $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder());
         });
     }

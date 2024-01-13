@@ -28,7 +28,7 @@ class ResolverDetections
     /**
      * @var \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract
      */
-    private DetectorFactoryContract $detect_factory;
+    private DetectorFactoryContract $detector_factory;
 
 
     private MainBuilderConditionsContract $main_builder_conditions;
@@ -37,14 +37,14 @@ class ResolverDetections
      * ResolverDetections constructor.
      * @param $builder
      * @param array $request
-     * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract $detect_factory
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract $detector_factory
      * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $main_builder_conditions_contract
      */
-    public function __construct($builder, array $request, DetectorFactoryContract $detect_factory, MainBuilderConditionsContract $main_builder_conditions_contract)
+    public function __construct($builder, array $request, DetectorFactoryContract $detector_factory, MainBuilderConditionsContract $main_builder_conditions_contract)
     {
         $this->builder = $builder;
         $this->request = $request;
-        $this->detect_factory = $detect_factory;
+        $this->detector_factory = $detector_factory;
         $this->main_builder_conditions = $main_builder_conditions_contract;
     }
 
@@ -75,7 +75,7 @@ class ResolverDetections
      */
     private function resolve($filterName, $values, $model)
     {
-        $detectedConditions = $this->detect_factory->buildDetections($filterName, $values, $model);
+        $detectedConditions = $this->detector_factory->buildDetections($filterName, $values, $model);
 
         $builderDriver = $this->main_builder_conditions->build($detectedConditions);
 

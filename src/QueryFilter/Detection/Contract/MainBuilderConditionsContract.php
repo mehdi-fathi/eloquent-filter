@@ -13,5 +13,8 @@ interface MainBuilderConditionsContract
      */
     public function build($condition): ?string;
 
+    /**
+     * @return string
+     */
     public function getName(): string;
 }

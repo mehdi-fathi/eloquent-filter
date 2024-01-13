@@ -62,13 +62,13 @@ class DetectorConditionCondition implements DetectorConditionContract
      * @param $params
      * @param null $getWhiteListFilter
      * @param bool $HasOverrideMethod
-     * @param $model_class
+     * @param $className
      * @return string|null
      */
-    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $model_class = null): ?string
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $className = null): ?string
     {
-        $out = $this->getDetector()->map(function ($item) use ($field, $params, $getWhiteListFilter, $HasOverrideMethod, $model_class) {
-            if ($this->handelListFields($field, $getWhiteListFilter, $HasOverrideMethod, $model_class)) {
+        $out = $this->getDetector()->map(function ($item) use ($field, $params, $getWhiteListFilter, $HasOverrideMethod, $className) {
+            if ($this->handelListFields($field, $getWhiteListFilter, $HasOverrideMethod, $className)) {
                 if ($HasOverrideMethod) {
                     $query = WhereCustom::class;
                 } else {

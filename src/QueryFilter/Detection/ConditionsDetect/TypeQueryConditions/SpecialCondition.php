@@ -17,6 +17,7 @@ class SpecialCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
+        //todo should be constant
         if ($field == 'f_params') {
             return 'Special';
         }
