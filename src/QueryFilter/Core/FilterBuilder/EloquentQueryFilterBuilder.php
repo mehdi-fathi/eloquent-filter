@@ -102,7 +102,7 @@ class EloquentQueryFilterBuilder
 
         $serialize_request_filter = $this->getQueryBuilderWrapper()->serializeRequestFilter($this->requestFilter->getRequest());
 
-        $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();  //todo fix it
+        $alias_list_filter = $this->getQueryBuilderWrapper()->getAliasListFilter();
 
         $this->requestFilter->requestAlter(
             ignore_request: $ignore_request,
