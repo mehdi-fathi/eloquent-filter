@@ -76,6 +76,7 @@ class ServiceProvider extends BaseServiceProvider
             app()->singleton(
                 'eloquentFilter',
                 function () use ($createEloquentFilter, $queryFilterCoreFactory, $request) {
+                    /* @see QueryFilterCoreFactory::createQueryFilterCoreDBQueryBuilder */
                     return $createEloquentFilter($request, $queryFilterCoreFactory->createQueryFilterCoreDBQueryBuilder());
                 }
             );
@@ -86,6 +87,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             'eloquentFilter',
             function () use ($createEloquentFilter, $queryFilterCoreFactory) {
+                /* @see QueryFilterCoreFactory::createQueryFilterCoreEloquentBuilder */
                 return $createEloquentFilter($this->app->get('request')->query(), $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder());
             }
         );
