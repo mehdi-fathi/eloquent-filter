@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Queries\Eloquent;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ class Special extends BaseClause
      * @var array
      */
     public static $reserve_param = [
-        'f_params' => [
+        SpecialCondition::SPECIAL_PARAM_NAME => [
             'limit',
             'orderBy',
         ],
@@ -31,7 +32,7 @@ class Special extends BaseClause
     public function apply($query)
     {
         foreach ($this->values as $key => $param_value) {
-            if (!in_array($key, self::$reserve_param['f_params'])) {
+            if (!in_array($key, self::$reserve_param[SpecialCondition::SPECIAL_PARAM_NAME])) {
                 throw new EloquentFilterException("$key is not in f_params array.", 2);
             }
             if (is_array($param_value)) {

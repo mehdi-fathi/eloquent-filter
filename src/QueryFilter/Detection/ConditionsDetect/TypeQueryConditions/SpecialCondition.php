@@ -9,6 +9,7 @@ use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
  */
 class SpecialCondition implements DefaultConditionsContract
 {
+    const SPECIAL_PARAM_NAME = 'f_params';
     /**
      * @param $field
      * @param $params
@@ -18,7 +19,7 @@ class SpecialCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         //todo should be constant
-        if ($field == 'f_params') {
+        if ($field == self::SPECIAL_PARAM_NAME) {
             return 'Special';
         }
 

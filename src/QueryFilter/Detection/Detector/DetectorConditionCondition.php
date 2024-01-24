@@ -2,6 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Detection\Detector;
 
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
@@ -97,7 +98,7 @@ class DetectorConditionCondition implements DetectorConditionContract
      */
     private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class): bool
     {
-        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || ($field == 'f_params' || $field == 'or') || $has_method) {
+        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == 'or') || $has_method) {
             return true;
         }
 
