@@ -760,7 +760,8 @@ So we added it in this version with some other options to better management.
         'log' => [
         'has_keeping_query' => false,
         'max_time_query' => null,
-        'type' => 'eloquentFilter.query']
+        'type' => 'eloquentFilter.query'
+        ]
 
 
   It's disable by default you enable by `has_keeping_query`, `type` is type log ,and `max_time_query` is a value for keeping queries with high time-executed. 
