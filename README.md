@@ -735,7 +735,24 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
 - You had better keep `max_limit`. It's a limitation for preventing making awful queries mistakenly by the developer or intentionally by a villain user.
 
-        'max_limit' => 20 
+        'max_limit' => 20
+
+- With `filtering_keys` ,You have a place to declare some provided key and use it in filtering.
+
+        'filtering_keys'=>[
+          'title_sport_advanced' => [
+              'title' => 'sport',
+              'created_at' => [
+                  'start' => '2019-01-01 17:11:46',
+                  'end' => '2019-02-06 10:11:46',
+              ],
+              'sub_cat' => [
+                  'news 1', 'news 2'
+              ],
+          ]
+        ]
+
+Then you just need to pass `config('eloquentFilter.filtering_keys.title_sport_advanced')` to filter method.
 
 - From now on , we have the ability to record logs by logger instance. Since queries is made dynamically somehow , the need of feature keeping queries with their time is required.
 So we added it in this version with some other options to better management.

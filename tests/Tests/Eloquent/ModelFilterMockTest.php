@@ -129,6 +129,17 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Category();
 
+        config(['eloquentFilter.filtering_keys.title_sport_advanced' => [
+            'title' => 'sport',
+            'created_at' => [
+                'start' => '2019-01-01 17:11:46',
+                'end' => '2019-02-06 10:11:46',
+            ],
+            'sub_cat' => [
+                'news 1', 'news 2'
+            ],
+        ]]);
+
         $builder = $builder->query()->where('title', 'sport')->whereBetween('created_at', [
             '2019-01-01 17:11:46',
             '2019-02-06 10:11:46',
