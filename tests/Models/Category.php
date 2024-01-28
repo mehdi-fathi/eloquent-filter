@@ -21,6 +21,8 @@ class Category extends Model
     private static $whiteListFilter = [
         'title',
         'count_posts',
+        'created_at',
+        'sub_cat',
     ];
 
     /**

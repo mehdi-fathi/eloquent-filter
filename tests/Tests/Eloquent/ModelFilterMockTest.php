@@ -125,6 +125,34 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdi', 1234], $stats['data']->getBindings());
     }
 
+    public function testWhereFilteringKeys()
+    {
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport')->whereBetween('created_at', [
+            '2019-01-01 17:11:46',
+            '2019-02-06 10:11:46',
+        ])->whereIn('sub_cat', ['news 1', 'news 2']);
+
+        $this->request->shouldReceive('query')->andReturn(
+
+            config('eloquentFilter.filtering_keys.title_sport_advanced')
+
+        );
+
+        $categories = Category::filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals([
+            'sport',
+            '2019-01-01 17:11:46',
+            '2019-02-06 10:11:46',
+            'news 1',
+            'news 2'
+        ], $categories->getBindings());
+    }
+
     public function testWhereZero()
     {
         $builder = new Category();

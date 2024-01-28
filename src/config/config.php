@@ -39,6 +39,17 @@ return [
         'has_keeping_query' => false,
         'max_time_query' => null,
         'type' => 'eloquentFilter.query'
+    ],
+    'filtering_keys'=>[
+        'title_sport_advanced' => [
+            'title' => 'sport',
+            'created_at' => [
+                'start' => '2019-01-01 17:11:46',
+                'end' => '2019-02-06 10:11:46',
+            ],
+            'sub_cat' => [
+                'news 1', 'news 2'
+            ],
+        ]
     ]
-
 ];
