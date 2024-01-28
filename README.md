@@ -752,7 +752,7 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
           ]
         ]
 
-Then you just need to pass `config('eloquentFilter.filtering_keys.title_sport_advanced')` to filter method.
+  Then you just need to pass `config('eloquentFilter.filtering_keys.title_sport_advanced')` to filter method.
 
 - From now on , we have the ability to record logs by logger instance. Since queries is made dynamically somehow , the need of feature keeping queries with their time is required.
 So we added it in this version with some other options to better management.
