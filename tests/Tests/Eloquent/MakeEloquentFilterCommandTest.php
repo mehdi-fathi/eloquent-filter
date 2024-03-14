@@ -33,25 +33,14 @@ class MakeEloquentFilterCommandTest extends \TestCase
     }
 
     /**
-     * @dataProvider modelClassProvider
      *
      * @param $argument
      * @param $class
      */
-    public function testMakeClassName($argument, $class)
+    public function testMakeClassName($argument = 'User', $class = 'UserFilter')
     {
         $this->command->shouldReceive('argument')->andReturn($argument);
         $this->command->makeClassName();
         $this->assertEquals("App\\ModelFilters\\$class", $this->command->getClassName());
-    }
-
-    /**
-     * @return array
-     */
-    public function modelClassProvider()
-    {
-        return [
-            ['User', 'UserFilter'],
-        ];
     }
 }
