@@ -1,6 +1,5 @@
 <?php
 
-namespace eloquentFilter;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

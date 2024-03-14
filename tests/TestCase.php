@@ -67,6 +67,6 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     protected function getPackageProviders($app)
     {
-        return [\eloquentFilter\ServiceProviderTest::class];
+        return [ServiceProviderTest::class];
     }
 }
