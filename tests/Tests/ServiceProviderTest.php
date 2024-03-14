@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter;
+namespace eloquentFilter\Tests;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
