@@ -65,8 +65,8 @@ The current version supports:
 
 | Major Version | Versions      | Status         | PHP Version | Laravel Version   |
 |---------------|---------------|----------------|-------------|-------------------|
-| ^4.0          | 4.x.x - 4.x.x | Active support | >= 8.2      | >= 11.x           |
-| ^4.0          | 4.x.x - 4.x.x | Active support | >= 8.0      | >= 9.x - <= 10.x  |
+| ^4.0          | 4.2.0 - 4.x.x | Active support | >= 8.2      | >= 11.x           |
+| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x  |
 | ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x            |
 | ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x |
 | ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4   |
