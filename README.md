@@ -52,7 +52,7 @@ although we have a lot of features to make able you to implement your specific s
 
 ## Requirements
 - PHP 8.0,8.1,8.2
-- Laravel 8.x,9.x,10.x(New)
+- Laravel 8.x,9.x,10.x,11.x(New)
 
 ### Version information
 
@@ -63,12 +63,13 @@ The current version supports:
 - Support query builder along with eloquent
 - Set a specific name for custom methods
 
-| Version | Illuminate    | Status         | PHP Version |
-|---------|---------------|----------------|-------------|
-| ^4.0    | 4.x.x - 4.x.x | Active support | >= 8.0      |
-| ^3.0    | 3.2.x - 3.4.x | End of life    | >= 8.0      |
-| ^3.0    | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    |
-| ^2.0    | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    |
+| Major Version | Versions      | Status         | PHP Version | Laravel Version   |
+|---------------|---------------|----------------|-------------|-------------------|
+| ^4.0          | 4.x.x - 4.x.x | Active support | >= 8.2      | >= 11.x           |
+| ^4.0          | 4.x.x - 4.x.x | Active support | >= 8.0      | >= 9.x - <= 10.x  |
+| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x            |
+| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x |
+| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4   |
 
 ## :microphone: Introduction
 
