@@ -1566,6 +1566,25 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['%mehdi%'], $categories->getBindings());
     }
 
+
+    public function testCustomFilterAsArray()
+    {
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'like', '%mehdi%');
+
+        $this->request->shouldReceive('query')->andReturn(
+            null
+        );
+
+        $categories = Category::filter([
+            'sample_like' => 'mehdi',
+        ]);
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+        $this->assertEquals(['%mehdi%'], $categories->getBindings());
+    }
+
     public function testAddWhereToFilter()
     {
         $builder = new Category();
