@@ -44,7 +44,6 @@ class EloquentQueryFilterBuilder
 
     /**
      * @param $builder
-     * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
      * @param array|null $detections_injected
@@ -52,13 +51,9 @@ class EloquentQueryFilterBuilder
      *
      * @return void
      */
-    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
+    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
-
-        if (!empty($request)) {
-            $this->requestFilter->setPureRequest($request);
-        }
 
         $this->handleRequest(
             ignore_request: $ignore_request,

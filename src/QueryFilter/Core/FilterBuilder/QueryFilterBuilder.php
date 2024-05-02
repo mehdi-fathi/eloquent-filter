@@ -70,12 +70,12 @@ class QueryFilterBuilder
 
             $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 
-            return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
+            return $db->apply($builder, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
         }
 
         $db = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 
-        return $db->apply($builder, $request, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
+        return $db->apply($builder, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
 
     }
 

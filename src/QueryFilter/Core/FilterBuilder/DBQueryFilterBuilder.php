@@ -46,7 +46,6 @@ class DBQueryFilterBuilder
 
     /**
      * @param $builder
-     * @param array|null $request
      * @param array|null $ignore_request
      * @param array|null $accept_request
      * @param array|null $detections_injected
@@ -54,7 +53,7 @@ class DBQueryFilterBuilder
      *
      * @return void
      */
-    public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
+    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
 
@@ -65,6 +64,7 @@ class DBQueryFilterBuilder
 
         $this->resolveDetections($detections_injected, $black_list_detections);
 
+        //todo !!!! We don't support getResponseFilter for the pure query. We can pass a callback for this purpose.
         return $this->responseFilter->getResponse();
     }
 
