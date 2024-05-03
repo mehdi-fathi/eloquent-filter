@@ -17,7 +17,7 @@ class DBQueryFilterBuilder
 {
     use HelperEloquentFilter;
 
-    protected $queryBuilderWrapper;
+    protected QueryBuilderWrapper $queryBuilderWrapper;
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
@@ -74,7 +74,6 @@ class DBQueryFilterBuilder
     private function resolveDetections($detections_injected, $black_list_detections)
     {
         $this->queryFilterCore->unsetDetection($black_list_detections);
-        // $this->queryFilterCore->reload();
         $this->queryFilterCore->setDetectionsDbInjected($detections_injected);
 
         /** @see ResolverDetections */
@@ -89,7 +88,6 @@ class DBQueryFilterBuilder
 
         /** @see ResolverDetections::getResolverOut() */
         $responseResolver = app('ResolverDetections')->getResolverOut();
-
 
         $this->responseFilter->setResponse($responseResolver);
     }
@@ -109,7 +107,7 @@ class DBQueryFilterBuilder
             accept_request: $accept_request,
             serialize_request_filter: $serialize_request_filter,
             alias_list_filter: $alias_list_filter ?? [],
-            model: $this->getQueryBuilderWrapper()->getModel(),
+            model: null,
         );
     }
 

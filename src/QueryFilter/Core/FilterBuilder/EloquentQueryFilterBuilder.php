@@ -17,6 +17,8 @@ class EloquentQueryFilterBuilder
 {
     use HelperEloquentFilter;
 
+    protected QueryBuilderWrapper $queryBuilderWrapper;
+
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
