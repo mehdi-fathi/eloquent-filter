@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
-use eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper;
+use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
@@ -27,17 +27,17 @@ class QueryFilterBuilder
     }
 
     /**
-     * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper $queryBuilderWrapper
+     * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper $queryBuilderWrapper
      */
-    public function setQueryBuilderWrapper(QueryBuilderWrapper $queryBuilderWrapper): void
+    public function setQueryBuilderWrapper(EloquentModelBuilderWrapper $queryBuilderWrapper): void
     {
         $this->queryBuilderWrapper = $queryBuilderWrapper;
     }
 
     /**
-     * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\QueryBuilderWrapper
+     * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper
      */
-    public function getQueryBuilderWrapper(): QueryBuilderWrapper
+    public function getQueryBuilderWrapper(): EloquentModelBuilderWrapper
     {
         return $this->queryBuilderWrapper;
     }
