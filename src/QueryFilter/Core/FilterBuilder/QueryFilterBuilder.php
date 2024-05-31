@@ -2,13 +2,11 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
-use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
-use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
  * Class QueryFilterBuilder.
@@ -27,22 +25,6 @@ class QueryFilterBuilder
     }
 
     /**
-     * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper $queryBuilderWrapper
-     */
-    public function setQueryBuilderWrapper(EloquentModelBuilderWrapper $queryBuilderWrapper): void
-    {
-        $this->queryBuilderWrapper = $queryBuilderWrapper;
-    }
-
-    /**
-     * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper
-     */
-    public function getQueryBuilderWrapper(): EloquentModelBuilderWrapper
-    {
-        return $this->queryBuilderWrapper;
-    }
-
-    /**
      * @param $builder
      * @param array|null $request
      * @param array|null $ignore_request
@@ -55,8 +37,6 @@ class QueryFilterBuilder
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
         $this->buildExclusiveMacros($detections_injected);
-
-        $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);

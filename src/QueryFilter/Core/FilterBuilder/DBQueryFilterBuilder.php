@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
-use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
+use eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
@@ -17,7 +17,7 @@ class DBQueryFilterBuilder
 {
     use HelperEloquentFilter;
 
-    protected EloquentModelBuilderWrapper $queryBuilderWrapper;
+    protected DbBuilderWrapperInterface $queryBuilderWrapper;
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
@@ -29,17 +29,17 @@ class DBQueryFilterBuilder
     }
 
     /**
-     * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper $queryBuilderWrapper
+     * @param \eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface $queryBuilderWrapper
      */
-    public function setQueryBuilderWrapper(EloquentModelBuilderWrapper $queryBuilderWrapper): void
+    public function setQueryBuilderWrapper(DbBuilderWrapperInterface $queryBuilderWrapper): void
     {
         $this->queryBuilderWrapper = $queryBuilderWrapper;
     }
 
     /**
-     * @return \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper
+     * @return \eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface
      */
-    public function getQueryBuilderWrapper(): EloquentModelBuilderWrapper
+    public function getQueryBuilderWrapper(): DbBuilderWrapperInterface
     {
         return $this->queryBuilderWrapper;
     }
@@ -55,7 +55,7 @@ class DBQueryFilterBuilder
      */
     public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
-        $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createQueryBuilder($builder));
+        $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createDbQueryBuilder($builder));
 
         $this->handleRequest(
             ignore_request: $ignore_request,
