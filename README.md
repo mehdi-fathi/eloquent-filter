@@ -881,12 +881,12 @@ class User extends Model
 
 ```php
 
-      $categories = DB::table('categories')->filter()->getResponseFilter(function ($out) {
+$categories = DB::table('categories')->filter()->getResponseFilter(function ($out) {
 
-          $data['data'] = $out;
+    $data['data'] = $out;
 
-          return $data;
-      });
+    return $data;
+});
 
 ```
 
