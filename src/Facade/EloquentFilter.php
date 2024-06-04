@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static array getAcceptedRequest()
  * @method static array getIgnoredRequest()
  * @method static array getInjectedDetections()
+ * @method static array getResponse()
  *
  * @see eloquentFilter\QueryFilter\QueryFilter
  */

@@ -254,7 +254,6 @@ class DbFilterMockTest extends \TestCase
     }
 
 
-
     public function testFParamOrder()
     {
         $builder = DB::table('users')
@@ -394,6 +393,28 @@ class DbFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['2022-07-14'], $builder->getBindings());
         $this->assertEquals(['2022-07-14'], $users->getBindings());
+    }
+
+    public function testResponseCallback()
+    {
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = DB::table('categories')->filter()->getResponseFilter(function ($out) {
+
+            $data['data'] = $out;
+
+            return $data;
+        });
+
+        $builder = DB::table('categories')->where('title', 'sport');
+
+        $this->assertSame($categories['data']->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories['data']->getBindings());
     }
 
     public function tearDown(): void

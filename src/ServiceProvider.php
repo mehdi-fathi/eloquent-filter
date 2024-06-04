@@ -3,6 +3,7 @@
 namespace eloquentFilter;
 
 use eloquentFilter\Command\MakeEloquentFilter;
+use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
@@ -56,18 +57,19 @@ class ServiceProvider extends BaseServiceProvider
 
         $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
-        $createEloquentFilter = function ($requestData, QueryFilterCore $queryFilterCore) {
+        $createEloquentFilter = function ($requestData, QueryFilterCore $queryFilterCore, $call_back = null) {
             $requestFilter = app(RequestFilter::class, ['request' => $requestData]);
             $responseFilter = app(ResponseFilter::class);
 
             return app(QueryFilterBuilder::class, [
                 'queryFilterCore' => $queryFilterCore,
                 'requestFilter' => $requestFilter,
-                'responseFilter' => $responseFilter
+                'responseFilter' => $responseFilter,
+                'call_back' => $call_back,
             ]);
         };
 
-        \Illuminate\Database\Query\Builder::macro('filter', function ($request = null) use ($createEloquentFilter, $queryFilterCoreFactory) {
+        \Illuminate\Database\Query\Builder::macro('filter', function ($request = null, $call_back = null) use ($createEloquentFilter, $queryFilterCoreFactory) {
 
             if (empty($request)) {
                 $request = request()->query();
@@ -82,6 +84,14 @@ class ServiceProvider extends BaseServiceProvider
             );
 
             return app('eloquentFilter')->apply(builder: $this, request: $request);
+        });
+
+        \Illuminate\Database\Query\Builder::macro('getResponseFilter', function ($callback = null) use ($createEloquentFilter, $queryFilterCoreFactory) {
+
+            if(!empty($callback)){
+                return call_user_func($callback, EloquentFilter::getResponse());
+            }
+
         });
 
         $this->app->singleton(

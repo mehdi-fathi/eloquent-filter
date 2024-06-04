@@ -44,4 +44,12 @@ trait HelperEloquentFilter
     {
         return $this->queryFilterCore->getInjectedDetections();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->responseFilter->getResponse();
+    }
 }
