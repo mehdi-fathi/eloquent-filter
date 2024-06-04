@@ -877,6 +877,19 @@ class User extends Model
 }
 ```
 
+- You are capable of passing a callback function to `getResponse Filter` method in order to change the response. We only have this feature in query builder DB.
+
+```php
+
+      $categories = DB::table('categories')->filter()->getResponseFilter(function ($out) {
+
+          $data['data'] = $out;
+
+          return $data;
+      });
+
+```
+
 ### Black List Detections
 
 Obviously, you never want all users who are able to get data by manipulating requests. As a result, we'd better have
