@@ -877,7 +877,7 @@ class User extends Model
 }
 ```
 
-- You are capable of passing a callback function to `getResponseFilter` method in order to change the response. We only have this feature in query builder DB.
+- You are capable of passing a callback function to `getResponseFilter` method to change the response. We only have this feature in query builder DB.
 
 ```php
 
