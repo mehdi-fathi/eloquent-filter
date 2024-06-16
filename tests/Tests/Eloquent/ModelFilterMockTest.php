@@ -5,7 +5,6 @@ namespace Tests\Tests\Eloquent;
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
-use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 use Tests\Models\Car;
@@ -18,27 +17,10 @@ use Tests\Models\User;
 
 class ModelFilterMockTest extends \TestCase
 {
-    use Filterable;
-
-    /**
-     * @var ModelFilter
-     */
-    protected $filter;
-
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $builder;
-
-    /**
-     * @var array
-     */
-    protected $testInput;
-
-    /**
-     * @var array
-     */
-    protected $config;
 
     public $request;
     public $userModel;
