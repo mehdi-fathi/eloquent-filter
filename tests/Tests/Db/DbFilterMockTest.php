@@ -2,11 +2,8 @@
 
 namespace Tests\Tests\Db;
 
-use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
-use eloquentFilter\QueryFilter\ModelFilters\Filterable;
-use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
@@ -15,27 +12,6 @@ use Tests\Models\Tag;
 
 class DbFilterMockTest extends \TestCase
 {
-    use Filterable;
-
-    /**
-     * @var ModelFilter
-     */
-    protected $filter;
-
-    /**
-     * @var \Illuminate\Database\Eloquent\Builder
-     */
-    protected $builder;
-
-    /**
-     * @var array
-     */
-    protected $testInput;
-
-    /**
-     * @var array
-     */
-    protected $config;
 
     public function setUp(): void
     {
@@ -54,6 +30,39 @@ class DbFilterMockTest extends \TestCase
         $categories = DB::table('categories')->filter();
 
         $builder = DB::table('categories')->where('title', 'sport');
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+    }
+
+    public function testWhereWithEloquentFilter()
+    {
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = DB::table('categories')->filter();
+
+        $builder = DB::table('categories')->where('title', 'sport');
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = Category::filter($this->request->query());
 
         $this->assertSame($categories->toSql(), $builder->toSql());
 
