@@ -13,12 +13,12 @@ class RequestFilter
     /**
      * @var
      */
-    protected $accept_request;
+    protected mixed $accept_request = null;
 
     /**
      * @var
      */
-    protected $ignore_request;
+    protected mixed $ignore_request = null;
 
     /**
      * @var array|null
@@ -93,8 +93,7 @@ class RequestFilter
     /**
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param            $builder_model
-     *
+     * @param $builder_model
      * @return array|null
      */
     public function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
