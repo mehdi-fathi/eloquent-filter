@@ -7,7 +7,6 @@ namespace eloquentFilter\QueryFilter\Core\EloquentBuilder;
  */
 class EloquentModelBuilderWrapper implements QueryBuilderWrapperInterface
 {
-    //todo I think there's no need to use this class for db query builder
     /**
      * @param mixed $builder
      */
