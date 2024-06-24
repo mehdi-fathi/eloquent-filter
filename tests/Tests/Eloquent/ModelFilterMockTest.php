@@ -84,6 +84,25 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals(['sport'], $categories->getBindings());
     }
+    public function testFieldCastWhere()
+    {
+
+        $builder = new Category();
+
+        $builder = $builder->query()->where('desc', 'Best category');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'desc' => ' Best category ',
+            ]
+        );
+
+        $categories = Category::filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['Best category'], $categories->getBindings());
+    }
 
     public function testWhereAlias()
     {

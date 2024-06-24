@@ -10,6 +10,8 @@ use Illuminate\Support\Arr;
  */
 class RequestFilter
 {
+
+    private string $cast_method_sign = 'filterSet';
     /**
      * @var
      */
@@ -111,6 +113,9 @@ class RequestFilter
             }
 
             foreach ($this->getRequest() as $name => $value) {
+
+                $value = $this->getCastedMethodValue($name, $builder_model, $value);
+
                 if (is_array($value) && !empty($builder_model) && method_exists($builder_model, $name)) {
                     if (HelperFilter::isAssoc($value)) {
                         unset($this->request[$name]);
@@ -227,5 +232,22 @@ class RequestFilter
     public function getIgnoreRequest()
     {
         return $this->ignore_request;
+    }
+
+    /**
+     * @param int|string $name
+     * @param $builder_model
+     * @param mixed $value
+     * @return mixed
+     */
+    private function getCastedMethodValue(int|string $name, $builder_model, mixed $value): mixed
+    {
+        $castMethod = $this->cast_method_sign . $name;
+
+        if (!empty($builder_model) && method_exists($builder_model, $castMethod)) {
+            $value = $builder_model->{$castMethod}($value);
+            $this->request[$name] = $value;
+        }
+        return $value;
     }
 }
