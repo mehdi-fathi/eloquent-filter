@@ -46,6 +46,7 @@ although we have a lot of features to make able you to implement your specific s
 - [Query Builder](#query-builder-introduction)
 - [Magic Methods](#magic-methods)
     - [Request Filter](#request-filter)
+    - [Request Field Cast filter](#request-field-cast-filter)
     - [Response Filter](#response-filter)
     - [Black List Detections](#black-list-detections)
     - [Macro Methods](#macro-Methods)
@@ -852,6 +853,24 @@ class User extends Model
     {
        $request['username'] = trim($request['username']);
        return $request;
+    }
+}
+```
+### Request Field Cast Filter
+
+Eloquent Filter have required to a bunch of specific method for each of the fields before going on filter process.
+This feature has been implemented recently. By this `filterSet` + `field` method in your model, You
+will be able to add some change for that particular field.
+
+```php
+
+class Category extends Model
+{
+    use Filterable;
+    
+    public function filterSetDesc($value)
+    {
+        return trim($value);
     }
 }
 ```
