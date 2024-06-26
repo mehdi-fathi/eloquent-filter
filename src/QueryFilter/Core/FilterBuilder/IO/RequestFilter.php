@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 class RequestFilter
 {
 
-    private string $cast_method_sign = 'filterSet';
+    const CAST_METHOD_SIGN = 'filterSet';
     /**
      * @var
      */
@@ -242,7 +242,7 @@ class RequestFilter
      */
     private function getCastedMethodValue(int|string $name, $builder_model, mixed $value): mixed
     {
-        $castMethod = $this->cast_method_sign . $name;
+        $castMethod = SELF::CAST_METHOD_SIGN . $name;
 
         if (!empty($builder_model) && method_exists($builder_model, $castMethod)) {
             $value = $builder_model->{$castMethod}($value);
