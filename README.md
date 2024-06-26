@@ -46,7 +46,7 @@ although we have a lot of features to make able you to implement your specific s
 - [Query Builder](#query-builder-introduction)
 - [Magic Methods](#magic-methods)
     - [Request Filter](#request-filter)
-    - [Request Field Cast filter](#request-field-cast-filter)
+    - [Request Field Cast Filter](#request-field-cast-filter)
     - [Response Filter](#response-filter)
     - [Black List Detections](#black-list-detections)
     - [Macro Methods](#macro-Methods)
@@ -856,6 +856,11 @@ class User extends Model
     }
 }
 ```
+
+As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by Eloquent Filter. 
+That is a practical method when you want to set user_id or convert date or remove space and others.
+
+
 ### Request Field Cast Filter
 
 Eloquent Filter have required to a bunch of specific method for each of the fields before going on filter process.
@@ -874,9 +879,6 @@ class Category extends Model
     }
 }
 ```
-
-As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by Eloquent Filter. 
-That is a practical method when you want to set user_id or convert date or remove space and others.
 
 ### Response Filter
 
