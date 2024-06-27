@@ -868,7 +868,7 @@ That is a practical method when you want to set user_id or convert date or remov
 
 ### Request Field Cast Filter
 
-Eloquent Filter have required to a bunch of specific method for each of the fields before going on filter process.
+Eloquent Filter requires a bunch of specific methods for each of the fields before going on filter process.
 This feature has been implemented recently. By this `filterSet` + `field` method in your model, You
 will be able to add some change for that particular field.
 
