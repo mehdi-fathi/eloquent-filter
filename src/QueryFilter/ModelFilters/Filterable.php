@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * Trait Filterable.
  *
- * @method static Type filter(?array $request = null)
- * @method static Type ignoreRequest(?array $request = null)
- * @method static Type acceptRequest(?array $request = null)
- * @method static Type setCustomDetection(?array $object_custom_detect = null)
- * @method static Type setBlackListDetection(?array $black_list_detections = null)
+ * @method static Builder filter(?array $request = null)
+ * @method static Builder ignoreRequest(?array $request = null)
+ * @method static Builder acceptRequest(?array $request = null)
+ * @method static Builder setCustomDetection(?array $object_custom_detect = null)
+ * @method static Builder setBlackListDetection(?array $black_list_detections = null)
  */
 trait Filterable
 {
