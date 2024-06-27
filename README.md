@@ -849,6 +849,11 @@ SerializeRequestFilter. You just implement `SerializeRequestFilter` method in yo
 class User extends Model
 {
     use Filterable;
+    
+    private static $whiteListFilter =[
+        'username'
+    ];
+    
     public function serializeRequestFilter($request)
     {
        $request['username'] = trim($request['username']);
@@ -872,6 +877,10 @@ will be able to add some change for that particular field.
 class Category extends Model
 {
     use Filterable;
+    
+    private static $whiteListFilter =[
+        'desc'
+    ];
     
     public function filterSetDesc($value)
     {
