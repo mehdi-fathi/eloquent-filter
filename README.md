@@ -791,7 +791,7 @@ Change your code the controller of the laravel project as like below example:
 ```
 
 ```php
-
+  $user = new User();
   $users = $user->ignoreRequestFilter(['name','family'])
             ->filter()
             ->with('posts')
@@ -829,7 +829,6 @@ User::AcceptRequest(['username','id'])
 ```php
 
 $user = new User();
-
 $user->acceptRequestFilter(['username','id'])
             ->filter()
             ->paginate(request()->get('perpage'), ['*'], 'page');
