@@ -227,104 +227,6 @@ User::setWhiteListFilter(['name']);
 User::addWhiteListFilter('name'); 
 ```
 
-### Use in Controller
-
-Change your code the controller of the laravel project as like below example:
-
-```php
-
-namespace App\Http\Controllers;
-
-/**
- * Class UsersController.
- */
-class UsersController
-{
-
-    public function list()
-    {
-          if (!empty(request()->get('username'))) {
-          
-              $users = User::ignoreRequest(['name'])
-                        ->filter()
-                        ->with('posts')
-                        ->orderByDesc('id')
-                        ->paginate(request()->get('perpage'),['*'],'page');
-
-          } else {
-              $users = User::filter(
-                ['username' => ['mehdi','ali']]           
-                )->with('posts')
-                ->orderByDesc('id')
-                ->paginate(10,['*'],'page');
-          }
-    }
-}
-```
-
-```php
-
-namespace App\Http\Controllers;
-
-/**
- * Class UsersController.
- */
-class UsersController
-{
-
-    public function list()
-    {
-        $user = new User();
-    
-        $users = $user->ignoreRequestFilter(['name','family'])
-                  ->filter()
-                  ->with('posts')
-                  ->orderByDesc('id')
-                  ->paginate(request()->get('perpage'),['*'],'page');
-
-    }
-}
-```
-
--**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
- Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
-
--**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
-
-- You can ignore some request params via use of the bellow code.
-
-```php
-
-User::ignoreRequest(['perpage'])
-            ->filter()
-            ->paginate(request()->get('perpage'), ['*'], 'page');
-```
-
-Call `ignoreRequest` (static scoopt) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter. 
-e.g: the `perpage` param will never be in the conditions eloquent filter. 
-it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
-
-- You can filter some request params as acceptable filter.
-
-```php
-
-User::AcceptRequest(['username','id'])
-            ->filter()
-            ->paginate(request()->get('perpage'), ['*'], 'page');
-```
-
-```php
-
-$user = new User();
-
-$user->acceptRequestFilter(['username','id'])
-            ->filter()
-            ->paginate(request()->get('perpage'), ['*'], 'page');
-```
-
-Call `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter. 
-e.g: `username` and `id` key will be in the conditions eloquent filter.
-
 -**Note** Just in case, you must set `$whiteListFilter` in Models. Aim of the method avert to manipulation query string by a bad user.
 
 ### Simple Examples
@@ -870,7 +772,71 @@ currently , It's just a simple feature.
 
 Magic methods are a collection of methods that you can use as a wrapper in the Eloquent Filter.
 For example, serialize data before filtering or changing data in response and others.
-Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter`.
+Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter` and , etc.
+
+### Request Methods
+
+Call `ignoreRequest` (static scoopt) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
+
+Change your code the controller of the laravel project as like below example:
+
+```php
+          
+  $users = User::ignoreRequest(['name'])
+            ->filter()
+            ->with('posts')
+            ->orderByDesc('id')
+            ->paginate(request()->get('perpage'),['*'],'page');
+
+```
+
+```php
+
+  $users = $user->ignoreRequestFilter(['name','family'])
+            ->filter()
+            ->with('posts')
+            ->orderByDesc('id')
+            ->paginate(request()->get('perpage'),['*'],'page');
+
+```
+
+-**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
+Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
+
+-**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
+
+- You can ignore some request params via use of the bellow code.
+
+```php
+
+User::ignoreRequest(['perpage'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+e.g: the `perpage` param will never be in the conditions eloquent filter.
+it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
+
+- You can filter some request params as acceptable filter.
+
+```php
+
+User::AcceptRequest(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+```php
+
+$user = new User();
+
+$user->acceptRequestFilter(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+Call `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
+e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 ### Request Filter
 
