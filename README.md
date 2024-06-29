@@ -245,7 +245,7 @@ class UsersController
     {
           if (!empty(request()->get('username'))) {
           
-              $users = User::ignoreRequest('perpage')
+              $users = User::ignoreRequest(['name'])
                         ->filter()
                         ->with('posts')
                         ->orderByDesc('id')
@@ -261,6 +261,31 @@ class UsersController
     }
 }
 ```
+
+```php
+
+namespace App\Http\Controllers;
+
+/**
+ * Class UsersController.
+ */
+class UsersController
+{
+
+    public function list()
+    {
+        $user = new User();
+    
+        $users = $user->ignoreRequestFilter(['name','family'])
+                  ->filter()
+                  ->with('posts')
+                  ->orderByDesc('id')
+                  ->paginate(request()->get('perpage'),['*'],'page');
+
+    }
+}
+```
+
 -**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
  Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
 
@@ -275,8 +300,8 @@ User::ignoreRequest(['perpage'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `ignoreRequest` that will ignore some requests that you don't want to use in conditions of eloquent filter. 
-e.g: the perpage param will never be in the conditions eloquent filter. 
+Call `ignoreRequest` (static scoopt) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter. 
+e.g: the `perpage` param will never be in the conditions eloquent filter. 
 it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
 
 - You can filter some request params as acceptable filter.
@@ -288,7 +313,16 @@ User::AcceptRequest(['username','id'])
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
 
-Call `AcceptRequest` will accept requests in which you want to use in conditions Eloquent Filter. 
+```php
+
+$user = new User();
+
+$user->acceptRequestFilter(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+Call `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter. 
 e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 -**Note** Just in case, you must set `$whiteListFilter` in Models. Aim of the method avert to manipulation query string by a bad user.
