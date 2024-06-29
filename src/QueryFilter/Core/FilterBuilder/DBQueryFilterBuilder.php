@@ -64,7 +64,6 @@ class DBQueryFilterBuilder
 
         $this->resolveDetections($detections_injected, $black_list_detections);
 
-        //todo !!!! We don't support getResponseFilter for the pure query. We can pass a callback for this purpose.
         return $this->responseFilter->getResponse();
     }
 

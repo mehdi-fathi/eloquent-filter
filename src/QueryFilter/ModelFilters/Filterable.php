@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * Trait Filterable.
  *
- * @method static Type filter(?array $request = null)
- * @method static Type ignoreRequest(?array $request = null)
- * @method static Type acceptRequest(?array $request = null)
- * @method static Type setCustomDetection(?array $object_custom_detect = null)
- * @method static Type setBlackListDetection(?array $black_list_detections = null)
+ * @method static Builder filter(?array $request = null)
+ * @method static Builder ignoreRequest(?array $request = null)
+ * @method static Builder acceptRequest(?array $request = null)
+ * @method static Builder setCustomDetection(?array $object_custom_detect = null)
+ * @method static Builder setBlackListDetection(?array $black_list_detections = null)
  */
 trait Filterable
 {
@@ -62,7 +62,13 @@ trait Filterable
      */
     public function scopeIgnoreRequest($builder, ?array $request = null)
     {
+        $this->ignoreRequestFilter($request);
+    }
+
+    public function ignoreRequestFilter(?array $request = null)
+    {
         $this->ignore_request = $request;
+        return $this;
     }
 
     /**
@@ -71,7 +77,18 @@ trait Filterable
      */
     public function scopeAcceptRequest($builder, ?array $request = null)
     {
+        $this->acceptRequestFilter($request);
+    }
+
+    /**
+     * @param array|null $request
+     * @return \eloquentFilter\QueryFilter\ModelFilters\Filterable
+     */
+    public function acceptRequestFilter(?array $request = null)
+    {
         $this->accept_request = $request;
+        return $this;
+
     }
 
     /**

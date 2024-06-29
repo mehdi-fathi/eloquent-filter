@@ -10,15 +10,17 @@ use Illuminate\Support\Arr;
  */
 class RequestFilter
 {
+
+    const CAST_METHOD_SIGN = 'filterSet';
     /**
      * @var
      */
-    protected $accept_request;
+    protected mixed $accept_request = null;
 
     /**
      * @var
      */
-    protected $ignore_request;
+    protected mixed $ignore_request = null;
 
     /**
      * @var array|null
@@ -93,8 +95,7 @@ class RequestFilter
     /**
      * @param array|null $ignore_request
      * @param array|null $accept_request
-     * @param            $builder_model
-     *
+     * @param $builder_model
      * @return array|null
      */
     public function setFilterRequests(array $ignore_request = null, array $accept_request = null, $builder_model): ?array
@@ -112,6 +113,9 @@ class RequestFilter
             }
 
             foreach ($this->getRequest() as $name => $value) {
+
+                $value = $this->getCastedMethodValue($name, $builder_model, $value);
+
                 if (is_array($value) && !empty($builder_model) && method_exists($builder_model, $name)) {
                     if (HelperFilter::isAssoc($value)) {
                         unset($this->request[$name]);
@@ -228,5 +232,22 @@ class RequestFilter
     public function getIgnoreRequest()
     {
         return $this->ignore_request;
+    }
+
+    /**
+     * @param int|string $name
+     * @param $builder_model
+     * @param mixed $value
+     * @return mixed
+     */
+    private function getCastedMethodValue(int|string $name, $builder_model, mixed $value): mixed
+    {
+        $castMethod = SELF::CAST_METHOD_SIGN . $name;
+
+        if (!empty($builder_model) && method_exists($builder_model, $castMethod)) {
+            $value = $builder_model->{$castMethod}($value);
+            $this->request[$name] = $value;
+        }
+        return $value;
     }
 }

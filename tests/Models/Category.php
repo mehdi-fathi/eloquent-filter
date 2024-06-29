@@ -20,6 +20,7 @@ class Category extends Model
      */
     private static $whiteListFilter = [
         'title',
+        'desc',
         'count_posts',
         'created_at',
         'sub_cat',
@@ -61,5 +62,10 @@ class Category extends Model
     public function filterCustomSample_like(Builder $builder, $value)
     {
         return $builder->where('title', 'like', '%'.$value.'%');
+    }
+
+    public function filterSetDesc($value)
+    {
+        return trim($value);
     }
 }

@@ -46,6 +46,7 @@ although we have a lot of features to make able you to implement your specific s
 - [Query Builder](#query-builder-introduction)
 - [Magic Methods](#magic-methods)
     - [Request Filter](#request-filter)
+    - [Request Field Cast Filter](#request-field-cast-filter)
     - [Response Filter](#response-filter)
     - [Black List Detections](#black-list-detections)
     - [Macro Methods](#macro-Methods)
@@ -225,70 +226,6 @@ User::setWhiteListFilter(['name']);
 ```php
 User::addWhiteListFilter('name'); 
 ```
-
-### Use in Controller
-
-Change your code the controller of the laravel project as like below example:
-
-```php
-
-namespace App\Http\Controllers;
-
-/**
- * Class UsersController.
- */
-class UsersController
-{
-
-    public function list()
-    {
-          if (!empty(request()->get('username'))) {
-          
-              $users = User::ignoreRequest('perpage')
-                        ->filter()
-                        ->with('posts')
-                        ->orderByDesc('id')
-                        ->paginate(request()->get('perpage'),['*'],'page');
-
-          } else {
-              $users = User::filter(
-                ['username' => ['mehdi','ali']]           
-                )->with('posts')
-                ->orderByDesc('id')
-                ->paginate(10,['*'],'page');
-          }
-    }
-}
-```
--**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
- Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
-
--**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
-
-- You can ignore some request params via use of the bellow code.
-
-```php
-
-User::ignoreRequest(['perpage'])
-            ->filter()
-            ->paginate(request()->get('perpage'), ['*'], 'page');
-```
-
-Call `ignoreRequest` that will ignore some requests that you don't want to use in conditions of eloquent filter. 
-e.g: the perpage param will never be in the conditions eloquent filter. 
-it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
-
-- You can filter some request params as acceptable filter.
-
-```php
-
-User::AcceptRequest(['username','id'])
-            ->filter()
-            ->paginate(request()->get('perpage'), ['*'], 'page');
-```
-
-Call `AcceptRequest` will accept requests in which you want to use in conditions Eloquent Filter. 
-e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 -**Note** Just in case, you must set `$whiteListFilter` in Models. Aim of the method avert to manipulation query string by a bad user.
 
@@ -835,7 +772,70 @@ currently , It's just a simple feature.
 
 Magic methods are a collection of methods that you can use as a wrapper in the Eloquent Filter.
 For example, serialize data before filtering or changing data in response and others.
-Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter`.
+Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter` and , etc.
+
+### Request Methods
+
+Call `ignoreRequest` (static scope) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
+
+Change your code the controller of the laravel project as like below example:
+
+```php
+          
+  $users = User::ignoreRequest(['name'])
+            ->filter()
+            ->with('posts')
+            ->orderByDesc('id')
+            ->paginate(request()->get('perpage'),['*'],'page');
+
+```
+
+```php
+  $user = new User();
+  $users = $user->ignoreRequestFilter(['name','family'])
+            ->filter()
+            ->with('posts')
+            ->orderByDesc('id')
+            ->paginate(request()->get('perpage'),['*'],'page');
+
+```
+
+-**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
+Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
+
+-**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
+
+- You can ignore some request params via use of the bellow code.
+
+```php
+
+User::ignoreRequest(['perpage'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+e.g: the `perpage` param will never be in the conditions eloquent filter.
+It has to do with to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
+
+- You are able to filter some request params as acceptable filter`.
+
+Calling `AcceptRequest` (static scope) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
+e.g: `username` and `id` key will be in the conditions eloquent filter.
+
+```php
+``
+User::AcceptRequest(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
+
+```php
+
+$user = new User();
+$user->acceptRequestFilter(['username','id'])
+            ->filter()
+            ->paginate(request()->get('perpage'), ['*'], 'page');
+```
 
 ### Request Filter
 
@@ -848,6 +848,11 @@ SerializeRequestFilter. You just implement `SerializeRequestFilter` method in yo
 class User extends Model
 {
     use Filterable;
+    
+    private static $whiteListFilter =[
+        'username'
+    ];
+    
     public function serializeRequestFilter($request)
     {
        $request['username'] = trim($request['username']);
@@ -858,6 +863,30 @@ class User extends Model
 
 As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by Eloquent Filter. 
 That is a practical method when you want to set user_id or convert date or remove space and others.
+
+
+### Request Field Cast Filter
+
+Eloquent Filter requires a bunch of specific methods for each of the fields before going on filter process.
+This feature has been implemented recently. By this `filterSet` + `field` method in your model, You
+will be able to add some change for that particular field.
+
+```php
+
+class Category extends Model
+{
+    use Filterable;
+    
+    private static $whiteListFilter =[
+        'desc'
+    ];
+    
+    public function filterSetDesc($value)
+    {
+        return trim($value);
+    }
+}
+```
 
 ### Response Filter
 
@@ -923,18 +952,18 @@ class UsersController
 
 - Below is an order checking conditions list if you use name of them for set a black list. 
 
-| Name                  | Method eloquent | Example                                  |
-|-----------------------|-----------------|------------------------------------------|
-| WhereCustomCondition  |                 | Your declared custom method of Model     |
-| SpecialCondition      |                 | support f_params, e.g: limit and order   |
-| WhereBetweenCondition | whereBetween    |                                          |
-| WhereByOptCondition   | where           | where('column', ">", $value)             |
-| WhereLikeCondition    | where           | where('column', 'like', $value)          |
-| WhereInCondition      | whereIn         | whereIn('column', $value)                |
-| WhereOrCondition      | orWhere         | orWhere('column', $value)                |
-| WhereHas              | WhereHas        |                                          |
-| WhereDateCondition    | whereDate       | whereDate('column', $value)              |
-| where                 | where           | where('column', $value)                  |
+| Name                     | Method eloquent    | Example                                          |
+|--------------------------|--------------------|--------------------------------------------------|
+| WhereCustomCondition     |                    | Your declared custom method of Model             |
+| SpecialCondition         |                    | support f_params, e.g: limit and order           |
+| WhereBetweenCondition    | whereBetween       |                                                  |
+| WhereByOptCondition      | where              | where('column', ">", $value)                     |
+| WhereLikeCondition       | where              | where('column', 'like', $value)                  |
+| WhereInCondition         | whereIn            | whereIn('column', $value)                        |
+| WhereOrCondition         | orWhere            | orWhere('column', $value)                        |
+| WhereHas                 | WhereHas           |                                                  |
+| WhereDateCondition       | whereDate          | whereDate('column', $value)                      |
+| where                    | where              | where('column', $value)                          |
 
 - You are able to set on Model layer as well. `black_list_detections` array is used for this purpose.
 
@@ -966,11 +995,10 @@ class Car extends Model
 
 e.g:
 
-
 ```php
-        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
-        echo $users->isUsedEloquentFilter(); // will true
-        echo $users->getDetectionsInjected(); // will showing a list array of injected objects
+    $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+    echo $users->isUsedEloquentFilter(); // will true
+    echo $users->getDetectionsInjected(); // will showing a list array of injected objects
 ```
 
 ## Contributing

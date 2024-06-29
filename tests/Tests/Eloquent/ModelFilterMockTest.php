@@ -5,7 +5,6 @@ namespace Tests\Tests\Eloquent;
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
-use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 use Tests\Models\Car;
@@ -18,27 +17,10 @@ use Tests\Models\User;
 
 class ModelFilterMockTest extends \TestCase
 {
-    use Filterable;
-
-    /**
-     * @var ModelFilter
-     */
-    protected $filter;
-
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $builder;
-
-    /**
-     * @var array
-     */
-    protected $testInput;
-
-    /**
-     * @var array
-     */
-    protected $config;
 
     public $request;
     public $userModel;
@@ -101,6 +83,25 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($categories->toSql(), $builder->toSql());
 
         $this->assertEquals(['sport'], $categories->getBindings());
+    }
+    public function testFieldCastWhere()
+    {
+
+        $builder = new Category();
+
+        $builder = $builder->query()->where('desc', 'Best category');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'desc' => ' Best category ',
+            ]
+        );
+
+        $categories = Category::filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['Best category'], $categories->getBindings());
     }
 
     public function testWhereAlias()
@@ -735,6 +736,34 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $users->getBindings());
     }
 
+    public function testWhereIgnoreParamNonStaticMethodScoop()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'is_payment' => true,
+            ]
+        );
+
+        $tag = new Tag();
+
+        $users = $tag->ignoreRequestFilter(
+            [
+                'google_index',
+                'is_payment',
+            ]
+        )->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
+    }
+
     public function testWhereIgnoreParamThatNotExistRequest()
     {
         $builder = new Tag();
@@ -1189,6 +1218,35 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
         $this->assertEquals(['joo'], $users->getBindings());
+
+        $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
+    }
+
+    public function testAcceptRequestNonStaticMethod()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'gmail_api' => 'dfsmfjkvx#$cew45',
+            ]
+        );
+
+        $tag = new Tag();
+
+        $tags = $tag->acceptRequestFilter(
+            [
+                'baz',
+            ]
+        )->filter($this->request->query());
+
+        $this->assertSame($tags->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $tags->getBindings());
 
         $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
     }

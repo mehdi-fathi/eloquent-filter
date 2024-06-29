@@ -65,6 +65,7 @@ class QueryFilterBuilder
      */
     private function buildExclusiveMacros(?array $detections_injected): void
     {
+        //todo why it's limited to just Eloquent\Builder. We should consider this on db
         \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
             return config('eloquentFilter.enabled');
         });
@@ -79,7 +80,7 @@ class QueryFilterBuilder
     /**
      * @return string
      */
-    public function getNameDriver()
+    public function getNameDriver(): string
     {
         $MainBuilderConditions = $this->queryFilterCore->getMainBuilderConditions();
 
