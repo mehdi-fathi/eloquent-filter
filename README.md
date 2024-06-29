@@ -995,11 +995,10 @@ class Car extends Model
 
 e.g:
 
-
 ```php
-        $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
-        echo $users->isUsedEloquentFilter(); // will true
-        echo $users->getDetectionsInjected(); // will showing a list array of injected objects
+    $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
+    echo $users->isUsedEloquentFilter(); // will true
+    echo $users->getDetectionsInjected(); // will showing a list array of injected objects
 ```
 
 ## Contributing
