@@ -776,7 +776,7 @@ Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter` and , etc.
 
 ### Request Methods
 
-Call `ignoreRequest` (static scoopt) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
+Call `ignoreRequest` (static scopet) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
 
 Change your code the controller of the laravel project as like below example:
 
@@ -819,11 +819,11 @@ It has to do with to the paginate method. `page` param ignore by default in Eloq
 
 - You are able to filter some request params as acceptable filter`.
 
-Calling `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
+Calling `AcceptRequest` (static scope) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
 e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 ```php
-
+``
 User::AcceptRequest(['username','id'])
             ->filter()
             ->paginate(request()->get('perpage'), ['*'], 'page');
