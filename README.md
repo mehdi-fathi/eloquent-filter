@@ -815,9 +815,12 @@ User::ignoreRequest(['perpage'])
 ```
 
 e.g: the `perpage` param will never be in the conditions eloquent filter.
-it's related to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
+It has to do with to the paginate method. `page` param ignore by default in Eloquent Filter of Laravel.
 
-- You can filter some request params as acceptable filter.
+- You are able to filter some request params as acceptable filter`.
+
+Calling `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
+e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 ```php
 
@@ -833,9 +836,6 @@ $user->acceptRequestFilter(['username','id'])
             ->filter()
             ->paginate(request()->get('perpage'), ['*'], 'page');
 ```
-
-Call `AcceptRequest` (static scoop) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
-e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 ### Request Filter
 
