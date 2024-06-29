@@ -776,7 +776,7 @@ Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter` and , etc.
 
 ### Request Methods
 
-Call `ignoreRequest` (static scopet) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
+Call `ignoreRequest` (static scope) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
 
 Change your code the controller of the laravel project as like below example:
 
