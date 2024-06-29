@@ -736,6 +736,34 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $users->getBindings());
     }
 
+    public function testWhereIgnoreParamNonStaticMethodScoop()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'is_payment' => true,
+            ]
+        );
+
+        $tag = new Tag();
+
+        $users = $tag->ignoreRequestFilter(
+            [
+                'google_index',
+                'is_payment',
+            ]
+        )->filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
+    }
+
     public function testWhereIgnoreParamThatNotExistRequest()
     {
         $builder = new Tag();
@@ -1190,6 +1218,35 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['joo'], $builder->getBindings());
         $this->assertEquals(['joo'], $users->getBindings());
+
+        $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
+    }
+
+    public function testAcceptRequestNonStaticMethod()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'baz' => 'joo',
+                'google_index' => true,
+                'gmail_api' => 'dfsmfjkvx#$cew45',
+            ]
+        );
+
+        $tag = new Tag();
+
+        $tags = $tag->acceptRequestFilter(
+            [
+                'baz',
+            ]
+        )->filter($this->request->query());
+
+        $this->assertSame($tags->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $tags->getBindings());
 
         $this->assertEquals(['baz' => 'joo'], EloquentFilter::getAcceptedRequest());
     }

@@ -62,7 +62,13 @@ trait Filterable
      */
     public function scopeIgnoreRequest($builder, ?array $request = null)
     {
+        $this->ignoreRequestFilter($request);
+    }
+
+    public function ignoreRequestFilter(?array $request = null)
+    {
         $this->ignore_request = $request;
+        return $this;
     }
 
     /**
@@ -71,7 +77,18 @@ trait Filterable
      */
     public function scopeAcceptRequest($builder, ?array $request = null)
     {
+        $this->acceptRequestFilter($request);
+    }
+
+    /**
+     * @param array|null $request
+     * @return \eloquentFilter\QueryFilter\ModelFilters\Filterable
+     */
+    public function acceptRequestFilter(?array $request = null)
+    {
         $this->accept_request = $request;
+        return $this;
+
     }
 
     /**
