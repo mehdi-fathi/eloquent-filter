@@ -573,7 +573,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas(
+        $builder = $builder->newQuery()->whereHas(
             'foo',
             function ($q) {
                 $q->where('bam', 'qux');
@@ -600,7 +600,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas(
+        $builder = $builder->newQuery()->whereHas(
             'foo.baz',
             function ($q) {
                 $q->where('bam', 'qux');
@@ -629,7 +629,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereHas(
+        $builder = $builder->newQuery()->whereHas(
             'foo.baz',
             function ($q) {
                 $q->where('bam', 'qux');
@@ -664,7 +664,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->whereIn('baz', ['boom', 'joe', null]);
+        $builder = $builder->newQuery()->whereIn('baz', ['boom', 'joe', null]);
 
         $this->request->shouldReceive('query')->andReturn(
             [
