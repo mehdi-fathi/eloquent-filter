@@ -569,6 +569,30 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals($user_model->getWhiteListFilter(), $userModel2->getWhiteListFilter());
     }
 
+    public function testAddWhiteListFilter()
+    {
+
+        $builder = new Category();
+
+        $builder->addWhiteListFilter('sub_cat');
+
+        $builder_db = new Category();
+
+        $builder_db = $builder_db->query()->where('sub_cat', 'sport_2021');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'sub_cat' => 'sport_2021',
+            ]
+        );
+
+        $categories = $builder->filter($this->request->query());
+
+        $this->assertSame($categories->toSql(), $builder_db->toSql());
+
+        $this->assertEquals(['sport_2021'], $categories->getBindings());
+    }
+
     public function testWhereHasRelationOneNestedModel()
     {
         $builder = new Tag();
