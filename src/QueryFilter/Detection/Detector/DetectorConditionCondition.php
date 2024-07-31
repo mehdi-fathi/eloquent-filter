@@ -10,7 +10,7 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
 use Exception;
 
 /**
- * Class DetectorConditions.
+ * Class DetectorConditionCondition.
  */
 class DetectorConditionCondition implements DetectorConditionContract
 {

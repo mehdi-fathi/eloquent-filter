@@ -7,7 +7,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\Wh
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory;
-use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionFactory;
+use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionEloquentFactory;
 
 /**
  * Class QueryFilterCoreBuilder.
@@ -30,7 +30,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     protected array $default_detect;
 
     /**
-     * @var DetectionFactory
+     * @var DetectionEloquentFactory
      */
     private DetectorFactoryContract $detect_factory;
 
@@ -115,7 +115,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     }
 
     /**
-     * @param DetectionFactory $detect_factory
+     * @param DetectionEloquentFactory $detect_factory
      */
     public function setDetectFactory(DetectorFactoryContract $detect_factory): void
     {
@@ -123,7 +123,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     }
 
     /**
-     * @return DetectionFactory
+     * @return DetectionEloquentFactory
      */
     public function getDetectFactory(): DetectorFactoryContract
     {
@@ -161,7 +161,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      * @param array|null $default_detect
      * @param array|null $detectInjected
      *
-     * @return DetectionFactory
+     * @return DetectionEloquentFactory
      */
     public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
     {
@@ -173,7 +173,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
         $this->setDetections($detections);
 
-        return app(DetectionFactory::class, ['detections' => $this->getDetections()]);
+        return app(DetectionEloquentFactory::class, ['detections' => $this->getDetections()]);
     }
 
     /**

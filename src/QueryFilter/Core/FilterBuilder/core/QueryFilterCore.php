@@ -42,13 +42,13 @@ interface QueryFilterCore
     public function setDetections(array $detections): void;
 
     /**
-     * @param \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionFactory $detect_factory
+     * @param \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionEloquentFactory $detect_factory
      * @return void
      */
     public function setDetectFactory(DetectorFactoryContract $detect_factory): void;
 
     /**
-     * @return \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionFactory
+     * @return \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionEloquentFactory
      */
     public function getDetectFactory(): DetectorFactoryContract;
 

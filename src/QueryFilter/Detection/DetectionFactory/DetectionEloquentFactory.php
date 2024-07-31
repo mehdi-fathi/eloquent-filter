@@ -6,9 +6,9 @@ use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Detector\DetectorConditionCondition;
 
 /**
- * Class DetectionFactory.
+ * Class DetectionEloquentFactory.
  */
-class DetectionFactory implements DetectorFactoryContract
+class DetectionEloquentFactory implements DetectorFactoryContract
 {
     /**
      * DetectionFactory constructor.
