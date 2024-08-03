@@ -69,17 +69,23 @@ class EloquentQueryFilterBuilder
 
     /**
      * @return void
+     * @throws \ReflectionException
      */
     private function resolveDetections($detections_injected, $black_list_detections)
     {
         $this->queryFilterCore->unsetDetection($black_list_detections);
-        $this->queryFilterCore->reload();
+        $this->queryFilterCore->reloadDetectionInjected();
 
         $this->queryFilterCore->setDetectionsInjected($detections_injected);
 
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
-            return new ResolverDetections($this->getQueryBuilderWrapper()->getBuilder(), $this->requestFilter->getRequest(), $this->queryFilterCore->getDetectFactory(), $this->queryFilterCore->getMainBuilderConditions());
+            return new ResolverDetections(
+                builder: $this->getQueryBuilderWrapper()->getBuilder(),
+                request: $this->requestFilter->getRequest(),
+                detector_factory: $this->queryFilterCore->getDetectFactory(),
+                main_builder_conditions_contract: $this->queryFilterCore->getMainBuilderConditions()
+            );
         });
 
         /** @see ResolverDetections::getResolverOut() */

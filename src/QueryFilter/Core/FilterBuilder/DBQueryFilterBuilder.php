@@ -69,6 +69,7 @@ class DBQueryFilterBuilder
 
     /**
      * @return void
+     * @throws \ReflectionException
      */
     private function resolveDetections($detections_injected, $black_list_detections)
     {
@@ -78,10 +79,10 @@ class DBQueryFilterBuilder
         /** @see ResolverDetections */
         app()->bind('ResolverDetections', function () {
             return new ResolverDetections(
-                $this->getQueryBuilderWrapper()->getBuilder(),
-                $this->requestFilter->getRequest(),
-                $this->queryFilterCore->getDetectFactory(),
-                $this->queryFilterCore->getMainBuilderConditions()
+                builder: $this->getQueryBuilderWrapper()->getBuilder(),
+                request: $this->requestFilter->getRequest(),
+                detector_factory: $this->queryFilterCore->getDetectFactory(),
+                main_builder_conditions_contract: $this->queryFilterCore->getMainBuilderConditions()
             );
         });
 

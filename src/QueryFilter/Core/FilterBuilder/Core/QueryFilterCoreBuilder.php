@@ -99,6 +99,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
     /**
      * @param array|null $detections
+     * @throws \ReflectionException
      */
     public function unsetDetection(?array $detections): void
     {
@@ -209,7 +210,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * @return void
      */
-    public function reload(): void
+    public function reloadDetectionInjected(): void
     {
         $this->setDetectFactory($this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
     }
