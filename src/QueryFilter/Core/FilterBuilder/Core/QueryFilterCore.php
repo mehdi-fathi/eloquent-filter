@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder\Core;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;

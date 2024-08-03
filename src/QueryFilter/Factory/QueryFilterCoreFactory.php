@@ -2,8 +2,8 @@
 
 namespace eloquentFilter\QueryFilter\Factory;
 
-use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCoreBuilder;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCoreBuilder;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;

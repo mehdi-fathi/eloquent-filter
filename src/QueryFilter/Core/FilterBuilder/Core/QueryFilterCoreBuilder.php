@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core\FilterBuilder\core;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder\Core;
 
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;

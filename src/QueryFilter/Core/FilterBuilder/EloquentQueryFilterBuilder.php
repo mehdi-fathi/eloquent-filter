@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
@@ -20,7 +20,7 @@ class EloquentQueryFilterBuilder
     protected EloquentModelBuilderWrapper $queryBuilderWrapper;
 
     /**
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\core\QueryFilterCore $queryFilterCore
+     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore $queryFilterCore
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter $responseFilter
      */
