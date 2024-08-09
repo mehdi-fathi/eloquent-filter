@@ -989,7 +989,7 @@ class Car extends Model
 
 ### Macro Methods
 
--`isUsedEloquentFilter` is a macro method for builder to check either query used eloquent-filter.
+-`isUsedEloquentFilter` is a macro method for builder/DB to check either query used eloquent-filter.
 
 -`getDetectionsInjected` is a macro method to get list array of injected objects.
 
@@ -999,6 +999,9 @@ e.g:
     $users = User::SetCustomDetection([WhereRelationLikeCondition::class])->filter();
     echo $users->isUsedEloquentFilter(); // will true
     echo $users->getDetectionsInjected(); // will showing a list array of injected objects
+    $categories = DB::table('categories')->filter();
+    echo $categories->isUsedEloquentFilter(); // will true
+    
 ```
 
 ## Contributing
