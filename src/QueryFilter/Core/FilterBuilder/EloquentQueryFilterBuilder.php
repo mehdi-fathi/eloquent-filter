@@ -11,7 +11,7 @@ use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
- * Class QueryFilterBuilder.
+ * Class EloquentQueryFilterBuilder.
  */
 class EloquentQueryFilterBuilder
 {
@@ -51,10 +51,14 @@ class EloquentQueryFilterBuilder
      * @param array|null $detections_injected
      * @param array|null $black_list_detections
      *
-     * @return void
+     * @return mixed
+     * @throws \ReflectionException
      */
     public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
+
+        $this->buildExclusiveMacros($detections_injected);
+
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createEloquentQueryBuilder($builder));
 
         $this->handleRequest(
@@ -125,4 +129,39 @@ class EloquentQueryFilterBuilder
 
         return $MainBuilderConditions->getName();
     }
+
+    /**
+     * @param array|null $detections_injected
+     * @return void
+     */
+    private function buildExclusiveMacros(?array $detections_injected): void
+    {
+        $this->setMacroIsUsedPackage();
+
+        $this->setMacroDetectionInjectedList($detections_injected);
+
+    }
+
+    /**
+     * @return void
+     */
+    private function setMacroIsUsedPackage(): void
+    {
+        //todo why it's limited to just Eloquent\Builder. We should consider this on db
+        \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
+            return config('eloquentFilter.enabled');
+        });
+    }
+
+    /**
+     * @param array|null $detections_injected
+     * @return void
+     */
+    private function setMacroDetectionInjectedList(?array $detections_injected): void
+    {
+        \Illuminate\Database\Eloquent\Builder::macro('getDetectionsInjected', function () use ($detections_injected) {
+            return $detections_injected;
+        });
+    }
+
 }

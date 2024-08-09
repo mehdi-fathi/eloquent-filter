@@ -52,6 +52,7 @@ class DBQueryFilterBuilder
      * @param array|null $black_list_detections
      *
      * @return void
+     * @throws \ReflectionException
      */
     public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {

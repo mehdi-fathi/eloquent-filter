@@ -33,10 +33,10 @@ class QueryFilterBuilder
      * @param array|null $black_list_detections
      *
      * @return void
+     * @throws \ReflectionException
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
-        $this->buildExclusiveMacros($detections_injected);
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);
@@ -56,23 +56,6 @@ class QueryFilterBuilder
         $db = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 
         return $db->apply($builder, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
-
-    }
-
-    /**
-     * @param array|null $detections_injected
-     * @return void
-     */
-    private function buildExclusiveMacros(?array $detections_injected): void
-    {
-        //todo why it's limited to just Eloquent\Builder. We should consider this on db
-        \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
-            return config('eloquentFilter.enabled');
-        });
-
-        \Illuminate\Database\Eloquent\Builder::macro('getDetectionsInjected', function () use ($detections_injected) {
-            return $detections_injected;
-        });
 
     }
 
