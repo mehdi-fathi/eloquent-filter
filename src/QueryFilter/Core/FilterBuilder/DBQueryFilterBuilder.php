@@ -56,6 +56,8 @@ class DBQueryFilterBuilder
      */
     public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
+        $this->setMacroIsUsedPackage();
+
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createDbQueryBuilder($builder));
 
         $this->handleRequest(
@@ -110,6 +112,16 @@ class DBQueryFilterBuilder
             alias_list_filter: $alias_list_filter ?? [],
             model: null,
         );
+    }
+
+    /**
+     * @return void
+     */
+    private function setMacroIsUsedPackage(): void
+    {
+        \Illuminate\Database\Query\Builder::macro('isUsedEloquentFilter', function () {
+            return config('eloquentFilter.enabled');
+        });
     }
 
 }

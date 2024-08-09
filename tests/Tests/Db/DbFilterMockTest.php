@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\Models\Category;
+use Tests\Models\CustomDetect\WhereRelationLikeCondition;
 use Tests\Models\Tag;
+use Tests\Models\User;
 
 class DbFilterMockTest extends \TestCase
 {
@@ -425,6 +427,29 @@ class DbFilterMockTest extends \TestCase
 
         $this->assertEquals(['sport'], $categories['data']->getBindings());
     }
+
+
+    public function testMacros()
+    {
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        $categories = DB::table('categories')->filter();
+
+        $builder = DB::table('categories')->where('title', 'sport');
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+
+        $this->assertTrue($categories->isUsedEloquentFilter());
+
+    }
+
 
     public function tearDown(): void
     {
