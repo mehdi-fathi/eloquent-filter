@@ -147,7 +147,6 @@ class EloquentQueryFilterBuilder
      */
     private function setMacroIsUsedPackage(): void
     {
-        //todo why it's limited to just Eloquent\Builder. We should consider this on db
         \Illuminate\Database\Eloquent\Builder::macro('isUsedEloquentFilter', function () {
             return config('eloquentFilter.enabled');
         });
