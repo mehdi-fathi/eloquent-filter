@@ -1,6 +1,6 @@
 <?php
 
-namespace eloquentFilter\QueryFilter\Core\FilterBuilder;
+namespace eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
