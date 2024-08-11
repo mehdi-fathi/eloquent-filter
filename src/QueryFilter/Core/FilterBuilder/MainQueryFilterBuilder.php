@@ -13,7 +13,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCon
 /**
  * Class QueryFilterBuilder.
  */
-class QueryFilterBuilder
+class MainQueryFilterBuilder
 {
     use HelperEloquentFilter;
 
@@ -105,7 +105,7 @@ class QueryFilterBuilder
      * @return null
      * @throws \ReflectionException
      */
-    private function buildDbQuery($builder, ?array $ignore_request, ?array $accept_request, ?array $detections_injected, ?array $black_list_detections): null
+    private function buildDbQuery($builder, ?array $ignore_request, ?array $accept_request, ?array $detections_injected, ?array $black_list_detections): mixed
     {
         $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 

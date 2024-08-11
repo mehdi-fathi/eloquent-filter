@@ -3,30 +3,16 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder;
 
 use eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
-use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
  * Class DBQueryFilterBuilder.
  */
-class DBQueryFilterBuilder
+class DBQueryFilterBuilder extends QueryFilterBuilder
 {
-    use HelperEloquentFilter;
 
     protected DbBuilderWrapperInterface $queryBuilderWrapper;
-
-    /**
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore $queryFilterCore
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter $responseFilter
-     */
-    public function __construct(public QueryFilterCore $queryFilterCore, public RequestFilter $requestFilter, public ResponseFilter $responseFilter)
-    {
-    }
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface $queryBuilderWrapper
@@ -51,10 +37,10 @@ class DBQueryFilterBuilder
      * @param array|null $detections_injected
      * @param array|null $black_list_detections
      *
-     * @return void
+     * @return mixed
      * @throws \ReflectionException
      */
-    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
+    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null): mixed
     {
         $this->setMacroIsUsedPackage();
 

@@ -3,30 +3,15 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder;
 
 use eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
-use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Core\ResolverDetections;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
  * Class EloquentQueryFilterBuilder.
  */
-class EloquentQueryFilterBuilder
+class EloquentQueryFilterBuilder extends QueryFilterBuilder
 {
-    use HelperEloquentFilter;
-
     protected EloquentModelBuilderWrapper $queryBuilderWrapper;
-
-    /**
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore $queryFilterCore
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
-     * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter $responseFilter
-     */
-    public function __construct(public QueryFilterCore $queryFilterCore, public RequestFilter $requestFilter, public ResponseFilter $responseFilter)
-    {
-    }
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\EloquentBuilder\EloquentModelBuilderWrapper $queryBuilderWrapper
@@ -54,7 +39,7 @@ class EloquentQueryFilterBuilder
      * @return mixed
      * @throws \ReflectionException
      */
-    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
+    public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null): mixed
     {
 
         $this->buildExclusiveMacros($detections_injected);

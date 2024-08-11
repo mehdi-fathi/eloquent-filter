@@ -2,7 +2,7 @@
 
 namespace eloquentFilter\QueryFilter\Core;
 
-use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\MainQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
@@ -50,7 +50,7 @@ class ResolverDetections
 
     /**
      * @return mixed
-     * @see QueryFilterBuilder
+     * @see MainQueryFilterBuilder
      */
     public function getResolverOut()
     {

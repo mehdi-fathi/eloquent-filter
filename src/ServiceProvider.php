@@ -7,7 +7,7 @@ use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
-use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryFilterBuilder;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\MainQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -61,7 +61,7 @@ class ServiceProvider extends BaseServiceProvider
             $requestFilter = app(RequestFilter::class, ['request' => $requestData]);
             $responseFilter = app(ResponseFilter::class);
 
-            return app(QueryFilterBuilder::class, [
+            return app(MainQueryFilterBuilder::class, [
                 'queryFilterCore' => $queryFilterCore,
                 'requestFilter' => $requestFilter,
                 'responseFilter' => $responseFilter,
@@ -81,7 +81,7 @@ class ServiceProvider extends BaseServiceProvider
                 }
             );
 
-            /** @see QueryFilterBuilder::apply() */
+            /** @see MainQueryFilterBuilder::apply() */
             return app('eloquentFilter')->apply(builder: $this, request: $request);
         });
 
@@ -97,7 +97,7 @@ class ServiceProvider extends BaseServiceProvider
             'eloquentFilter',
             function () use ($createQueryFilterBuilder, $queryFilterCoreFactory) {
 
-                /* @see QueryFilterBuilder */
+                /* @see MainQueryFilterBuilder */
                 return $createQueryFilterBuilder($this->app->get('request')->query(), $queryFilterCoreFactory->createQueryFilterCoreEloquentBuilder());
             }
         );

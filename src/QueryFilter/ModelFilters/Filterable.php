@@ -45,7 +45,7 @@ trait Filterable
      */
     public function scopeFilter($builder, ?array $request = null)
     {
-        /** @see QueryFilterBuilder::apply() */
+        /** @see MainQueryFilterBuilder::apply() */
         return EloquentFilter::apply(
             builder: $builder,
             request: $request,
