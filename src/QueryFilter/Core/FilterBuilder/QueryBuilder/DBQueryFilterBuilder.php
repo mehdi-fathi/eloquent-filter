@@ -3,7 +3,7 @@
 namespace eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder;
 
 use eloquentFilter\QueryFilter\Core\DbBuilder\DbBuilderWrapperInterface;
-use eloquentFilter\QueryFilter\Core\ResolverDetections;
+use eloquentFilter\QueryFilter\Core\ResolverDetection\ResolverDetectionDb;
 use eloquentFilter\QueryFilter\Factory\QueryBuilderWrapperFactory;
 
 /**
@@ -58,18 +58,18 @@ class DBQueryFilterBuilder extends QueryFilterBuilder
         $this->queryFilterCore->unsetDetection($black_list_detections);
         $this->queryFilterCore->setDetectionsDbInjected($detections_injected);
 
-        /** @see ResolverDetections */
-        app()->bind('ResolverDetections', function () {
-            return new ResolverDetections(
+        /** @see \eloquentFilter\QueryFilter\Core\ResolverDetection\ResolverDetectionDb */
+        app()->bind('ResolverDetectionsDb', function () {
+            return new ResolverDetectionDb(
                 builder: $this->getQueryBuilderWrapper()->getBuilder(),
                 request: $this->requestFilter->getRequest(),
-                detector_factory: $this->queryFilterCore->getDetectFactory(),
+                detector_db_factory: $this->queryFilterCore->getDetectDbFactory(),
                 main_builder_conditions_contract: $this->queryFilterCore->getMainBuilderConditions()
             );
         });
 
-        /** @see ResolverDetections::getResolverOut() */
-        $responseResolver = app('ResolverDetections')->getResolverOut();
+        /** @see ResolverDetectionDb::getResolverOut() */
+        $responseResolver = app('ResolverDetectionsDb')->getResolverOut();
 
         $this->responseFilter->setResponse($responseResolver);
     }

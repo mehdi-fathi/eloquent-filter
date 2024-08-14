@@ -18,11 +18,9 @@ interface QueryFilterCore
     public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions);
 
     /**
-     * @param array|null $default_detect
-     * @param array|null $detectInjected
      * @return mixed
      */
-    public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract;
+    public function getDetectorFactory(): DetectorFactoryContract;
 
     /**
      * @param $default_detect

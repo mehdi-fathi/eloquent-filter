@@ -4,6 +4,7 @@ namespace eloquentFilter\QueryFilter\Core\FilterBuilder\Core;
 
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorDbFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory;
@@ -34,6 +35,11 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      */
     private DetectorFactoryContract $detect_factory;
 
+    /**
+     * @var DetectorDbFactoryContract
+     */
+    private DetectorDbFactoryContract $detect_db_factory;
+
     protected MainBuilderConditionsContract $mainBuilderConditions;
 
     /**
@@ -51,16 +57,20 @@ class QueryFilterCoreBuilder implements QueryFilterCore
 
         $this->setDefaultDetect($defaultSeriesInjected);
 
+
         if ($mainBuilderConditions->getName() == DBBuilderQueryByCondition::NAME) {
 
             $factories = $this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
 
+            $this->setDetectDbFactory($factories);
+
         } else {
+
             $factories = $this->getDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections());
 
-        }
+            $this->setDetectFactory($factories);
 
-        $this->setDetectFactory($factories);
+        }
 
         $this->mainBuilderConditions = $mainBuilderConditions;
     }
@@ -132,6 +142,22 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     }
 
     /**
+     * @param \eloquentFilter\QueryFilter\Detection\Contract\DetectorDbFactoryContract $detect_factory
+     */
+    public function setDetectDbFactory(DetectorDBFactoryContract $detect_factory): void
+    {
+        $this->detect_db_factory = $detect_factory;
+    }
+
+    /**
+     * @return \eloquentFilter\QueryFilter\Detection\Contract\DetectorDbFactoryContract
+     */
+    public function getDetectDbFactory(): DetectorDBFactoryContract
+    {
+        return $this->detect_db_factory;
+    }
+
+    /**
      * @return array
      */
     public function getDetections(): array
@@ -166,13 +192,7 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      */
     public function getDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
     {
-        $detections = $default_detect;
-
-        if (!empty($detectInjected)) {
-            $detections = array_merge($detectInjected, $default_detect);
-        }
-
-        $this->setDetections($detections);
+        $this->mergeTypesDetections($default_detect, $detectInjected);
 
         return app(DetectionEloquentFactory::class, ['detections' => $this->getDetections()]);
     }
@@ -183,14 +203,9 @@ class QueryFilterCoreBuilder implements QueryFilterCore
      *
      * @return \eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory
      */
-    public function getDbDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorFactoryContract
+    public function getDbDetectorFactory(array $default_detect = null, array $detectInjected = null): DetectorDbFactoryContract
     {
-        $detections = $default_detect;
-
-        if (!empty($detectInjected)) {
-            $detections = array_merge($detectInjected, $default_detect);
-        }
-        $this->setDetections($detections);
+        $this->mergeTypesDetections($default_detect, $detectInjected);
 
         return app(DetectionDbFactory::class, ['detections' => $this->getDetections()]);
     }
@@ -225,6 +240,22 @@ class QueryFilterCoreBuilder implements QueryFilterCore
             $this->setInjectedDetections($injected_detections);
             $this->setDetectFactory($this->getDbDetectorFactory($this->getDefaultDetect(), $this->getInjectedDetections()));
         }
+    }
+
+    /**
+     * @param array|null $default_detect
+     * @param array|null $detectInjected
+     * @return void
+     */
+    private function mergeTypesDetections(?array $default_detect, ?array $detectInjected): void
+    {
+        $detections = $default_detect;
+
+        if (!empty($detectInjected)) {
+            $detections = array_merge($detectInjected, $default_detect);
+        }
+
+        $this->setDetections($detections);
     }
 
 }

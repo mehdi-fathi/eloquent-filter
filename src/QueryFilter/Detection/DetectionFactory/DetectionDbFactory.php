@@ -2,13 +2,13 @@
 
 namespace eloquentFilter\QueryFilter\Detection\DetectionFactory;
 
-use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
+use eloquentFilter\QueryFilter\Detection\Contract\DetectorDbFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Detector\DetectorConditionDbCondition;
 
 /**
  * Class DetectionDbFactory.
  */
-class DetectionDbFactory implements DetectorFactoryContract
+class DetectionDbFactory implements DetectorDbFactoryContract
 {
     /**
      * DetectionDbFactory constructor.
@@ -22,16 +22,15 @@ class DetectionDbFactory implements DetectorFactoryContract
     /**
      * @param $field
      * @param $params
-     * @param null $model
      *
      * @return string|null
      */
-    public function buildDetections($field, $params, $model = null): ?string
+    public function buildDetections($field, $params): ?string
     {
         $detect = app(DetectorConditionDbCondition::class, ['detector' => $this->detections]);
 
         /** @see DetectorConditionDbCondition::detect() */
-        $method = $detect->detect($field, $params, null);
+        $method = $detect->detect($field, $params);
 
         return $method;
     }

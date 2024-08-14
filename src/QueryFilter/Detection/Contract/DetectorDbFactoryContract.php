@@ -5,7 +5,7 @@ namespace eloquentFilter\QueryFilter\Detection\Contract;
 /**
  * Interface Detector.
  */
-interface DetectorFactoryContract
+interface DetectorDbFactoryContract
 {
     /**
      * @param string $field
