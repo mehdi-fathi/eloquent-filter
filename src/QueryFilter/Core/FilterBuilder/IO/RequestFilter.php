@@ -250,4 +250,46 @@ class RequestFilter
         }
         return $value;
     }
+
+    /**
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @return void
+     */
+    public function handleRequestDb(?array $ignore_request, ?array $accept_request): void
+    {
+
+        $serialize_request_filter = $this->getRequest();
+
+        $this->requestAlter(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request,
+            serialize_request_filter: $serialize_request_filter,
+            alias_list_filter: $alias_list_filter ?? [],
+            model: null,
+        );
+    }
+
+    /**
+     * @param $builder
+     * @param array|null $ignore_request
+     * @param array|null $accept_request
+     * @return void
+     */
+    public function handleRequest($builder,?array $ignore_request, ?array $accept_request): void
+    {
+
+        $serialize_request_filter = $builder->getModel()->serializeRequestFilter($this->getRequest());
+
+        $alias_list_filter = $builder->getModel()->getAliasListFilter();
+
+        $this->requestAlter(
+            ignore_request: $ignore_request,
+            accept_request: $accept_request,
+            serialize_request_filter: $serialize_request_filter,
+            alias_list_filter: $alias_list_filter ?? [],
+            model: $builder->getModel(),
+        );
+    }
+
 }

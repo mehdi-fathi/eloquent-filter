@@ -27,14 +27,12 @@ abstract class QueryFilterBuilder
 
     /**
      * @param $builder
-     * @param array|null $ignore_request
-     * @param array|null $accept_request
      * @param array|null $detections_injected
      * @param array|null $black_list_detections
      *
      * @return mixed
      * @throws \ReflectionException
      */
-    abstract public function apply($builder, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null): mixed;
+    abstract public function apply($builder, array $detections_injected = null, array $black_list_detections = null): mixed;
 
 }

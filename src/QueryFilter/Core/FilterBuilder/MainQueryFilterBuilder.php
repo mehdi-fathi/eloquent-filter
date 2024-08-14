@@ -11,7 +11,7 @@ use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 
 /**
- * Class QueryFilterBuilder.
+ * Class MainQueryFilterBuilder.
  */
 class MainQueryFilterBuilder
 {
@@ -107,12 +107,16 @@ class MainQueryFilterBuilder
      */
     private function buildDbQuery($builder, ?array $ignore_request, ?array $accept_request, ?array $detections_injected, ?array $black_list_detections): mixed
     {
-        $db = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
 
-        return $db->apply(
-            builder: $builder,
+        $this->requestFilter->handleRequestDb(
             ignore_request: $ignore_request,
-            accept_request: $accept_request,
+            accept_request: $accept_request
+        );
+
+        $DBQueryFilterBuilder = new DBQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
+
+        return $DBQueryFilterBuilder->apply(
+            builder: $builder,
             detections_injected: $detections_injected,
             black_list_detections: $black_list_detections
         );
@@ -129,12 +133,16 @@ class MainQueryFilterBuilder
      */
     private function buildEloquentQuery($builder, ?array $ignore_request, ?array $accept_request, ?array $detections_injected, ?array $black_list_detections): mixed
     {
-        $db = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
-
-        return $db->apply(
+        $this->requestFilter->handleRequest(
             builder: $builder,
             ignore_request: $ignore_request,
-            accept_request: $accept_request,
+            accept_request: $accept_request
+        );
+
+        $eloquentQueryFilterBuilder = new EloquentQueryFilterBuilder($this->queryFilterCore, $this->requestFilter, $this->responseFilter);
+
+        return $eloquentQueryFilterBuilder->apply(
+            builder: $builder,
             detections_injected: $detections_injected,
             black_list_detections: $black_list_detections
         );
