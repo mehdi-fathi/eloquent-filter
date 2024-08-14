@@ -87,7 +87,10 @@ class ResolverDetections
      */
     private function getFiltersDetection(): array
     {
-        if (app('eloquentFilter')->getNameDriver() != DBBuilderQueryByCondition::NAME) {
+        /** @var MainQueryFilterBuilder $eloquentFilter */
+        $eloquentFilter = app('eloquentFilter');
+
+        if ($eloquentFilter->getNameBuilder() != DBBuilderQueryByCondition::NAME) {
             $model = $this->builder->getModel();
         } else {
             $model = $this->builder->from;

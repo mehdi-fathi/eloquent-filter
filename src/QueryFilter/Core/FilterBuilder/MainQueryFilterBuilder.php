@@ -62,7 +62,7 @@ class MainQueryFilterBuilder
     /**
      * @return string
      */
-    public function getNameDriver(): string
+    public function getNameBuilder(): string
     {
         $MainBuilderConditions = $this->queryFilterCore->getMainBuilderConditions();
 
@@ -88,7 +88,7 @@ class MainQueryFilterBuilder
      */
     private function buildQuery($builder, ?array $ignore_request, ?array $accept_request, ?array $detections_injected, ?array $black_list_detections): mixed
     {
-        if ($this->getNameDriver() == DBBuilderQueryByCondition::NAME) {
+        if ($this->isDbBuilder()) {
 
             return $this->buildDbQuery($builder, $ignore_request, $accept_request, $detections_injected, $black_list_detections);
         }
@@ -146,6 +146,14 @@ class MainQueryFilterBuilder
             detections_injected: $detections_injected,
             black_list_detections: $black_list_detections
         );
+    }
+
+    /**
+     * @return bool
+     */
+    private function isDbBuilder(): bool
+    {
+        return $this->getNameBuilder() == DBBuilderQueryByCondition::NAME;
     }
 
 }
