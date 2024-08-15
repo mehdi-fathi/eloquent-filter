@@ -28,6 +28,8 @@ class DetectionEloquentFactory implements DetectorFactoryContract
      */
     public function buildDetections($field, $params, $model = null): ?string
     {
+
+        /** @var DetectorConditionCondition $detect */
         $detect = app(DetectorConditionCondition::class, ['detector' => $this->detections]);
 
         $class_name = null;
@@ -35,7 +37,6 @@ class DetectionEloquentFactory implements DetectorFactoryContract
             $class_name = class_basename($model);
         }
 
-        /** @see DetectorConditionCondition::detect() */
         $method = $detect->detect($field, $params, $model->getWhiteListFilter(), $model->checkModelHasOverrideMethod($field), $class_name);
 
         return $method;

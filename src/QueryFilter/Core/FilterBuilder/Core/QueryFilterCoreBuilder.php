@@ -45,17 +45,17 @@ class QueryFilterCoreBuilder implements QueryFilterCore
     /**
      * QueryFilterCoreBuilder constructor.
      *
-     * @param array $defaultSeriesInjected
-     * @param array|null $detectInjected
+     * @param array $defaultDetections
+     * @param array|null $injectedDetections
      * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $mainBuilderConditions
      */
-    public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions)
+    public function __construct(array $defaultDetections, array $injectedDetections = null, MainBuilderConditionsContract $mainBuilderConditions)
     {
-        if (!empty($detectInjected)) {
-            $this->setInjectedDetections($detectInjected);
+        if (!empty($injectedDetections)) {
+            $this->setInjectedDetections($injectedDetections);
         }
 
-        $this->setDefaultDetect($defaultSeriesInjected);
+        $this->setDefaultDetect($defaultDetections);
 
 
         if ($mainBuilderConditions->getName() == DBBuilderQueryByCondition::NAME) {

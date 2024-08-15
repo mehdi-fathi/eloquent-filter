@@ -24,13 +24,25 @@ class QueryFilterCoreFactory
     public function createQueryFilterCoreEloquentBuilder(): QueryFilterCore
     {
         $mainBuilderConditions = new MainBuilderQueryByCondition();
-        return app(QueryFilterCoreBuilder::class, ['defaultSeriesInjected' => $this->getDefaultDetectorsEloquent(), 'detectInjected' => null, 'mainBuilderConditions' => $mainBuilderConditions]);
+        return app(QueryFilterCoreBuilder::class,
+            [
+                'defaultDetections' => $this->getDefaultDetectorsEloquent(),
+                'injectedDetections' => null,
+                'mainBuilderConditions' => $mainBuilderConditions
+            ]
+        );
     }
 
     public function createQueryFilterCoreDBQueryBuilder(): QueryFilterCore
     {
         $mainBuilderConditions = new DBBuilderQueryByCondition();
-        return app(QueryFilterCoreBuilder::class, ['defaultSeriesInjected' => $this->getDefaultDetectorsEloquent(), 'detectInjected' => null, 'mainBuilderConditions' => $mainBuilderConditions]);
+        return app(QueryFilterCoreBuilder::class,
+            [
+                'defaultDetections' => $this->getDefaultDetectorsEloquent(),
+                'injectedDetections' => null,
+                'mainBuilderConditions' => $mainBuilderConditions
+            ]
+        );
     }
 
     /**

@@ -27,9 +27,9 @@ class DetectionDbFactory implements DetectorDbFactoryContract
      */
     public function buildDetections($field, $params): ?string
     {
+        /** @var DetectorConditionDbCondition $detect */
         $detect = app(DetectorConditionDbCondition::class, ['detector' => $this->detections]);
 
-        /** @see DetectorConditionDbCondition::detect() */
         $method = $detect->detect($field, $params);
 
         return $method;

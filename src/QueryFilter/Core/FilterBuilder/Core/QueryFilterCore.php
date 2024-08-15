@@ -11,11 +11,11 @@ use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 interface QueryFilterCore
 {
     /**
-     * @param array $defaultSeriesInjected
-     * @param array|null $detectInjected
+     * @param array $defaultDetections
+     * @param array|null $injectedDetections
      * @param \eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract $mainBuilderConditions
      */
-    public function __construct(array $defaultSeriesInjected, array $detectInjected = null, MainBuilderConditionsContract $mainBuilderConditions);
+    public function __construct(array $defaultDetections, array $injectedDetections = null, MainBuilderConditionsContract $mainBuilderConditions);
 
     /**
      * @return mixed
