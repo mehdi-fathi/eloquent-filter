@@ -31,7 +31,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Configure package paths.
      */
-    private function configurePaths()
+    private function configurePaths(): void
     {
         $this->publishes([
             __DIR__ . '/config/config.php' => config_path('eloquentFilter.php'),
@@ -67,7 +67,6 @@ class ServiceProvider extends BaseServiceProvider
         /* @var $queryFilterCoreFactory QueryFilterCoreFactory */
         $queryFilterCoreFactory = app(QueryFilterCoreFactory::class);
 
-        /* @var $mainQueryFilterBuilder MainQueryFilterBuilder */
         $mainQueryFilterBuilder = $this->setMainQueryFilterBuilder();
 
         $this->attachFilterToQueryBuilder($mainQueryFilterBuilder, $queryFilterCoreFactory);
