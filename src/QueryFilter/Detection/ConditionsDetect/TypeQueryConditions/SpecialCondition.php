@@ -18,7 +18,6 @@ class SpecialCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        //todo should be constant
         if ($field == self::SPECIAL_PARAM_NAME) {
             return 'Special';
         }
