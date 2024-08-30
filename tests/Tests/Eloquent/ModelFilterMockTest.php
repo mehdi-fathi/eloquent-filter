@@ -84,6 +84,7 @@ class ModelFilterMockTest extends \TestCase
 
         $this->assertEquals(['sport'], $categories->getBindings());
     }
+
     public function testFieldCastWhere()
     {
 
@@ -618,6 +619,26 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($users->toSql(), $builder->toSql());
         $this->assertEquals(['qux', 'joo'], $builder->getBindings());
         $this->assertEquals(['qux', 'joo'], $users->getBindings());
+    }
+
+    public function testWhereDoesntHave()
+    {
+        $builder = new Tag();
+
+        $builder = $builder->newQuery()->doesntHave('foo')->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'doesnt_have' => 'foo',
+                'baz' => 'joo',
+            ]
+        );
+
+        $users = Tag::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['joo'], $builder->getBindings());
+        $this->assertEquals(['joo'], $users->getBindings());
     }
 
     public function testWhereHasRelationTwoNested()

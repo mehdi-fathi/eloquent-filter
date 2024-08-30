@@ -11,10 +11,12 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\Wh
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereByOptCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDateCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDoesntHaveCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereLikeCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDoesntHave;
 
 /**
  * Class QueryFilterCoreFactory.
@@ -59,6 +61,7 @@ class QueryFilterCoreFactory
             WhereInCondition::class,
             WhereOrCondition::class,
             WhereHasCondition::class,
+            WhereDoesntHaveCondition::class,
             WhereDateCondition::class,
             WhereCondition::class,
         ];

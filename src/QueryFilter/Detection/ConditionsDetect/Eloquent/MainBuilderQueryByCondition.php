@@ -9,6 +9,7 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereBetween;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereByOpt;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDate;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDoesntHave;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereHas;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereIn;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereLike;
@@ -44,6 +45,7 @@ class MainBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereIn' => WhereIn::class,
             'WhereLike' => WhereLike::class,
             'WhereOr' => WhereOr::class,
+            'WhereDoesnt' => WhereDoesntHave::class,
             'Special' => Special::class,
             'WhereCustom' => WhereCustom::class,
             default => null,

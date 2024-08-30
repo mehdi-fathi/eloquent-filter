@@ -98,7 +98,7 @@ class DetectorConditionCondition implements DetectorConditionContract
      */
     private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class): bool
     {
-        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == 'or') || $has_method) {
+        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == 'or' || $field == 'doesnt_have') || $has_method) {
             return true;
         }
 
