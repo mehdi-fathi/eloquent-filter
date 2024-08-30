@@ -364,6 +364,16 @@ select * from "users" where exists
          and "username" = "mehdi"
 ```
 
+**Doesnthave Where (new feature)**
+
+```
+/tags/list?doesnt_have=category
+
+select * from "tags" where not exists (select * from "categories" where "tags"."foo_id" = "categories"."id")'
+```
+
+- To fetching those data that doesn't have any relationship with the model as the same `Doesnthave` method worked.
+
 ****Special Params****
 
 You can set special params `limit` and `orderBy` in the query string to make a query by that.
