@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereBetween;
 
 /**
  * Class WhereBetweenCondition.
@@ -18,7 +19,7 @@ class WhereBetweenCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (isset($params['start']) && isset($params['end'])) {
-            $method = 'WhereBetween';
+            $method = WhereBetween::class;
         }
 
         return $method ?? null;

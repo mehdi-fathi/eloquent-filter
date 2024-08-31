@@ -4,14 +4,10 @@ namespace eloquentFilter\QueryFilter\Core\ResolverDetection;
 
 use eloquentFilter\QueryFilter\Core\FilterBuilder\MainQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\ReflectionException;
-use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorFactoryContract;
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
 use eloquentFilter\QueryFilter\Detection\DetectionFactory\DetectionDbFactory;
-use eloquentFilter\QueryFilter\Queries\BaseClause;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Arr;
 
 /**
  * Class ResolverDetections

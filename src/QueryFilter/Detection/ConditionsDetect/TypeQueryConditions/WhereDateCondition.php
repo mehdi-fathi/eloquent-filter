@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDate;
 
 /**
  * Class WhereCondition.
@@ -18,7 +19,7 @@ class WhereDateCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (is_string($params) && \DateTime::createFromFormat('Y-m-d', $params) !== false) {
-            $method = 'WhereDate';
+            $method = WhereDate::class;
         }
 
         return $method ?? null;
