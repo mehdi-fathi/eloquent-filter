@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Queries\Eloquent\WhereByOpt;
 
 /**
  * Class WhereByOptCondition.

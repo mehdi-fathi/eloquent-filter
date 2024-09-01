@@ -16,13 +16,15 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\Wh
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereLikeCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
-use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDoesntHave;
 
 /**
  * Class QueryFilterCoreFactory.
  */
 class QueryFilterCoreFactory
 {
+    /**
+     * @return \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore
+     */
     public function createQueryFilterCoreEloquentBuilder(): QueryFilterCore
     {
         $mainBuilderConditions = new MainBuilderQueryByCondition();
@@ -35,6 +37,9 @@ class QueryFilterCoreFactory
         );
     }
 
+    /**
+     * @return \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore
+     */
     public function createQueryFilterCoreDBQueryBuilder(): QueryFilterCore
     {
         $mainBuilderConditions = new DBBuilderQueryByCondition();
