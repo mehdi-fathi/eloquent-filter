@@ -3,10 +3,9 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDoesntHave;
 
 /**
- * Class WhereCondition.
+ * Class WhereDoesntHaveCondition.
  */
 class WhereDoesntHaveCondition implements DefaultConditionsContract
 {
@@ -19,7 +18,7 @@ class WhereDoesntHaveCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if ($field == 'doesnt_have') {
-            $method = WhereDoesntHave::class;
+            $method = 'WhereDoesntHave';
         }
 
         return $method ?? null;

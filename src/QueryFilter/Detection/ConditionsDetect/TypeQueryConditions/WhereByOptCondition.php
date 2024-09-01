@@ -19,7 +19,7 @@ class WhereByOptCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (!empty($params['operator']) && isset($params['value'])) {
-            $method = WhereByOpt::class;
+            $method = 'WhereByOpt';
         }
 
         return $method ?? null;

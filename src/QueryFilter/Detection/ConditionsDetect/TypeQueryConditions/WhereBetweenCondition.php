@@ -19,7 +19,7 @@ class WhereBetweenCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (isset($params['start']) && isset($params['end'])) {
-            $method = WhereBetween::class;
+            $method = 'WhereBetween';
         }
 
         return $method ?? null;

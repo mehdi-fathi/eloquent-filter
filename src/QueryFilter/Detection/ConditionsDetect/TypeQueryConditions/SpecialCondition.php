@@ -21,7 +21,7 @@ class SpecialCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if ($field == self::SPECIAL_PARAM_NAME) {
-            return Special::class;
+            return 'Special';
         }
 
         return null;

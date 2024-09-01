@@ -450,6 +450,29 @@ class DbFilterMockTest extends \TestCase
 
     }
 
+    public function testWhereDoesntHave()
+    {
+        $tags_db = DB::table('tags')
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('categories')
+                    ->whereColumn('categories.id','tags.category_id');
+            })->where('baz', 'joo');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'doesnt_have' => 'categories',
+                'baz' => 'joo',
+            ]
+        );
+
+        $tags_filters = DB::table('tags')->filter();
+
+        $this->assertSame($tags_filters->toSql(), $tags_db->toSql());
+        $this->assertEquals(['joo'], $tags_db->getBindings());
+        $this->assertEquals(['joo'], $tags_filters->getBindings());
+    }
+
 
     public function tearDown(): void
     {

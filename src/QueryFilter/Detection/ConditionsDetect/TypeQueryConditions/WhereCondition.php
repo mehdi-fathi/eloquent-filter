@@ -19,7 +19,7 @@ class WhereCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (isset($params)) {
-            $method = Where::class;
+            $method = 'Where';
         }
 
         return $method ?? null;

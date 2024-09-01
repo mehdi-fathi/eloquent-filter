@@ -9,6 +9,7 @@ use eloquentFilter\QueryFilter\Queries\DB\WhereBetween;
 use eloquentFilter\QueryFilter\Queries\DB\WhereByOpt;
 use eloquentFilter\QueryFilter\Queries\DB\WhereCustom;
 use eloquentFilter\QueryFilter\Queries\DB\WhereDate;
+use eloquentFilter\QueryFilter\Queries\DB\WhereDoesntHave;
 use eloquentFilter\QueryFilter\Queries\DB\WhereIn;
 use eloquentFilter\QueryFilter\Queries\DB\WhereLike;
 use eloquentFilter\QueryFilter\Queries\DB\WhereOr;
@@ -39,6 +40,7 @@ class DBBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereBetween' => WhereBetween::class,
             'WhereByOpt' => WhereByOpt::class,
             'WhereDate' => WhereDate::class,
+            'WhereDoesntHave' => WhereDoesntHave::class,
             // 'WhereHas' => WhereHas::class,
             'WhereIn' => WhereIn::class,
             'WhereLike' => WhereLike::class,

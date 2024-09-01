@@ -3,7 +3,6 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions;
 
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
-use eloquentFilter\QueryFilter\Queries\Eloquent\WhereHas;
 
 /**
  * Class WhereHasCondition.
@@ -19,7 +18,7 @@ class WhereHasCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (stripos($field, '.')) {
-            $method = WhereHas::class;
+            $method = 'WhereHas';
         }
 
         return $method ?? null;

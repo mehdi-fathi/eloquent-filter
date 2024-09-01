@@ -45,7 +45,7 @@ class MainBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereIn' => WhereIn::class,
             'WhereLike' => WhereLike::class,
             'WhereOr' => WhereOr::class,
-            'WhereDoesnt' => WhereDoesntHave::class,
+            'WhereDoesntHave' => WhereDoesntHave::class,
             'Special' => Special::class,
             'WhereCustom' => WhereCustom::class,
             default => null,
