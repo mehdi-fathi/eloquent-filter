@@ -17,7 +17,7 @@ class Special extends BaseClause
      * @var array
      */
     public static $reserve_param = [
-        SpecialCondition::SPECIAL_PARAM_NAME => [
+        SpecialCondition::PARAM_NAME => [
             'limit',
             'orderBy',
         ],
@@ -33,7 +33,7 @@ class Special extends BaseClause
     public function apply($query)
     {
         foreach ($this->values as $key => $param_value) {
-            if (!in_array($key, self::$reserve_param[SpecialCondition::SPECIAL_PARAM_NAME])) {
+            if (!in_array($key, self::$reserve_param[SpecialCondition::PARAM_NAME])) {
                 throw new EloquentFilterException("$key is not in f_params array.", 2);
             }
             if (is_array($param_value)) {

@@ -128,6 +128,6 @@ class DetectorConditionCondition implements DetectorConditionContract
      */
     private function checkReservedParam(string $field): bool
     {
-        return ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == WhereOrCondition::PARAM_NAME || $field == WhereDoesntHaveCondition::PARAM_NAME);
+        return ($field == SpecialCondition::PARAM_NAME || $field == WhereOrCondition::PARAM_NAME || $field == WhereDoesntHaveCondition::PARAM_NAME);
     }
 }
