@@ -9,6 +9,7 @@ use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
  */
 class WhereDoesntHaveCondition implements DefaultConditionsContract
 {
+    const PARAM_NAME = 'doesnt_have';
     /**
      * @param $field
      * @param $params
@@ -17,7 +18,7 @@ class WhereDoesntHaveCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if ($field == 'doesnt_have') {
+        if ($field == self::PARAM_NAME) {
             $method = 'WhereDoesntHave';
         }
 

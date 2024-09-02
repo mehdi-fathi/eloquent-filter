@@ -29,11 +29,11 @@ interface DetectorConditionContract
      * @param string $field
      * @param $params
      * @param null $getWhiteListFilter
-     * @param bool $HasOverrideMethod
+     * @param bool $hasOverrideMethod
      * @param $className
      * @return string|null
      * @throws \eloquentFilter\QueryFilter\Detection\Contract\Exception
      */
-    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $className = null): ?string;
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $hasOverrideMethod = false, $className = null): ?string;
 
 }

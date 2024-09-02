@@ -9,6 +9,9 @@ use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
  */
 class WhereOrCondition implements DefaultConditionsContract
 {
+
+    const PARAM_NAME = 'or';
+
     /**
      * @param $field
      * @param $params
@@ -17,7 +20,7 @@ class WhereOrCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if ($field == 'or') {
+        if ($field == self::PARAM_NAME) {
             $method = 'WhereOr';
         }
 

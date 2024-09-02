@@ -3,6 +3,8 @@
 namespace eloquentFilter\QueryFilter\Detection\Detector;
 
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDoesntHaveCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 use eloquentFilter\QueryFilter\Detection\Contract\DetectorConditionContract;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
@@ -62,15 +64,15 @@ class DetectorConditionCondition implements DetectorConditionContract
      * @param string $field
      * @param $params
      * @param null $getWhiteListFilter
-     * @param bool $HasOverrideMethod
+     * @param bool $hasOverrideMethod
      * @param $className
      * @return string|null
      */
-    public function detect(string $field, $params, $getWhiteListFilter = null, bool $HasOverrideMethod = false, $className = null): ?string
+    public function detect(string $field, $params, $getWhiteListFilter = null, bool $hasOverrideMethod = false, $className = null): ?string
     {
-        $out = $this->getDetector()->map(function ($item) use ($field, $params, $getWhiteListFilter, $HasOverrideMethod, $className) {
-            if ($this->handelListFields($field, $getWhiteListFilter, $HasOverrideMethod, $className)) {
-                if ($HasOverrideMethod) {
+        $out = $this->getDetector()->map(function ($item) use ($field, $params, $getWhiteListFilter, $hasOverrideMethod, $className) {
+            if ($this->handelListFields($field, $getWhiteListFilter, $hasOverrideMethod, $className)) {
+                if ($hasOverrideMethod) {
                     $query = WhereCustom::class;
                 } else {
                     /** @see DefaultConditionsContract::detect() */
@@ -89,16 +91,16 @@ class DetectorConditionCondition implements DetectorConditionContract
     /**
      * @param string $field
      * @param array|null $list_white_filter_model
-     * @param bool $has_method
+     * @param bool $has_override_method
      * @param $model_class
      *
      * @return bool
      * @throws Exception
      *
      */
-    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_method, $model_class): bool
+    private function handelListFields(string $field, ?array $list_white_filter_model, bool $has_override_method, $model_class): bool
     {
-        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == 'or' || $field == 'doesnt_have') || $has_method) {
+        if ($this->checkSetWhiteListFields($field, $list_white_filter_model) || $this->checkReservedParam($field) || $has_override_method) {
             return true;
         }
 
@@ -118,5 +120,14 @@ class DetectorConditionCondition implements DetectorConditionContract
         }
 
         return false;
+    }
+
+    /**
+     * @param string $field
+     * @return bool
+     */
+    private function checkReservedParam(string $field): bool
+    {
+        return ($field == SpecialCondition::SPECIAL_PARAM_NAME || $field == WhereOrCondition::PARAM_NAME || $field == WhereDoesntHaveCondition::PARAM_NAME);
     }
 }
