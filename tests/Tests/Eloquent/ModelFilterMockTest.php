@@ -51,18 +51,10 @@ class ModelFilterMockTest extends \TestCase
 
     protected function makeBuilderWithModel($obj = null)
     {
-        if (!empty($obj)) {
-            $this->builder->shouldReceive('getModel')->andReturn($obj);
-        } else {
-            $this->userModel = $this->getMockModel();
-
-            $this->builder->shouldReceive('getModel')->andReturn($this->userModel);
-        }
     }
 
     protected function __initQuery($obj = null)
     {
-        $this->makeBuilderWithModel($obj);
     }
 
     public function testWhere()
@@ -726,10 +718,8 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['boom', 'joe', null], $users->getBindings());
     }
 
-    public function testNullReqeust()
+    public function testNullRequest()
     {
-        $this->__initQuery();
-
         $this->request->shouldReceive('query')->andReturn(null);
 
         $builder = new Category();
@@ -739,10 +729,8 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals($users->toSql(), $builder->toSql());
     }
 
-    public function testNullArrReqeust()
+    public function testNullArrRequest()
     {
-        $this->__initQuery();
-
         $this->request->shouldReceive('query')->andReturn(
             [
             ]
@@ -759,7 +747,7 @@ class ModelFilterMockTest extends \TestCase
     {
         $builder = new Tag();
 
-        $builder = $builder->where('baz', 'joo');
+        $builder = $builder->newQuery()->where('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn(
             [
