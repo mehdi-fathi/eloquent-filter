@@ -10,8 +10,10 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehdi-fathi/eloquent-filter/?branch=master)
 [![codecov](https://codecov.io/gh/mehdi-fathi/eloquent-filter/branch/develop/graph/badge.svg?token=QY9HA6NXFH)](https://codecov.io/gh/mehdi-fathi/eloquent-filter)
 
-Eloquent Filter is a robust Laravel package providing an intuitive way to filter your Eloquent models using query strings.
-Perfect for crafting responsive APIs and complex data sets, this package seamlessly integrates with Laravel's existing Eloquent models,
+Eloquent Filter is a robust Laravel package providing an intuitive way to filter your Eloquent models using query
+strings.
+Perfect for crafting responsive APIs and complex data sets, this package seamlessly integrates with Laravel's existing
+Eloquent models,
 adding powerful and dynamic filtering capabilities with minimal setup.
 
 Features:
@@ -57,7 +59,8 @@ although we have a lot of features to make able you to implement your specific s
 
 ### Version information
 
-The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0 with 2 new features.
+The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0
+with 2 new features.
 
 The current version supports:
 
@@ -74,13 +77,15 @@ The current version supports:
 
 ## :microphone: Introduction
 
-Conceivably, you would face challenges if you've done a task as an end-point in which there are some queries with many advanced options.
+Conceivably, you would face challenges if you've done a task as an end-point in which there are some queries with many
+advanced options.
 
 Let's say we want to make an advanced search page with multiple filter options.
 
 ![](https://raw.githubusercontent.com/mehdi-fathi/eloquent-filter/master/Aban-21-1402%2014-27-04.gif)
 
 ### A simple implementation without Eloquent Filter
+
 The Resource URI would be look like:
 
     /users/index?age_more_than=25&gender=male&created_at=25-09-2019
@@ -117,6 +122,7 @@ class UserController extends Controller
     }
 }
 ```
+
 This solution is simple and that works well but not for an enterprise project.
 But you'd have to add a condition for each filter you need.
 Especially if you would make more complex filtering, your code can become a monster quickly! :boom:
@@ -151,6 +157,7 @@ class UsersController
     }
 }
 ```
+
 By Eloquent filter implementation, you can use all the documented filters!
 
 ## :electric_plug: Installation
@@ -175,6 +182,7 @@ By Eloquent filter implementation, you can use all the documented filters!
        eloquentFilter\ServiceProvider::class
    ]
    ```
+
 3- Add Facade `'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class` to aliases app.php
 
 ```php
@@ -185,12 +193,15 @@ By Eloquent filter implementation, you can use all the documented filters!
     'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
 ],
 ```
+
 That's it enjoy! :boom:
+
 ## :book: Basic Usage
 
 ### Config Model and set whitelist
 
-Add the `Filterable` trait to yourself models and set fields in the whitelist array in which you will want to use of filter . 
+Add the `Filterable` trait to yourself models and set fields in the whitelist array in which you will want to use of
+filter .
 You can override this method in your models as well.
 
 ```php
@@ -209,11 +220,13 @@ class User extends Model
     ];
 }
 ```
+
 - You can set `*` char for that filter in all fields aslike below example:
 
 ```php
 private static $whiteListFilter = ['*'];
 ```
+
 You able add or set `$whiteListFilter` on the fly in your method. For example:
 
 ***Set array to WhiteListFilter***
@@ -233,10 +246,10 @@ User::addWhiteListFilter('name');
 -**Note** Just in case, you must set `$whiteListFilter` in Models. Aim of the method avert to manipulation query string
 by a bad user.
 
-### Conditions Guidance Table 
+### Conditions Guidance Table
 
-- To better understand this, I will provide a table of all conditions and samples. It represents how eloquent filter detect params and each param what query would make.
-
+- To better understand this, I will provide a table of all conditions and samples. It represents how eloquent filter
+  detect params and each param what query would make.
 
 | Condition Name           | Eloquent Method | Param                                                        | Example                                                            | Eloquent | DB |
 |--------------------------|-----------------|--------------------------------------------------------------|--------------------------------------------------------------------|----------|----|
@@ -248,7 +261,7 @@ by a bad user.
 | WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('column', $value)                                          | ✅        | ✅  |
 | WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('column', $value)                                          | ✅        | ✅  |
 | WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',function ($q) <br/>{$q->where('title', $value)}); | ✅        | ❌  |
-| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | where not exists (select * from ...)                               | ✅        | ✅  |
+| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | doesntHave($value)                                                 | ✅        | ✅  |
 | WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('column', $value)                                        | ✅        | ✅  |
 | WhereCondition           | where           | username=Mehdi                                               | where('column', $value)                                            | ✅        | ✅  |
 
@@ -569,7 +582,8 @@ class WhereRelationLikeCondition implements ConditionsContract
 }
 ```
 
-- Step 2:Right after, create a class to generate a query. In this example we make `WhereRelationLikeConditionQuery` class:
+- Step 2:Right after, create a class to generate a query. In this example we make `WhereRelationLikeConditionQuery`
+  class:
 
 ```php
 use eloquentFilter\QueryFilter\Queries\BaseClause;
@@ -632,7 +646,8 @@ class User extends Model
 }
 ``` 
 
-- Each of the query params is used to detect in `WhereRelationLikeCondition` for the first time after that check by default detection eloquent filter.
+- Each of the query params is used to detect in `WhereRelationLikeCondition` for the first time after that check by
+  default detection eloquent filter.
 
 Make method `EloquentFilterCustomDetection` in the above example and return array conditions class.
 
@@ -696,9 +711,10 @@ You can publish the configuration file to customize the package further:
 - You can disable/enable Eloquent Filter in the config file (eloquentFilter.php).
 
         'enabled' => env('EloquentFilter_ENABLED', true),
-    
-- Eloquent Filter recognizes every param of the queries string. 
-  Maybe you have a query string that you don't want to recognize by Eloquent Filter. You can use `ignoreRequest` for his purpose.
+
+- Eloquent Filter recognizes every param of the queries string.
+  Maybe you have a query string that you don't want to recognize by Eloquent Filter. You can use `ignoreRequest` for his
+  purpose.
   But we have a clean solution to this problem. You can set param `request_filter_key` in the config file.
   Therefore, every query string will recognize by the `request_filter_key` param.
 
@@ -717,7 +733,8 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
         'ignore_request' => [] //[ 'show_query','new_trend' ],
 
-- You had better keep `max_limit`. It's a limitation for preventing making awful queries mistakenly by the developer or intentionally by a villain user.
+- You had better keep `max_limit`. It's a limitation for preventing making awful queries mistakenly by the developer or
+  intentionally by a villain user.
 
         'max_limit' => 20
 
@@ -738,8 +755,9 @@ For example, if you set `'request_filter_key' => 'filter',` that Eloquent Filter
 
   Then you just need to pass `config('eloquentFilter.filtering_keys.title_sport_advanced')` to filter method.
 
-- From now on , we have the ability to record logs by logger instance. Since queries is made dynamically somehow , the need of feature keeping queries with their time is required.
-So we added it in this version with some other options to better management.
+- From now on , we have the ability to record logs by logger instance. Since queries is made dynamically somehow , the
+  need of feature keeping queries with their time is required.
+  So we added it in this version with some other options to better management.
 
         'log' => [
         'has_keeping_query' => false,
@@ -747,13 +765,14 @@ So we added it in this version with some other options to better management.
         'type' => 'eloquentFilter.query'
         ]
 
-
-  It's disable by default you enable by `has_keeping_query`, `type` is type log ,and `max_time_query` is a value for keeping queries with high time-executed. 
+It's disable by default you enable by `has_keeping_query`, `type` is type log ,and `max_time_query` is a value for
+keeping queries with high time-executed.
 
 ### Alias
 
 Sometimes you may want to change some parameters in the URL while those mention a field of the model.
-e.g. name of the input form is not similar to the model ,or you want to change them for other reasons so the alias as a new feature can be useful.
+e.g. name of the input form is not similar to the model ,or you want to change them for other reasons so the alias as a
+new feature can be useful.
 
 ```php
 
@@ -788,14 +807,18 @@ Some people asked me a lot to add new feature to support Laravel query builder.
 It needed a lot of energy and devoting time , so I decided to implement it.
 It's quite tough however finally it's almost done now.
 
-We are supporting query builder along with eloquent from now on. Not only you would use query builder ,but also you can use eloquent at the same time.
+We are supporting query builder along with eloquent from now on. Not only you would use query builder ,but also you can
+use eloquent at the same time.
 
-It's a new feature ,and I'm snowed under the code to fix issues. Anyway this feature is up right now with just some limitation.
-We don't support `WhereCustomCondition` and `WhereHas` for query builder at the moment but other conditions were ready to use.
+It's a new feature ,and I'm snowed under the code to fix issues. Anyway this feature is up right now with just some
+limitation.
+We don't support `WhereCustomCondition` and `WhereHas` for query builder at the moment but other conditions were ready
+to use.
 in addition, we don't have any kind of `whitelist` , `blacklist` , `custom detectioon` or `alias`.
 currently , It's just a simple feature.
 
-- Usage of them is just extremely like model just you need use filter as a method. Obviously, there's no need any change like use trait or etc.
+- Usage of them is just extremely like model just you need use filter as a method. Obviously, there's no need any change
+  like use trait or etc.
 
 ```php
  DB::table('users')->filter();
@@ -809,7 +832,8 @@ Now Eloquent Filter have `serializeRequestFilter`,`ResponseFilter` and , etc.
 
 ### Request Methods
 
-Call `ignoreRequest` (static scope) or `ignoreRequestFilter` will ignore some requests that you don't want to use in conditions of eloquent filter.
+Call `ignoreRequest` (static scope) or `ignoreRequestFilter` will ignore some requests that you don't want to use in
+conditions of eloquent filter.
 
 Change your code the controller of the laravel project as like below example:
 
@@ -834,9 +858,11 @@ Change your code the controller of the laravel project as like below example:
 ```
 
 -**Note** The Eloquent Filter config by default uses the query string to make queries in Laravel.
-Although, you can set the collection data in the `filter` method Model for making your own custom condition without query string.
+Although, you can set the collection data in the `filter` method Model for making your own custom condition without
+query string.
 
--**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param ignore from the filter.
+-**Note**  Therefore you must unset yourself param as perpage. Just you can set page param for paginate this param
+ignore from the filter.
 
 - You can ignore some request params via use of the bellow code.
 
@@ -852,7 +878,8 @@ It has to do with to the paginate method. `page` param ignore by default in Eloq
 
 - You are able to filter some request params as acceptable filter`.
 
-Calling `AcceptRequest` (static scope) or `acceptRequestFilter` will accept requests in which you want to use in conditions Eloquent Filter.
+Calling `AcceptRequest` (static scope) or `acceptRequestFilter` will accept requests in which you want to use in
+conditions Eloquent Filter.
 e.g: `username` and `id` key will be in the conditions eloquent filter.
 
 ```php
@@ -893,7 +920,8 @@ class User extends Model
 }
 ```
 
-As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by Eloquent Filter. 
+As above code, you can modify every query params of the Model in the method `serializeRequestFilter` before running by
+Eloquent Filter.
 That is a practical method when you want to set user_id or convert date or remove space and others.
 
 ### Request Field Cast Filter
@@ -937,7 +965,8 @@ class User extends Model
 }
 ```
 
-- You are capable of passing a callback function to `getResponseFilter` method to change the response. We only have this feature in query builder DB.
+- You are capable of passing a callback function to `getResponseFilter` method to change the response. We only have this
+  feature in query builder DB.
 
 ```php
 
@@ -956,7 +985,8 @@ Obviously, you never want all users who are able to get data by manipulating req
 an eloquent control feature.
 Although we have this ability on request side, we need this feature on Eloquent side as well.
 
-We would set a blacklist detection to prevent making conditions by using it. Therefore, that list has been disabled in making conditions. for example:
+We would set a blacklist detection to prevent making conditions by using it. Therefore, that list has been disabled in
+making conditions. for example:
 
 ```php
 
@@ -1022,7 +1052,8 @@ e.g:
 
 ## Contributing
 
-If you'd like to contribute to Eloquent Filter, please fork the repository and create a pull request. We welcome contributions of all kinds, including bug fixes, new features, and documentation improvements.
+If you'd like to contribute to Eloquent Filter, please fork the repository and create a pull request. We welcome
+contributions of all kinds, including bug fixes, new features, and documentation improvements.
 
 ## Proposed Features (Under Consideration)
 
@@ -1039,7 +1070,8 @@ Eloquent Filter is open-source software licensed under the [MIT license](https:/
 
 ## Contact
 
-If you have any questions or feedback about Eloquent Filter, please feel free to contact us at mehdifathi.developer@gmail.com. We'd love to hear from you!
+If you have any questions or feedback about Eloquent Filter, please feel free to contact us at
+mehdifathi.developer@gmail.com. We'd love to hear from you!
 
 ## Acknowledgements
 
