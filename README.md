@@ -248,7 +248,7 @@ by a bad user.
 
 ### Conditions Guidance Table
 
-- To better understand this, I will provide a table of all conditions and samples. It represents how eloquent filter
+- To better understand this, I provided a table of all conditions and samples. It represents how eloquent filter
   detect params and each param what query would make.
 
 | Condition Name           | Eloquent Method | Param                                                        | Example                                                            | Eloquent | DB |
