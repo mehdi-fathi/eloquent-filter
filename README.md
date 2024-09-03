@@ -238,20 +238,19 @@ by a bad user.
 - To better understand this, I will provide a table of all conditions and samples. It represents how eloquent filter detect params and each param what query would make.
 
 
-| Condition Name           | Eloquent Method | Param                                                   | Example                                                       | Eloquent | DB |
-|--------------------------|-----------------|---------------------------------------------------------|---------------------------------------------------------------|----------|----|
-| WhereCustomCondition     |                 |                                                         | Your declared custom method of Model                          | ✅        | ❌   |
-| SpecialCondition         |                 | f_params[limit]=10                                      | support f_params, e.g: limit and order                        | ✅        | ✅  |
-| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01&created_at[end]=2017/10/01 | whereBetween('created_at', [{start},{end}])                   | ✅        | ✅  |
-| WhereByOptCondition      | where           | count_posts[operator]=>&count_posts[value]=35           | where('column', ">", $value)                                  | ✅        | ✅  |
-| WhereLikeCondition       | where           | first_name[like]=John                                   | where('column', 'like', $value)                               | ✅        | ✅  |
-| WhereInCondition         | whereIn         | username[]=David&username[]=John12                      | whereIn('column', $value)                                     | ✅        | ✅  |
-| WhereOrCondition         | orWhere         | username=Bill&or[username]=James                        | orWhere('column', $value)                                     | ✅        | ✅  |
-| WhereHas                 | WhereHas        | posts[title]=sport one                                  | whereHas('posts',function ($q) {$q->where('title', $value)}); | ✅        | ❌   |
-| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                    | where not exists (select * from ...)                          | ✅        | ✅  |
-| WhereDateCondition       | whereDate       | created_at=2024-09-01                                   | whereDate('column', $value)                                   | ✅        | ✅  |
-| WhereCondition           | where           | username=Mehdi                                          | where('column', $value)                                       | ✅        | ✅  |
-
+| Condition Name           | Eloquent Method | Param                                                        | Example                                                            | Eloquent | DB |
+|--------------------------|-----------------|--------------------------------------------------------------|--------------------------------------------------------------------|----------|----|
+| WhereCustomCondition     |                 |                                                              | Your declared custom method of Model                               | ✅        | ❌  |
+| SpecialCondition         |                 | f_params[limit]=10                                           | support f_params, e.g: limit and order                             | ✅        | ✅  |
+| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween('created_at',<br/> [{start},{end}])                   | ✅        | ✅  |
+| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('column', ">", $value)                                       | ✅        | ✅  |
+| WhereLikeCondition       | where           | first_name[like]=John                                        | where('column', 'like', $value)                                    | ✅        | ✅  |
+| WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('column', $value)                                          | ✅        | ✅  |
+| WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('column', $value)                                          | ✅        | ✅  |
+| WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',function ($q) <br/>{$q->where('title', $value)}); | ✅        | ❌  |
+| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | where not exists (select * from ...)                               | ✅        | ✅  |
+| WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('column', $value)                                        | ✅        | ✅  |
+| WhereCondition           | where           | username=Mehdi                                               | where('column', $value)                                            | ✅        | ✅  |
 
 ### Simple Examples
 
