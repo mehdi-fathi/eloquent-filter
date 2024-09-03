@@ -5,6 +5,7 @@ namespace eloquentFilter\QueryFilter\Queries\DB;
 use eloquentFilter\QueryFilter\Queries\BaseClause;
 use Illuminate\Database\Query\Expression as Raw;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  *
@@ -17,14 +18,14 @@ class WhereDoesntHave extends BaseClause
      */
     public function apply($query)
     {
-        $foreignKey = $this->values . '.id';
-
         $from = $query->from;
+        $tableJoin = Str::singular($this->values);
+        $foreignKey = sprintf('"%s"."%s_id"', $from, $tableJoin);
 
-        $key_from = sprintf('"%s"."category_id"',$from);
+        $key = $this->values . '.id';
 
-        return $query->from($from)->whereNotExists(function ($q) use ($foreignKey, $from,$key_from) {
-            $q->select(DB::raw(1))->from($this->values)->where($foreignKey, '=', new Raw($key_from));
+        return $query->from($from)->whereNotExists(function ($q) use ($foreignKey, $from, $key) {
+            $q->select(DB::raw(1))->from($this->values)->where($key, '=', new Raw($foreignKey));
         });
     }
 }
