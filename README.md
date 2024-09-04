@@ -253,11 +253,11 @@ by a bad user.
 
 | Condition Name           | Eloquent Method | Param                                                        | Example                                                                 | Eloquent | DB |
 |--------------------------|-----------------|--------------------------------------------------------------|-------------------------------------------------------------------------|----------|----|
-| WhereCustomCondition     |                 |                                                              | Declared custom<br/> method of Model                                         | ✅        | ❌  |
+| WhereCustomCondition     |                 |                                                              | Declared custom<br/> method of Model                                    | ✅        | ❌  |
 | SpecialCondition         |                 | f_params[limit]=10                                           | support f_params, e.g:<br/> limit and order                             | ✅        | ✅  |
-| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween(<br/>'created_at',<br/> [{start},{end}])                        | ✅        | ✅  |
-| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('column',<br/> ">", $value)                                            | ✅        | ✅  |
-| WhereLikeCondition       | where           | first_name[like]=John                                        | where('column',<br/> 'like', $value)                                         | ✅        | ✅  |
+| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween(<br/>'created_at',<br/> [{start},{end}])                   | ✅        | ✅  |
+| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('column',<br/> ">", $value)                                       | ✅        | ✅  |
+| WhereLikeCondition       | where           | first_name[like]=John                                        | where('column',<br/> 'like', $value)                                    | ✅        | ✅  |
 | WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('column', $value)                                               | ✅        | ✅  |
 | WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('column', $value)                                               | ✅        | ✅  |
 | WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',<br/>function ($q) <br/>{$q->where('title', $value)}); | ✅        | ❌  |
