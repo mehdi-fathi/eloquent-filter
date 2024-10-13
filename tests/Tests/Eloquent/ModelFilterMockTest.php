@@ -1732,6 +1732,54 @@ class ModelFilterMockTest extends \TestCase
 
     }
 
+    public function testWhereWithRequestHash()
+    {
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        Category::filter($this->request->query());
+
+        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MXsidGl0bGUiOiJzcG9ydCJ9');
+
+        $categories = Category::filter(['hashed_filters' => 'MXsidGl0bGUiOiJzcG9ydCJ9']);
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+    }
+
+    public function testWhereWithRequestHash2()
+    {
+        $builder = new Category();
+
+        $builder = $builder->query()->where('title', 'sport');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'title' => 'sport',
+            ]
+        );
+
+        EloquentFilter::setRequestEncoded([
+            'title' => 'sport',
+        ], 1);
+
+        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MXsidGl0bGUiOiJzcG9ydCJ9');
+
+        $categories = Category::filter(['hashed_filters' => EloquentFilter::getRequestEncoded()]);
+
+        $this->assertSame($categories->toSql(), $builder->toSql());
+
+        $this->assertEquals(['sport'], $categories->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();
