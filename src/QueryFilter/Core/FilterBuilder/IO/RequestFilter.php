@@ -28,6 +28,11 @@ class RequestFilter
     protected ?array $request;
 
     /**
+     * @var array|null
+     */
+    public $requestEncoded;
+
+    /**
      * @param array|null $request
      */
     public function __construct(?array $request)
@@ -42,6 +47,55 @@ class RequestFilter
     public function setPureRequest($request)
     {
         $this->request = $request;
+        if (isset($request['hashed_filters'])) {
+            $this->request = json_decode($this->simpleDecodeWithSalt($request['hashed_filters'], 1), true);
+        } else {
+            //todo consider salt in config
+            $this->setRequestEncoded($request,1);
+        }
+    }
+
+    /**
+     * @param array|null $request
+     * @param $salt
+     */
+    public function setRequestEncoded(?array $request, $salt): void
+    {
+        $this->requestEncoded = $this->simpleEncodeWithSalt(json_encode($request), $salt);
+    }
+
+    function simpleEncodeWithSalt($string, $salt)
+    {
+        // Combine the string with the salt
+        $saltedString = $salt . $string;
+
+        // Base64 encode the salted string
+        $encoded = base64_encode($saltedString);
+
+        // Replace characters to make it URL-safe
+        $encoded = str_replace(['+', '/', '='], ['-', '_', ''], $encoded);
+
+        return $encoded;
+    }
+
+    function simpleDecodeWithSalt($encodedString, $salt)
+    {
+        // Replace URL-safe characters back to base64 characters
+        $encodedString = str_replace(['-', '_'], ['+', '/'], $encodedString);
+
+        // Add padding if necessary
+        $paddedString = str_pad($encodedString, strlen($encodedString) % 4, '=', STR_PAD_RIGHT);
+
+        // Base64 decode the string
+        $decoded = base64_decode($paddedString);
+
+        // Remove the salt from the beginning of the decoded string
+        if (strpos($decoded, $salt) === 0) {
+            return substr($decoded, strlen($salt));
+        }
+
+        // If the salt is not found, return null or an error message
+        return null;
     }
 
     /**
@@ -276,7 +330,7 @@ class RequestFilter
      * @param array|null $accept_request
      * @return void
      */
-    public function handleRequest($builder,?array $ignore_request, ?array $accept_request): void
+    public function handleRequest($builder, ?array $ignore_request, ?array $accept_request): void
     {
 
         $serialize_request_filter = $builder->getModel()->serializeRequestFilter($this->getRequest());

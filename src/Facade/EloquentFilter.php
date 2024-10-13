@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static array getIgnoredRequest()
  * @method static array getInjectedDetections()
  * @method static array getResponse()
+ * @method static array setRequestEncoded(?array $request, $salt)
+ * @method static array getRequestEncoded()
  *
  * @see eloquentFilter\QueryFilter\QueryFilter
  */

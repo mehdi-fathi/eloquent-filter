@@ -37,6 +37,23 @@ trait HelperEloquentFilter
         return $this->requestFilter->getIgnoreRequest();
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getRequestEncoded()
+    {
+        return $this->requestFilter->requestEncoded;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setRequestEncoded($request, $salt)
+    {
+        return $this->requestFilter->setRequestEncoded($request, $salt);
+    }
+
     /**
      * @return mixed
      */
