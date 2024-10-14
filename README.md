@@ -39,6 +39,7 @@ although we have a lot of features to make able you to implement your specific s
     - [Conditions Guidance Table](#conditions-guidance-table )
     - [Simple Examples](#simple-examples)
     - [Custom Query Filter](#custom-query-filter)
+    - [Request encoded](#request-encoded)
     - [Custom Detection Condition](#custom-detection-condition)
 - [Configuring](#configuring)
     - [Publish Config](#publish-config)
@@ -543,6 +544,26 @@ User::filter()->paginate();
 - `EloquentFilter::getAcceptedRequest()` : get all params that set by the AcceptRequest method.
 
 - `EloquentFilter::getIgnoredRequest()` : get all ignored params that set by the getIgnoreRequest method.
+
+
+### Request encoded
+
+In particular projects, We don't want to share our request filters with all users. 
+It means every single user should have a unique valid url for duplicated search
+then It works just for the same user.
+
+- `EloquentFilter::getRequestEncoded()` : get passed request as encoded request based on default.
+- `EloquentFilter::setRequestEncoded()` : set request encoded with a selective salt.
+
+You just need to pass `hashed_filters` as key to detect hashed_filter and encode them in the core. Every single user has a unique url per user. In addition, nobody can manipulate parameters in order to get specific data.
+
+```
+/users/list?hashed_filters=MXsidGl0bGUiOiJzcG9ydCJ9
+
+SELECT ... WHERE ... name = 'mehdi'
+```
+
+For this purpose, You had better have an end-point to set and get request encoded then pass it to your main end-point for result.
 
 ### Custom Detection Conditions
 
