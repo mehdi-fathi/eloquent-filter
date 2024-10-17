@@ -1746,9 +1746,9 @@ class ModelFilterMockTest extends \TestCase
 
         Category::filter($this->request->query());
 
-        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MXsidGl0bGUiOiJzcG9ydCJ9');
+        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MTIzNHsidGl0bGUiOiJzcG9ydCJ9');
 
-        $categories = Category::filter(['hashed_filters' => 'MXsidGl0bGUiOiJzcG9ydCJ9']);
+        $categories = Category::filter(['hashed_filters' => 'MTIzNHsidGl0bGUiOiJzcG9ydCJ9']);
 
         $this->assertSame($categories->toSql(), $builder->toSql());
 
@@ -1769,9 +1769,9 @@ class ModelFilterMockTest extends \TestCase
 
         EloquentFilter::setRequestEncoded([
             'title' => 'sport',
-        ], 1);
+        ], config('eloquentFilter.request_salt')());
 
-        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MXsidGl0bGUiOiJzcG9ydCJ9');
+        $this->assertSame(EloquentFilter::getRequestEncoded(), 'MTIzNHsidGl0bGUiOiJzcG9ydCJ9');
 
         $categories = Category::filter(['hashed_filters' => EloquentFilter::getRequestEncoded()]);
 

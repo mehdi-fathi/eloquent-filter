@@ -41,5 +41,8 @@ return [
         'type' => 'eloquentFilter.query'
     ],
     'filtering_keys' => [
-    ]
+    ],
+    'request_salt' => function () {
+        return 1234;
+    }
 ];

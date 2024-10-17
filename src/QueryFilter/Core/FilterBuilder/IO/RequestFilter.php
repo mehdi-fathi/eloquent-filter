@@ -11,7 +11,15 @@ use Illuminate\Support\Arr;
 class RequestFilter
 {
 
+    use Encoder;
+
+    /**
+     *
+     */
+    //todo we can set it on config
     const CAST_METHOD_SIGN = 'filterSet';
+
+
     /**
      * @var
      */
@@ -28,7 +36,7 @@ class RequestFilter
     protected ?array $request;
 
     /**
-     * @var array|null
+     * @var
      */
     public $requestEncoded;
 
@@ -47,12 +55,7 @@ class RequestFilter
     public function setPureRequest($request)
     {
         $this->request = $request;
-        if (isset($request['hashed_filters'])) {
-            $this->request = json_decode($this->simpleDecodeWithSalt($request['hashed_filters'], 1), true);
-        } else {
-            //todo consider salt in config
-            $this->setRequestEncoded($request,1);
-        }
+        $this->handleRequestEncoded($request);
     }
 
     /**
@@ -61,41 +64,7 @@ class RequestFilter
      */
     public function setRequestEncoded(?array $request, $salt): void
     {
-        $this->requestEncoded = $this->simpleEncodeWithSalt(json_encode($request), $salt);
-    }
-
-    function simpleEncodeWithSalt($string, $salt)
-    {
-        // Combine the string with the salt
-        $saltedString = $salt . $string;
-
-        // Base64 encode the salted string
-        $encoded = base64_encode($saltedString);
-
-        // Replace characters to make it URL-safe
-        $encoded = str_replace(['+', '/', '='], ['-', '_', ''], $encoded);
-
-        return $encoded;
-    }
-
-    function simpleDecodeWithSalt($encodedString, $salt)
-    {
-        // Replace URL-safe characters back to base64 characters
-        $encodedString = str_replace(['-', '_'], ['+', '/'], $encodedString);
-
-        // Add padding if necessary
-        $paddedString = str_pad($encodedString, strlen($encodedString) % 4, '=', STR_PAD_RIGHT);
-
-        // Base64 decode the string
-        $decoded = base64_decode($paddedString);
-
-        // Remove the salt from the beginning of the decoded string
-        if (strpos($decoded, $salt) === 0) {
-            return substr($decoded, strlen($salt));
-        }
-
-        // If the salt is not found, return null or an error message
-        return null;
+        $this->requestEncoded = $this->encodeWithSalt(json_encode($request), $salt);
     }
 
     /**
@@ -344,6 +313,19 @@ class RequestFilter
             alias_list_filter: $alias_list_filter ?? [],
             model: $builder->getModel(),
         );
+    }
+
+    /**
+     * @param $request
+     * @return void
+     */
+    private function handleRequestEncoded($request): void
+    {
+        if (isset($request['hashed_filters'])) {
+            $this->request = json_decode($this->decodeWithSalt($request['hashed_filters'], config('eloquentFilter.request_salt')()), true);
+        } else {
+            $this->setRequestEncoded($request, config('eloquentFilter.request_salt')());
+        }
     }
 
 }
