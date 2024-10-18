@@ -44,5 +44,6 @@ return [
     ],
     'request_salt' => function () {
         return 1234;
-    }
+    },
+    'cast_method_sign' => 'filterSet'
 ];

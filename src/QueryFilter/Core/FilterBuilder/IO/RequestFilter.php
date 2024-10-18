@@ -14,13 +14,6 @@ class RequestFilter
     use Encoder;
 
     /**
-     *
-     */
-    //todo we can set it on config
-    const CAST_METHOD_SIGN = 'filterSet';
-
-
-    /**
      * @var
      */
     protected mixed $accept_request = null;
@@ -265,7 +258,7 @@ class RequestFilter
      */
     private function getCastedMethodValue(int|string $name, $builder_model, mixed $value): mixed
     {
-        $castMethod = SELF::CAST_METHOD_SIGN . $name;
+        $castMethod = config('eloquentFilter.cast_method_sign') . $name;
 
         if (!empty($builder_model) && method_exists($builder_model, $castMethod)) {
             $value = $builder_model->{$castMethod}($value);
