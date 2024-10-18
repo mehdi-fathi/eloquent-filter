@@ -562,6 +562,7 @@ You just need to pass `hashed_filters` as key to detect hashed_filter and encode
 
 SELECT ... WHERE ... name = 'mehdi'
 ```
+- You make sure adjust `request_salt` in config.php. You'd better set a unique value like user_id or ip.
 
 For this purpose, You had better have an end-point to set and get request encoded then pass it to your main end-point for result.
 
