@@ -42,8 +42,14 @@ return [
     ],
     'filtering_keys' => [
     ],
+    /*
+    * Set salt for encode request.
+    */
     'request_salt' => function () {
         return 1234;
     },
+    /*
+    * Cast sign method is prefix name method for change data before filtering.
+    */
     'cast_method_sign' => 'filterSet'
 ];
