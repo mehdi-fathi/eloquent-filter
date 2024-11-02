@@ -11,11 +11,6 @@ use Illuminate\Database\DB\Builder;
 class WhereCustom extends BaseClause
 {
     /**
-     *
-     */
-    public const METHOD_SIGN = "filterCustom";
-
-    /**
      * @param $query
      *
      * @return Builder
@@ -32,8 +27,10 @@ class WhereCustom extends BaseClause
      */
     public static function getMethod($filter): string
     {
+        $custom_method_sign = config('eloquentFilter.custom_method_sign');
+
         $filter = ucfirst($filter);
-        $method = self::METHOD_SIGN . $filter;
+        $method = $custom_method_sign . $filter;
         return $method;
     }
 }

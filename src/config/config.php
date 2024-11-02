@@ -48,8 +48,14 @@ return [
     'request_salt' => function () {
         return 1234;
     },
+
     /*
     * Cast sign method is prefix name method for change data before filtering.
     */
-    'cast_method_sign' => 'filterSet'
+    'cast_method_sign' => 'filterSet',
+
+    /*
+    * custom sign method is prefix name method for custom methods in models.
+    */
+    'custom_method_sign' => 'filterCustom'
 ];
