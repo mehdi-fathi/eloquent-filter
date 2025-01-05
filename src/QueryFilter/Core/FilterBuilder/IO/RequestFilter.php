@@ -315,9 +315,9 @@ class RequestFilter
     private function handleRequestEncoded($request): void
     {
         if (isset($request['hashed_filters'])) {
-            $this->request = json_decode($this->decodeWithSalt($request['hashed_filters'], config('eloquentFilter.request_salt')()), true);
+            $this->request = json_decode($this->decodeWithSalt($request['hashed_filters'], config('eloquentFilter.request_salt')), true);
         } else {
-            $this->setRequestEncoded($request, config('eloquentFilter.request_salt')());
+            $this->setRequestEncoded($request, config('eloquentFilter.request_salt'));
         }
     }
 
