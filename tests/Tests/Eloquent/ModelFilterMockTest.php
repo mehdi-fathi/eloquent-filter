@@ -1769,7 +1769,7 @@ class ModelFilterMockTest extends \TestCase
 
         EloquentFilter::setRequestEncoded([
             'title' => 'sport',
-        ], config('eloquentFilter.request_salt')());
+        ], 1234);
 
         $this->assertSame(EloquentFilter::getRequestEncoded(), 'MTIzNHsidGl0bGUiOiJzcG9ydCJ9');
 
