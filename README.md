@@ -29,7 +29,7 @@ With an extensive feature set, you can implement specific functionalities unique
 **Note** We considered what predictable features you wanted to implement no matter simple or complex,
 although we have a lot of features to make able you to implement your specific something's else.
 
-## Table of Content
+## Table of content
 
 - [Introduction](#microphone-introduction)
 - [Installation](#electric_plug-installation)
@@ -58,7 +58,7 @@ although we have a lot of features to make able you to implement your specific s
 - PHP 8.0 - 8.1 - 8.2 - 8.3 - 8.4
 - Laravel 8.x - 9.x - 10.x - 11.x - 12.x (New)
 
-### Version information
+### Versions Information
 
 The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0
 with 2 new features.
