@@ -55,8 +55,8 @@ although we have a lot of features to make able you to implement your specific s
 
 ## Requirements
 
-- PHP 8.0,8.1,8.2
-- Laravel 8.x,9.x,10.x,11.x(New)
+- PHP 8.0 - 8.1 - 8.2 - 8.3 - 8.4
+- Laravel 8.x - 9.x - 10.x - 11.x - 12.x(New)
 
 ### Version information
 
