@@ -17,8 +17,8 @@ jobs:
         os: [ ubuntu-latest ]
         include:
           - laravel: 12.*
-            testbench: v9.0.0
-            database: 9.0.x-dev
+            testbench: v10.0.0
+            database: 10.0.x-dev
           - laravel: 11.*
             testbench: v9.0.0
             database: 9.0.x-dev
