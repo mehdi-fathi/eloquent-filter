@@ -68,13 +68,14 @@ The current version supports:
 - Support query builder along with eloquent
 - Set a specific name for custom methods
 
-| Major Version | Versions      | Status         | PHP Version | Laravel Version   |
-|---------------|---------------|----------------|-------------|-------------------|
-| ^4.0          | 4.2.0 - 4.x.x | Active support | >= 8.2      | >= 11.x           |
-| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x  |
-| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x            |
-| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x |
-| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4   |
+| Major Version | Version       | Status         | PHP Version | Laravel Version    |
+|---------------|---------------|----------------|-------------|--------------------|
+| ^4.0          | 4.2.9 - 4.x.x | Active support | >= 8.2      | >= 12.x            |
+| ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0 - <= 11.x   |
+| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x   |
+| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x             |
+| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x  |
+| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4    |
 
 ## :microphone: Introduction
 
@@ -347,9 +348,8 @@ SELECT ... WHERE ... count_posts < 25
 
 **Where the nested relations Model**
 
-You can set all nested relations in the query string just via the array of query string. imagine, the user model has a
-relation with posts.
-And posts table has a relation with orders table.
+You can set all nested relations in the query string just via the array of query string. Imagine, the user model has a
+relation with posts. And posts table has a relation with orders table.
 
 You can make query conditions by set `posts[count_post]` and `posts[orders][name]` in the query string.
 
