@@ -258,16 +258,19 @@ by a bad user.
 | WhereCustomCondition     |                 |                                                              | Declared custom<br/> method of Model                                    | ✅         | ❌  |
 | SpecialCondition         |                 | f_params[limit]=10                                           | support f_params, e.g:<br/> limit and order                             | ✅         | ✅    |
 | WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween(<br/>'created_at',<br/> [{start},{end}])                   | ✅         | ✅    |
-| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('column',<br/> ">", $value)                                       | ✅         | ✅    |
-| WhereLikeCondition       | where           | first_name[like]=John                                        | where('column',<br/> 'like', $value)                                    | ✅         | ✅    |
-| WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('column', $value)                                               | ✅         | ✅    |
-| WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('column', $value)                                               | ✅         | ✅    |
+| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('count_posts',<br/> ">", $value)                                       | ✅         | ✅    |
+| WhereLikeCondition       | where           | first_name[like]=John                                        | where('first_name',<br/> 'like', $value)                                    | ✅         | ✅    |
+| WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('username', $value)                                               | ✅         | ✅    |
+| WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('username', $value)                                               | ✅         | ✅    |
 | WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',<br/>function ($q) <br/>{$q->where('title', $value)}); | ✅         | ✅    |
 | WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | doesntHave($value)                                                      | ✅         | ✅    |
-| WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('column', $value)                                             | ✅         | ✅    |
-| WhereNullCondition      | whereNull       | username[null]=true                                          | whereNull('column')                                                     | ✅         | ✅    |
-| WhereNotNullCondition   | whereNotNull    | username[not_null]=true                                      | whereNotNull('column')                                                  | ✅         | ✅    |
-| WhereCondition           | where           | username=Mehdi                                               | where('column', $value)                                                 | ✅         | ✅    |
+| WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('created_at', $value)                                             | ✅         | ✅    |
+| WhereYearCondition       | whereYear       | created_at[year]=2024                                        | whereYear('created_at', $value)                                            | ✅         | ✅    |
+| WhereMonthCondition      | whereMonth      | created_at[month]=3                                          | whereMonth('created_at', $value)                                           | ✅         | ✅    |
+| WhereDayCondition        | whereDay        | created_at[day]=15                                           | whereDay('created_at', $value)                                             | ✅         | ✅    |
+| WhereNullCondition       | whereNull       | username[null]=true                                          | whereNull('username')                                                    | ✅         | ✅    |
+| WhereNotNullCondition    | whereNotNull    | username[not_null]=true                                      | whereNotNull('username')                                                  | ✅         | ✅    |
+| WhereCondition           | where           | username=Mehdi                                               | where('username', $value)                                                 | ✅         | ✅    |
 
 ### Simple Examples
 
