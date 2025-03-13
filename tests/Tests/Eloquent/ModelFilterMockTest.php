@@ -1837,6 +1837,52 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
     }
 
+    public function testWhereYear()
+    {
+        $builder = new User();
+
+        $builder = $builder->whereYear('created_at', 2024);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'year' => 2024
+            ]
+        ]);
+//        dd($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([2024], $builder->getBindings());
+    }
+
+    public function testWhereMonth()
+    {
+        $builder = new User();
+        $builder = $builder->query()->whereMonth('created_at', 3);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'month' => 3
+            ]
+        ]);
+
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([03], $builder->getBindings());
+    }
+
+    public function testWhereDay()
+    {
+        $builder = new User();
+        $builder = $builder->query()->whereDay('created_at', 15);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'day' => 15
+            ]
+        ]);
+
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([15], $builder->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();

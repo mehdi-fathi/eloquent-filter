@@ -456,7 +456,7 @@ class DbFilterMockTest extends \TestCase
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('categories')
-                    ->whereColumn('categories.id','tags.category_id');
+                    ->whereColumn('categories.id', 'tags.category_id');
             })->where('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn(
@@ -571,6 +571,56 @@ class DbFilterMockTest extends \TestCase
         $this->assertEquals(['featured'], $expected->getBindings());
     }
 
+    public function testWhereYear()
+    {
+        $builder = DB::table('users');
+
+        $builder = $builder->whereYear('created_at', 2024);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'year' => 2024
+            ]
+        ]);
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([2024], $builder->getBindings());
+    }
+
+    public function testWhereMonth()
+    {
+        $builder = DB::table('users');
+        $builder = $builder->whereMonth('created_at', 3);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'month' => 3
+            ]
+        ]);
+
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([03], $builder->getBindings());
+    }
+
+    public function testWhereDay()
+    {
+        $builder = DB::table('users');
+        $builder = $builder->whereDay('created_at', 15);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'day' => 15
+            ]
+        ]);
+
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([15], $builder->getBindings());
+    }
 
     public function tearDown(): void
     {
