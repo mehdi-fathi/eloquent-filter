@@ -5,9 +5,9 @@ namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditi
 use eloquentFilter\QueryFilter\Detection\Contract\DefaultConditionsContract;
 
 /**
- * Class WhereBetweenCondition.
+ * Class WhereNullCondition.
  */
-class WhereBetweenCondition implements DefaultConditionsContract
+class WhereNullCondition implements DefaultConditionsContract
 {
     /**
      * @param $field
@@ -17,10 +17,12 @@ class WhereBetweenCondition implements DefaultConditionsContract
      */
     public static function detect($field, $params): ?string
     {
-        if (isset($params['start']) && isset($params['end'])) {
-            $method = 'WhereBetween';
+        if (isset($params['null'])) {
+            return 'WhereNull';
+        } elseif (isset($params['not_null'])) {
+            return 'WhereNotNull';
         }
 
-        return $method ?? null;
+        return null;
     }
-}
+} 

@@ -20,9 +20,14 @@ class WhereInCondition implements DefaultConditionsContract
     public static function detect($field, $params): ?string
     {
         if (is_array($params) && !HelperFilter::isAssoc($params) && !stripos($field, '.')) {
-            $method = 'WhereIn';
+            return 'WhereIn';
+        }
+        if (isset($params['in']) && is_array($params['in'])) {
+            return 'WhereIn';
+        } elseif (isset($params['not_in']) && is_array($params['not_in'])) {
+            return 'WhereNotIn';
         }
 
-        return $method ?? null;
+        return null;
     }
 }

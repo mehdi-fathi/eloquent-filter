@@ -1780,6 +1780,63 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals(['sport'], $categories->getBindings());
     }
 
+    public function testWhereNull()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()->whereNull('username');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['null' => true],
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([], $users->getBindings());
+    }
+
+    public function testWhereNotNull()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()->whereNotNull('username');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['not_null' => true],
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([], $users->getBindings());
+    }
+
+    public function testWhereNullWithOtherCondition()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()
+            ->whereNull('username')
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['null' => true],
+                'email' => 'mehdifathi.developer@gmail.com',
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
     public function tearDown(): void
     {
         m::close();

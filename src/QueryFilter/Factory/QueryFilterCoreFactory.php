@@ -15,6 +15,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\Wh
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereNullCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
 
 /**
@@ -68,6 +69,7 @@ class QueryFilterCoreFactory
             WhereHasCondition::class,
             WhereDoesntHaveCondition::class,
             WhereDateCondition::class,
+            WhereNullCondition::class,
             WhereCondition::class,
         ];
     }
