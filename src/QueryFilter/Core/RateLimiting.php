@@ -16,7 +16,7 @@ trait RateLimiting
      */
     protected function checkRateLimit(): void
     {
-        if (!config('eloquentFilter.rate_limit.enabled', true)) {
+        if (!config('eloquentFilter.rate_limit.enabled')) {
             return;
         }
 

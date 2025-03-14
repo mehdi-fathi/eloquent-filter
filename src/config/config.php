@@ -69,7 +69,7 @@ return [
     */
     'rate_limit' => [
         // Whether to enable rate limiting
-        'enabled' => env('ELOQUENT_FILTER_RATE_LIMIT_ENABLED', true),
+        'enabled' => env('ELOQUENT_FILTER_RATE_LIMIT_ENABLED', false),
 
         // Maximum number of attempts within the decay minutes
         'max_attempts' => env('ELOQUENT_FILTER_RATE_LIMIT', 60),
