@@ -56,5 +56,47 @@ return [
     /*
     * custom sign method is prefix name method for custom methods in models.
     */
-    'custom_method_sign' => 'filterCustom'
+    'custom_method_sign' => 'filterCustom',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Rate Limiting
+    |--------------------------------------------------------------------------
+    |
+    | Configure the rate limiting for filter requests. This helps prevent
+    | abuse and ensures optimal performance of your application.
+    |
+    */
+    'rate_limit' => [
+        // Whether to enable rate limiting
+        'enabled' => env('ELOQUENT_FILTER_RATE_LIMIT_ENABLED', true),
+
+        // Maximum number of attempts within the decay minutes
+        'max_attempts' => env('ELOQUENT_FILTER_RATE_LIMIT', 60),
+
+        // Number of minutes until the rate limit resets
+        'decay_minutes' => env('ELOQUENT_FILTER_RATE_DECAY', 1),
+
+        // Whether to include rate limit headers in the response
+        'include_headers' => env('ELOQUENT_FILTER_RATE_LIMIT_HEADERS', true),
+
+        // Custom response message when rate limit is exceeded
+        'error_message' => env('ELOQUENT_FILTER_RATE_LIMIT_MESSAGE', 'Too many filter requests. Please try again later.'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure caching settings for rate limiting.
+    |
+    */
+    'cache' => [
+        // Cache prefix for rate limiting keys
+        'prefix' => 'eloquent_filter_rate_limit:',
+
+        // Cache store to use for rate limiting
+        'store' => env('ELOQUENT_FILTER_CACHE_DRIVER', null),
+    ],
 ];

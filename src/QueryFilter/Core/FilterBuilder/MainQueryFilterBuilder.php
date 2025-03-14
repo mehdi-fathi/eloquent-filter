@@ -8,6 +8,7 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder\DBQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\QueryBuilder\EloquentQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Core\HelperEloquentFilter;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 
 /**
@@ -16,6 +17,7 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCon
 class MainQueryFilterBuilder
 {
     use HelperEloquentFilter;
+    use RateLimiting;
 
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore $queryFilterCore
@@ -39,6 +41,8 @@ class MainQueryFilterBuilder
      */
     public function apply($builder, array $request = null, array $ignore_request = null, array $accept_request = null, array $detections_injected = null, array $black_list_detections = null)
     {
+        // Check rate limit before applying filter
+        $this->checkRateLimit();
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);
