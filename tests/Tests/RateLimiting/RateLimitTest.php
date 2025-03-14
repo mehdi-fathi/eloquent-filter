@@ -23,6 +23,7 @@ class RateLimitTest extends \TestCase
 
         $this->rateLimiter = m::mock(RateLimiter::class);
         app()->instance('eloquent.filter.limiter', $this->rateLimiter);
+        config(['eloquentFilter.rate_limit.enabled' => true]);
     }
 
     protected function mockRateLimiterNotExceeded()
