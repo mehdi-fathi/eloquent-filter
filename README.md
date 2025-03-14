@@ -52,6 +52,9 @@ although we have a lot of features to make able you to implement your specific s
     - [Response Filter](#response-filter)
     - [Black List Detections](#black-list-detections)
     - [Macro Methods](#macro-Methods)
+- [Rate Limiting](#rate-limiting)
+    - [Configuration](#configuration)
+    - [Using Rate Limiting](#using-rate-limiting)
 
 ## Requirements
 
@@ -1076,6 +1079,85 @@ e.g:
     echo $categories->isUsedEloquentFilter(); // will true
     
 ```
+
+## Rate Limiting
+
+Eloquent Filter includes a built-in rate limiting feature to protect your application from excessive filter requests. This feature helps prevent abuse and ensures optimal performance.
+
+### Configuration
+
+First, publish the configuration file if you haven't already:
+
+```bash
+php artisan vendor:publish --provider="eloquentFilter\ServiceProvider"
+```
+
+In your `config/eloquent-filter.php` file, you can configure rate limiting:
+
+```php
+return [
+    // ... existing config ...
+
+    'rate_limit' => [
+        // Enable or disable rate limiting
+        'enabled' => true,
+
+        // Maximum number of attempts within the decay time
+        'max_attempts' => 60,
+
+        // Decay time in minutes
+        'decay_minutes' => 1,
+
+        // Whether to include rate limit headers in the response
+        'include_headers' => true,
+
+        // Custom error message for rate limit exceeded
+        'error_message' => 'Too many filter requests. Please try again later.',
+    ],
+];
+```
+
+### Using Rate Limiting
+
+Rate limiting is automatically applied when you use the `filter()` method on your models. No additional configuration is required in your models.
+
+```php
+use App\Models\User;
+
+// This query will be rate limited according to your configuration
+$users = User::filter()->get();
+```
+
+### Rate Limit Headers
+
+When rate limiting is enabled and `include_headers` is set to true, the following information is available in the request attributes:
+
+- `X-RateLimit-Limit`: Maximum number of requests allowed
+- `X-RateLimit-Remaining`: Number of requests remaining in the current window
+- `X-RateLimit-Reset`: Time in seconds until the rate limit resets
+
+### Handling Rate Limit Exceeded
+
+When the rate limit is exceeded, a `ThrottleRequestsException` will be thrown with the configured error message. You can catch this exception in your exception handler:
+
+```php
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+
+public function render($request, Throwable $exception)
+{
+    if ($exception instanceof ThrottleRequestsException) {
+        return response()->json([
+            'message' => $exception->getMessage(),
+        ], 429);
+    }
+
+    return parent::render($request, $exception);
+}
+```
+
+### Custom Rate Limiting
+
+You can customize the rate limiting behavior by modifying the configuration or extending the `RateLimiting` trait in your own implementation.
 
 ## Contributing
 
