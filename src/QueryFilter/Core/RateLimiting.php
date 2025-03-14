@@ -26,7 +26,7 @@ trait RateLimiting
         
         $key = $this->resolveRateLimitKey();
         $maxAttempts = config('eloquentFilter.rate_limit.max_attempts', 60);
-        $decayMinutes = config('eloquent-filter.rate_limit.decay_minutes', 1);
+        $decayMinutes = config('eloquentFilter.rate_limit.decay_minutes', 1);
 
         if ($limiter->tooManyAttempts($key, $maxAttempts)) {
             $seconds = $limiter->availableIn($key);
@@ -39,7 +39,7 @@ trait RateLimiting
             ];
 
             throw new ThrottleRequestsException(
-                config('eloquent-filter.rate_limit.error_message', 'Too many filter requests. Please try again later.'),
+                config('eloquentFilter.rate_limit.error_message', 'Too many filter requests. Please try again later.'),
                 null,
                 $headers
             );
@@ -48,7 +48,7 @@ trait RateLimiting
         $limiter->hit($key, $decayMinutes * 60);
 
         // Store rate limit info in request for later use
-        if (config('eloquent-filter.rate_limit.include_headers', true)) {
+        if (config('eloquentFilter.rate_limit.include_headers', true)) {
             $remaining = $limiter->remaining($key, $maxAttempts);
             $request = request();
             
