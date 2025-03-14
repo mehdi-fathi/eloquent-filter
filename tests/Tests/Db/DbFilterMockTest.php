@@ -3,8 +3,11 @@
 namespace Tests\Tests\Db;
 
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\Models\Category;
@@ -18,6 +21,9 @@ class DbFilterMockTest extends \TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+
+
         $this->builder = m::mock(Builder::class);
     }
 

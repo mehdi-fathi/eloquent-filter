@@ -4,8 +4,11 @@ namespace Tests\Tests\Eloquent;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Mockery as m;
 use Tests\Models\Car;
 use Tests\Models\Category;
@@ -24,6 +27,7 @@ class ModelFilterMockTest extends \TestCase
 
     public $request;
     public $userModel;
+    use RateLimiting;
 
     public function setUp(): void
     {
