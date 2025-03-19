@@ -63,17 +63,9 @@ although we have a lot of features to make able you to implement your specific s
 
 ### Versions Information
 
-The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0
-with 2 new features.
-
-The current version supports:
-
-- Support query builder along with eloquent
-- Set a specific name for custom methods
-
 | Major Version | Version       | Status         | PHP Version | Laravel Version    |
 |---------------|---------------|----------------|-------------|--------------------|
-| ^4.0          | 4.2.9 - 4.x.x | Active support | >= 8.2      | >= 12.x            |
+| ^4.0          | 4.5.0 - 4.x.x | Active support | >= 8.2      | >= 12.x            |
 | ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0 - <= 11.x   |
 | ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x   |
 | ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x             |
