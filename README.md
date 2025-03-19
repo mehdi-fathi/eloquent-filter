@@ -22,6 +22,7 @@ Features:
 - Easy to override conditions for custom behavior
 - Harmonious integration with Laravel and Eloquent, including query builders
 - Full control over filter execution and customization
+- Support rate limit feature
 
 We've tailored Eloquent Filter to be as flexible as you need—whether your queries are straightforward or complex.
 With an extensive feature set, you can implement specific functionalities unique to your application with ease.
@@ -63,14 +64,14 @@ although we have a lot of features to make able you to implement your specific s
 
 ### Versions Information
 
-| Major Version | Version       | Status         | PHP Version | Laravel Version    |
-|---------------|---------------|----------------|-------------|--------------------|
-| ^4.0          | 4.5.0 - 4.x.x | Active support | >= 8.2      | >= 12.x            |
-| ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0 - <= 11.x   |
-| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x   |
-| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x             |
-| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x  |
-| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4    |
+| Major Version | Version       | Status         | PHP Version | Laravel Version |
+|---------------|---------------|----------------|-------------|-----------------|
+| ^4.0          | 4.5.0 - 4.x.x | Active support | >= 8.2      | >= 12.x         |
+| ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0  <= 11.x |
+| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x <= 10.x  |
+| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x          |
+| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x <= 8.x |
+| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x  <= 5.4  |
 
 ## :microphone: Introduction
 
@@ -128,10 +129,10 @@ Hence, Eloquent Filter is ready for to you get rid of complexity in addition to 
 
 ### A simple implementation with Eloquent Filter
 
-Eloquent Filter can help you to fix that ``problem. Just you will set query string to work with that.
+Eloquent Filter can help you to manage these features. Just you will set query string to work with that.
 It would make your own query automatically and systematically while you can control them.
 
-Right After installing Eloquent Filter, the request URI would be like this:
+Right after installing Eloquent Filter, the request URI would be like this:
 
     /users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
@@ -163,21 +164,25 @@ By Eloquent filter implementation, you can use all the documented filters!
 
         $ composer require mehdi-fathi/eloquent-filter
 
-- **Note**  for Laravel versions older than 5.8 you should install version 2.2.5
-
-        $ composer require mehdi-fathi/eloquent-filter:2.2.5
-
 - **Note** We support auto-discovery but you can check them.
 
-2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
+2- Add `eloquentFilter\ServiceProvider::class` to provider `app.php`
 
    ```php
    'providers' => [
      /*
       * Package Service Providers...
       */
-       eloquentFilter\ServiceProvider::class
+      eloquentFilter\ServiceProvider::class
    ]
+   ```
+- In latest Laravel version add it to `providers.php`:
+
+   ```php
+    return [
+        App\Providers\AppServiceProvider::class,
+        eloquentFilter\ServiceProvider::class
+    ];
    ```
 
 3- Add Facade `'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class` to aliases app.php
@@ -190,6 +195,8 @@ By Eloquent filter implementation, you can use all the documented filters!
     'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
 ],
 ```
+
+- There is no need any change for Laravel 12. 
 
 That's it enjoy! :boom:
 
