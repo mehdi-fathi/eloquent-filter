@@ -69,19 +69,19 @@ return [
     */
     'rate_limit' => [
         // Whether to enable rate limiting
-        'enabled' => env('ELOQUENT_FILTER_RATE_LIMIT_ENABLED', false),
+        'enabled' => env('EloquentFilter_RATE_LIMIT_ENABLED', false),
 
         // Maximum number of attempts within the decay minutes
-        'max_attempts' => env('ELOQUENT_FILTER_RATE_LIMIT', 60),
+        'max_attempts' => env('EloquentFilter_RATE_LIMIT', 60),
 
         // Number of minutes until the rate limit resets
-        'decay_minutes' => env('ELOQUENT_FILTER_RATE_DECAY', 1),
+        'decay_minutes' => env('EloquentFilter_RATE_DECAY', 1),
 
         // Whether to include rate limit headers in the response
-        'include_headers' => env('ELOQUENT_FILTER_RATE_LIMIT_HEADERS', true),
+        'include_headers' => env('EloquentFilter_RATE_LIMIT_HEADERS', true),
 
         // Custom response message when rate limit is exceeded
-        'error_message' => env('ELOQUENT_FILTER_RATE_LIMIT_MESSAGE', 'Too many filter requests. Please try again later.'),
+        'error_message' => env('EloquentFilter_RATE_LIMIT_MESSAGE', 'Too many filter requests. Please try again later.'),
     ],
 
     /*
@@ -97,6 +97,6 @@ return [
         'prefix' => 'eloquent_filter_rate_limit:',
 
         // Cache store to use for rate limiting
-        'store' => env('ELOQUENT_FILTER_CACHE_DRIVER', null),
+        'store' => env('EloquentFilter_CACHE_DRIVER', null),
     ],
 ];
