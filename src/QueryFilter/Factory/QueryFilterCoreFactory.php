@@ -11,11 +11,15 @@ use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\Wh
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereByOptCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDateCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDayCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereDoesntHaveCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereHasCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereInCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereLikeCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereMonthCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereNullCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereOrCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereYearCondition;
 
 /**
  * Class QueryFilterCoreFactory.
@@ -68,6 +72,10 @@ class QueryFilterCoreFactory
             WhereHasCondition::class,
             WhereDoesntHaveCondition::class,
             WhereDateCondition::class,
+            WhereNullCondition::class,
+            WhereMonthCondition::class,
+            WhereYearCondition::class,
+            WhereDayCondition::class,
             WhereCondition::class,
         ];
     }

@@ -10,8 +10,11 @@ use eloquentFilter\QueryFilter\Queries\DB\WhereByOpt;
 use eloquentFilter\QueryFilter\Queries\DB\WhereCustom;
 use eloquentFilter\QueryFilter\Queries\DB\WhereDate;
 use eloquentFilter\QueryFilter\Queries\DB\WhereDoesntHave;
+use eloquentFilter\QueryFilter\Queries\DB\WhereHas;
 use eloquentFilter\QueryFilter\Queries\DB\WhereIn;
 use eloquentFilter\QueryFilter\Queries\DB\WhereLike;
+use eloquentFilter\QueryFilter\Queries\DB\WhereNull;
+use eloquentFilter\QueryFilter\Queries\DB\WhereNotNull;
 use eloquentFilter\QueryFilter\Queries\DB\WhereOr;
 
 /**
@@ -41,10 +44,12 @@ class DBBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereByOpt' => WhereByOpt::class,
             'WhereDate' => WhereDate::class,
             'WhereDoesntHave' => WhereDoesntHave::class,
-            // 'WhereHas' => WhereHas::class,
+            'WhereHas' => WhereHas::class,
             'WhereIn' => WhereIn::class,
             'WhereLike' => WhereLike::class,
             'WhereOr' => WhereOr::class,
+            'WhereNull' => WhereNull::class,
+            'WhereNotNull' => WhereNotNull::class,
             'Special' => Special::class,
             // 'WhereCustom' => WhereCustom::class,
             default => null,

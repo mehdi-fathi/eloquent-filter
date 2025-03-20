@@ -3,8 +3,11 @@
 namespace Tests\Tests\Db;
 
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mockery as m;
 use Tests\Models\Category;
@@ -18,6 +21,9 @@ class DbFilterMockTest extends \TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+
+
         $this->builder = m::mock(Builder::class);
     }
 
@@ -456,7 +462,7 @@ class DbFilterMockTest extends \TestCase
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('categories')
-                    ->whereColumn('categories.id','tags.category_id');
+                    ->whereColumn('categories.id', 'tags.category_id');
             })->where('baz', 'joo');
 
         $this->request->shouldReceive('query')->andReturn(
@@ -473,6 +479,154 @@ class DbFilterMockTest extends \TestCase
         $this->assertEquals(['joo'], $tags_filters->getBindings());
     }
 
+    public function testSimpleWhereHas()
+    {
+        // Create the expected query
+        $expected = DB::table('posts')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('categories')
+                    ->whereRaw('categories.id = posts.category_id')
+                    ->where('name', 'Technology');
+            });
+
+        // Create the filter query
+        $this->request->shouldReceive('query')->andReturn([
+            'category.name' => 'Technology'
+        ]);
+
+        $filtered = DB::table('posts')->filter();
+
+        // Assert the queries match
+        $this->assertSame($filtered->toSql(), $expected->toSql());
+        $this->assertEquals(['Technology'], $filtered->getBindings());
+        $this->assertEquals(['Technology'], $expected->getBindings());
+    }
+
+    public function testWhereHasWithArray()
+    {
+        // Create the expected query
+        $expected = DB::table('posts')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('categories')
+                    ->whereRaw('categories.id = posts.category_id')
+                    ->whereIn('name', ['Technology', 'Science']);
+            });
+
+        // Create the filter query
+        $this->request->shouldReceive('query')->andReturn([
+            'category.name' => ['Technology', 'Science']
+        ]);
+
+        $filtered = DB::table('posts')->filter();
+
+        // Assert the queries match
+        $this->assertSame($filtered->toSql(), $expected->toSql());
+        $this->assertEquals(['Technology', 'Science'], $filtered->getBindings());
+        $this->assertEquals(['Technology', 'Science'], $expected->getBindings());
+    }
+
+    public function testWhereHasWithMultipleConditions()
+    {
+        // Create the expected query
+        $expected = DB::table('posts')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('categories')
+                    ->whereRaw('categories.id = posts.category_id')
+                    ->where('name', 'Technology');
+            })
+            ->where('status', 'published');
+
+        // Create the filter query
+        $this->request->shouldReceive('query')->andReturn([
+            'category.name' => 'Technology',
+            'status' => 'published'
+        ]);
+
+        $filtered = DB::table('posts')->filter();
+
+        // Assert the queries match
+        $this->assertSame($filtered->toSql(), $expected->toSql());
+        $this->assertEquals(['Technology', 'published'], $filtered->getBindings());
+        $this->assertEquals(['Technology', 'published'], $expected->getBindings());
+    }
+
+    public function testWhereHasWithNestedRelation()
+    {
+        // Create the expected query
+        $expected = DB::table('posts')
+            ->whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('categories')
+                    ->whereRaw('categories.id = posts.category_id')
+                    ->where('type', 'featured');
+            });
+
+        // Create the filter query
+        $this->request->shouldReceive('query')->andReturn([
+            'category.type' => 'featured'
+        ]);
+
+        $filtered = DB::table('posts')->filter();
+
+        // Assert the queries match
+        $this->assertSame($filtered->toSql(), $expected->toSql());
+        $this->assertEquals(['featured'], $filtered->getBindings());
+        $this->assertEquals(['featured'], $expected->getBindings());
+    }
+
+    public function testWhereYear()
+    {
+        $builder = DB::table('users');
+
+        $builder = $builder->whereYear('created_at', 2024);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'year' => 2024
+            ]
+        ]);
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([2024], $builder->getBindings());
+    }
+
+    public function testWhereMonth()
+    {
+        $builder = DB::table('users');
+        $builder = $builder->whereMonth('created_at', 3);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'month' => 3
+            ]
+        ]);
+
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([03], $builder->getBindings());
+    }
+
+    public function testWhereDay()
+    {
+        $builder = DB::table('users');
+        $builder = $builder->whereDay('created_at', 15);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'day' => 15
+            ]
+        ]);
+
+        $filtered = DB::table('users')->filter();
+
+        $this->assertEquals($builder->toSql(), $filtered->toSql());
+        $this->assertEquals([15], $builder->getBindings());
+    }
 
     public function tearDown(): void
     {

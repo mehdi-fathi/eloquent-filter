@@ -5,6 +5,7 @@ namespace eloquentFilter\QueryFilter\ModelFilters;
 use eloquentFilter\Facade\EloquentFilter;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereCustom;
 use Illuminate\Database\Eloquent\Builder;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 
 /**
  * Trait Filterable.
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait Filterable
 {
+
     /**
      * @var null
      */
@@ -45,6 +47,7 @@ trait Filterable
      */
     public function scopeFilter($builder, ?array $request = null)
     {
+
         /** @see MainQueryFilterBuilder::apply() */
         return EloquentFilter::apply(
             builder: $builder,
@@ -210,5 +213,17 @@ trait Filterable
     public function serializeRequestFilter($request)
     {
         return $request;
+    }
+
+    /**
+     * Query Builder instance
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('filter', function ($builder) {
+            return $builder;
+        });
     }
 }

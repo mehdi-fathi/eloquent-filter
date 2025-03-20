@@ -9,6 +9,7 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\MainQueryFilterBuilder;
 use eloquentFilter\QueryFilter\Factory\QueryFilterCoreFactory;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
@@ -26,6 +27,21 @@ class ServiceProvider extends BaseServiceProvider
         $this->mergeConfig();
 
         $this->registerBindings();
+
+        // Register RateLimiter singleton
+        $this->app->singleton('eloquent.filter.limiter', function ($app) {
+            return new RateLimiter($app['cache.store']);
+        });
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        if ($this->app['config']->get('eloquentFilter.rate_limit.enabled', true)) {
+            $this->app['router']->aliasMiddleware('filter.throttle', FilterRateLimiter::class);
+        }
     }
 
     /**

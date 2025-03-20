@@ -4,8 +4,11 @@ namespace Tests\Tests\Eloquent;
 
 use eloquentFilter\Facade\EloquentFilter;
 use EloquentFilter\ModelFilter;
+use eloquentFilter\QueryFilter\Core\RateLimiting;
 use eloquentFilter\QueryFilter\Exceptions\EloquentFilterException;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Mockery as m;
 use Tests\Models\Car;
 use Tests\Models\Category;
@@ -24,6 +27,7 @@ class ModelFilterMockTest extends \TestCase
 
     public $request;
     public $userModel;
+    use RateLimiting;
 
     public function setUp(): void
     {
@@ -1778,6 +1782,109 @@ class ModelFilterMockTest extends \TestCase
         $this->assertSame($categories->toSql(), $builder->toSql());
 
         $this->assertEquals(['sport'], $categories->getBindings());
+    }
+
+    public function testWhereNull()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()->whereNull('username');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['null' => true],
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([], $users->getBindings());
+    }
+
+    public function testWhereNotNull()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()->whereNotNull('username');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['not_null' => true],
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals([], $users->getBindings());
+    }
+
+    public function testWhereNullWithOtherCondition()
+    {
+        $builder = new User();
+
+        $builder = $builder->query()
+            ->whereNull('username')
+            ->where('email', 'mehdifathi.developer@gmail.com');
+
+        $this->request->shouldReceive('query')->andReturn(
+            [
+                'username' => ['null' => true],
+                'email' => 'mehdifathi.developer@gmail.com',
+            ]
+        );
+
+        $users = User::filter($this->request->query());
+
+        $this->assertSame($users->toSql(), $builder->toSql());
+        $this->assertEquals(['mehdifathi.developer@gmail.com'], $users->getBindings());
+    }
+
+    public function testWhereYear()
+    {
+        $builder = new User();
+
+        $builder = $builder->whereYear('created_at', 2024);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'year' => 2024
+            ]
+        ]);
+//        dd($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([2024], $builder->getBindings());
+    }
+
+    public function testWhereMonth()
+    {
+        $builder = new User();
+        $builder = $builder->query()->whereMonth('created_at', 3);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'month' => 3
+            ]
+        ]);
+
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([03], $builder->getBindings());
+    }
+
+    public function testWhereDay()
+    {
+        $builder = new User();
+        $builder = $builder->query()->whereDay('created_at', 15);
+
+        $this->request->shouldReceive('query')->andReturn([
+            'created_at' => [
+                'day' => 15
+            ]
+        ]);
+
+        $this->assertEquals($builder->toSql(), User::filter($this->request->query())->toSql());
+        $this->assertEquals([15], $builder->getBindings());
     }
 
     public function tearDown(): void

@@ -22,6 +22,7 @@ Features:
 - Easy to override conditions for custom behavior
 - Harmonious integration with Laravel and Eloquent, including query builders
 - Full control over filter execution and customization
+- Support rate limit feature
 
 We've tailored Eloquent Filter to be as flexible as you need—whether your queries are straightforward or complex.
 With an extensive feature set, you can implement specific functionalities unique to your application with ease.
@@ -52,6 +53,9 @@ although we have a lot of features to make able you to implement your specific s
     - [Response Filter](#response-filter)
     - [Black List Detections](#black-list-detections)
     - [Macro Methods](#macro-Methods)
+- [Rate Limiting](#rate-limiting)
+    - [Configuration](#configuration)
+    - [Using Rate Limiting](#using-rate-limiting)
 
 ## Requirements
 
@@ -60,22 +64,14 @@ although we have a lot of features to make able you to implement your specific s
 
 ### Versions Information
 
-The Eloquent Filter has reached more than 100,000 installations recently, so I made a decision to release version 4.0
-with 2 new features.
-
-The current version supports:
-
-- Support query builder along with eloquent
-- Set a specific name for custom methods
-
-| Major Version | Version       | Status         | PHP Version | Laravel Version    |
-|---------------|---------------|----------------|-------------|--------------------|
-| ^4.0          | 4.2.9 - 4.x.x | Active support | >= 8.2      | >= 12.x            |
-| ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0 - <= 11.x   |
-| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x - <= 10.x   |
-| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x             |
-| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x - <= 8.x  |
-| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x - <= 5.4    |
+| Major Version | Version       | Status         | PHP Version | Laravel Version |
+|---------------|---------------|----------------|-------------|-----------------|
+| ^4.0          | 4.5.0 - 4.x.x | Active support | >= 8.2      | >= 12.x         |
+| ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0  <= 11.x |
+| ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x <= 10.x  |
+| ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x          |
+| ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x <= 8.x |
+| ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x  <= 5.4  |
 
 ## :microphone: Introduction
 
@@ -133,10 +129,10 @@ Hence, Eloquent Filter is ready for to you get rid of complexity in addition to 
 
 ### A simple implementation with Eloquent Filter
 
-Eloquent Filter can help you to fix that ``problem. Just you will set query string to work with that.
+Eloquent Filter can help you to manage these features. Just you will set query string to work with that.
 It would make your own query automatically and systematically while you can control them.
 
-Right After installing Eloquent Filter, the request URI would be like this:
+Right after installing Eloquent Filter, the request URI would be like this:
 
     /users/list?age_more_than[operator]=>&age[value]=35&gender=male&created_at[operator]==>&created_at[value]=25-09-2019
 
@@ -168,21 +164,25 @@ By Eloquent filter implementation, you can use all the documented filters!
 
         $ composer require mehdi-fathi/eloquent-filter
 
-- **Note**  for Laravel versions older than 5.8 you should install version 2.2.5
-
-        $ composer require mehdi-fathi/eloquent-filter:2.2.5
-
 - **Note** We support auto-discovery but you can check them.
 
-2- Add `eloquentFilter\ServiceProvider::class` to provider app.php
+2- Add `eloquentFilter\ServiceProvider::class` to provider `app.php`
 
    ```php
    'providers' => [
      /*
       * Package Service Providers...
       */
-       eloquentFilter\ServiceProvider::class
+      eloquentFilter\ServiceProvider::class
    ]
+   ```
+- In latest Laravel version add it to `providers.php`:
+
+   ```php
+    return [
+        App\Providers\AppServiceProvider::class,
+        eloquentFilter\ServiceProvider::class
+    ];
    ```
 
 3- Add Facade `'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class` to aliases app.php
@@ -195,6 +195,8 @@ By Eloquent filter implementation, you can use all the documented filters!
     'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
 ],
 ```
+
+- There is no need any change for Laravel 12. 
 
 That's it enjoy! :boom:
 
@@ -253,19 +255,24 @@ by a bad user.
 - To better understand this, I provided a table of all conditions and samples. It represents how eloquent filter
   detect params and each param what query would make.
 
-| Condition Name           | Eloquent Method | Param                                                        | Example                                                                 | Eloquent | DB |
-|--------------------------|-----------------|--------------------------------------------------------------|-------------------------------------------------------------------------|----------|----|
-| WhereCustomCondition     |                 |                                                              | Declared custom<br/> method of Model                                    | ✅        | ❌  |
-| SpecialCondition         |                 | f_params[limit]=10                                           | support f_params, e.g:<br/> limit and order                             | ✅        | ✅  |
-| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween(<br/>'created_at',<br/> [{start},{end}])                   | ✅        | ✅  |
-| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('column',<br/> ">", $value)                                       | ✅        | ✅  |
-| WhereLikeCondition       | where           | first_name[like]=John                                        | where('column',<br/> 'like', $value)                                    | ✅        | ✅  |
-| WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('column', $value)                                               | ✅        | ✅  |
-| WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('column', $value)                                               | ✅        | ✅  |
-| WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',<br/>function ($q) <br/>{$q->where('title', $value)}); | ✅        | ❌  |
-| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | doesntHave($value)                                                      | ✅        | ✅  |
-| WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('column', $value)                                             | ✅        | ✅  |
-| WhereCondition           | where           | username=Mehdi                                               | where('column', $value)                                                 | ✅        | ✅  |
+| Condition Name           | Eloquent Method | Param                                                        | Example                                                                 | Eloquent  | DB   |
+|--------------------------|-----------------|--------------------------------------------------------------|-------------------------------------------------------------------------|-----------|------|
+| WhereCustomCondition     |                 |                                                              | Declared custom<br/> method of Model                                    | ✅         | ❌  |
+| SpecialCondition         |                 | f_params[limit]=10                                           | support f_params, e.g:<br/> limit and order                             | ✅         | ✅    |
+| WhereBetweenCondition    | whereBetween    | created_at[start]=2016/05/01<br/>&created_at[end]=2017/10/01 | whereBetween(<br/>'created_at',<br/> [{start},{end}])                   | ✅         | ✅    |
+| WhereByOptCondition      | where           | count_posts[operator]=>&<br/>count_posts[value]=35           | where('count_posts',<br/> ">", $value)                                       | ✅         | ✅    |
+| WhereLikeCondition       | where           | first_name[like]=John                                        | where('first_name',<br/> 'like', $value)                                    | ✅         | ✅    |
+| WhereInCondition         | whereIn         | username[]=David&<br/>username[]=John12                      | whereIn('username', $value)                                               | ✅         | ✅    |
+| WhereOrCondition         | orWhere         | username=Bill&<br/>or[username]=James                        | orWhere('username', $value)                                               | ✅         | ✅    |
+| WhereHas                 | WhereHas        | posts[title]=sport one                                       | whereHas('posts',<br/>function ($q) <br/>{$q->where('title', $value)}); | ✅         | ✅    |
+| WhereDoesntHaveCondition | whereDoesntHave | doesnt_have=category                                         | doesntHave($value)                                                      | ✅         | ✅    |
+| WhereDateCondition       | whereDate       | created_at=2024-09-01                                        | whereDate('created_at', $value)                                             | ✅         | ✅    |
+| WhereYearCondition       | whereYear       | created_at[year]=2024                                        | whereYear('created_at', $value)                                            | ✅         | ✅    |
+| WhereMonthCondition      | whereMonth      | created_at[month]=3                                          | whereMonth('created_at', $value)                                           | ✅         | ✅    |
+| WhereDayCondition        | whereDay        | created_at[day]=15                                           | whereDay('created_at', $value)                                             | ✅         | ✅    |
+| WhereNullCondition       | whereNull       | username[null]=true                                          | whereNull('username')                                                    | ✅         | ✅    |
+| WhereNotNullCondition    | whereNotNull    | username[not_null]=true                                      | whereNotNull('username')                                                  | ✅         | ✅    |
+| WhereCondition           | where           | username=Mehdi                                               | where('username', $value)                                                 | ✅         | ✅    |
 
 ### Simple Examples
 
@@ -1071,6 +1078,85 @@ e.g:
     echo $categories->isUsedEloquentFilter(); // will true
     
 ```
+
+## Rate Limiting
+
+Eloquent Filter includes a built-in rate limiting feature to protect your application from excessive filter requests. This feature helps prevent abuse and ensures optimal performance.
+
+### Configuration
+
+First, publish the configuration file if you haven't already:
+
+```bash
+php artisan vendor:publish --provider="eloquentFilter\ServiceProvider"
+```
+
+In your `config/eloquent-filter.php` file, you can configure rate limiting:
+
+```php
+return [
+    // ... existing config ...
+
+    'rate_limit' => [
+        // Enable or disable rate limiting
+        'enabled' => true,
+
+        // Maximum number of attempts within the decay time
+        'max_attempts' => 60,
+
+        // Decay time in minutes
+        'decay_minutes' => 1,
+
+        // Whether to include rate limit headers in the response
+        'include_headers' => true,
+
+        // Custom error message for rate limit exceeded
+        'error_message' => 'Too many filter requests. Please try again later.',
+    ],
+];
+```
+
+### Using Rate Limiting
+
+Rate limiting is automatically applied when you use the `filter()` method on your models. No additional configuration is required in your models.
+
+```php
+use App\Models\User;
+
+// This query will be rate limited according to your configuration
+$users = User::filter()->get();
+```
+
+### Rate Limit Headers
+
+When rate limiting is enabled and `include_headers` is set to true, the following information is available in the request attributes:
+
+- `X-RateLimit-Limit`: Maximum number of requests allowed
+- `X-RateLimit-Remaining`: Number of requests remaining in the current window
+- `X-RateLimit-Reset`: Time in seconds until the rate limit resets
+
+### Handling Rate Limit Exceeded
+
+When the rate limit is exceeded, a `ThrottleRequestsException` will be thrown with the configured error message. You can catch this exception in your exception handler:
+
+```php
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+
+public function render($request, Throwable $exception)
+{
+    if ($exception instanceof ThrottleRequestsException) {
+        return response()->json([
+            'message' => $exception->getMessage(),
+        ], 429);
+    }
+
+    return parent::render($request, $exception);
+}
+```
+
+### Custom Rate Limiting
+
+You can customize the rate limiting behavior by modifying the configuration or extending the `RateLimiting` trait in your own implementation.
 
 ## Contributing
 

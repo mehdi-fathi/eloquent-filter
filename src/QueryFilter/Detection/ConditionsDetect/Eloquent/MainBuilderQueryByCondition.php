@@ -13,6 +13,8 @@ use eloquentFilter\QueryFilter\Queries\Eloquent\WhereDoesntHave;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereHas;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereIn;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereLike;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereNull;
+use eloquentFilter\QueryFilter\Queries\Eloquent\WhereNotNull;
 use eloquentFilter\QueryFilter\Queries\Eloquent\WhereOr;
 
 /**
@@ -46,6 +48,8 @@ class MainBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereLike' => WhereLike::class,
             'WhereOr' => WhereOr::class,
             'WhereDoesntHave' => WhereDoesntHave::class,
+            'WhereNull' => WhereNull::class,
+            'WhereNotNull' => WhereNotNull::class,
             'Special' => Special::class,
             'WhereCustom' => WhereCustom::class,
             default => null,
