@@ -214,16 +214,4 @@ trait Filterable
     {
         return $request;
     }
-
-    /**
-     * Query Builder instance
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('filter', function ($builder) {
-            return $builder;
-        });
-    }
 }
