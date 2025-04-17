@@ -6,6 +6,7 @@ use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCoreBuilder;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB\DBBuilderQueryByCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\Eloquent\MainBuilderQueryByCondition;
+use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\FuzzyCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\SpecialCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereBetweenCondition;
 use eloquentFilter\QueryFilter\Detection\ConditionsDetect\TypeQueryConditions\WhereByOptCondition;
@@ -68,6 +69,7 @@ class QueryFilterCoreFactory
             WhereByOptCondition::class,
             WhereLikeCondition::class,
             WhereInCondition::class,
+            FuzzyCondition::class,
             WhereOrCondition::class,
             WhereHasCondition::class,
             WhereDoesntHaveCondition::class,

@@ -1887,6 +1887,48 @@ class ModelFilterMockTest extends \TestCase
         $this->assertEquals([15], $builder->getBindings());
     }
 
+    public function testFuzzySearch()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'name' => ['fuzzy' => 'jhon']
+        ]);
+
+        $query = User::filter($this->request->query());
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(name) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%jh[o0]n%'], $bindings);
+    }
+
+    public function testFuzzySearchWithMultipleVariations()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'email' => ['fuzzy' => 'test@example.c0m']
+        ]);
+
+        $query = User::filter($this->request->query());
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(email) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%[t7][e3][s5$][t7]@[e3]x[a@4]mp[l1][e3].c0m%'], $bindings);
+    }
+
+    public function testFuzzySearchWithSpecialCharacters()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'username' => ['fuzzy' => 'us3r_n4m3']
+        ]);
+
+        $query = User::filter($this->request->query());
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(username) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%u[s5$]3r_n4m3%'], $bindings);
+    }
+
     public function tearDown(): void
     {
         m::close();

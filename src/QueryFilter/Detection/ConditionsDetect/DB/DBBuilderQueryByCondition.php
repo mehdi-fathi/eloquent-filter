@@ -3,6 +3,7 @@
 namespace eloquentFilter\QueryFilter\Detection\ConditionsDetect\DB;
 
 use eloquentFilter\QueryFilter\Detection\Contract\MainBuilderConditionsContract;
+use eloquentFilter\QueryFilter\Queries\DB\Fuzzy;
 use eloquentFilter\QueryFilter\Queries\DB\Special;
 use eloquentFilter\QueryFilter\Queries\DB\Where;
 use eloquentFilter\QueryFilter\Queries\DB\WhereBetween;
@@ -51,6 +52,7 @@ class DBBuilderQueryByCondition implements MainBuilderConditionsContract
             'WhereNull' => WhereNull::class,
             'WhereNotNull' => WhereNotNull::class,
             'Special' => Special::class,
+            'Fuzzy' => Fuzzy::class,
             // 'WhereCustom' => WhereCustom::class,
             default => null,
         };

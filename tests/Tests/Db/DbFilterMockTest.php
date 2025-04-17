@@ -14,6 +14,7 @@ use Tests\Models\Category;
 use Tests\Models\CustomDetect\WhereRelationLikeCondition;
 use Tests\Models\Tag;
 use Tests\Models\User;
+use EloquentFilter\EloquentFilter;
 
 class DbFilterMockTest extends \TestCase
 {
@@ -626,6 +627,48 @@ class DbFilterMockTest extends \TestCase
 
         $this->assertEquals($builder->toSql(), $filtered->toSql());
         $this->assertEquals([15], $builder->getBindings());
+    }
+
+    public function testFuzzySearch()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'name' => ['fuzzy' => 'jhon']
+        ]);
+
+        $query = DB::table('users')->filter();
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(name) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%jh[o0]n%'], $bindings);
+    }
+
+    public function testFuzzySearchWithMultipleVariations()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'email' => ['fuzzy' => 'test@example.c0m']
+        ]);
+
+        $query = DB::table('users')->filter();
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(email) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%[t7][e3][s5$][t7]@[e3]x[a@4]mp[l1][e3].c0m%'], $bindings);
+    }
+
+    public function testFuzzySearchWithSpecialCharacters()
+    {
+        $this->request->shouldReceive('query')->andReturn([
+            'username' => ['fuzzy' => 'us3r_n4m3']
+        ]);
+
+        $query = DB::table('users')->filter();
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+
+        $this->assertSame('select * from "users" where LOWER(username) LIKE LOWER(?)', $sql);
+        $this->assertEquals(['%u[s5$]3r_n4m3%'], $bindings);
     }
 
     public function tearDown(): void
