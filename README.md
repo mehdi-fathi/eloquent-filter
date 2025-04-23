@@ -56,6 +56,12 @@ although we have a lot of features to make able you to implement your specific s
 - [Rate Limiting](#rate-limiting)
     - [Configuration](#configuration)
     - [Using Rate Limiting](#using-rate-limiting)
+- [Fuzzy Search](#fuzzy-search)
+    - [Using Fuzzy Search](#using-fuzzy-search)
+    - [How It Works](#how-it-works)
+    - [Supported Character Variations](#supported-character-variations)
+    - [Examples](#examples)
+    - [Performance Considerations](#performance-considerations)
 
 ## Requirements
 
@@ -1157,6 +1163,66 @@ public function render($request, Throwable $exception)
 ### Custom Rate Limiting
 
 You can customize the rate limiting behavior by modifying the configuration or extending the `RateLimiting` trait in your own implementation.
+
+## Fuzzy Search
+
+Eloquent Filter now supports fuzzy searching, which helps find results even when there are typos or variations in the search term. This is particularly useful for user input where exact matches might not be possible.
+
+### Using Fuzzy Search
+
+To use fuzzy search, add the `fuzzy` parameter to your filter:
+
+```php
+// URL: /users/list?name[fuzzy]=jhon
+// Will match: "John", "Jhon", "J0hn", etc.
+
+$users = User::filter()->get();
+```
+
+### How It Works
+
+The fuzzy search feature:
+
+1. Converts the search term into a pattern that accounts for common variations
+2. Handles common character substitutions (e.g., '0' for 'o', '1' for 'l')
+3. Is case-insensitive by default
+4. Uses SQL LIKE queries with wildcards for flexible matching
+
+### Supported Character Variations
+
+The fuzzy search supports common character variations:
+
+| Original | Variations |
+|----------|------------|
+| a        | a, @, 4    |
+| e        | e, 3       |
+| i        | i, 1, !    |
+| o        | o, 0       |
+| s        | s, 5, $    |
+| t        | t, 7       |
+| g        | g, 9       |
+| l        | l, 1       |
+| z        | z, 2       |
+| b        | b, 8       |
+
+### Examples
+
+```php
+// Will match "John Smith"
+/users/list?name[fuzzy]=j0hn
+
+// Will match "test@example.com"
+/users/list?email[fuzzy]=test@example.c0m
+
+// Will match "user_name"
+/users/list?username[fuzzy]=us3r_n4m3
+```
+
+### Performance Considerations
+
+- Fuzzy search uses SQL LIKE queries with wildcards, which can be slower than exact matches
+- Consider adding appropriate indexes to columns that will be frequently searched
+- For large datasets, consider implementing a more sophisticated search solution (e.g., Elasticsearch)
 
 ## Contributing
 
