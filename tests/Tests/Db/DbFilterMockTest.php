@@ -24,7 +24,6 @@ class DbFilterMockTest extends \TestCase
         parent::setUp();
 
 
-
         $this->builder = m::mock(Builder::class);
     }
 
@@ -674,5 +673,9 @@ class DbFilterMockTest extends \TestCase
     public function tearDown(): void
     {
         m::close();
+
+        parent::tearDown();
+
+        restore_exception_handler();
     }
 }
