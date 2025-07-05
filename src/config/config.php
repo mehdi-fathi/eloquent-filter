@@ -99,4 +99,29 @@ return [
         // Cache store to use for rate limiting
         'store' => env('EloquentFilter_CACHE_DRIVER', null),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fuzzy Search Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure character variations for fuzzy search functionality.
+    | This allows for typo-tolerant searching by mapping characters
+    | to their common variations and substitutions.
+    |
+    */
+    'fuzzy_search' => [
+        'character_variations' => [
+            'a' => ['a', '@', '4'],
+            'e' => ['e', '3'],
+            'i' => ['i', '1', '!'],
+            'o' => ['o', '0'],
+            's' => ['s', '5', '$'],
+            't' => ['t', '7'],
+            'g' => ['g', '9'],
+            'l' => ['l', '1'],
+            'z' => ['z', '2'],
+            'b' => ['b', '8'],
+        ],
+    ],
 ];
