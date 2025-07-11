@@ -1205,6 +1205,8 @@ The fuzzy search supports common character variations:
 | z        | z, 2       |
 | b        | b, 8       |
 
+- You are able to edit this list on `config.php`.
+
 ### Examples
 
 ```php
