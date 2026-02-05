@@ -1187,7 +1187,7 @@ The fuzzy search feature:
 1. Converts the search term into a pattern that accounts for common variations
 2. Handles common character substitutions (e.g., '0' for 'o', '1' for 'l')
 3. Is case-insensitive by default
-4. Uses SQL LIKE queries with wildcards for flexible matching
+4. Use SQL LIKE queries with wildcards for flexible matching
 
 ### Supported Character Variations
 
