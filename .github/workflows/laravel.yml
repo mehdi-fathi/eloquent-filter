@@ -15,19 +15,6 @@ jobs:
         laravel: [ 9.*, 10.*, 11.*, 12.* ]
         dependency-version: [ prefer-stable ]
         os: [ ubuntu-latest ]
-        include:
-          - laravel: 12.*
-            testbench: v10.0.0
-            database: 10.0.x-dev
-          - laravel: 11.*
-            testbench: v9.0.0
-            database: 9.0.x-dev
-          - laravel: 10.*
-            testbench: 8.*
-            database: 8.0.x-dev
-          - laravel: 9.*
-            testbench: 7.*
-            database: 7.0.x-dev
         exclude:
           - laravel: 11.*
             php: 8.1
@@ -56,8 +43,6 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
-        env:
-          COMPOSER_AUDIT_BLOCK_INSECURE: ${{ matrix.laravel == '8.*' && 'false' || 'true' }}
         run: |
           composer install
 
