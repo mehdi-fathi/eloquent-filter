@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [ 8.0, 8.1, 8.2, 8.3 , 8.4 , 8.5 ]
+        php: [ 8.0, 8.1, 8.2, 8.3, 8.4, 8.5 ]
         laravel: [ 8.*, 9.*, 10.*, 11.*, 12.* ]
         dependency-version: [ prefer-stable ]
         os: [ ubuntu-latest ]
@@ -45,7 +45,6 @@ jobs:
           - laravel: 8.*
             dependency-version: prefer-lowest
 
-
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
@@ -60,12 +59,15 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
+        env:
+          COMPOSER_AUDIT_BLOCK_INSECURE: ${{ matrix.laravel == '8.*' && 'false' || 'true' }}
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: make test
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
