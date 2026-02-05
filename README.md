@@ -68,13 +68,14 @@ although we have a lot of features to make able you to implement your specific s
 - PHP 8.0 - 8.1 - 8.2 - 8.3 - 8.4 - 8.5
 - Laravel 8.x - 9.x - 10.x - 11.x - 12.x (New)
 
-### Versions Information
+### Version Information
 
 | Major Version | Version       | Status         | PHP Version | Laravel Version |
 |---------------|---------------|----------------|-------------|-----------------|
 | ^4.0          | 4.5.0 - 4.x.x | Active support | >= 8.2      | >= 12.x         |
 | ^4.0          | 4.2.0 - 4.4.9 | Active support | >= 8.2      | > 11.0  <= 11.x |
 | ^4.0          | 4.0.x - 4.1.5 | Active support | >= 8.0      | >= 9.x <= 10.x  |
+| ^4.0          | 4.0.x - 4.5.0 | End of life    | >= 8.0      | >= 8.x          |
 | ^3.0          | 3.2.x - 3.4.x | End of life    | >= 8.0      | >= 9.x          |
 | ^3.0          | 3.0.0 - 3.0.5 | End of life    | >= 7.4.0    | >= 5.6.x <= 8.x |
 | ^2.0          | 2.0.0 - 2.6.7 | End of life    | <= 7.4.0    | >= 5.x  <= 5.4  |
