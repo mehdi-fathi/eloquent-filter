@@ -82,7 +82,7 @@ although we have a lot of features to make able you to implement your specific s
 
 ## :microphone: Introduction
 
-Conceivably, you would face challenges if you've done a task as an end-point in which there are some queries with many
+Conceivably, you would encounter challenges if you've done a task as an end-point in which there are some queries with many
 advanced options.
 
 Let's say we want to make an advanced search page with multiple filter options.
