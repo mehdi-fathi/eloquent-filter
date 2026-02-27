@@ -66,7 +66,7 @@ although we have a lot of features to make able you to implement your specific s
 ## Requirements
 
 - PHP 8.0 - 8.1 - 8.2 - 8.3 - 8.4 - 8.5
-- Laravel 8.x - 9.x - 10.x - 11.x - 12.x (New)
+- Laravel 8.x - 9.x - 10.x - 11.x - 12.x  - 13.x
 
 ### Version Information
 
@@ -91,7 +91,7 @@ Let's say we want to make an advanced search page with multiple filter options.
 
 ### A simple implementation without Eloquent Filter
 
-The Resource URI would be look like:
+The Resource URI would look like:
 
     /users/index?age_more_than=25&gender=male&created_at=25-09-2019
 
@@ -203,7 +203,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 ],
 ```
 
-- There is no need any change for Laravel 12. 
+- There is no need for any change for Laravel 12. 
 
 That's it enjoy! :boom:
 
@@ -260,7 +260,7 @@ by a bad user.
 ### Conditions Guidance Table
 
 - To better understand this, I provided a table of all conditions and samples. It represents how eloquent filter
-  detect params and each param what query would make.
+   detects params and each param what query would make.
 
 | Condition Name           | Eloquent Method | Param                                                        | Example                                                                 | Eloquent  | DB   |
 |--------------------------|-----------------|--------------------------------------------------------------|-------------------------------------------------------------------------|-----------|------|
