@@ -44,7 +44,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: xdebug
+          coverage: none
 
       - name: Install dependencies
         run: |
@@ -52,9 +52,3 @@ jobs:
 
       - name: Execute tests
         run: make test-only
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./tests/build/logs/clover.xml
