@@ -4,6 +4,7 @@ namespace eloquentFilter;
 
 use eloquentFilter\Command\MakeEloquentFilter;
 use eloquentFilter\Facade\EloquentFilter;
+use eloquentFilter\QueryFilter\Core\FilterBuilder\FilterBuilderProxy;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter;
 use eloquentFilter\QueryFilter\Core\FilterBuilder\IO\ResponseFilter;
@@ -113,7 +114,9 @@ class ServiceProvider extends BaseServiceProvider
             );
 
             /** @see MainQueryFilterBuilder::apply() */
-            return app('eloquentFilter')->apply(builder: $this, request: $request);
+            $builder = app('eloquentFilter')->apply(builder: $this, request: $request);
+
+            return new FilterBuilderProxy($builder);
         });
     }
 

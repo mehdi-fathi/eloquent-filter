@@ -124,4 +124,17 @@ return [
             'b' => ['b', '8'],
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Explain
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, filter()->explain() returns filter metadata and SQL.
+    | Disable in production if you do not want filter values exposed.
+    |
+    */
+    'explain' => [
+        'enabled' => env('EloquentFilter_EXPLAIN_ENABLED', true),
+    ],
 ];

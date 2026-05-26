@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Facade as BaseFacade;
  * @method static array getResponse()
  * @method static array setRequestEncoded(?array $request, $salt)
  * @method static array getRequestEncoded()
+ * @method static array explain(\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $builder)
  *
  * @see eloquentFilter\QueryFilter\QueryFilter
  */

@@ -40,7 +40,7 @@ class DBQueryFilterBuilder extends QueryFilterBuilder
      */
     public function apply($builder, array $detections_injected = null, array $black_list_detections = null): mixed
     {
-        $this->setMacroIsUsedPackage();
+        $this->setBuilderMacros();
 
         $this->setQueryBuilderWrapper(QueryBuilderWrapperFactory::createDbQueryBuilder($builder));
 
@@ -60,12 +60,15 @@ class DBQueryFilterBuilder extends QueryFilterBuilder
 
         /** @see \eloquentFilter\QueryFilter\Core\ResolverDetection\ResolverDetectionDb */
         app()->bind('ResolverDetectionsDb', function () {
-            return new ResolverDetectionDb(
+            $resolver = new ResolverDetectionDb(
                 builder: $this->getQueryBuilderWrapper()->getBuilder(),
                 request: $this->requestFilter->getRequest(),
                 detector_db_factory: $this->queryFilterCore->getDetectDbFactory(),
                 main_builder_conditions_contract: $this->queryFilterCore->getMainBuilderConditions()
             );
+            $resolver->setExplainSnapshot($this->responseFilter->getExplainSnapshot());
+
+            return $resolver;
         });
 
         /** @see ResolverDetectionDb::getResolverOut() */
@@ -78,7 +81,7 @@ class DBQueryFilterBuilder extends QueryFilterBuilder
     /**
      * @return void
      */
-    private function setMacroIsUsedPackage(): void
+    private function setBuilderMacros(): void
     {
         \Illuminate\Database\Query\Builder::macro('isUsedEloquentFilter', function () {
             return config('eloquentFilter.enabled');

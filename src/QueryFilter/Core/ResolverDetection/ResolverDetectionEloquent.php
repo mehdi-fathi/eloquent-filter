@@ -59,6 +59,10 @@ class ResolverDetectionEloquent extends ResolverDetections
 
         $builderDriver = $this->main_builder_conditions->build($detectedConditions);
 
-        return app($builderDriver, ['filter' => $filterName, 'values' => $values]);
+        $clause = app($builderDriver, ['filter' => $filterName, 'values' => $values]);
+
+        $this->recordExplainResult($filterName, $values, $detectedConditions, $clause);
+
+        return $clause;
     }
 }

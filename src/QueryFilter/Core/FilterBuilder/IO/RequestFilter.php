@@ -29,6 +29,11 @@ class RequestFilter
     protected ?array $request;
 
     /**
+     * @var array|null
+     */
+    protected ?array $originalRequest = null;
+
+    /**
      * @var
      */
     public $requestEncoded;
@@ -106,6 +111,14 @@ class RequestFilter
     public function getRequest(): ?array
     {
         return $this->request;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getOriginalRequest(): ?array
+    {
+        return $this->originalRequest;
     }
 
     /**
@@ -274,6 +287,7 @@ class RequestFilter
      */
     public function handleRequestDb(?array $ignore_request, ?array $accept_request): void
     {
+        $this->originalRequest = $this->getRequest();
 
         $serialize_request_filter = $this->getRequest();
 
@@ -294,6 +308,7 @@ class RequestFilter
      */
     public function handleRequest($builder, ?array $ignore_request, ?array $accept_request): void
     {
+        $this->originalRequest = $this->getRequest();
 
         $serialize_request_filter = $builder->getModel()->serializeRequestFilter($this->getRequest());
 
