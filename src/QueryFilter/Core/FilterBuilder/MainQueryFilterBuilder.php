@@ -19,6 +19,10 @@ class MainQueryFilterBuilder
     use HelperEloquentFilter;
     use RateLimiting;
 
+    private ?array $detectionsInjected = null;
+
+    private ?array $blackListDetections = null;
+
     /**
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\Core\QueryFilterCore $queryFilterCore
      * @param \eloquentFilter\QueryFilter\Core\FilterBuilder\IO\RequestFilter $requestFilter
@@ -43,6 +47,10 @@ class MainQueryFilterBuilder
     {
         // Check rate limit before applying filter
         $this->checkRateLimit();
+
+        $this->detectionsInjected = $detections_injected;
+        $this->blackListDetections = $black_list_detections;
+        $this->responseFilter->resetExplainSnapshot();
 
         if (!empty($request)) {
             $this->requestFilter->setPureRequest($request);

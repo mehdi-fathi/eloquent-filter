@@ -12,6 +12,13 @@ class ResponseFilter
      */
     public mixed $response;
 
+    private FilterExplainSnapshot $explainSnapshot;
+
+    public function __construct()
+    {
+        $this->explainSnapshot = new FilterExplainSnapshot();
+    }
+
     /**
      * @return mixed
      */
@@ -26,5 +33,15 @@ class ResponseFilter
     public function setResponse(mixed $response): void
     {
         $this->response = $response;
+    }
+
+    public function getExplainSnapshot(): FilterExplainSnapshot
+    {
+        return $this->explainSnapshot;
+    }
+
+    public function resetExplainSnapshot(): void
+    {
+        $this->explainSnapshot->reset();
     }
 }

@@ -63,12 +63,15 @@ class EloquentQueryFilterBuilder extends QueryFilterBuilder
 
         /** @see ResolverDetectionEloquent */
         app()->bind('ResolverDetectionEloquent', function () {
-            return new ResolverDetectionEloquent(
+            $resolver = new ResolverDetectionEloquent(
                 builder: $this->getQueryBuilderWrapper()->getBuilder(),
                 request: $this->requestFilter->getRequest(),
                 detector_factory: $this->queryFilterCore->getDetectFactory(),
                 main_builder_conditions_contract: $this->queryFilterCore->getMainBuilderConditions()
             );
+            $resolver->setExplainSnapshot($this->responseFilter->getExplainSnapshot());
+
+            return $resolver;
         });
 
         /** @see ResolverDetectionEloquent::getResolverOut() */
@@ -98,6 +101,7 @@ class EloquentQueryFilterBuilder extends QueryFilterBuilder
 
         $this->setMacroDetectionInjectedList($detections_injected);
 
+        $this->setMacroExplain();
     }
 
     /**
@@ -118,6 +122,16 @@ class EloquentQueryFilterBuilder extends QueryFilterBuilder
     {
         \Illuminate\Database\Eloquent\Builder::macro('getDetectionsInjected', function () use ($detections_injected) {
             return $detections_injected;
+        });
+    }
+
+    /**
+     * @return void
+     */
+    private function setMacroExplain(): void
+    {
+        \Illuminate\Database\Eloquent\Builder::macro('explain', function () {
+            return app('eloquentFilter')->explain($this);
         });
     }
 

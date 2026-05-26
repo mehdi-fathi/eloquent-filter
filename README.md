@@ -35,33 +35,33 @@ although we have a lot of features to make able you to implement your specific s
 - [Introduction](#microphone-introduction)
 - [Installation](#electric_plug-installation)
 - [Basic Usage](#book-basic-usage)
-    - [Config Model](#config-model-and-set-whitelist)
-    - [Use in Controller](#use-in-controller)
-    - [Conditions Guidance Table](#conditions-guidance-table )
-    - [Simple Examples](#simple-examples)
-    - [Custom Query Filter](#custom-query-filter)
-    - [Request encoded](#request-encoded)
-    - [Custom Detection Condition](#custom-detection-condition)
+  - [Config Model](#config-model-and-set-whitelist)
+  - [Use in Controller](#use-in-controller)
+  - [Conditions Guidance Table](#conditions-guidance-table )
+  - [Simple Examples](#simple-examples)
+  - [Custom Query Filter](#custom-query-filter)
+  - [Request encoded](#request-encoded)
+  - [Custom Detection Condition](#custom-detection-condition)
 - [Configuring](#configuring)
-    - [Publish Config](#publish-config)
-    - [Config](#config)
-    - [Alias](#alias)
+  - [Publish Config](#publish-config)
+  - [Config](#config)
+  - [Alias](#alias)
 - [Query Builder](#query-builder-introduction)
 - [Magic Methods](#magic-methods)
-    - [Request Filter](#request-filter)
-    - [Request Field Cast Filter](#request-field-cast-filter)
-    - [Response Filter](#response-filter)
-    - [Black List Detections](#black-list-detections)
-    - [Macro Methods](#macro-Methods)
+  - [Request Filter](#request-filter)
+  - [Request Field Cast Filter](#request-field-cast-filter)
+  - [Response Filter](#response-filter)
+  - [Black List Detections](#black-list-detections)
+  - [Macro Methods](#macro-Methods)
 - [Rate Limiting](#rate-limiting)
-    - [Configuration](#configuration)
-    - [Using Rate Limiting](#using-rate-limiting)
+  - [Configuration](#configuration)
+  - [Using Rate Limiting](#using-rate-limiting)
 - [Fuzzy Search](#fuzzy-search)
-    - [Using Fuzzy Search](#using-fuzzy-search)
-    - [How It Works](#how-it-works)
-    - [Supported Character Variations](#supported-character-variations)
-    - [Examples](#examples)
-    - [Performance Considerations](#performance-considerations)
+  - [Using Fuzzy Search](#using-fuzzy-search)
+  - [How It Works](#how-it-works)
+  - [Supported Character Variations](#supported-character-variations)
+  - [Examples](#examples)
+  - [Performance Considerations](#performance-considerations)
 
 ## Requirements
 
@@ -203,7 +203,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 ],
 ```
 
-- There is no need for any change for Laravel 12. 
+- There is no need any change for Laravel 12. 
 
 That's it enjoy! :boom:
 
@@ -562,7 +562,7 @@ User::filter()->paginate();
 
 ### Request encoded
 
-In particular projects, We don't want to share our request filters with all users. 
+In particular projects, We don't want to share our request filters with all users.
 It means every single user should have a unique valid url for duplicated search
 then It works just for the same user.
 
@@ -1075,6 +1075,8 @@ class Car extends Model
 
 -`getDetectionsInjected` is a macro method to get list array of injected objects.
 
+-`explain` is a macro method that returns a structured breakdown of how filters were applied, including request metadata, detected conditions, and the resulting SQL.
+
 e.g:
 
 ```php
@@ -1083,8 +1085,18 @@ e.g:
     echo $users->getDetectionsInjected(); // will showing a list array of injected objects
     $categories = DB::table('categories')->filter();
     echo $categories->isUsedEloquentFilter(); // will true
-    
+
+    $explain = User::filter(['email' => 'mehdi@example.com'])->explain();
+    // [
+    //     'enabled' => true,
+    //     'used' => true,
+    //     'driver' => 'EloquentBuilder',
+    //     'applied' => [...],
+    //     'query' => ['sql' => '...', 'bindings' => [...]],
+    // ]
 ```
+
+Disable explain output in production via `config('eloquentFilter.explain.enabled')` or `EloquentFilter_EXPLAIN_ENABLED=false`.
 
 ## Rate Limiting
 
