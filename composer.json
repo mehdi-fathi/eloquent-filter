@@ -1,69 +1,69 @@
 {
-  "name": "mehdi-fathi/eloquent-filter",
-  "description": "Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.\nIt's easy to use and fully dynamic, just with sending the Query Strings to it.",
-  "keywords": [
-    "laravel",
-    "Laravel",
-    "laravel tools",
-    "eloquent",
-    "eloquent filter",
-    "Eloquent Filter",
-    "laravel query filter",
-    "laravel filter",
-    "query-filter",
-    "dynamic-filters",
-    "search",
-    "query",
-    "filter",
-    "laravel filter multiple parameters"
-  ],
-  "homepage": "https://github.com/mehdi-fathi/eloquent-filter",
-  "license": "MIT",
-  "type": "lib",
-  "authors": [
-    {
-      "name": "Mehdi Fathi",
-      "email": "mehdifathi.developer@gmail.com",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "php": "^8.0|^8.1|^8.2|^8.3|^8.4|^8.5",
-    "illuminate/support": "~9.0|~10.0|~11.0|~12.0",
-    "illuminate/container": "~9.0|~10.0|~11.0|~12.0",
-    "illuminate/database": "~9.0|~10.0|~11.0|~12.0",
-    "illuminate/pagination": "~9.0|~10.0|~11.0|~12.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "8.5|9.3|^9.5|10.5.5|^11.5.3",
-    "orchestra/testbench": "^6.0|^6.6.0|^7.0.0|^8.0.0|v9.0.0|v10.0.0",
-    "mockery/mockery": "1.4.2|1.5.1|^1.6",
-    "phpstan/phpstan": "^1.8"
-  },
-  "autoload": {
-    "psr-4": {
-      "eloquentFilter\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests"
+    "name": "mehdi-fathi/eloquent-filter",
+    "description": "Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.\nIt's easy to use and fully dynamic, just with sending the Query Strings to it.",
+    "keywords": [
+        "laravel",
+        "Laravel",
+        "laravel tools",
+        "eloquent",
+        "eloquent filter",
+        "Eloquent Filter",
+        "laravel query filter",
+        "laravel filter",
+        "query-filter",
+        "dynamic-filters",
+        "search",
+        "query",
+        "filter",
+        "laravel filter multiple parameters"
+    ],
+    "homepage": "https://github.com/mehdi-fathi/eloquent-filter",
+    "license": "MIT",
+    "type": "lib",
+    "authors": [
+        {
+            "name": "Mehdi Fathi",
+            "email": "mehdifathi.developer@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0|^8.1|^8.2|^8.3|^8.4|^8.5",
+        "illuminate/support": "~9.0|~10.0|~11.0|~12.0|^13.0",
+        "illuminate/container": "~9.0|~10.0|~11.0|~12.0|^13.0",
+        "illuminate/database": "~9.0|~10.0|~11.0|~12.0|^13.0",
+        "illuminate/pagination": "~9.0|~10.0|~11.0|~12.0|^13.0"
     },
-    "classmap": [
-      "tests/TestCase.php"
-    ]
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit --coverage-text"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "eloquentFilter\\ServiceProvider"
-      ],
-      "aliases": {
-        "EloquentFilter": "eloquentFilter\\Facade\\EloquentFilter"
-      }
+    "require-dev": {
+        "phpunit/phpunit": "8.5|9.3|^9.5|10.5.5|^11.5.3|^12.5.12",
+        "orchestra/testbench": "^6.0|^6.6.0|^7.0.0|^8.0.0|v9.0.0|v10.0.0|^11.0",
+        "mockery/mockery": "1.4.2|1.5.1|^1.6",
+        "phpstan/phpstan": "^1.8|^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "eloquentFilter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        },
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --coverage-text"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "eloquentFilter\\ServiceProvider"
+            ],
+            "aliases": {
+                "EloquentFilter": "eloquentFilter\\Facade\\EloquentFilter"
+            }
+        }
     }
-  }
 }

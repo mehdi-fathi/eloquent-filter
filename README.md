@@ -203,7 +203,7 @@ By Eloquent filter implementation, you can use all the documented filters!
 ],
 ```
 
-- There is no need for any change for Laravel 12.
+- There is no need any change for Laravel 12. 
 
 That's it enjoy! :boom:
 
@@ -260,7 +260,7 @@ by a bad user.
 ### Conditions Guidance Table
 
 - To better understand this, I provided a table of all conditions and samples. It represents how eloquent filter
-  detects params and each param what query would make.
+   detects params and each param what query would make.
 
 | Condition Name           | Eloquent Method | Param                                                        | Example                                                                 | Eloquent  | DB   |
 |--------------------------|-----------------|--------------------------------------------------------------|-------------------------------------------------------------------------|-----------|------|
