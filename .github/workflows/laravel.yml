@@ -11,10 +11,10 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.1, 8.2, 8.3, 8.4, 8.5]
-        laravel: ['9.*', '10.*', '11.*', '12.*', '13.*']
-        dependency-version: [prefer-stable]
-        os: [ubuntu-latest]
+        php: [8.1, 8.2, 8.3, 8.4, 8.5 ]
+        laravel: [ 9.*, 10.*, 11.*, 12.* ]
+        dependency-version: [ prefer-stable ]
+        os: [ ubuntu-latest ]
         exclude:
           - laravel: 11.*
             php: 8.1
@@ -28,10 +28,6 @@ jobs:
             php: 8.5
           - laravel: 9.*
             php: 8.1
-          - laravel: 13.*
-            php: 8.1
-          - laravel: 13.*
-            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -44,27 +40,21 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: xdebug
 
       - name: Install dependencies
         run: |
-          case "${{ matrix.laravel }}" in
-            9.*)  TESTBENCH="^7.56" ;;
-            10.*) TESTBENCH="^8.22" ;;
-            11.*) TESTBENCH="^9.5" ;;
-            12.*) TESTBENCH="^10.5" ;;
-          esac
-
-          composer require \
-            "illuminate/support:${{ matrix.laravel }}" \
-            "illuminate/container:${{ matrix.laravel }}" \
-            "illuminate/database:${{ matrix.laravel }}" \
-            "illuminate/pagination:${{ matrix.laravel }}" \
-            --no-interaction \
-            --no-update
-
-          composer require "orchestra/testbench:${TESTBENCH}" --dev --no-interaction --no-update
-
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+          composer require --no-update "illuminate/support:${{ matrix.laravel }}"
+          composer require --no-update "illuminate/database:${{ matrix.laravel }}"
+          composer require --no-update "illuminate/container:${{ matrix.laravel }}"
+          composer require --no-update "illuminate/pagination:${{ matrix.laravel }}"
+          composer update --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/phpunit -c phpunit.ci.xml
+        run: make test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./tests/build/logs/clover.xml
