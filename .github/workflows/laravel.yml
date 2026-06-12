@@ -45,10 +45,10 @@ jobs:
       - name: Install dependencies
         run: |
           case "${{ matrix.laravel }}" in
-            9.*)  TESTBENCH="^7.0" ;;
-            10.*) TESTBENCH="^8.0" ;;
-            11.*) TESTBENCH="^9.0" ;;
-            12.*) TESTBENCH="^10.0" ;;
+            9.*)  TESTBENCH="^7.56" ;;
+            10.*) TESTBENCH="^8.22" ;;
+            11.*) TESTBENCH="^9.5" ;;
+            12.*) TESTBENCH="^10.5" ;;
           esac
 
           composer require \
