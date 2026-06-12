@@ -47,7 +47,24 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install
+          case "${{ matrix.laravel }}" in
+            9.*)  TESTBENCH="^7.0" ;;
+            10.*) TESTBENCH="^8.0" ;;
+            11.*) TESTBENCH="^9.0" ;;
+            12.*) TESTBENCH="^10.0" ;;
+          esac
+
+          composer require \
+            "illuminate/support:${{ matrix.laravel }}" \
+            "illuminate/container:${{ matrix.laravel }}" \
+            "illuminate/database:${{ matrix.laravel }}" \
+            "illuminate/pagination:${{ matrix.laravel }}" \
+            --no-interaction \
+            --no-update
+
+          composer require "orchestra/testbench:${TESTBENCH}" --dev --no-interaction --no-update
+
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit -c phpunit.ci.xml
