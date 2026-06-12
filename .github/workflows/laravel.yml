@@ -11,10 +11,10 @@ jobs:
 
     strategy:
       matrix:
-        php: [8.1, 8.2, 8.3, 8.4, 8.5 ]
-        laravel: [ 9.*, 10.*, 11.*, 12.* ]
-        dependency-version: [ prefer-stable ]
-        os: [ ubuntu-latest ]
+        php: [8.1, 8.2, 8.3, 8.4, 8.5]
+        laravel: ['9.*', '10.*', '11.*', '12.*', '13.*']
+        dependency-version: [prefer-stable]
+        os: [ubuntu-latest]
         exclude:
           - laravel: 11.*
             php: 8.1
@@ -28,15 +28,10 @@ jobs:
             php: 8.5
           - laravel: 9.*
             php: 8.1
-        include:
-          - laravel: 9.*
-            testbench: ^7.56
-          - laravel: 10.*
-            testbench: ^8.22
-          - laravel: 11.*
-            testbench: ^9.5
-          - laravel: 12.*
-            testbench: ^10.5
+          - laravel: 13.*
+            php: 8.1
+          - laravel: 13.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -53,29 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Laravel 9.52.21 is EOL and flagged by Composer advisories, but we still
-          # need it to verify package compatibility on Laravel 9.
-          if [ "${{ matrix.laravel }}" = "9.*" ]; then
-            composer config policy.advisories.block false
-          fi
-
-          composer require \
-            "illuminate/support:${{ matrix.laravel }}" \
-            "illuminate/container:${{ matrix.laravel }}" \
-            "illuminate/database:${{ matrix.laravel }}" \
-            "illuminate/pagination:${{ matrix.laravel }}" \
-            --no-interaction \
-            --no-update
-
-          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
-
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+          composer install
 
       - name: Execute tests
-        run: make test
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./tests/build/logs/clover.xml
+        run: make test-only
