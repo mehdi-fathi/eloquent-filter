@@ -28,6 +28,15 @@ jobs:
             php: 8.5
           - laravel: 9.*
             php: 8.1
+        include:
+          - laravel: 9.*
+            testbench: ^7.56
+          - laravel: 10.*
+            testbench: ^8.22
+          - laravel: 11.*
+            testbench: ^9.5
+          - laravel: 12.*
+            testbench: ^10.5
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -44,11 +53,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require --no-update "illuminate/support:${{ matrix.laravel }}"
-          composer require --no-update "illuminate/database:${{ matrix.laravel }}"
-          composer require --no-update "illuminate/container:${{ matrix.laravel }}"
-          composer require --no-update "illuminate/pagination:${{ matrix.laravel }}"
-          composer update --prefer-dist --no-interaction
+          composer require \
+            "illuminate/support:${{ matrix.laravel }}" \
+            "illuminate/container:${{ matrix.laravel }}" \
+            "illuminate/database:${{ matrix.laravel }}" \
+            "illuminate/pagination:${{ matrix.laravel }}" \
+            --no-interaction \
+            --no-update
+
+          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
+
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: make test
