@@ -44,11 +44,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: xdebug
 
       - name: Install dependencies
         run: |
           composer install
 
       - name: Execute tests
-        run: make test-only
+        run: vendor/bin/phpunit -c phpunit.ci.xml
