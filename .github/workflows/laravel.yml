@@ -53,6 +53,12 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Laravel 9.52.21 is EOL and flagged by Composer advisories, but we still
+          # need it to verify package compatibility on Laravel 9.
+          if [ "${{ matrix.laravel }}" = "9.*" ]; then
+            composer config policy.advisories.block false
+          fi
+
           composer require \
             "illuminate/support:${{ matrix.laravel }}" \
             "illuminate/container:${{ matrix.laravel }}" \
